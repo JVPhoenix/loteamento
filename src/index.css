@@ -1,6 +1,5 @@
 /* GENERAL */
 :root{
-
   --color_yellow: #ffcc29;
   --color_green: #759548;
   --color_blue: #005cdb;
@@ -16,10 +15,6 @@
 body {
   margin: 0;
   font-family: sans-serif;
-  height: 2000px;
-}
-.mainPage{
-  margin-top: 120px;
 }
 
 /* NAVBAR */
@@ -71,3 +66,12 @@ nav img{
 .nav--infos div:hover{
   color: var(--color_yellow);
 }
+
+/* FOTOS */
+.div--fotos{
+  margin: 120px 5px 0px 5px;
+  padding: 0;
+  text-align: center;
+}
+
+

@@ -11,7 +11,7 @@ export default function Navbar(){
                 >
                     <div 
                         className="nav--infos"
-                        >
+                    >
                         <div>
                             <h3> Fotos e Videos </h3>
                         </div>

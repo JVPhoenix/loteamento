@@ -1,6 +1,6 @@
 import React from "react";
-import Navbar from "./components/Navbar";
-import Imagens from "./components/Imagens";
+import Navbar from "./Components/Navbar";
+import Imagens from "./Components/Imagens";
 // import Contatos from "./components/Contatos";
 // import Lotes from "./components/Lotes";
 
