@@ -23,8 +23,9 @@ export default function Images(){
             <PhotoAlbum
                 photos={fotosData}
                 layout="rows"
-                targetRowHeight={150}
+                targetRowHeight={200}
                 onClick={(event, fotos, index) => setIndex(index)}
+                spacing={5}
             />
             <Lightbox 
                 slides={slides}

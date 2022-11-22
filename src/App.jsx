@@ -10,23 +10,24 @@ export default function App() {
   const contatos = useRef(null)
 
   return (
-    <div className="mainPage">
+    <div className="main--page">
       <Navbar
         fotosClick = {()=> imagens.current?.scrollIntoView({behavior: "smooth", block:"center"})}
         lotesClick = {()=> lotes.current?.scrollIntoView({behavior: "smooth", block:"center"})}
         contatoClick = {()=> contatos.current?.scrollIntoView({behavior: "smooth", block:"center"})}
       />
-      
-      <div ref={imagens} className="">
-        <Imagens/>
-      </div>
+      <div className="main--body">
+        <div ref={imagens}>
+          <Imagens/>
+        </div>
 
-      <div ref={lotes}>
-        <Lotes />
-      </div>
+        <div ref={lotes}>
+          <Lotes />
+        </div>
 
-      <div ref={contatos}>
-        <Contatos />
+        <div ref={contatos}>
+          <Contatos />
+        </div>
       </div>
     </div>
   );

@@ -67,12 +67,21 @@ nav img{
 .nav--infos div:hover{
   color: var(--color_yellow);
 }
+/* MAIN PAGE */
+.main--page{
+  text-align: center;
+}
 
 /* FOTOS */
 .div--fotos{
   margin: 120px 5px 0px 5px;
   padding: 0;
-  text-align: center;
+}
+.div--fotos h1{
+  margin: 15px 0px;
 }
 
-
+/* LOTES */
+.div--lotes{
+  margin: 0;
+}
