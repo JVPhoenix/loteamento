@@ -12,9 +12,9 @@ export default function App() {
   return (
     <div className="main--page">
       <Navbar
-        fotosClick = {()=> imagens.current?.scrollIntoView({behavior: "smooth", block:"center"})}
-        lotesClick = {()=> lotes.current?.scrollIntoView({behavior: "smooth", block:"center"})}
-        contatoClick = {()=> contatos.current?.scrollIntoView({behavior: "smooth", block:"center"})}
+        fotosClick = {()=> imagens.current?.scrollIntoView({behavior: "smooth", block:"start"})}
+        lotesClick = {()=> lotes.current?.scrollIntoView({behavior: "smooth", block:"start"})}
+        contatoClick = {()=> contatos.current?.scrollIntoView({behavior: "smooth", block:"start"})}
       />
       <div className="main--body">
         <div ref={imagens}>

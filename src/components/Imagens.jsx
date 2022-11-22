@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { PhotoAlbum } from "react-photo-album";
-import fotosData from "../img/fotosData.ts";
+import fotosData from "../Data/fotosData.ts";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 
