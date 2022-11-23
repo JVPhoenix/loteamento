@@ -5,7 +5,6 @@
   --color_blue: #005cdb;
   --color_brown: #684121;
   --color_black: black;
-  --color_gray: rgb(196, 196, 196);
   --color_white: rgb(240, 240, 240);
 }
 * {
@@ -15,6 +14,7 @@ body {
   margin: 120px 0px 0px 0px;
   height: 2000px;
   font-family: sans-serif;
+  background: linear-gradient(360deg, rgba(0,0,0,1) 0%, rgba(133,149,72,1) 48%, rgba(117,149,72,1) 100%);
 }
 .bold{
   font-weight: bold;
