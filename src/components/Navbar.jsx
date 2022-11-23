@@ -1,17 +1,41 @@
-import React from "react"
+import React, { useState } from "react"
 import logoLoteamento from "../img/logoLoteamento.png"
+import openBt from "../img/menuBtn.png"
+import closeBt from "../img/menuCloseBtn.png"
 
 export default function Navbar(props){
+    const [dropdown, setDropdown] = useState(false)
+    const [animation, setAnimation] = useState("none")
+
+    function dropdownEvent(){
+        setDropdown(prevState => !prevState)
+        setAnimation("outputAnimation")
+        if(dropdown){
+            setTimeout(() => {
+                setAnimation("none")
+            }, 800);
+        }
+    }
+
     return(
-        <nav>
+        <nav id="nav">
             <div className="nav--containner">
-                <img src={logoLoteamento} alt="Logotipo do Loteamento" />
+                <img 
+                    id="nav--img" 
+                    src={logoLoteamento} 
+                    alt="Logotipo do Loteamento" 
+                />
                 <div 
-                    className="nav--dropdown"
+                    id="nav--dropdown"
+                    onClick={dropdownEvent}
                 >
-                    <div 
-                        className="nav--infos"
-                    >
+                    <img 
+                        id="nav--menuBtn" 
+                        className="nav--menuBtn"
+                        src={!dropdown ? openBt : closeBt}
+                        alt="Menu Button"
+                    />
+                    <div className="nav--infos" id={dropdown ? "nav--infos" : animation}>
                         <div onClick={props.fotosClick}>
                             <h3> Fotos e Videos </h3>
                         </div>
