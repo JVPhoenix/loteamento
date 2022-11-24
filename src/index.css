@@ -17,7 +17,7 @@ html{
 }
 body {
   margin: 0;
-  font-family: sans-serif;
+  font-family: 'Inter', sans-serif;
   /* background: linear-gradient(360deg, rgba(0,0,0,1) 0%, rgba(133,149,72,1) 48%, rgba(117,149,72,1) 100%); */
 }
 .bold{
@@ -177,6 +177,24 @@ nav img{
   animation: slide 0.5s forwards;
   animation-delay: 0.1s;
 }
+.div--sobreInfos{
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+.div--sobreInfos h3{
+  text-align: center;
+}
+.div--sobreInfos div{
+  min-width: 400px;
+  max-width: 400px;
+  text-align: justify;
+  word-spacing: 5px;
+  padding: 0px 20px;
+}
+.div--sobreInfos li{
+  line-height: 130%;
+}
 
 /* FOTOS */
 .div--fotos{
@@ -222,7 +240,7 @@ nav img{
 /* CONTATOS */
 .div--contatos{
   padding-bottom: 20px;
-  
+
   position: relative;
   left: -100vh;
   animation: slide 2s forwards;

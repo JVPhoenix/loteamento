@@ -23,7 +23,8 @@ export default function Lotes(){
                 <img 
                     src="https://i.imgur.com/Lu4gLkx.png"
                     alt="Mapa dos lotes disponíveis"
-                    onClick={() => setOpen(true)}/>
+                    onClick={() => setOpen(true)}
+                />
                 <Lightbox 
                     slides={[
                         {

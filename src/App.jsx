@@ -20,7 +20,7 @@ export default function App() {
         sobreClick = {() => scroll("s-Sobre")}
         fotosClick = {() => scroll("s-Imagens")}
         lotesClick = {() => scroll("s-Lotes")}
-        contatoClick = {() => scroll("s-Contatos")}
+        contatoClick = {() => document.getElementById("s-Contatos").scrollIntoView(true)}
       />
       <div className="main--body">
         <div id="s-Sobre">
@@ -40,6 +40,17 @@ export default function App() {
         </div>
 
       </div>
+      <footer>
+        <p>Developed and designed 
+          by <span onClick={() => window.open(
+            'https://jvphoenixportfolio.netlify.app/',
+            '_blank',
+            'noopener, noreferrer'
+          )
+          }><u style={{cursor: "pointer"}}>jvphoenix </u></span>
+        </p>
+        <p>Todos Os Direitos Reservados ® Loteamento R. Martins 2022</p>
+      </footer>
     </div>
   );
 }
