@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import Select from "react-select";
 import lotesData from "../Data/lotesData.ts";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
 
 export default function Lotes(){
     const [chosen, setChosen] = useState(lotesData[0])
@@ -11,9 +14,33 @@ export default function Lotes(){
         return (valor / parcela).toLocaleString('pt-br', {minimumFractionDigits: 2, maximumFractionDigits: 2})
     }
 
+    const [open, setOpen] = useState(false)
+
     return(
         <div className="div--lotes">
             <h1> Lotes Disponíveis </h1>
+            <div className="div--mapas">
+                <img 
+                    src="https://i.imgur.com/Lu4gLkx.png"
+                    alt="Mapa dos lotes disponíveis"
+                    onClick={() => setOpen(true)}/>
+                <Lightbox 
+                    slides={[
+                        {
+                          src: "i.imgur.com/",
+                          alt: "image 1",
+                          width: 3840,
+                          height: 2560,
+                          srcSet: [
+                            { src: "https://i.imgur.com/Lu4gLkx.png", width: 1920, height: 1080 },
+                          ]
+                        }
+                    ]}
+                    open={open}
+                    close={() => setOpen(false)}
+                    plugins={[Zoom]}
+                />
+            </div>
 
             <div className="div--select">
                 <Select 
@@ -39,8 +66,10 @@ export default function Lotes(){
                         <p>48x de R$ {(obterValor(chosen.valor, 48))}</p>
                     </div>
                 </div>
-
             </div>
+            <p>**Os valores <strong>parcelados</strong> tem reajuste de 
+                <strong> 5% ao ano do saldo devedor.</strong>
+            </p>
         </div>
     )
 }

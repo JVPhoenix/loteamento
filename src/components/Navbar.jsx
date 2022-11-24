@@ -36,6 +36,9 @@ export default function Navbar(props){
                         alt="Menu Button"
                     />
                     <div className="nav--infos" id={dropdown ? "nav--infos" : animation}>
+                        <div onClick={props.sobreClick}>
+                            <h3> Sobre o Loteamento </h3>
+                        </div>
                         <div onClick={props.fotosClick}>
                             <h3> Fotos e Videos </h3>
                         </div>

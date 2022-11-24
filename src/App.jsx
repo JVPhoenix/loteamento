@@ -1,33 +1,44 @@
-import React, { useRef } from "react";
+import React from "react";
 import Navbar from "./Components/Navbar";
 import Imagens from "./Components/Imagens";
 import Contatos from "./Components/Contatos";
 import Lotes from "./Components/Lotes";
+import Sobre from "./Components/Sobre";
 
 export default function App() {
-  const imagens = useRef(null)
-  const lotes = useRef(null)
-  const contatos = useRef(null)
+  function scroll(id) {
+    const element = document.getElementById(id)
+    element.scrollIntoView(true)
+    setTimeout(() => {
+      window.scrollBy(0, -105)
+    }, 700)
+  }
 
   return (
     <div className="main--page">
       <Navbar
-        fotosClick = {()=> imagens.current?.scrollIntoView({behavior: "smooth", block:"start"})}
-        lotesClick = {()=> lotes.current?.scrollIntoView({behavior: "smooth", block:"start"})}
-        contatoClick = {()=> contatos.current?.scrollIntoView({behavior: "smooth", block:"start"})}
+        sobreClick = {() => scroll("s-Sobre")}
+        fotosClick = {() => scroll("s-Imagens")}
+        lotesClick = {() => scroll("s-Lotes")}
+        contatoClick = {() => scroll("s-Contatos")}
       />
       <div className="main--body">
-        <div ref={imagens}>
+        <div id="s-Sobre">
+          <Sobre />
+        </div>
+
+        <div id="s-Imagens">
           <Imagens/>
         </div>
 
-        <div ref={lotes}>
+        <div id="s-Lotes">
           <Lotes />
         </div>
 
-        <div ref={contatos}>
+        <div id="s-Contatos">
           <Contatos />
         </div>
+
       </div>
     </div>
   );

@@ -9,17 +9,25 @@
   --color_gray: gray;
   --transition1s: 1s;
 }
+html{
+  scroll-behavior: smooth;
+}
 * {
   box-sizing: border-box;
 }
 body {
-  margin: 120px 0px 0px 0px;
+  margin: 0;
   font-family: sans-serif;
   /* background: linear-gradient(360deg, rgba(0,0,0,1) 0%, rgba(133,149,72,1) 48%, rgba(117,149,72,1) 100%); */
 }
 .bold{
   font-weight: bold;
   font-size: x-large;
+}
+
+/* ANIMATIONS KEYFRAMES */
+@keyframes slide {
+  100% { top: 0; left: 0; }
 }
 @keyframes opacityIn {
   0% { opacity: 0; }
@@ -40,6 +48,9 @@ body {
     flex-direction: column;
     transition: var(--transition1s);
     animation: opacityOut 0.8s forwards;
+  }
+  .main--body{
+    margin-top: 100px !important;
   }
 
   /* NAVBAR */
@@ -82,10 +93,25 @@ body {
   .div--pagamento{
     gap: 40px !important;
   }
+  .div--mapas img{
+    max-width: 400px !important;
+  }
+
+  /* CONTATOS */
+  .div--contatos{
+    padding: 0px 10px;
+  }
+  .div--contatos-Infos{
+    gap: 10px !important;
+  }
 }
 
-
 /* GERAL CONFIGS */
+/* ALL APP WITHOUT NAVBAR */
+.main--body{
+  margin-top: 120px; 
+}
+
 /* NAVBAR */
 nav {
   position: fixed;
@@ -113,15 +139,14 @@ nav img{
 .nav--containner{
   display: flex;
   align-items: center;
+  position: relative;
   gap: 30px;
   
   top: -90px;
   animation: slide 0.8s forwards;
   animation-delay: 0.2s;
 }
-@keyframes slide {
-  100% { top: 0; }
-}
+
 .nav--infos{
   position: relative;
   display: flex;
@@ -137,31 +162,79 @@ nav img{
 .nav--infos div:hover{
   color: var(--color_yellow);
 }
+
 /* MAIN PAGE */
 .main--page{
   text-align: center;
 }
 
+/* SOBRE */
+.div--sobre{
+  padding-bottom: 20px;
+}
+
 /* FOTOS */
 .div--fotos{
   margin: 0px 5px;
-  padding: 0;
+  padding-bottom: 20px;
+
+  position: relative;
+  left: -100vh;
+  animation: slide 1s forwards;
+  animation-delay: 0.1s;
 }
 
 /* LOTES */
 .div--lotes{
   margin: 0;
+  padding-bottom: 20px;
+  position: relative;
+  left: -100vh;
+  animation: slide 1.5s forwards;
+  animation-delay: 0.1s;
 }
+.div--mapas img{
+  max-width: 800px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
 .div--select{
   margin: auto;
   padding: 0px 10px;
   min-width: 400px;
   max-width: 700px;
 }
+
 .div--pagamento{
   display: flex;
   flex-direction: row;
   justify-content: center;
   font-size: 20px;
   gap: 100px;
+}
+
+/* CONTATOS */
+.div--contatos{
+  padding-bottom: 20px;
+}
+.div--contatos-Infos{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+.div--contatos-Infos div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  user-select: none;
+}
+.div--contatos-Infos div:hover{
+  color: var(--color_yellow);
+}
+.div--contatos-Infos img{
+  width: 40px;
 }

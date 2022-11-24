@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { PhotoAlbum } from "react-photo-album";
 import fotosData from "../Data/fotosData.ts";
 import Lightbox from "yet-another-react-lightbox";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import Slideshow from "yet-another-react-lightbox/plugins/slideshow";
 import "yet-another-react-lightbox/styles.css";
 
 export default function Images(){
@@ -32,6 +34,7 @@ export default function Images(){
                 open={index >= 0}
                 index={index}
                 close={() => setIndex(-1)}
+                plugins={[Zoom, Slideshow]}
             />
         </div>
     )
