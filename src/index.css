@@ -171,6 +171,11 @@ nav img{
 /* SOBRE */
 .div--sobre{
   padding-bottom: 20px;
+
+  position: relative;
+  left: -100vh;
+  animation: slide 0.5s forwards;
+  animation-delay: 0.1s;
 }
 
 /* FOTOS */
@@ -181,7 +186,7 @@ nav img{
   position: relative;
   left: -100vh;
   animation: slide 1s forwards;
-  animation-delay: 0.1s;
+  animation-delay: 0.2s;
 }
 
 /* LOTES */
@@ -217,6 +222,11 @@ nav img{
 /* CONTATOS */
 .div--contatos{
   padding-bottom: 20px;
+  
+  position: relative;
+  left: -100vh;
+  animation: slide 2s forwards;
+  animation-delay: 0.2s;
 }
 .div--contatos-Infos{
   display: flex;

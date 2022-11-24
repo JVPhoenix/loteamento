@@ -1,9 +1,9 @@
 import React from "react";
-import Navbar from "./Components/Navbar";
-import Imagens from "./Components/Imagens";
-import Contatos from "./Components/Contatos";
-import Lotes from "./Components/Lotes";
-import Sobre from "./Components/Sobre";
+import Navbar from "./components/Navbar";
+import Imagens from "./components/Imagens";
+import Contatos from "./components/Contatos";
+import Lotes from "./components/Lotes";
+import Sobre from "./components/Sobre";
 
 export default function App() {
   function scroll(id) {
