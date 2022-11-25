@@ -20,12 +20,12 @@ export default function Lotes(){
         <div className="div--lotes">
             <h1> Lotes Disponíveis </h1>
             <div className="div--mapas">
-                <img 
-                    src="https://i.imgur.com/Lu4gLkx.png"
+                <img
+                    src="https://i.imgur.com/6SPwV6y.png"
                     alt="Mapa dos lotes disponíveis"
                     onClick={() => setOpen(true)}
                 />
-                <Lightbox 
+                <Lightbox
                     slides={[
                         {
                           src: "i.imgur.com/",
@@ -33,7 +33,7 @@ export default function Lotes(){
                           width: 3840,
                           height: 2560,
                           srcSet: [
-                            { src: "https://i.imgur.com/Lu4gLkx.png", width: 1920, height: 1080 },
+                            { src: "https://i.imgur.com/6SPwV6y.png", width: 1920, height: 1080 },
                           ]
                         }
                     ]}
@@ -49,6 +49,7 @@ export default function Lotes(){
                     defaultValue={lotesData[0]}
                     onChange={handleChange}
                 />
+                <p style={{color:"var(--color_gray)", fontSize:"18px", marginBottom: "0"}}>Dimensões: {chosen.tamanho}</p>
             </div>
 
             <div className="div--pagamento">
@@ -58,7 +59,7 @@ export default function Lotes(){
                 </div>
 
                 <div>
-                    <p className="bold">Valor Parcelado </p>
+                    <p className="bold">Valor A Prazo</p>
                     <div>
                         <p>Entrada de R$ {(obterValor(chosen.valor, 10))} </p>
                         <p>12x de R$ {(obterValor(chosen.valor, 12))} </p>
@@ -68,7 +69,7 @@ export default function Lotes(){
                     </div>
                 </div>
             </div>
-            <p>**Os valores <strong>parcelados</strong> tem reajuste de 
+            <p style={{margin: "0px 5px"}}>*Os valores <strong>parcelados</strong> tem reajuste de 
                 <strong> 5% ao ano do saldo devedor.</strong>
             </p>
         </div>

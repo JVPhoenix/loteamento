@@ -6,7 +6,7 @@
   --color_brown: #684121;
   --color_black: black;
   --color_white: rgb(240, 240, 240);
-  --color_gray: gray;
+  --color_gray: rgb(180, 180, 180);
   --transition1s: 1s;
 }
 html{
@@ -18,8 +18,29 @@ html{
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  /* background: linear-gradient(360deg, rgba(0,0,0,1) 0%, rgba(133,149,72,1) 48%, rgba(117,149,72,1) 100%); */
+  background: var(--color_black);
 }
+h1{
+  color: var(--color_white);
+}
+h3{
+  color: var(--color_white);
+}
+/* FOOTER */
+footer{
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color_black);
+  color: var(--color_white);
+  user-select: none;
+}
+footer p{
+  margin: 0 0 5px 0;
+}
+
+/* OTHERS */
 .bold{
   font-weight: bold;
   font-size: x-large;
@@ -27,7 +48,7 @@ body {
 
 /* ANIMATIONS KEYFRAMES */
 @keyframes slide {
-  100% { top: 0; left: 0; }
+  100% { top: 0; left: 0; bottom: 0; }
 }
 @keyframes opacityIn {
   0% { opacity: 0; }
@@ -39,77 +60,84 @@ body {
 }
 
 /* MOBILE RESPONSIVE */
-@media (max-width: 840px) {
-  #none{
-    display: none;
-  }
-  #outputAnimation{
-    display: flex;
-    flex-direction: column;
-    transition: var(--transition1s);
-    animation: opacityOut 0.8s forwards;
-  }
-  .main--body{
-    margin-top: 100px !important;
-  }
+  @media (max-width: 840px) {
+    #none{
+      display: none;
+    }
+    #outputAnimation{
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition1s);
+      animation: opacityOut 0.8s forwards;
+    }
+    .main--body{
+      margin-top: 100px !important;
+    }
 
-  /* NAVBAR */
-  #nav{
-    height: 80px;
-  }
-  .nav--containner{
-    align-items: initial !important;
-    justify-content: space-between;
-  }
-  #nav--img{
-    height: 70px;
-    transition: var(--transition1s);
-  }
-  #nav--dropdown{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin-top: 5px;
-  }
-  #nav--menuBtn{
-    display: flex;
-    width: 60px;
-    height: 60px;
-    cursor: pointer;
-    transition: var(--transition1s);
-    animation: opacityIn 0.8s forwards;
-  }
-  #nav--infos{
-    display: flex;
-    flex-direction: column;
-    gap: 0px;
-    background-color: var(--color_black);
-    border-radius: 10px;
-    transition: var(--transition1s);
-    animation: opacityIn 0.8s forwards;
-  }
+    /* NAVBAR */
+    #nav{
+      height: 80px;
+    }
+    .nav--containner{
+      align-items: initial !important;
+      justify-content: space-between;
+    }
+    #nav--img{
+      height: 70px;
+      transition: var(--transition1s);
+    }
+    #nav--dropdown{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin-top: 5px;
+    }
+    #nav--menuBtn{
+      display: flex;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      transition: var(--transition1s);
+      animation: opacityIn 0.8s forwards;
+    }
+    #nav--infos{
+      display: flex;
+      flex-direction: column;
+      gap: 0px;
+      background-color: var(--color_black);
+      border-radius: 10px;
+      transition: var(--transition1s);
+      animation: opacityIn 0.8s forwards;
+    }
+    /* SOBRE */
+    .div--sobreInfos{
+      flex-direction: column;
+      font-size: large;
+      gap: 0px !important;
+    }
+    /* LOTES */
+    .div--pagamento{
+      gap: 40px !important;
+      font-size: 18px !important;
+    }
+    .div--mapas img{
+      max-width: 400px !important;
+    }
 
-  /* LOTES */
-  .div--pagamento{
-    gap: 40px !important;
+    /* CONTATOS */
+    .div--contatos{
+      padding: 0px 10px;
+    }
+    .div--contatos-Infos{
+      gap: 10px !important;
+    }
   }
-  .div--mapas img{
-    max-width: 400px !important;
-  }
-
-  /* CONTATOS */
-  .div--contatos{
-    padding: 0px 10px;
-  }
-  .div--contatos-Infos{
-    gap: 10px !important;
-  }
-}
 
 /* GERAL CONFIGS */
 /* ALL APP WITHOUT NAVBAR */
 .main--body{
-  margin-top: 120px; 
+  margin-top: 120px;
+  color: var(--color_gray);
 }
 
 /* NAVBAR */
@@ -174,7 +202,7 @@ nav img{
 
   position: relative;
   left: -100vh;
-  animation: slide 0.5s forwards;
+  animation: slide 0.8s forwards;
   animation-delay: 0.1s;
 }
 .div--sobreInfos{
@@ -182,7 +210,8 @@ nav img{
   justify-content: center;
   gap: 30px;
 }
-.div--sobreInfos h3{
+.div--sobre h1, .div--sobreInfos h3{
+  margin: 5px;
   text-align: center;
 }
 .div--sobreInfos div{
@@ -197,6 +226,13 @@ nav img{
 }
 
 /* FOTOS */
+#s-Imagens{
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  align-items: center;
+  max-width: 75%;
+}
 .div--fotos{
   margin: 0px 5px;
   padding-bottom: 20px;
@@ -209,8 +245,12 @@ nav img{
 
 /* LOTES */
 .div--lotes{
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
   padding-bottom: 20px;
+
   position: relative;
   left: -100vh;
   animation: slide 1.5s forwards;
@@ -223,10 +263,11 @@ nav img{
 }
 
 .div--select{
-  margin: auto;
   padding: 0px 10px;
-  min-width: 400px;
-  max-width: 700px;
+  margin: auto;
+  min-width: 620px;
+  max-width: 800px;
+  color: var(--color_black);
 }
 
 .div--pagamento{
@@ -239,7 +280,7 @@ nav img{
 
 /* CONTATOS */
 .div--contatos{
-  padding-bottom: 20px;
+  padding-bottom: 60px;
 
   position: relative;
   left: -100vh;
@@ -260,9 +301,13 @@ nav img{
   cursor: pointer;
   user-select: none;
 }
+.div--contatos-Infos img{
+  width: 40px;
+}
+
 .div--contatos-Infos div:hover{
   color: var(--color_yellow);
 }
-.div--contatos-Infos img{
-  width: 40px;
+.div--contatos-Infos div:hover img{
+  filter: sepia(1) saturate(10000%) hue-rotate(-40deg);
 }

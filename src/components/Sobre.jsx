@@ -15,6 +15,7 @@ export default function Sobre(){
                         <li>Rede Elétrica Completa.</li>
                         <li>Iluminação Pública.</li>
                         <li>Água Encanada.</li>
+                        <li>Ruas com piçarra e Meio Fio.</li>
                         <li>Toda a estrutura pronta para você construir.</li>
                     </ul>
                     <p> Você pode conferir nossa estrutura nas imagens e videos
@@ -29,7 +30,20 @@ export default function Sobre(){
                         em frente ao Parque Aquático Vale Encantado.
                     </p>
                     <p>
-                        Nosso escritório de vendas 
+                        Nosso escritório de vendas está localizado na Rua José Barcelos Fontenele, 
+                        Nº 710, no centro de Cocal - Píaui.
+                    </p>
+                </div>
+                <div className="div--localização">
+                    <h3>Planos</h3>
+                    <p> Atualmente trabalhamos com dois tipos de planos para que você adquira seu lote! </p>
+                    <p> 1 - Pagamentos <strong>A Vista</strong> do valor integral do lote.</p>
+                    <p> 2 - Pagamentos <strong>A Prazo</strong>, com entrada de <strong>10% do valor do lote</strong>
+                        pagos em dinheiro, pix ou cartão (com acréscimo), com parcelas de até 48x.
+                    </p>
+                    <p>
+                        As parcelas serão emitidas em um <strong>carnê</strong>, que é pago
+                        em nosso escritório com dinheiro emespécie, ou on-line através do pix com envio de comprovante.
                     </p>
                 </div>
             </div>
