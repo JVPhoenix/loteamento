@@ -4,7 +4,7 @@
   --color_green: #759548;
   --color_blue: #005cdb;
   --color_brown: #684121;
-  --color_black: black;
+  --color_black: rgb(43, 43, 43);
   --color_white: rgb(240, 240, 240);
   --color_gray: rgb(180, 180, 180);
   --transition1s: 1s;
@@ -22,10 +22,14 @@ body {
 }
 h1{
   color: var(--color_white);
+  text-transform: uppercase;
+  text-shadow:
+  0 0 10px rgb(182, 182, 182),
+  0 0 20px var(--color_yellow),
+  0 0 50px var(--color_yellow),
+  0 0 90px var(--color_yellow);
 }
-h3{
-  color: var(--color_white);
-}
+
 /* FOOTER */
 footer{
   display: flex;
@@ -104,7 +108,6 @@ footer p{
       display: flex;
       flex-direction: column;
       gap: 0px;
-      background-color: var(--color_black);
       border-radius: 10px;
       transition: var(--transition1s);
       animation: opacityIn 0.8s forwards;
@@ -120,7 +123,7 @@ footer p{
       gap: 40px !important;
       font-size: 18px !important;
     }
-    .div--mapas img{
+    .div--mapa img{
       max-width: 400px !important;
     }
 
@@ -148,7 +151,7 @@ nav {
   top: 0;
 
   color: var(--color_green);
-  background-color: var(--color_black);
+  background-color: black;
   padding: 5px 20px;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.40);
   z-index: 1;
@@ -180,6 +183,7 @@ nav img{
   display: flex;
   justify-content: space-between;
   gap: 30px;
+  color: var(--color_white);
 }
 .nav--infos div{
   display: flex;
@@ -189,6 +193,7 @@ nav img{
 }
 .nav--infos div:hover{
   color: var(--color_yellow);
+  transition: 0.2s;
 }
 
 /* MAIN PAGE */
@@ -213,6 +218,7 @@ nav img{
 .div--sobre h1, .div--sobreInfos h3{
   margin: 5px;
   text-align: center;
+  color: var(--color_white);
 }
 .div--sobreInfos div{
   min-width: 400px;
@@ -256,17 +262,21 @@ nav img{
   animation: slide 1.5s forwards;
   animation-delay: 0.1s;
 }
-.div--mapas img{
+.div--mapa img{
   max-width: 800px;
+  padding: 0px 5px;
+  border-radius: 10px;
   margin-bottom: 20px;
   cursor: pointer;
 }
 
 .div--select{
+  position: relative;
+  margin: 0 auto;
+  min-width: 150px;
+  max-width: 550px;
+  width: 100%;
   padding: 0px 10px;
-  margin: auto;
-  min-width: 620px;
-  max-width: 800px;
   color: var(--color_black);
 }
 
@@ -276,6 +286,9 @@ nav img{
   justify-content: center;
   font-size: 20px;
   gap: 100px;
+}
+.div--pagamento h3{
+  color: var(--color_white);
 }
 
 /* CONTATOS */
@@ -307,7 +320,9 @@ nav img{
 
 .div--contatos-Infos div:hover{
   color: var(--color_yellow);
+  transition: 0.5s;
 }
 .div--contatos-Infos div:hover img{
   filter: sepia(1) saturate(10000%) hue-rotate(-40deg);
+  transition: 0.5s;
 }

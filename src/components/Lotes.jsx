@@ -19,7 +19,7 @@ export default function Lotes(){
     return(
         <div className="div--lotes">
             <h1> Lotes Disponíveis </h1>
-            <div className="div--mapas">
+            <div className="div--mapa">
                 <img
                     src="https://i.imgur.com/6SPwV6y.png"
                     alt="Mapa dos lotes disponíveis"
@@ -54,12 +54,12 @@ export default function Lotes(){
 
             <div className="div--pagamento">
                 <div>
-                    <p className="bold"> Valor A Vista </p>
+                    <h3 className="bold"> Valor A Vista </h3>
                     <span> R$ {obterValor(chosen.valor)} </span>
                 </div>
 
                 <div>
-                    <p className="bold">Valor A Prazo</p>
+                    <h3 className="bold">Valor A Prazo</h3>
                     <div>
                         <p>Entrada de R$ {(obterValor(chosen.valor, 10))} </p>
                         <p>12x de R$ {(obterValor(chosen.valor, 12))} </p>
