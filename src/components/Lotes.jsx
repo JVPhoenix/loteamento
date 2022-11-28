@@ -30,10 +30,10 @@ export default function Lotes(){
                         {
                           src: "i.imgur.com/",
                           alt: "image 1",
-                          width: 3840,
-                          height: 2560,
+                          width: 3160,
+                          height: 1733,
                           srcSet: [
-                            { src: "https://i.imgur.com/6SPwV6y.png", width: 1920, height: 1080 },
+                            { src: "https://i.imgur.com/6SPwV6y.png", width: 3160, height: 1733 },
                           ]
                         }
                     ]}
