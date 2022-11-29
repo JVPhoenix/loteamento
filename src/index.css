@@ -52,7 +52,7 @@ footer p{
 
 /* ANIMATIONS KEYFRAMES */
 @keyframes slide {
-  100% { top: 0; left: 0; bottom: 0; }
+  100% { transform: translateY(0); transform: translateX(0) }
 }
 @keyframes opacityIn {
   0% { opacity: 0; }
@@ -173,7 +173,7 @@ nav img{
   position: relative;
   gap: 30px;
   
-  top: -90px;
+  transform: translateY(-90px);
   animation: slide 0.8s forwards;
   animation-delay: 0.2s;
 }
@@ -206,7 +206,7 @@ nav img{
   padding-bottom: 20px;
 
   position: relative;
-  left: -100vh;
+  transform: translateX(-100vw);
   animation: slide 0.8s forwards;
   animation-delay: 0.1s;
 }
@@ -244,7 +244,7 @@ nav img{
   padding-bottom: 20px;
 
   position: relative;
-  left: -100vh;
+  transform: translateX(-100vw);
   animation: slide 1s forwards;
   animation-delay: 0.2s;
 }
@@ -258,7 +258,7 @@ nav img{
   padding-bottom: 20px;
 
   position: relative;
-  left: -100vh;
+  transform: translateX(-100vw);
   animation: slide 1.5s forwards;
   animation-delay: 0.1s;
 }
@@ -296,7 +296,7 @@ nav img{
   padding-bottom: 60px;
 
   position: relative;
-  left: -100vh;
+  transform: translateX(-100vw);
   animation: slide 2s forwards;
   animation-delay: 0.2s;
 }
