@@ -26,12 +26,12 @@ export default function Images(){
                 photos={fotosData}
                 layout="rows"
                 targetRowHeight={200}
-                onClick={(event, fotos, index) => setIndex(index)}
+                onClick={() => setIndex(0)}
                 spacing={5}
             />
             <Lightbox 
                 slides={slides}
-                open={index >= 0}
+                open={index === 0}
                 index={index}
                 close={() => setIndex(-1)}
                 plugins={[Zoom, Slideshow]}

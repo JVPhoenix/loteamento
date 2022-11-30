@@ -33,7 +33,7 @@ export default function Contacts(){
                 </div>
                 <div
                     onClick={() => window.open(
-                        'mailto: loteamentor.martins@gmail',
+                        'mailto: loteamentor.martins@gmail.com',
                         '_blank',
                         'noopener, noreferrer'
                         )

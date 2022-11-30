@@ -1,27 +1,24 @@
 const breakpoints = [3840, 2400, 1080, 640, 384, 256, 128, 96, 64, 48];
 
-// const links = (id: string, width: number, height: number) =>
-//     `https://source.unsplash.com/${id}/${width}x${height}`;
-
 const links = (id: string, width: number, height: number) =>
     `https://imgur.com/${id}/${width}x${height}`;   
 
-const unsplashPhotos = [
-    { id: "yBAyLpF.jpg", width: 3264, height: 2448 },
-    { id: "C06HsMa.jpg", width: 3264, height: 2448 },
-    { id: "5UaK84B.jpg", width: 3264, height: 2448 },
-    { id: "tA7vLmz.jpg", width: 3264, height: 2448 },
-    { id: "XNgeyZz.jpg", width: 3264, height: 2448 },
-    { id: "1azaItM.jpg", width: 3264, height: 2448 },
-    { id: "lPKDZqq.jpg", width: 3264, height: 2448 },
-    { id: "MZuXPEt.jpg", width: 3264, height: 2448 },
-    { id: "QTER65U.jpg", width: 3264, height: 2448 },
-    { id: "sWbglNN.jpg", width: 3264, height: 2448 },
-    { id: "E4oqTWF.jpg", width: 3264, height: 2448 },
-    { id: "ADYfjOR.jpg", width: 3264, height: 2448 }, 
+const Photos = [
+    { id: "yBAyLpF.jpg", width: 1632, height: 1224 },
+    { id: "C06HsMa.jpg", width: 1632, height: 1224 },
+    { id: "5UaK84B.jpg", width: 1632, height: 1224 },
+    { id: "tA7vLmz.jpg", width: 1632, height: 1224 },
+    { id: "XNgeyZz.jpg", width: 1632, height: 1224 },
+    { id: "1azaItM.jpg", width: 1632, height: 1224 },
+    { id: "lPKDZqq.jpg", width: 1632, height: 1224 },
+    { id: "MZuXPEt.jpg", width: 1632, height: 1224 },
+    { id: "QTER65U.jpg", width: 1632, height: 1224 },
+    { id: "sWbglNN.jpg", width: 1632, height: 1224 },
+    { id: "E4oqTWF.jpg", width: 1632, height: 1224 },
+    { id: "ADYfjOR.jpg", width: 1632, height: 1224 }, 
 ];
 
-const fotosData = unsplashPhotos.map((photo) => {
+const fotosData = Photos.map((photo) => {
     const width = breakpoints[0];
     const height = (photo.height / photo.width) * width;
 

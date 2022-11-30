@@ -30,7 +30,8 @@ export default function Navbar(props){
                     onClick={dropdownEvent}
                 >
                     <img 
-                        id="nav--menuBtn" 
+                        id="nav--menuBtn"
+                        loading="lazy"
                         className="nav--menuBtn"
                         src={!dropdown ? openBt : closeBt}
                         alt="Menu Button"
