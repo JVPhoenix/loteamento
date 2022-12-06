@@ -4,6 +4,14 @@ const links = (id: string, width: number, height: number) =>
     `https://imgur.com/${id}/${width}x${height}`;   
 
 const Photos = [
+    { id: "QEQmTOj.jpg", width: 1024, height: 768 },
+    { id: "0j24C94.jpg", width: 1024, height: 768 },
+    { id: "ZnbJizv.jpg", width: 768, height: 1024 },
+    { id: "OG8sYb8.jpg", width: 1024, height: 768 },
+    { id: "HNLR61I.jpg", width: 768, height: 1024 },
+    { id: "PCia5BV.jpg", width: 1024, height: 768 },
+    { id: "nj7fOoO.jpg", width: 768, height: 1024 },
+
     { id: "yBAyLpF.jpg", width: 1632, height: 1224 },
     { id: "C06HsMa.jpg", width: 1632, height: 1224 },
     { id: "5UaK84B.jpg", width: 1632, height: 1224 },
