@@ -38,11 +38,11 @@ export default function Sobre(){
                     <h3>Planos</h3>
                     <p> Atualmente trabalhamos com dois tipos de planos para que você adquira seu lote! </p>
                     <p> 1 - Pagamentos <strong>A Vista</strong> do valor integral do lote.</p>
-                    <p> 2 - Pagamentos <strong>A Prazo</strong>, com entrada de <strong>10% do valor do lote</strong>
+                    <p> 2 - Pagamentos <strong>A Prazo</strong>, com entrada de <strong>10% do valor do lote, </strong>
                         pagos em dinheiro, pix ou cartão (com acréscimo), com parcelas de até 48x.
                     </p>
                     <p>
-                        As parcelas serão emitidas em um <strong>carnê</strong>, que é pago
+                        As parcelas serão emitidas em um <strong>carnê</strong>, que é pago 
                         em nosso escritório com dinheiro emespécie, ou on-line através do pix com envio de comprovante.
                     </p>
                 </div>
