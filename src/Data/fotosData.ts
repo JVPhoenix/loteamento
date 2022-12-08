@@ -4,6 +4,8 @@ const links = (id: string, width: number, height: number) =>
     `https://imgur.com/${id}/${width}x${height}`;   
 
 const Photos = [
+    { id: "EMMPHmh.jpg", width: 1024, height: 722 },
+    
     { id: "QEQmTOj.jpg", width: 1024, height: 768 },
     { id: "0j24C94.jpg", width: 1024, height: 768 },
     { id: "ZnbJizv.jpg", width: 768, height: 1024 },

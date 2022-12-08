@@ -1,4 +1,5 @@
-const lotesData = [
+const lotesData: {value: number, label: string, valor: number, tamanho: string}[] = 
+[
     {value: 1 , label: '---- DIGITE OU SELECIONE UM LOTE ----', valor: 0, tamanho: "0"},
     {value: 2 , label: 'Quadra 1  |  Lote 5 ', valor: 20000.00, tamanho: "10x30 - 300m²"},
     {value: 3 , label: 'Quadra 1  |  Lote 10 ', valor: 27751.50, tamanho: "34.5x30x6.5 - 450m²"},
@@ -8,7 +9,7 @@ const lotesData = [
     {value: 7 , label: 'Quadra 1  |  Lote 14 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
     {value: 8 , label: 'Quadra 1  |  Lote 15 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
 
-    {value: 9 , label: 'Quadra 2  |  Lote 13 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
+    // {value: 9 , label: 'Quadra 2  |  Lote 13 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
     // {value:  , label: 'Quadra 2  |  Lote 14 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
 
     {value: 10 , label: 'Quadra 4  |  Lote 1 ', valor: 18500.00, tamanho: "10x30 - 300m²"},
