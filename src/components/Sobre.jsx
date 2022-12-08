@@ -43,7 +43,7 @@ export default function Sobre(){
                     </p>
                     <p>
                         As parcelas serão emitidas em um <strong>carnê</strong>, que é pago 
-                        em nosso escritório com dinheiro emespécie, ou on-line através do pix com envio de comprovante.
+                        em nosso escritório com dinheiro em espécie, ou on-line através do pix com envio de comprovante.
                     </p>
                 </div>
             </div>
