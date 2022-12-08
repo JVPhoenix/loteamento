@@ -70,7 +70,7 @@ export default function Lotes(){
                 </div>
             </div>
             <p style={{margin: "0px 5px"}}>*Os valores <strong>parcelados</strong> tem reajuste de 
-                <strong> 5% ao ano do saldo devedor.</strong>
+                <strong> 5% ao ano do saldo devedor,</strong> a partir do segundo ano.
             </p>
         </div>
     )
