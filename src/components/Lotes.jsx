@@ -21,19 +21,19 @@ export default function Lotes(){
             <h1> Lotes Disponíveis </h1>
             <div className="div--mapa">
                 <img
-                    src="https://imgur.com/85xKNye.png"
+                    src="https://imgur.com/Nn8Ozth.png"
                     alt="Mapa dos lotes disponíveis"
                     onClick={() => setOpen(true)}
                 />
                 <Lightbox
                     slides={[
                         {
-                          src: "i.imgur.com/",
-                          alt: "image 1",
+                          src: "",
+                          alt: "",
                           width: 3160,
                           height: 1733,
                           srcSet: [
-                            { src: "https://imgur.com/85xKNye.png", width: 1580, height: 866 },
+                            { src: "https://imgur.com/Nn8Ozth.png", width: 1580, height: 866 },
                           ]
                         }
                     ]}
