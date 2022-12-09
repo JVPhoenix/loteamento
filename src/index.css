@@ -111,6 +111,8 @@ footer p{
       border-radius: 10px;
       transition: var(--transition1s);
       animation: opacityIn 0.8s forwards;
+      background-color: black;
+      border-radius: 20px;
     }
     /* SOBRE */
     .div--sobreInfos{
