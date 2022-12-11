@@ -17,15 +17,15 @@ const lotesData: {value: number, label: string, valor: number, tamanho: string}[
     {value: 13 , label: 'Quadra 3 - Lote 12 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
     // {value: 14 , label: 'Quadra 3 - Lote 15 ', valor: 18500.00, tamanho: "10x30 - 300m²"},
     {value: 15 , label: 'Quadra 3 - Lote 16 ', valor: 18500.00, tamanho: "10x30 - 300m²"},
-    {value: 16 , label: 'Quadra 3 - Lote 17 ', valor: 18500.00, tamanho: "10x30 - 300m²"},
-    // {value: 17 , label: 'Quadra 3 - Lote 18 ', valor: 18500.00, tamanho: "10x30 - 300m²"}, // falta planilha
+    // {value: 16 , label: 'Quadra 3 - Lote 17 ', valor: 18500.00, tamanho: "10x30 - 300m²"}, // falta planilha (Junot Jr) 
+    // {value: 17 , label: 'Quadra 3 - Lote 18 ', valor: 18500.00, tamanho: "10x30 - 300m²"}, // falta planilha (João Araújo Barreto)
     {value: 18 , label: 'Quadra 3 - Lote 19 ', valor: 18500.00, tamanho: "10x30 - 300m²"},
     
     {value: 19 , label: 'Quadra 4 - Lote 1 ', valor: 18500.00, tamanho: "10x30 - 300m²"},
     {value: 20 , label: 'Quadra 4 - Lote 2 ', valor: 13000.00, tamanho: "10x25 - 250m²"},
     {value: 21 , label: 'Quadra 4 - Lote 3 ', valor: 13000.00, tamanho: "10x25 - 250m²"},
     {value: 22 , label: 'Quadra 4 - Lote 4 ', valor: 13000.00, tamanho: "10x25 - 250m²"},
-    // {value: 23 , label: 'Quadra 4 - Lote 6 ', valor: 15500.00, tamanho: "10x30 - 300m²"}, // falta planilha
+    // {value: 23 , label: 'Quadra 4 - Lote 6 ', valor: 15500.00, tamanho: "10x30 - 300m²"}, // falta planilha (Cleiton de Sousa Teixeira)
     {value: 24 , label: 'Quadra 4 - Lote 7 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
     {value: 25 , label: 'Quadra 4 - Lote 8 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
     {value: 26 , label: 'Quadra 4 - Lote 9 ', valor: 17267.60, tamanho: "VARIÁVEL - 280m²"},
@@ -35,12 +35,12 @@ const lotesData: {value: number, label: string, valor: number, tamanho: string}[
     {value: 30 , label: 'Quadra 4 - Lote 14 ', valor: 12090.78, tamanho: "VARIÁVEL - 234m²"},
     {value: 31 , label: 'Quadra 4 - Lote 15 ', valor: 17309.45, tamanho: "VARIÁVEL - 335m²"},
     {value: 32 , label: 'Quadra 4 - Lote 16 ', valor: 14725.95, tamanho: "VARIÁVEL - 285m²"},
-    // {value: 33 , label: 'Quadra 4 - Lote 17 ', valor: 14492.25, tamanho: "VARIÁVEL - 235m²"}, // falta planilha
+    // {value: 33 , label: 'Quadra 4 - Lote 17 ', valor: 14492.25, tamanho: "VARIÁVEL - 235m²"}, // falta planilha (José Alves Feitosa)
 
     {value: 34 , label: 'Quadra 5 - Lote 2 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
-    // {value: 35 , label: 'Quadra 5 - Lote 3 ', valor: 15500.00, tamanho: "10x30 - 300m²"}, // falta planilha
+    // {value: 35 , label: 'Quadra 5 - Lote 3 ', valor: 15500.00, tamanho: "10x30 - 300m²"}, // falta planilha (Wellington José de Oliveira)
     {value: 36 , label: 'Quadra 5 - Lote 4 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
-    // {value: 37 , label: 'Quadra 5 - Lote 5 ', valor: 15500.00, tamanho: "10x30 - 300m²"}, // falta planilha
+    // {value: 37 , label: 'Quadra 5 - Lote 5 ', valor: 15500.00, tamanho: "10x30 - 300m²"}, // falta planilha (Francisco das Chagas Silva Carvalho)
     {value: 38 , label: 'Quadra 5 - Lote 7 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
     {value: 39 , label: 'Quadra 5 - Lote 8 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
     {value: 40 , label: 'Quadra 5 - Lote 9 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
