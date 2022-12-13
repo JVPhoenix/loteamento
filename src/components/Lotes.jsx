@@ -21,7 +21,7 @@ export default function Lotes(){
             <h1> Lotes Disponíveis </h1>
             <div className="div--mapa">
                 <img
-                    src="https://imgur.com/21Ontfx.png"
+                    src="https://imgur.com/eYd9c40.png"
                     alt="Mapa dos lotes disponíveis"
                     onClick={() => setOpen(true)}
                 />
@@ -33,7 +33,7 @@ export default function Lotes(){
                           width: 3160,
                           height: 1733,
                           srcSet: [
-                            { src: "https://imgur.com/21Ontfx.png", width: 1580, height: 866 },
+                            { src: "https://imgur.com/eYd9c40.png", width: 1580, height: 866 },
                           ]
                         }
                     ]}
