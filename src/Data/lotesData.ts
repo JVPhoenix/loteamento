@@ -14,7 +14,7 @@ const lotesData: {value: number, label: string, valor: number, tamanho: string}[
     // {value: 11 , label: 'Quadra 2 - Lote 13 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
 
     {value: 12 , label: 'Quadra 3 - Lote 11 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
-    {value: 13 , label: 'Quadra 3 - Lote 12 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
+    // {value: 13 , label: 'Quadra 3 - Lote 12 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
     // {value: 14 , label: 'Quadra 3 - Lote 15 ', valor: 18500.00, tamanho: "10x30 - 300m²"},
     {value: 15 , label: 'Quadra 3 - Lote 16 ', valor: 18500.00, tamanho: "10x30 - 300m²"},
     // {value: 16 , label: 'Quadra 3 - Lote 17 ', valor: 18500.00, tamanho: "10x30 - 300m²"},
@@ -47,7 +47,7 @@ const lotesData: {value: number, label: string, valor: number, tamanho: string}[
     {value: 42 , label: 'Quadra 5 - Lote 12 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
     {value: 43 , label: 'Quadra 5 - Lote 13 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
     {value: 44 , label: 'Quadra 5 - Lote 14 ', valor: 18500.00, tamanho: "10x30 - 300m²"},
-        
+
     {value: 45 , label: 'Quadra 6 - Lote 4 ', valor: 13000.00, tamanho: "10x25 - 250m²"},
     {value: 46 , label: 'Quadra 6 - Lote 5 ', valor: 13000.00, tamanho: "10x25 - 250m²"},
     {value: 47 , label: 'Quadra 6 - Lote 6 ', valor: 22509.55, tamanho: "VARIÁVEL - 365m²"},
