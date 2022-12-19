@@ -27,7 +27,7 @@ const lotesData: {value: number, label: string, valor: number, tamanho: string}[
     {value: 27 , label: 'Quadra 4 - Lote 10 ', valor: 13072.51, tamanho: "VARIÁVEL - 253m²"},
     {value: 28 , label: 'Quadra 4 - Lote 12 ', valor: 17257.78, tamanho: "VARIÁVEL - 334m²"},
     {value: 29 , label: 'Quadra 4 - Lote 13 ', valor: 14725.95, tamanho: "VARIÁVEL - 285m²"},
-    {value: 30 , label: 'Quadra 4 - Lote 14 ', valor: 12090.78, tamanho: "VARIÁVEL - 234m²"},
+    // {value: 30 , label: 'Quadra 4 - Lote 14 ', valor: 12090.78, tamanho: "VARIÁVEL - 234m²"},
     {value: 31 , label: 'Quadra 4 - Lote 15 ', valor: 17309.45, tamanho: "VARIÁVEL - 335m²"},
     {value: 32 , label: 'Quadra 4 - Lote 16 ', valor: 14725.95, tamanho: "VARIÁVEL - 285m²"},
 
