@@ -16,7 +16,7 @@ const lotesData: {value: number, label: string, valor: number, tamanho: string}[
     {value: 12 , label: 'Quadra 3 - Lote 11 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
     // {value: 14 , label: 'Quadra 3 - Lote 15 ', valor: 18500.00, tamanho: "10x30 - 300m²"},
     {value: 15 , label: 'Quadra 3 - Lote 16 ', valor: 18500.00, tamanho: "10x30 - 300m²"},
-    // {value: 18 , label: 'Quadra 3 - Lote 19 ', valor: 18500.00, tamanho: "10x30 - 300m²"},
+    {value: 18 , label: 'Quadra 3 - Lote 19 ', valor: 18500.00, tamanho: "10x30 - 300m²"},
     
     {value: 20 , label: 'Quadra 4 - Lote 2 ', valor: 13000.00, tamanho: "10x25 - 250m²"},
     {value: 21 , label: 'Quadra 4 - Lote 3 ', valor: 13000.00, tamanho: "10x25 - 250m²"},
