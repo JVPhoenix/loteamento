@@ -12,13 +12,9 @@ const lotesData: {value: number, label: string, valor: number, tamanho: string}[
 
     // {value: 12 , label: 'Quadra 2 - Lote 13 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
 
-    // {value: 13 , label: 'Quadra 3 - Lote 11 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
     // {value: 14 , label: 'Quadra 3 - Lote 15 ', valor: 18500.00, tamanho: "10x30 - 300m²"},
-    {value: 15 , label: 'Quadra 3 - Lote 16 ', valor: 18500.00, tamanho: "10x30 - 300m²"},
-    // {value: 18 , label: 'Quadra 3 - Lote 19 ', valor: 18500.00, tamanho: "10x30 - 300m²"},
+    // {value: 15 , label: 'Quadra 3 - Lote 16 ', valor: 18500.00, tamanho: "10x30 - 300m²"},
     
-    // {value: 20 , label: 'Quadra 4 - Lote 2 ', valor: 13000.00, tamanho: "10x25 - 250m²"},
-    // {value: 21 , label: 'Quadra 4 - Lote 3 ', valor: 13000.00, tamanho: "10x25 - 250m²"},
     {value: 22 , label: 'Quadra 4 - Lote 4 ', valor: 13000.00, tamanho: "10x25 - 250m²"},
     {value: 24 , label: 'Quadra 4 - Lote 7 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
     {value: 25 , label: 'Quadra 4 - Lote 8 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
@@ -34,10 +30,9 @@ const lotesData: {value: number, label: string, valor: number, tamanho: string}[
     {value: 38 , label: 'Quadra 5 - Lote 7 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
     {value: 39 , label: 'Quadra 5 - Lote 8 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
     {value: 40 , label: 'Quadra 5 - Lote 9 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
-    {value: 41 , label: 'Quadra 5 - Lote 10 ', valor: 18500.00, tamanho: "10x30 - 300m²"},
+    // {value: 41 , label: 'Quadra 5 - Lote 10 ', valor: 18500.00, tamanho: "10x30 - 300m²"},
     {value: 42 , label: 'Quadra 5 - Lote 12 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
     {value: 43 , label: 'Quadra 5 - Lote 13 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
-    // {value: 44 , label: 'Quadra 5 - Lote 14 ', valor: 18500.00, tamanho: "10x30 - 300m²"},
 
     {value: 45 , label: 'Quadra 6 - Lote 4 ', valor: 13000.00, tamanho: "10x25 - 250m²"},
     {value: 46 , label: 'Quadra 6 - Lote 5 ', valor: 13000.00, tamanho: "10x25 - 250m²"},
