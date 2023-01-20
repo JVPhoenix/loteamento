@@ -1,7 +1,8 @@
-import React, { useState } from "react"
-import logoLoteamento from "../img/logoLoteamento.png"
-import openBt from "../img/menuBtn.png"
-import closeBt from "../img/menuCloseBtn.png"
+import { React, useState } from "react";
+import { Link } from "react-router-dom";
+import logoLoteamento from "../../img/logoLoteamento.png";
+import openBt from "../../img/menuBtn.png";
+import closeBt from "../../img/menuCloseBtn.png";
 
 export default function Navbar(props){
     const [dropdown, setDropdown] = useState(false)
@@ -23,9 +24,9 @@ export default function Navbar(props){
                 <img 
                     id="nav--img" 
                     src={logoLoteamento} 
-                    alt="Logotipo do Loteamento" 
+                    alt="Logotipo do Loteamento"
                 />
-                <div 
+                <div
                     id="nav--dropdown"
                     onClick={dropdownEvent}
                 >
@@ -36,23 +37,20 @@ export default function Navbar(props){
                         src={!dropdown ? openBt : closeBt}
                         alt="Menu Button"
                     />
-                    <div className="nav--infos" id={dropdown ? "nav--infos" : animation}>
-                        <div onClick={props.sobreClick}>
-                            <h3> Sobre o Loteamento </h3>
-                        </div>
-                        <div onClick={props.fotosClick}>
+                    <div 
+                    className="nav--infos" 
+                    id={dropdown ? "nav--infos" : animation}
+                    >
+                        <Link to="/" className="link-btn">
+                            <h3> Pagina Inicial </h3>
+                        </Link>
+
+                        <Link to="/midia" className="link-btn">
                             <h3> Fotos e Videos </h3>
-                        </div>
+                        </Link>
 
-                        <div onClick={props.lotesClick}>
-                            <h3> Lotes Disponíveis </h3>
-                        </div>
-
-                        <div onClick={props.contatoClick}>
-                            <h3> Contato </h3>
-                        </div>
                     </div>
-                </div>
+                </div>  
             </div>
         </nav>
     )

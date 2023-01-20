@@ -1,7 +1,7 @@
 import React from "react";
-import whatsappLogo from "../img/whatsapp-icon.png"
-import instagramLogo from "../img/instagram-icon.png"
-import gmailLogo from "../img/gmail-icon.png"
+import whatsappLogo from "../../img/whatsapp-icon.png"
+import instagramLogo from "../../img/instagram-icon.png"
+import gmailLogo from "../../img/gmail-icon.png"
 
 export default function Contacts(){
     return(

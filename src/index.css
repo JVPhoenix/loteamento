@@ -49,6 +49,16 @@ footer p{
   font-weight: bold;
   font-size: x-large;
 }
+.link-btn{
+  text-decoration: none;
+  margin: 5px;
+  cursor: pointer;
+  color: var(--color_white);
+}
+.link-btn:hover{
+  color: var(--color_yellow);
+  transition: 0.2s;
+}
 
 /* ANIMATIONS KEYFRAMES */
 @keyframes slide {
@@ -140,6 +150,10 @@ footer p{
 
 /* GERAL CONFIGS */
 /* ALL APP WITHOUT NAVBAR */
+main{
+  text-align: center;
+}
+
 .main--body{
   margin-top: 120px;
   color: var(--color_gray);
@@ -198,11 +212,6 @@ nav img{
   transition: 0.2s;
 }
 
-/* MAIN PAGE */
-.main--page{
-  text-align: center;
-}
-
 /* SOBRE */
 .div--sobre{
   padding-bottom: 20px;
@@ -242,7 +251,7 @@ nav img{
   max-width: 75%;
 }
 .div--fotos{
-  margin: 0px 5px;
+  margin: 120px 10px 0 10px;
   padding-bottom: 20px;
 
   position: relative;
