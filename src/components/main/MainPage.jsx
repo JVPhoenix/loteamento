@@ -10,15 +10,15 @@ export default function MainPage() {
         <>
             <Navbar />
             <div className="main--body">
-                <div id="s-Sobre">
+                <div>
                     <Sobre />
                 </div>
 
-                <div id="s-Lotes">
+                <div>
                     <Lotes />
                 </div>
 
-                <div id="s-Contatos">
+                <div>
                     <Contatos />
                 </div>
             
@@ -27,10 +27,3 @@ export default function MainPage() {
          </>
     )
 }
-
-    //   <Navbar
-    //     sobreClick = {() => scroll("s-Sobre")}
-    //     fotosClick = {() => scroll("s-Imagens")}
-    //     lotesClick = {() => scroll("s-Lotes")}
-    //     contatoClick = {() => document.getElementById("s-Contatos").scrollIntoView(true)}
-    //   />

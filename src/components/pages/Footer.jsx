@@ -12,7 +12,7 @@ export default function Footer(){
                 )
                 }><u style={{cursor: "pointer"}}>jvphoenix </u></span>
             </p>
-            <p>Todos os Direitos Reservados ® Loteamento R. Martins 2023</p>
+            <p>Todos os Direitos Reservados ® Loteamento R. Martins 2022-2023</p>
             </div>
         </footer>
     )

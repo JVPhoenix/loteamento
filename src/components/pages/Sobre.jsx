@@ -4,8 +4,8 @@ export default function Sobre(){
     return(
         <div className="div--sobre">
             <h1> Sobre o Loteamento </h1>
-            <div className="div--sobreInfos">
-                <div className="div--estrutura">
+            <div className="div--sobre-Infos">
+                <div>
                     <h3>Estrutura</h3>
                     <p> O Loteamento R. Martins é mais completo e mais estruturado de Cocal,
                         atualmente ele possui:
@@ -24,7 +24,7 @@ export default function Sobre(){
                     </p>
                 </div>
 
-                <div className="div--localização">
+                <div>
                     <h3>Localização</h3>
                     <p> O loteamento está ocalizado as margens da PI-309 na saída de Cocal para o Videu, no Bairro Noventa, 
                         em frente ao Parque Aquático Vale Encantado.
@@ -34,7 +34,8 @@ export default function Sobre(){
                         Nº 710, no centro de Cocal - Píaui.
                     </p>
                 </div>
-                <div className="div--localização">
+                
+                <div>
                     <h3>Planos</h3>
                     <p> Atualmente trabalhamos com dois tipos de planos para que você adquira seu lote! </p>
                     <p> 1 - Pagamentos <strong>A Vista</strong> do valor integral do lote.</p>

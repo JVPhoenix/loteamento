@@ -1,0 +1,50 @@
+@import "./partials/effects";
+@import "./partials/mobile";
+@import "./partials/variables";
+@import "./navbar";
+@import "./sobre";
+@import "./lotes";
+@import "./contatos";
+@import "./imagens";
+
+// GENERAL
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 120px 0 0 0;
+    font-family: 'Inter', sans-serif;
+    background: $color_black;
+    color: $color_gray;
+    text-align: center;
+}
+
+h1 {
+    color: $color_white;
+    text-transform: uppercase;
+    text-shadow:
+    0 0 10px $color_gray,
+    0 0 20px $color_yellow,
+    0 0 50px $color_yellow,
+    0 0 90px $color_yellow;
+}
+
+// FOOTER
+footer {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    background-color: $color_black;
+    color: $color_white;
+    user-select: none;
+  
+    p {
+      margin: 0 0 5px 0;
+    }
+}

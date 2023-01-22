@@ -1,0 +1,10 @@
+// IMAGENS
+.div--fotos {
+  margin: 120px 10px 0 10px;
+  padding-bottom: 20px;
+
+  position: relative;
+  transform: translateX(-100vw);
+  animation: slide 1s forwards;
+  animation-delay: 0.2s;
+}

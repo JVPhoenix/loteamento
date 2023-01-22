@@ -22,18 +22,17 @@ export default function Navbar(props){
         <nav id="nav">
             <div className="nav--containner">
                 <img 
-                    id="nav--img" 
                     src={logoLoteamento} 
                     alt="Logotipo do Loteamento"
                 />
                 <div
-                    id="nav--dropdown"
+                    className="nav--dropdown"
                     onClick={dropdownEvent}
                 >
                     <img 
                         id="nav--menuBtn"
-                        loading="lazy"
                         className="nav--menuBtn"
+                        loading="lazy"
                         src={!dropdown ? openBt : closeBt}
                         alt="Menu Button"
                     />
