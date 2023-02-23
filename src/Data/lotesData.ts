@@ -1,7 +1,7 @@
 const lotesData: {value: number, label: string, valor: number, tamanho: string}[] = 
 [
     {value: 0 , label: '---- DIGITE OU SELECIONE UM LOTE ----', valor: 0, tamanho: "0"},
-    {value: 5 , label: 'Quadra 1 - Lote 8 ', valor: 20000.00, tamanho: "10x30 - 300m²"},
+    // {value: 5 , label: 'Quadra 1 - Lote 8 ', valor: 20000.00, tamanho: "10x30 - 300m²"},
     {value: 6 , label: 'Quadra 1 - Lote 10 ', valor: 27751.50, tamanho: "34.5x30x6.5 - 450m²"},
     {value: 7 , label: 'Quadra 1 - Lote 11 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
     {value: 8 , label: 'Quadra 1 - Lote 12 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
@@ -13,7 +13,7 @@ const lotesData: {value: number, label: string, valor: number, tamanho: string}[
     // {value: 14 , label: 'Quadra 3 - Lote 15 ', valor: 18500.00, tamanho: "10x30 - 300m²"},
     // {value: 15 , label: 'Quadra 3 - Lote 16 ', valor: 18500.00, tamanho: "10x30 - 300m²"},
     
-    // {value: 23 , label: 'Quadra 4 - Lote 4 ', valor: 13000.00, tamanho: "10x25 - 250m²"},
+    {value: 23 , label: 'Quadra 4 - Lote 4 ', valor: 13000.00, tamanho: "10x25 - 250m²"},
     // {value: 24 , label: 'Quadra 4 - Lote 7 ', valor: 15500.00, tamanho: "10x30 - 300m²"},
     {value: 28 , label: 'Quadra 4 - Lote 12 ', valor: 17257.78, tamanho: "VARIÁVEL - 334m²"},
     {value: 29 , label: 'Quadra 4 - Lote 13 ', valor: 14725.95, tamanho: "VARIÁVEL - 285m²"},
