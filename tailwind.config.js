@@ -13,12 +13,15 @@ module.exports = {
         "yellow1": "#ffcc29"
       },
       dropShadow: {
-        'titles': [
+        "titles": [
           "0 0 5px rgba(180, 180, 180, 1)",
           "0 0 10px rgba(255, 204, 41, 0.25)",
           "0 0 15px rgba(255, 204, 41, 1)",
         ]
       },
+      screens: {
+        "response": "1366px"
+      }
     },
   },
   plugins: [],

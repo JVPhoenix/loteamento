@@ -1,6 +1,6 @@
 import ProductsPhase1 from "./ProductsPhase1";
 
-export default function Lotes() {
+export default function Products() {
 
   return (
     <div className="flex flex-col gap-1 text-gray1 font-medium text-center items-center mb-8">

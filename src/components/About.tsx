@@ -1,11 +1,11 @@
 export default function About() {
   return (
     <div className="flex flex-col gap-1 text-gray1 font-medium text-center items-center mb-8">
-      <h1 className="text-white drop-shadow-titles text-center text-3xl font-bold">
+      <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold mb-4">
         SOBRE O LOTEAMENTO
       </h1>
-      <div className="flex gap-14">
-        <div className="flex flex-col gap-4 w-[400px]">
+      <div className="flex flex-col response:flex-row gap-14">
+        <div className="flex flex-col gap-4 w-[400px] px-4 response:px-0">
           <h3 className="font-bold text-slate-200 text-xl">Estrutura</h3>
           <div className="text-justify">
             <p>
@@ -28,7 +28,7 @@ export default function About() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 w-[400px]">
+        <div className="flex flex-col gap-4 w-[400px] px-4 response:px-0">
           <h3 className="font-bold text-slate-300 text-xl">Localização</h3>
           <div className="flex flex-col text-justify gap-3">
             <p>
@@ -43,7 +43,7 @@ export default function About() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 w-[400px]">
+        <div className="flex flex-col gap-4 w-[400px] px-4 response:px-0">
           <h3 className="font-bold text-slate-300 text-xl">Planos</h3>
           <div className="flex flex-col text-justify gap-2">
             <p>

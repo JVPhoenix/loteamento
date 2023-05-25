@@ -23,25 +23,18 @@ export default function Header(props: HeaderInterface) {
       setHome(true);
       setPhases(false);
     }
-  }, [])
-
+    document.addEventListener("mouseup", () => setToggleEtapas(false));
+    return () => {
+      document.removeEventListener("mouseup", () => setToggleEtapas(false));
+    };
+  }, []);
 
   return (
-    <div className="bg-black text-white font-bold mb-4 shadow-xl" id="mainDiv">
+    <div className="bg-black text-white font-bold mb-4 shadow-xl flex-wrap">
       <div className="flex min-w-screen gap-5">
-        <Image
-          className="p-3"
-          src="/logoLoteamento.png"
-          width={250}
-          height={100}
-          alt="Logo do Site"
-        />
-        <div className="flex">
-          <div
-            className={twMerge(
-              "flex gap-4 justify-center align-middle items-center"
-            )}
-          >
+        <Image className="p-3 w-[200px] response:w-[250px]" src="/logoLoteamento.png" width={250} height={100} alt="Logo do Site"/>
+        <div className="flex m-2">
+          <div className={twMerge("flex gap-4 justify-center align-middle items-center")}>
             {home && (
               <Link
                 href="/"
@@ -73,9 +66,7 @@ export default function Header(props: HeaderInterface) {
                     "hover:text-yellow1 active:scale-90 active:duration-100",
                     toggleEtapas && "text-yellow1"
                   )}
-                  onClick={() =>
-                    setToggleEtapas((toggleEtapas) => !toggleEtapas)
-                  }
+                  onClick={() => setToggleEtapas((toggleEtapas) => !toggleEtapas)}
                 >
                   ETAPAS
                 </button>

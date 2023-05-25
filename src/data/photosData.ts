@@ -2,7 +2,7 @@ export interface PhotosDataInterface {
   url: string;
 }
 
-export const photosData: PhotosDataInterface[] = [
+export const photosData1: PhotosDataInterface[] = [
   { url: "https:/i.imgur.com/eYd9c40.png" },
   { url: "https:/i.imgur.com/EMMPHmh.jpg" },
   { url: "https:/i.imgur.com/0j24C94.jpg" },
