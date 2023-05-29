@@ -11,7 +11,8 @@ interface SelectProps {
 }
 
 export default function ProductsSelect(props: SelectProps) {
-  const [showOptions, setShowOptions] = useState(false);
+  const [showOptions, setShowOptions] = useState<boolean>(false);
+  const [searchItem, setSearchItem] = useState<string>("");
   const divRef = useRef<HTMLDivElement>(null);
 
   const escFunction = (event: KeyboardEvent) => {
@@ -51,9 +52,13 @@ export default function ProductsSelect(props: SelectProps) {
           showOptions && "border-blue-500"
         )}
       >
-        <h3 className="text-base response:text-lg">
-          {props.selectedItem ? props.selectedItem.label : props.placeholder}
-        </h3>
+        <input
+          className="text-base response:text-lg w-full text-center placeholder:text-black"
+          id="searchInput"
+          value={searchItem != "" ? searchItem : ""}
+          onChange={(e) => setSearchItem(e.target.value)}
+          placeholder={props.selectedItem ? props.selectedItem.label : props.placeholder}
+        />
         <UpArrow className="flex absolute right-5 top-2" width={20} fill="black" />
       </div>
 
@@ -64,20 +69,29 @@ export default function ProductsSelect(props: SelectProps) {
           showOptions && "flex"
         )}
       >
-        {props.options.map((option) => (
-          <div
-            onClick={() => {
-              props.onChange(option);
-            }}
-            key={option.value}
-            className={twMerge(
-              "hover:bg-gray1 cursor-pointer py-1",
-              option.value === props.selectedItem?.value && "bg-blue-500"
-            )}
-          >
-            <p>{option.label}</p>
-          </div>
-        ))}
+        {props.options
+          .filter((option) => {
+            if (option.label.toLocaleLowerCase().indexOf(searchItem.toLocaleLowerCase()) >= 0) {
+              return option;
+            } else if (searchItem === "") {
+              return option;
+            }
+          })
+          .map((option) => (
+            <div
+              onClick={() => {
+                props.onChange(option);
+                setSearchItem("")
+              }}
+              key={option.value}
+              className={twMerge(
+                "hover:bg-gray1 cursor-pointer py-1",
+                option.value === props.selectedItem?.value && "bg-blue-500"
+              )}
+            >
+              <p>{option.label}</p>
+            </div>
+          ))}
       </div>
     </div>
   );
