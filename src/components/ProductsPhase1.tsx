@@ -1,5 +1,5 @@
 import { LotesDataInterface, lotesData } from "@/data/lotesData1";
-import { photosData1 } from "@/data/photosData";
+import { photosShowcase1 } from "@/data/photosData";
 import { useState } from "react";
 import ProductsShowcase from "./ProductsShowcase";
 import ProductsSelect from "./ProductsSelect";
@@ -10,9 +10,9 @@ export default function ProductsPhase1() {
 
   return (
     <div className="flex flex-col gap-1 text-gray1 font-medium text-center items-center">
-      {/* <h1 className="text-white drop-shadow-titles text-center text-3xl font-bold">LOTES DISPONÍVEIS - 1ª ETAPA</h1> */}
+      <h1 className="text-white drop-shadow-titles text-center text-3xl font-bold">LOTES DISPONÍVEIS - 1ª ETAPA</h1>
 
-      <ProductsShowcase photos={photosData1} />
+      <ProductsShowcase photos={photosShowcase1} />
 
       <ProductsSelect
         options={lotesData}
