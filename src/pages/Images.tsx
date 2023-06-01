@@ -22,6 +22,7 @@ export default function Images() {
             alt={value.url}
             width={value.width}
             height={value.height}
+            key={value.url}
           />
         ))}
       </div>

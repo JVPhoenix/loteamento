@@ -58,7 +58,7 @@ export default function Header(props: HeaderInterface) {
                 <h3> FOTOS E VIDEOS </h3>
               </Link>
             )}
-            {phases && (
+            {/* {phases && (
               <div className="inline-block z-10">
                 <button
                   className={twMerge(
@@ -96,7 +96,7 @@ export default function Header(props: HeaderInterface) {
                   </Link>
                 </div>
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>
