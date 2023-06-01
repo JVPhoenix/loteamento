@@ -32,7 +32,13 @@ export default function Header(props: HeaderInterface) {
   return (
     <div className="bg-black text-white font-bold mb-4 shadow-xl flex-wrap">
       <div className="flex min-w-screen gap-5">
-        <Image className="p-3 w-[200px] response:w-[250px]" src="/logoLoteamento.png" width={250} height={100} alt="Logo do Site"/>
+        <Image
+          className="p-3 w-[200px] response:w-[250px]"
+          src="/logoLoteamento.png"
+          width={250}
+          height={100}
+          alt="Logo do Site"
+        />
         <div className="flex m-2">
           <div className={twMerge("flex gap-4 justify-center align-middle items-center")}>
             {home && (

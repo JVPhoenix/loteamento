@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import { photosData1 } from "@/data/photosData";
 import { HeaderSelector } from "@/types";
 import { Inter } from "next/font/google";
+import Head from "next/head";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 const inter = Inter({ subsets: ["latin"] });
@@ -12,6 +13,9 @@ export default function Images() {
     <div
       className={twMerge("flex flex-col w-full min-h-screen bg-black1 text-white text-center text-lg", inter.className)}
     >
+      <Head>
+        <title> Fotos do Loteamento </title>
+      </Head>
       <Header page={HeaderSelector.Photos} />
       <h1 className="text-white drop-shadow-titles text-center text-3xl font-bold">FOTOS - 1ª ETAPA</h1>
       <div className="flex flex-wrap gap-2 justify-center items-center p-3 m-auto">
