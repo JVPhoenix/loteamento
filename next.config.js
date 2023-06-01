@@ -3,6 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: ["i.imgur.com"],
+    formats: ["image/webp"],
     remotePatterns: [
       {
         protocol: "https",
