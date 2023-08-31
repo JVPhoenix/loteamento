@@ -1,3 +1,5 @@
+import { url } from "inspector";
+
 export interface PhotosDataInterface {
   url: string;
   width?: number;
@@ -13,6 +15,11 @@ export const photosShowcase1: PhotosDataInterface[] = [
   { url: "https://i.imgur.com/yBAyLpF.jpg" },
   { url: "https://i.imgur.com/C06HsMa.jpg" },
   { url: "https://i.imgur.com/5UaK84B.jpg" },
+];
+
+export const photosShowcase2: PhotosDataInterface[] = [
+  { url: "https://i.imgur.com/plMTHL4.png" },
+  // { url: ""}
 ];
 
 export const photosData1: PhotosDataInterface[] = [
@@ -31,3 +38,7 @@ export const photosData1: PhotosDataInterface[] = [
   { url: "https://i.imgur.com/HNLR61I.jpg", width: 768, height: 1024 },
   { url: "https://i.imgur.com/nj7fOoO.jpg", width: 768, height: 1024 },
 ];
+
+export const photosData2: PhotosDataInterface[] = [
+  
+]

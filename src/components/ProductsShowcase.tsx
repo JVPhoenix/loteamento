@@ -30,10 +30,10 @@ export default function ProductsShowcase(props: ProductsShowcaseInterface) {
 
   return (
     <div className="relative group select-none">
-      <div className="flex response:max-w-[800px] response:max-h-[439px] max-w-[400px] max-h-[219px]">
+      <div className="flex response:max-w-[800px] max-w-[400px]">
         <Image
-          width={800}
-          height={440}
+          width={8379}
+          height={7921}
           style={{ borderRadius: "8px", objectFit: "cover" }}
           src={photosData[photoIndex].url}
           alt="Fotos do mapa e lotes disponíveis"

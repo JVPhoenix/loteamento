@@ -1,4 +1,4 @@
-import { LotesDataInterface } from "@/data/lotesData1";
+import { LotesDataInterface } from "@/data/lotesData";
 
 interface ProductsPricesInterface {
   selectedItem: LotesDataInterface | null;

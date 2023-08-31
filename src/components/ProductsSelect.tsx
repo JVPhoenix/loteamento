@@ -1,4 +1,4 @@
-import { LotesDataInterface } from "@/data/lotesData1";
+import { LotesDataInterface } from "@/data/lotesData";
 import { useEffect, useRef, useState } from "react";
 import { UpArrow } from "./Icons";
 import { twMerge } from "tailwind-merge";

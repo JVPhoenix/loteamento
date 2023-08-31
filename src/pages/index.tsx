@@ -3,7 +3,6 @@ import Contacts from "@/components/Contacts";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Products from "@/components/Products";
-import { HeaderSelector } from "@/types";
 import { Inter } from "next/font/google";
 import Head from "next/head";
 import { twMerge } from "tailwind-merge";
@@ -16,7 +15,7 @@ export default function Home() {
       <Head>
         <title> Loteamento R. Martins </title>
       </Head>
-      <Header page={HeaderSelector.HomePage} />
+      <Header />
       <About />
       <Products />
       <Contacts />
