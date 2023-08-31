@@ -2,6 +2,7 @@ import { LotesDataInterface } from "@/data/lotesData";
 
 interface ProductsPricesInterface {
   selectedItem: LotesDataInterface | null;
+  phase: number,
 }
 
 export default function ProductsPrices(props: ProductsPricesInterface) {
@@ -32,6 +33,7 @@ export default function ProductsPrices(props: ProductsPricesInterface) {
           <p>24x de R$ {priceCalc(24)} </p>
           <p>36x de R$ {priceCalc(36)} </p>
           <p>48x de R$ {priceCalc(48)}</p>
+          {props.phase !== 1 && <p>60x de R$ {priceCalc(60)}</p>}
         </div>
       </div>
     </div>
