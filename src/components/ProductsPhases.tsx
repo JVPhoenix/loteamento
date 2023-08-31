@@ -6,9 +6,9 @@ import ProductsSelect from "./ProductsSelect";
 import ProductsPrices from "./ProductsPrices";
 
 interface ProductsPhaseInterface {
-  data: LotesDataInterface[],
-  showcase: PhotosDataInterface[],
-  phase: number,
+  data: LotesDataInterface[];
+  showcase: PhotosDataInterface[];
+  phase: number;
 }
 
 export default function ProductsPhases(props: ProductsPhaseInterface) {
@@ -16,7 +16,9 @@ export default function ProductsPhases(props: ProductsPhaseInterface) {
 
   return (
     <div className="flex flex-col gap-1 text-gray1 font-medium text-center items-center">
-      <h1 className="text-white drop-shadow-titles text-center text-3xl font-bold">LOTES DISPONÍVEIS - 1ª ETAPA</h1>
+      <h1 className="text-white drop-shadow-titles text-center text-3xl font-bold">
+        LOTES DISPONÍVEIS - {props.phase}ª ETAPA
+      </h1>
 
       <ProductsShowcase photos={props.showcase} />
 
@@ -27,7 +29,7 @@ export default function ProductsPhases(props: ProductsPhaseInterface) {
         onChange={(selection: LotesDataInterface) => setSelectedItem(selection)}
       />
 
-      <ProductsPrices selectedItem={selectedItem} phase={props.phase}/>
+      <ProductsPrices selectedItem={selectedItem} phase={props.phase} />
 
       <p className="mt-3 px-3">
         *Os valores <strong>parcelados</strong> tem reajuste de
