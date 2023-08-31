@@ -21,9 +21,9 @@ export default function About() {
               <li>Toda a estrutura pronta para você construir.</li>
             </ul>
             <p>
-              Você pode conferir nossa estrutura nas imagens na bara de menu acima, navegando pela
-              galeria que está junto a imagem do mapa ou agendando uma visita ao nosso loteamento,
-              basta entrar em contato conosco por algum dos meios no fim da página!
+              Você pode conferir nossa estrutura clicando em fotos na barra de menu acima, navegando pela
+              galeria que está junto a imagem do mapa ou agendando uma visita entrando em contato conosco,
+              por algum dos meios de contato no fim da página!
             </p>
           </div>
         </div>
