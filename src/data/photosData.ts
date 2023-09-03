@@ -7,7 +7,7 @@ export interface PhotosDataInterface {
 }
 
 export const photosShowcase1: PhotosDataInterface[] = [
-  { url: "https://i.imgur.com/eYd9c40.png" },
+  { url: "https://i.imgur.com/eYd9c40.png?42" },
   { url: "https://i.imgur.com/EMMPHmh.jpg" },
   { url: "https://i.imgur.com/0j24C94.jpg" },
   { url: "https://i.imgur.com/OG8sYb8.jpg" },
@@ -18,7 +18,7 @@ export const photosShowcase1: PhotosDataInterface[] = [
 ];
 
 export const photosShowcase2: PhotosDataInterface[] = [
-  { url: "https://i.imgur.com/plMTHL4.png" },
+  { url: "https://i.imgur.com/plMTHL4.png?1" },
   // { url: ""}
 ];
 

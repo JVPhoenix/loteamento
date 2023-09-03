@@ -36,7 +36,7 @@ export default function ProductsShowcase(props: ProductsShowcaseInterface) {
           height={7921}
           style={{ borderRadius: "8px", objectFit: "cover" }}
           src={photosData[photoIndex].url}
-          alt="Fotos do mapa e lotes disponíveis"
+          alt="Fotos e mapa dos lotes disponíveis"
           priority
         />
       </div>
