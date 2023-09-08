@@ -26,7 +26,7 @@ export const lotesData2: LotesDataInterface[] =
     {value: 4, label: 'Quadra 1 - Lote 6', price: 12485.42, size: "VARIAVEL"},
     {value: 5, label: 'Quadra 1 - Lote 7', price: 14041.93, size: "VARIAVEL"},
     {value: 6, label: 'Quadra 1 - Lote 8', price: 19728.45, size: "VARIAVEL"},
-    {value: 7, label: 'Quadra 1 - Lote 9', price: 21839.22, size: "VARIAVEL"},
+    // {value: 7, label: 'Quadra 1 - Lote 9', price: 21839.22, size: "VARIAVEL"},
     {value: 8, label: 'Quadra 1 - Lote 10', price: 19492.20, size: "VARIAVEL"},
     {value: 9, label: 'Quadra 1 - Lote 11', price: 17547.15, size: "VARIAVEL"},
 
