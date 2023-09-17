@@ -34,7 +34,7 @@ export default function ProductsSelect(props: SelectProps) {
       document.removeEventListener("keydown", escFunction, false);
       document.removeEventListener("click", clickOutside);
     };
-  }, [showOptions]);
+  }, [showOptions, clickOutside]);
 
   return (
     <div

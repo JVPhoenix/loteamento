@@ -26,7 +26,7 @@ export default function Header() {
     return () => {
       document.removeEventListener("mouseup", () => setToggleEtapas(false));
     };
-  }, []);
+  }, [setPage]);
 
   return (
     <div className="bg-black text-white font-bold mb-4 shadow-xl flex-wrap">
