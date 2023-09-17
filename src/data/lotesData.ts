@@ -45,12 +45,12 @@ export const lotesData2: LotesDataInterface[] =
     {value: 22, label: 'Quadra 3 - Lote 14 ', price: 23000.00, size: "10x30 300m²"},
     {value: 23, label: 'Quadra 3 - Lote 15 ', price: 20000.00, size: "10x30 300m²"},
 
-    {value: 24, label: 'Quadra 4 - Lote 1', price: 15332.00, size: "10x20 200m²"},
-    {value: 25, label: 'Quadra 4 - Lote 2', price: 13332.00, size: "10x20 200m²"},
-    {value: 26, label: 'Quadra 4 - Lote 3', price: 15332.00, size: "10x20 200m²"},
-    {value: 27, label: 'Quadra 4 - Lote 4', price: 15332.00, size: "10x20 200m²"},
-    {value: 28, label: 'Quadra 4 - Lote 5', price: 13332.00, size: "10x20 200m²"},
-    {value: 29, label: 'Quadra 4 - Lote 6', price: 15332.00, size: "10x20 200m²"},
+    // {value: 24, label: 'Quadra 4 - Lote 1', price: 15332.00, size: "10x20 200m²"},
+    // {value: 25, label: 'Quadra 4 - Lote 2', price: 13332.00, size: "10x20 200m²"},
+    // {value: 26, label: 'Quadra 4 - Lote 3', price: 15332.00, size: "10x20 200m²"},
+    // {value: 27, label: 'Quadra 4 - Lote 4', price: 15332.00, size: "10x20 200m²"},
+    // {value: 28, label: 'Quadra 4 - Lote 5', price: 13332.00, size: "10x20 200m²"},
+    // {value: 29, label: 'Quadra 4 - Lote 6', price: 15332.00, size: "10x20 200m²"},
 
     {value: 30, label: 'Quadra 5 - Lote 1', price: 23000.00, size: "10x30 300m²"},
     {value: 31, label: 'Quadra 5 - Lote 2', price: 20000.00, size: "10x30 300m²"},
