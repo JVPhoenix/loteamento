@@ -8,7 +8,7 @@ export type LotesDataInterface = {
 export const lotesData1: LotesDataInterface[] = 
 [
     {value: 2 , label: 'Quadra 1 - Lote 10 ', price: 27751.50, size: "34.5x30x6.5 - 450m²"},
-    {value: 3 , label: 'Quadra 1 - Lote 14 ', price: 15500.00, size: "10x30 - 300m²"},
+    // {value: 3 , label: 'Quadra 1 - Lote 14 ', price: 15500.00, size: "10x30 - 300m²"},
 
     // {value: 4 , label: 'Quadra 2 - Lote 13 ', price: 15500.00, size: "10x30 - 300m²"},
 
