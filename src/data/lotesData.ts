@@ -14,7 +14,6 @@ export const lotesData1: LotesDataInterface[] =
     {value: 3 , label: 'Quadra 3 - Lote 16 ', price: 16500.00, size: "10x30 - 300m²"},
 
     {value: 4 , label: 'Quadra 6 - Lote 6 ', price: 22509.55, size: "VARIÁVEL - 365m²"},
-    {value: 5 , label: 'Quadra 6 - Lote 12 ', price: 15914.36, size: "VARIÁVEL - 365m²"},
 ]
 
 export const lotesData2: LotesDataInterface[] =
