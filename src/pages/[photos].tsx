@@ -1,6 +1,5 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import { photosData1, photosData2, } from "@/data/photosData";
 import { HeaderSelector, PageInfos } from "@/types";
 import { Inter } from "next/font/google";
 import Head from "next/head";
@@ -16,7 +15,7 @@ export default function Images() {
     id: 0,
     queryName: "",
     title: "",
-    photosDataBase: [],
+    // photosDataBase: [],
   });
 
   useEffect(() => {
@@ -25,14 +24,14 @@ export default function Images() {
         id: HeaderSelector.Etapa1,
         queryName: query.photos,
         title: "1ª ETAPA",
-        photosDataBase: photosData1,
+        // photosDataBase: photosData1,
       });
     } else if (query.photos === "etapa2") {
       setPageInfos({
         id: HeaderSelector.Etapa2,
         queryName: query.photos,
         title: "2ª ETAPA",
-        photosDataBase: photosData2,
+        // photosDataBase: photosData2,
       });
     }
   }, [query]);
@@ -47,7 +46,7 @@ export default function Images() {
       <Header />
       <h1 className="text-white drop-shadow-titles text-center text-3xl font-bold">FOTOS - {pageInfos.title}</h1>
       <div className="flex flex-wrap gap-2 justify-center items-center p-3 m-auto">
-        {pageInfos.photosDataBase.map((value) => (
+        {/* {pageInfos.photosDataBase.map((value) => (
           <Image
             className="rounded-xl max-w-sm response:max-w-md max-h-[340px] object-cover"
             src={value.url}
@@ -56,7 +55,7 @@ export default function Images() {
             height={value.height}
             key={value.url}
           />
-        ))}
+        ))} */}
       </div>
       <Footer />
     </div>
