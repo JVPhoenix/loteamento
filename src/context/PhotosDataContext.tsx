@@ -1,0 +1,26 @@
+import { PhotosDataInterface } from "@/types";
+import React, { createContext, useContext, useState, useEffect } from "react";
+
+// contexto criado
+export const PhotosDataContext = createContext<PhotosDataInterface | null>(null);
+
+// usar o contexto criado
+export const usePhotosData = () => {
+  return useContext(PhotosDataContext);
+};
+
+// react func do context
+export function PhotosDataContextProvider(props: React.PropsWithChildren) {
+  const [photosData, setPhotosData] = useState<PhotosDataInterface | null>(null);
+
+  useEffect(() => {
+    fetch("https://loteamento-backend.vercel.app/api/photosData")
+      .then((res) => res.json())
+      .then((data: PhotosDataInterface) => {
+        setPhotosData(data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  return <PhotosDataContext.Provider value={photosData}>{props.children}</PhotosDataContext.Provider>;
+}

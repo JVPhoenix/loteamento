@@ -2,14 +2,14 @@ import Image from "next/image";
 import { useState } from "react";
 import { LeftArrow, RightArrow, SelectDot } from "./Icons";
 import { twMerge } from "tailwind-merge";
-import { PhotosDataInterface } from "@/data/photosData";
+import { InnerPhotosInterface, PhotosDataInterface } from "@/types";
 
 interface ProductsShowcaseInterface {
-  photos: PhotosDataInterface[],
+  photos: { [index: number]: InnerPhotosInterface };
 }
 
 export default function ProductsShowcase(props: ProductsShowcaseInterface) {
-  const photosData: PhotosDataInterface[] = props.photos
+  const photosData = Object.values(props.photos);
   const [photoIndex, setPhotoIndex] = useState<number>(0);
 
   const prevPhoto = () => {

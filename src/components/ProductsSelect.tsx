@@ -1,13 +1,13 @@
-import { LotesDataInterface } from "@/data/lotesData";
 import { useEffect, useRef, useState } from "react";
 import { UpArrow } from "./Icons";
 import { twMerge } from "tailwind-merge";
+import { InnerLotesInterface } from "@/types";
 
 interface SelectProps {
-  options: LotesDataInterface[];
+  options: InnerLotesInterface[];
   placeholder?: string;
-  selectedItem: LotesDataInterface | null;
-  onChange: (selection: LotesDataInterface) => void;
+  selectedItem: InnerLotesInterface | null;
+  onChange: (selection: InnerLotesInterface) => void;
 }
 
 export default function ProductsSelect(props: SelectProps) {
@@ -70,7 +70,7 @@ export default function ProductsSelect(props: SelectProps) {
         )}
       >
         {props.options
-          .filter((option) => {
+          ?.filter((option) => {
             if (option.label.toLocaleLowerCase().indexOf(searchItem.toLocaleLowerCase()) >= 0) {
               return option;
             } else if (searchItem === "") {
@@ -81,7 +81,7 @@ export default function ProductsSelect(props: SelectProps) {
             <div
               onClick={() => {
                 props.onChange(option);
-                setSearchItem("")
+                setSearchItem("");
               }}
               key={option.value}
               className={twMerge(

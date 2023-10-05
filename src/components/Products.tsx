@@ -1,13 +1,15 @@
-import { lotesData1, lotesData2 } from "@/data/lotesData";
+import { useLotesData } from "@/context/LotesDataContext";
 import ProductsPhases from "./ProductsPhases";
-import { photosShowcase1, photosShowcase2 } from "@/data/photosData";
+import { usePhotosData } from "@/context/PhotosDataContext";
 
 export default function Products() {
+  const lotesData = useLotesData();
+  const photosData = usePhotosData();
 
   return (
     <div className="flex flex-col gap-4 text-gray1 font-medium text-center items-center mb-8">
-      <ProductsPhases data={lotesData2} showcase={photosShowcase2} phase={2}/>
-      <ProductsPhases data={lotesData1} showcase={photosShowcase1} phase={1}/>
+      {lotesData && <ProductsPhases data={lotesData && lotesData[1]} showcase={photosData?.showcase[1]} phase={2} />}
+      {lotesData && <ProductsPhases data={lotesData[0]} showcase={photosData?.showcase[0]} phase={1} />}
     </div>
   );
 }

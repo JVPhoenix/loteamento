@@ -1,4 +1,3 @@
-import { PhotosDataInterface } from "@/data/photosData";
 import { Dispatch, SetStateAction } from "react";
 
 export enum HeaderSelector {
@@ -18,5 +17,34 @@ export interface PageInfos {
   id: number;
   queryName: string | string[] | undefined;
   title: string;
-  photosDataBase: PhotosDataInterface[],
-};
+  // photosDataBase: PhotosDataInterface[],
+}
+
+export interface InnerLotesInterface {
+  value: number;
+  label: string;
+  price: number;
+  size: string;
+}
+export interface InnerPhotosInterface {
+  url: string;
+  width?: number;
+  height?: number;
+}
+
+export interface LotesDataInterface {
+  [index: number]: InnerLotesInterface[];
+}
+
+export interface PhotosDataInterface {
+  showcase: {
+    [index: number]: {
+      [index: number]: InnerPhotosInterface;
+    };
+  };
+  photos: {
+    [index: number]: {
+      [index: number]: InnerPhotosInterface;
+    };
+  };
+}

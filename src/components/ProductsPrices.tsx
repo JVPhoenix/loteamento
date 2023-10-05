@@ -1,7 +1,7 @@
-import { LotesDataInterface } from "@/data/lotesData";
+import { InnerLotesInterface } from "@/types";
 
 interface ProductsPricesInterface {
-  selectedItem: LotesDataInterface | null;
+  selectedItem: InnerLotesInterface | null;
   phase: number,
 }
 

@@ -52,7 +52,7 @@ export default function Header() {
               </Link>
             )}
 
-            <div className="inline-block z-10">
+            {/* <div className="inline-block z-10">
               <button
                 className={twMerge(
                   "cursor-pointer ease-in-out duration-200 hover:scale-110",
@@ -92,7 +92,7 @@ export default function Header() {
                   </Link>
                 )}
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

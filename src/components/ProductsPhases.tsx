@@ -1,33 +1,33 @@
-import { LotesDataInterface, lotesData1 } from "@/data/lotesData";
-import { PhotosDataInterface, photosShowcase1 } from "@/data/photosData";
 import { useState } from "react";
-import ProductsShowcase from "./ProductsShowcase";
 import ProductsSelect from "./ProductsSelect";
 import ProductsPrices from "./ProductsPrices";
+import { InnerLotesInterface, InnerPhotosInterface, LotesDataInterface } from "@/types";
+import ProductsShowcase from "./ProductsShowcase";
 
 interface ProductsPhaseInterface {
-  data: LotesDataInterface[];
-  showcase: PhotosDataInterface[];
+  data: InnerLotesInterface[];
+  showcase: { [index: number]: InnerPhotosInterface } | undefined;
   phase: number;
 }
 
 export default function ProductsPhases(props: ProductsPhaseInterface) {
-  const [selectedItem, setSelectedItem] = useState<LotesDataInterface | null>(null);
+  const [selectedItem, setSelectedItem] = useState<InnerLotesInterface | null>(null);
 
   return (
     <div className="flex flex-col gap-1 text-gray1 font-medium text-center items-center">
       <h1 className="text-white drop-shadow-titles text-center text-3xl font-bold">
         LOTES DISPONÍVEIS - {props.phase}ª ETAPA
       </h1>
+      {props.showcase && <ProductsShowcase photos={props.showcase} />}
 
-      <ProductsShowcase photos={props.showcase} />
-
-      <ProductsSelect
-        options={props.data}
-        placeholder={"DIGITE OU SELECIONE UM LOTE"}
-        selectedItem={selectedItem}
-        onChange={(selection: LotesDataInterface) => setSelectedItem(selection)}
-      />
+      {props.data && (
+        <ProductsSelect
+          options={props.data}
+          placeholder={"DIGITE OU SELECIONE UM LOTE"}
+          selectedItem={selectedItem}
+          onChange={(selection: InnerLotesInterface) => setSelectedItem(selection)}
+        />
+      )}
 
       <ProductsPrices selectedItem={selectedItem} phase={props.phase} />
 
