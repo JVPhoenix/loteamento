@@ -15,9 +15,9 @@ export type PageType = {
 
 export interface PageInfos {
   id: number;
-  queryName: string | string[] | undefined;
+  index: number;
+  queryName: string | undefined;
   title: string;
-  // photosDataBase: PhotosDataInterface[],
 }
 
 export interface InnerLotesInterface {
