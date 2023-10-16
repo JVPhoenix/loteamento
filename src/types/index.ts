@@ -22,8 +22,6 @@ export type PageType = {
 
 export type ClientsDataContextType = {
   clientsData: ClientsDataInterface[] | null;
-  clientSearch: ClientPageInterface;
-  setClientSearch: Dispatch<SetStateAction<ClientPageInterface>>;
 };
 
 export interface PageInfos {
@@ -79,9 +77,4 @@ export interface ClientsDataInterface {
   lastPaid: string;
   obs?: string;
   standard: boolean;
-}
-
-export interface ClientPageInterface {
-  name: string;
-  cpf: string;
 }

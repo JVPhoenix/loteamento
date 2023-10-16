@@ -1,4 +1,4 @@
-import { ClientPageInterface, ClientsDataContextType, ClientsDataInterface } from "@/types";
+import { ClientsDataContextType, ClientsDataInterface } from "@/types";
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 const clientsDataFirstInfo = [{
@@ -17,16 +17,10 @@ const clientsDataFirstInfo = [{
   lastPaid: "",
   standard: true,
 }];
-const firstClientSearch = {
-  name: "",
-  cpf: "",
-};
 
 // contexto criado
 export const ClientsDataContext = createContext<ClientsDataContextType>({
   clientsData: clientsDataFirstInfo,
-  clientSearch: firstClientSearch,
-  setClientSearch: () => undefined,
 });
 
 // usar o contexto criado
@@ -37,7 +31,7 @@ export const useClientsData = () => {
 // react func do context
 export function ClientsDataContextProvider(props: React.PropsWithChildren) {
   const [clientsData, setClientsData] = useState<ClientsDataInterface[] | null>(null);
-  const [clientSearch, setClientSearch] = useState<ClientPageInterface>({ name: "", cpf: "" });
+  const [clientSearch, setClientSearch] = useState<string>("");
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_CLIENTS_API_LINK}`)
@@ -49,7 +43,7 @@ export function ClientsDataContextProvider(props: React.PropsWithChildren) {
   }, []);
 
   return (
-    <ClientsDataContext.Provider value={{ clientsData, clientSearch, setClientSearch }}>
+    <ClientsDataContext.Provider value={{ clientsData }}>
       {props.children}
     </ClientsDataContext.Provider>
   );

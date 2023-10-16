@@ -1,6 +1,5 @@
 import { ClientsDataInterface, PageSelector, PlansSelector } from "@/types";
 import { twMerge } from "tailwind-merge";
-import { useClientsData } from "@/context/ClientsDataContext";
 import {
   AdressIcon,
   BirthIcon,
@@ -27,11 +26,10 @@ interface ClientPageInfoInterface {
   data: ClientsDataInterface;
   setSelectedOption: Dispatch<SetStateAction<string>>;
   setSearchError: Dispatch<SetStateAction<boolean>>;
+  setCpf: Dispatch<SetStateAction<string>>;
 }
 
 export default function ClientPageInfo(props: ClientPageInfoInterface) {
-  const { setClientSearch } = useClientsData();
-
   const priceCalc = (value: number) => {
     if (value === PlansSelector.ContractPrice) {
       return (props.data.price / value + props.data.price * 0.1).toLocaleString("pt-br", {
@@ -71,10 +69,7 @@ export default function ClientPageInfo(props: ClientPageInfoInterface) {
   };
 
   const handleResetOptions = () => {
-    setClientSearch({
-      name: "",
-      cpf: "",
-    });
+    props.setCpf("");
     props.setSelectedOption("");
     props.setSearchError(false);
   };

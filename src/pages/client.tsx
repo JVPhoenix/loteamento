@@ -9,25 +9,17 @@ import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 export default function Client() {
-  const { clientsData, clientSearch, setClientSearch } = useClientsData();
+  const { clientsData } = useClientsData();
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [searchError, setSearchError] = useState<boolean>(false);
+  const [cpf, setCpf] = useState<string>("");
 
   const searchClient =
     clientsData &&
-    // clientSearch.cpf &&
     Object.values(clientsData)
       .filter((client: ClientsDataInterface) => {
-        const clientNameMask = client.name
-          .toLocaleLowerCase()
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .replace(/\s/g, "");
-
-        if (clientNameMask === clientSearch.name) {
-          if (client.cpf.indexOf(clientSearch.cpf) >= 0) {
-            return client.cpf;
-          }
+        if (cpf.indexOf(client.cpf) >= 0) {
+          return client.cpf;
         }
       })
       .filter((client) => {
@@ -41,6 +33,8 @@ export default function Client() {
       setSearchError(false);
     }
   };
+
+  console.log(searchClient);
 
   return (
     <>
@@ -56,9 +50,12 @@ export default function Client() {
               setSelectedOption={setSelectedOption}
               data={searchClient[0]}
               setSearchError={setSearchError}
+              setCpf={setCpf}
             />
           ) : (
-            searchClient?.length === 0 && <ClientPageLogin searchError={searchError} handleError={handleError} />
+            searchClient?.length === 0 && (
+              <ClientPageLogin searchError={searchError} handleError={handleError} cpf={cpf} setCpf={setCpf} />
+            )
           )}
 
           {searchClient?.length && searchClient?.length >= 2
@@ -70,7 +67,7 @@ export default function Client() {
                       "border border-solid rounded-tr-lg rounded-bl-lg rounded-tl-2xl rounded-br-2xl",
                       "hover:text-yellow1 hover:scale-110 active:scale-90 hover:border-yellow1 border-white text-white cursor-pointer"
                     )}
-                    key={clientContracts.contractNumber}
+                    key={clientContracts.lote}
                     onClick={() => setSelectedOption(clientContracts.contractNumber)}
                   >
                     <h1>{clientContracts.lote}</h1>
