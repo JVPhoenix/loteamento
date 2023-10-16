@@ -3,6 +3,7 @@ import Contacts from "@/components/Contacts";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Products from "@/components/Products";
+import { PageSelector } from "@/types";
 import { Inter } from "next/font/google";
 import Head from "next/head";
 import { twMerge } from "tailwind-merge";
@@ -15,10 +16,10 @@ export default function Home() {
       <Head>
         <title> Loteamento R. Martins </title>
       </Head>
-      <Header />
+      <Header page={PageSelector.HomePage} />
       <About />
       <Products />
-      <Contacts />
+      <Contacts page={PageSelector.HomePage} />
       <Footer />
     </main>
   );

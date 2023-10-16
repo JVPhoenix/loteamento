@@ -1,0 +1,263 @@
+import { ClientsDataInterface, PageSelector, PlansSelector } from "@/types";
+import { twMerge } from "tailwind-merge";
+import { useClientsData } from "@/context/ClientsDataContext";
+import {
+  AdressIcon,
+  BirthIcon,
+  CPFIcon,
+  ContractIcon,
+  DebtBalanceIcon,
+  EntranceIcon,
+  ExpireIcon,
+  LastPaidIcon,
+  DimensionIcon,
+  NameIcon,
+  PaidIcon,
+  LoteIcon,
+  StageIcon,
+  ValueIcon,
+  PlanIcon,
+  PhoneIcon,
+  ObsIcon,
+} from "./Icons";
+import { Dispatch, SetStateAction } from "react";
+import Contacts from "./Contacts";
+
+interface ClientPageInfoInterface {
+  data: ClientsDataInterface;
+  setSelectedOption: Dispatch<SetStateAction<string>>;
+  setSearchError: Dispatch<SetStateAction<boolean>>;
+}
+
+export default function ClientPageInfo(props: ClientPageInfoInterface) {
+  const { setClientSearch } = useClientsData();
+
+  const priceCalc = (value: number) => {
+    if (value === PlansSelector.ContractPrice) {
+      return (props.data.price / value + props.data.price * 0.1).toLocaleString("pt-br", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+    } else if (value === PlansSelector.Debt) {
+      return (
+        props.data.price -
+        (paidParcels(props.data.startDate, props.data.lastPaid) * props.data.price) / props.data.plan
+      ).toLocaleString("pt-br", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+    } else {
+      return (props.data.price / value).toLocaleString("pt-br", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+    }
+  };
+
+  const paidParcels = (startDate: string, lastPaid: string) => {
+    const start = new Date(startDate.split("-").reverse().join("-"));
+    const last = new Date(lastPaid.split("-").reverse().join("-"));
+    return last.getMonth() - start.getMonth() + 12 * (last.getFullYear() - start.getFullYear());
+  };
+
+  const expiredCheck = (lastPaid: string, startDate: string) => {
+    const today = new Date();
+    const expireDate = new Date(startDate.split("-").reverse().join("-"));
+
+    expireDate.setMonth(expireDate.getMonth() + paidParcels(startDate, lastPaid) + 1); // set 1 moth later (30 days)
+    expireDate.setDate(expireDate.getDate() + 1); // set +1 day (to set the same day every month)
+
+    return today < expireDate;
+  };
+
+  const handleResetOptions = () => {
+    setClientSearch({
+      name: "",
+      cpf: "",
+    });
+    props.setSelectedOption("");
+    props.setSearchError(false);
+  };
+
+  return (
+    <>
+      <div className="flex flex-col w-full m-auto items-center">
+        <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold mb-2 select-none">
+          USUÁRIO ENCONTRADO
+        </h1>
+        {!props.data.standard ? (
+          <div className="flex flex-col justify-center items-center m-5">
+            <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold mb-2 select-none">
+              CONTRATO ESPECIAL
+            </h1>
+            <h1>
+              O contrato do Sr(a) <b>{props.data.name}</b> é do tipo <b>ESPECIAL</b>, e possui algumas variâncias.
+            </h1>
+            <h1>Por isso só pode ser consultado mediante contato direto com algum dos envolvidos com o Loteamento!</h1>
+          </div>
+        ) : (
+          <>
+            <div className="flex mb-4 px-3 response:p-0">
+              <div className="flex flex-col response:gap-0">
+                <NameIcon className="" width={50} fill="none" stroke="white" />
+                <CPFIcon className="" width={50} fill="none" stroke="white" />
+                <BirthIcon className="" width={50} fill="none" stroke="white" />
+                <AdressIcon className="" width={50} fill="none" stroke="white" />
+                <PhoneIcon className="" width={50} fill="none" stroke="white" />
+              </div>
+              <div className="flex flex-col pt-3 w-full gap-5 response:py-3 response:justify-between">
+                <h1>
+                  <b>Nome: </b> {props.data.name}
+                </h1>
+                <h1>
+                  <b>CPF: </b> {props.data.cpf}
+                </h1>
+                <h1>
+                  <b>Data de Nascimento: </b> {props.data.birth}
+                </h1>
+                <h1 className="leading-none">
+                  <b>Endereço: </b> {props.data.adress}
+                </h1>
+                <h1>
+                  <b>Telefone: </b> {props.data.phone}
+                </h1>
+              </div>
+            </div>
+            <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold mb-2 select-none">
+              CONTRATO
+            </h1>
+            <div className="flex flex-col w-full items-center gap-2 px-8 pb-3 response:px-0">
+              <div className="flex items-center response:p-0">
+                <ExpireIcon
+                  className={twMerge(
+                    "fill-red-500",
+                    expiredCheck(props.data.lastPaid, props.data.startDate) && "fill-blue-300",
+                    priceCalc(PlansSelector.Debt) === "0,00" && "fill-green-300",
+                    props.data.plan === 0 && "fill-green-300"
+                  )}
+                  width={50}
+                  fill=""
+                  stroke="none"
+                />
+                <h1
+                  className={twMerge(
+                    "text-red-500 leading-none",
+                    expiredCheck(props.data.lastPaid, props.data.startDate) && "text-blue-300",
+                    priceCalc(PlansSelector.Debt) === "0,00" && "text-green-300",
+                    props.data.plan === 0 && "text-green-300"
+                  )}
+                >
+                  <b>Status: </b>
+                  {priceCalc(PlansSelector.Debt) === "0,00" || props.data.plan === 0
+                    ? "QUITADO"
+                    : expiredCheck(props.data.lastPaid, props.data.startDate)
+                    ? "PAGAMENTO EM DIAS - REGULAR"
+                    : "PAGAMENTO VENCIDO - ATRASADO"}
+                </h1>
+              </div>
+
+              {props.data.obs && (
+                <div className="flex gap-2 text-yellow-400 leading-none">
+                  <ObsIcon className="" width={50} fill="rgba(250, 204, 21)" stroke="none" />
+                  <h1 className="text-justify max-w-md">
+                    <b>Obs.: </b>
+                    {props.data.obs}
+                  </h1>
+                </div>
+              )}
+            </div>
+
+            <div
+              className={twMerge(
+                "flex flex-col justify-evenly items-center mb-4 w-80",
+                "response:flex-row response:gap-4 response:w-full"
+              )}
+            >
+              <div className="flex gap-1">
+                <div className="flex flex-col">
+                  <ContractIcon className="" width={50} fill="white" stroke="none" />
+                  <StageIcon className="" width={50} fill="none" stroke="white" />
+                  <LoteIcon className="" width={50} fill="white" stroke="none" />
+                  <DimensionIcon className="" width={50} fill="white" stroke="none" />
+                  <PlanIcon className="" width={50} fill="white" stroke="none" plan={props.data.plan} />
+                </div>
+                <div className="flex flex-col py-3 w-full justify-between">
+                  <h1>
+                    <b>Contrato: </b> {props.data.contractNumber}
+                  </h1>
+                  <h1>
+                    <b>Etapa: </b> {props.data.phase}ª
+                  </h1>
+                  <h1>
+                    <b>Lote: </b> {props.data.lote}
+                  </h1>
+                  <h1 className="leading-none">
+                    <b>Dimensão: </b>
+                    {props.data.dimension}
+                  </h1>
+                  <h1>
+                    <b>Plano: </b>
+                    {props.data.plan === 0 ? "A Vista" : `${props.data.plan}x de R$ ${priceCalc(props.data.plan)}`}
+                  </h1>
+                </div>
+              </div>
+
+              <div className="flex gap-1">
+                <div className="flex flex-col">
+                  <ValueIcon className="" width={48} fill="white" stroke="none" />
+                  <DebtBalanceIcon className="" width={50} fill="none" stroke="white" />
+                  <EntranceIcon className="" width={50} fill="none" stroke="white" />
+                  <LastPaidIcon className="" width={50} fill="white" stroke="none" />
+                  <PaidIcon className="" width={50} fill="none" stroke="white" />
+                </div>
+                <div className="flex flex-col py-3 w-full justify-between">
+                  <h1>
+                    <b>Valor Total: </b> R${" "}
+                    {props.data.entrance
+                      ? (props.data.price + props.data.entrance).toLocaleString("pt-br", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })
+                      : priceCalc(PlansSelector.ContractPrice)}
+                  </h1>
+                  <h1>
+                    <b>Saldo Devedor: </b>R$ {props.data.plan === 0 ? 0 : priceCalc(PlansSelector.Debt)}
+                  </h1>
+                  <h1>
+                    <b>Entrada: </b>R${" "}
+                    {props.data.entrance
+                      ? props.data.entrance.toLocaleString("pt-br", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })
+                      : props.data.plan === 0
+                      ? 0
+                      : priceCalc(PlansSelector.Entrance)}
+                  </h1>
+                  <h1>
+                    <b>Nº de Parcelas Pagas: </b> {paidParcels(props.data.startDate, props.data.lastPaid)}
+                  </h1>
+                  <h1>
+                    <b>Ultima Parcela Paga: </b> {props.data.lastPaid}
+                  </h1>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+
+        <div
+          className={twMerge(
+            "ease-in-out duration-200 mb-8 w-auto p-4 select-none active:duration-100 cursor-not-allowed",
+            "border border-solid rounded-tr-lg rounded-bl-lg rounded-tl-2xl rounded-br-2xl",
+            "hover:text-yellow1 hover:scale-110 active:scale-90 hover:border-yellow1 border-white text-white cursor-pointer"
+          )}
+          onClick={() => handleResetOptions()}
+        >
+          <h1> FAÇA UMA NOVA BUSCA </h1>
+        </div>
+        {props.data.standard && <Contacts page={PageSelector.Client} />}
+      </div>
+    </>
+  );
+}

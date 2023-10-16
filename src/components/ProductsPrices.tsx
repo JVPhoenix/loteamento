@@ -6,9 +6,9 @@ interface ProductsPricesInterface {
 }
 
 export default function ProductsPrices(props: ProductsPricesInterface) {
-  const priceCalc = (quota: number) => {
+  const priceCalc = (plan: number) => {
     if (props.selectedItem) {
-      return (props.selectedItem?.price / quota).toLocaleString("pt-br", {
+      return (props.selectedItem?.price / plan).toLocaleString("pt-br", {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       });

@@ -1,36 +1,27 @@
-import { usePage } from "@/context/PageContext";
-import { HeaderSelector } from "@/types";
+import { PageSelector } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
-export default function Header() {
-  const [toggleEtapas, setToggleEtapas] = useState(false);
-  const { page, setPage } = usePage();
-  const { query } = useRouter();
+interface HeaderInterface {
+  page: number;
+}
 
-  useEffect(() => {
-    if (query.photos === "etapa1") {
-      setPage(HeaderSelector.Etapa1);
-    } else if (query.photos === "etapa2") {
-      setPage(HeaderSelector.Etapa2);
-    } else {
-      setPage(HeaderSelector.HomePage)
-    }
-  }, [query]);
+export default function Header(props: HeaderInterface) {
+  const [toggleEtapas, setToggleEtapas] = useState(false);
 
   useEffect(() => {
     document.addEventListener("mouseup", () => setToggleEtapas(false));
     return () => {
       document.removeEventListener("mouseup", () => setToggleEtapas(false));
     };
-  }, [setPage]);
+  }, [setToggleEtapas]);
 
   return (
     <div className="bg-black text-white font-bold mb-4 shadow-xl flex-wrap">
-      <div className="flex min-w-screen gap-5">
+      <div className="flex min-w-screen  response:gap-5">
         <Image
           className="p-3 w-[200px] response:w-[250px]"
           src="/logoLoteamento.png"
@@ -39,8 +30,8 @@ export default function Header() {
           alt="Logo do Site"
         />
         <div className="flex m-2">
-          <div className={twMerge("flex gap-4 justify-center align-middle items-center")}>
-            {page !== HeaderSelector.HomePage && (
+          <div className={twMerge("flex gap-5 justify-center align-middle items-center pr-5", "response:pr-0")}>
+            {props.page !== PageSelector.HomePage && (
               <Link
                 className={twMerge(
                   "ease-in-out duration-200 hover:text-yellow1 hover:scale-110",
@@ -69,7 +60,7 @@ export default function Header() {
                   toggleEtapas && "flex flex-col"
                 )}
               >
-                {page !== HeaderSelector.Etapa1 && (
+                {props.page !== PageSelector.Etapa1 && (
                   <Link
                     className={twMerge(
                       "ease-in-out duration-200 hover:text-yellow1",
@@ -80,7 +71,7 @@ export default function Header() {
                     ETAPA 1
                   </Link>
                 )}
-                {page !== HeaderSelector.Etapa2 && (
+                {props.page !== PageSelector.Etapa2 && (
                   <Link
                     className={twMerge(
                       "ease-in-out duration-200 hover:text-yellow1",
@@ -93,6 +84,17 @@ export default function Header() {
                 )}
               </div>
             </div>
+            {props.page !== PageSelector.Client && (
+              <Link
+                className={twMerge(
+                  "ease-in-out duration-200 hover:text-yellow1 hover:scale-110",
+                  "active:scale-90 active:duration-100"
+                )}
+                href="/client"
+              >
+                <h3> ÁREA DO CLIENTE </h3>
+              </Link>
+            )}
           </div>
         </div>
       </div>

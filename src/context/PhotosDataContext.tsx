@@ -14,7 +14,7 @@ export function PhotosDataContextProvider(props: React.PropsWithChildren) {
   const [photosData, setPhotosData] = useState<PhotosDataInterface | null>(null);
 
   useEffect(() => {
-    fetch("https://loteamento-backend.vercel.app/api/photosData")
+    fetch(`${process.env.NEXT_PUBLIC_PHOTOS_API_LINK}`)
       .then((res) => res.json())
       .then((data: PhotosDataInterface) => {
         setPhotosData(data);

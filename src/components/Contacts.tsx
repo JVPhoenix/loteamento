@@ -1,11 +1,22 @@
 import { twMerge } from "tailwind-merge";
 import { InstagramIcon, WhatsappIcon, EmailIcon } from "./Icons";
+import { PageSelector } from "@/types";
 
-export default function Contacts() {
+interface ContactsInterface {
+  page: number;
+}
+
+export default function Contacts(props: ContactsInterface) {
   return (
     <div className="flex flex-col items-center text-center align-middle mb-4">
       <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold mb-4">
-        ENTRE EM CONTATO E RESERVE SEU LOTE
+        {props.page === PageSelector.Client ? (
+          <>
+            ALGUMA INFORMAÇÃO ESTÁ ERRADA? <br /> ENTRE EM CONTATO CONOSCO E NOS INFORME!
+          </>
+        ) : (
+          <span> ENTRE EM CONTATO E RESERVE SEU LOTE! </span>
+        )}
       </h1>
       <div className="flex gap-2 response:gap-5 font-bold text-slate-200 p-6">
         <div

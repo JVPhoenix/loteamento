@@ -14,7 +14,7 @@ export function LotesDataContextProvider(props: React.PropsWithChildren) {
   const [lotesData, setLotesData] = useState<LotesDataInterface | null>(null);
 
   useEffect(() => {
-    fetch("https://loteamento-backend.vercel.app/api/lotesData")
+    fetch(`${process.env.NEXT_PUBLIC_LOTES_API_LINK}`)
       .then((res) => res.json())
       .then((data: LotesDataInterface) => {
         setLotesData(data);
