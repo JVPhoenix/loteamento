@@ -834,3 +834,11 @@ export const DebtBalanceIcon = (props: MainIcons) => {
     </svg>
   );
 };
+
+export const MenuIcon = (props: MainIcons) => {
+  return (
+    <svg viewBox="0 0 24 24" className={props.className} width={props.width} fill={props.fill} stroke={props.stroke}>
+      <path d="M4 6H20M4 12H20M4 18H20" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
+    </svg>
+  );
+};

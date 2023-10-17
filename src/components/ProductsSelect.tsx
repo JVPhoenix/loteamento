@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { UpArrow } from "./Icons";
 import { twMerge } from "tailwind-merge";
 import { InnerLotesInterface } from "@/types";
@@ -13,26 +13,32 @@ interface SelectProps {
 export default function ProductsSelect(props: SelectProps) {
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const [searchItem, setSearchItem] = useState<string>("");
-  const divRef = useRef<HTMLDivElement>(null);
-
-  const escFunction = (event: KeyboardEvent) => {
-    if (event.key === "Escape") {
-      setShowOptions(false);
-    }
-  };
-  const clickOutside = (event: any) => {
-    if (showOptions && !divRef.current?.contains(event.target)) {
-      setShowOptions(false);
-    }
-  };
+  const selectRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    document.addEventListener("keydown", escFunction, false);
-    document.addEventListener("click", clickOutside);
+    const ref = selectRef.current;
+    document.addEventListener("keydown", (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setShowOptions(false);
+      }
+    });
+    document.addEventListener("click", ({ target }: MouseEvent): void => {
+      if (!ref?.contains(target as Node)) {
+        setShowOptions(false);
+      }
+    });
 
     return () => {
-      document.removeEventListener("keydown", escFunction, false);
-      document.removeEventListener("click", clickOutside);
+      document.removeEventListener("keydown", (event: KeyboardEvent) => {
+        if (event.key === "Escape") {
+          setShowOptions(false);
+        }
+      });
+      document.removeEventListener("click", ({ target }: MouseEvent): void => {
+        if (!ref?.contains(target as Node)) {
+          setShowOptions(false);
+        }
+      });
     };
   }, [showOptions]);
 
@@ -44,7 +50,7 @@ export default function ProductsSelect(props: SelectProps) {
         showOptions && "scale-105"
       )}
       onClick={() => setShowOptions((prevShowOptions) => !prevShowOptions)}
-      ref={divRef}
+      ref={selectRef}
     >
       <div
         className={twMerge(

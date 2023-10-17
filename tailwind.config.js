@@ -25,7 +25,8 @@ module.exports = {
         ],
       },
       screens: {
-        response: "1366px",
+        response: "1080px",
+        response1: "1366px"
       },
       animation: {
         shake: "shake 0.82s cubic-bezier(.36,.07,.19,.97) both",

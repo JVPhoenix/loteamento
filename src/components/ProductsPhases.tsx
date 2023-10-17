@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ProductsSelect from "./ProductsSelect";
 import ProductsPrices from "./ProductsPrices";
-import { InnerLotesInterface, InnerPhotosInterface, LotesDataInterface } from "@/types";
+import { InnerLotesInterface, InnerPhotosInterface } from "@/types";
 import ProductsShowcase from "./ProductsShowcase";
 
 interface ProductsPhaseInterface {
