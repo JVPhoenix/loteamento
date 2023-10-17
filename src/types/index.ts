@@ -12,6 +12,8 @@ export enum PageSelector {
 export enum PlansSelector {
   ContractPrice = 1,
   Debt = 2,
+  IsLate = 3,
+  MontsLate = 4,
   Entrance = 10,
 }
 
