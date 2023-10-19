@@ -1,18 +1,19 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { CPFIcon } from "./Icons";
+import { CPFIcon, PassowrdIcon } from "./Icons";
+import { useAdminsData } from "@/context/AdminsDataContext";
 
-interface ClientPageLoginInferface {
+interface AdminPageLoginInferface {
   searchError: boolean;
   handleError: () => void;
-  cpf: string;
-  setCpf: Dispatch<SetStateAction<string>>;
 }
 
-export default function ClientPageLogin(props: ClientPageLoginInferface) {
-  const [checkCpf, setCheckCpf] = useState<boolean>(true);
+export default function AdminPageLogin(props: AdminPageLoginInferface) {
+  const { setAdminLogin } = useAdminsData();
   const [effectOn, setEffectOn] = useState<boolean>(false);
+  const [checkCpf, setCheckCpf] = useState<boolean>(true);
   const [cpfMask, setCpfMask] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const handleCpfMask = (value: string) => {
     value = value
@@ -31,16 +32,17 @@ export default function ClientPageLogin(props: ClientPageLoginInferface) {
   };
 
   const handleSubmit = () => {
-    props.setCpf(cpfMask);
+    setAdminLogin({
+      cpf: cpfMask,
+      password: password,
+    });
     props.handleError();
     setEffectOn(true);
   };
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold select-none">
-        PROCURAR DADOS DO CLIENTE
-      </h1>
+      <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold select-none">ADMINISTRAÇÃO</h1>
       <div
         className={twMerge(
           "flex flex-col items-center gap-3 rounded-lg border-2 p-5 w-auto",
@@ -51,6 +53,7 @@ export default function ClientPageLogin(props: ClientPageLoginInferface) {
         <div className="flex response:gap-2">
           <div className="flex flex-col response:gap-3 gap-2 mt-1">
             <CPFIcon className="" width={50} fill="none" stroke="white" />
+            <PassowrdIcon className="" width={50} fill="white" stroke="none" />
           </div>
           <div className="flex flex-col py-1 gap-2 whitespace-nowrap response:w-96">
             <input
@@ -60,6 +63,14 @@ export default function ClientPageLogin(props: ClientPageLoginInferface) {
               value={cpfMask}
               onChange={(e) => handleCpfMask(e.target.value)}
             />
+            <div className="flex flex-col py-1 gap-2 whitespace-nowrap response:w-96">
+              <input
+                type="password"
+                placeholder="Digite sua Senha"
+                className={twMerge("rounded-lg text-black p-2 border-4 border-white")}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
           </div>
         </div>
 
@@ -72,7 +83,7 @@ export default function ClientPageLogin(props: ClientPageLoginInferface) {
           )}
           onClick={() => checkCpf && handleSubmit()}
         >
-          <h1> PROCURAR USUÁRIO </h1>
+          <h1> ENTRAR </h1>
         </div>
       </div>
       <h1
@@ -83,7 +94,7 @@ export default function ClientPageLogin(props: ClientPageLoginInferface) {
           effectOn && "animate-shake text-red-500"
         )}
       >
-        {props.searchError ? "CPF inválido" : "Insira seu CPF"}
+        {props.searchError ? "CPF ou SENHA inválidos!" : "Insira seu CPF e sua SENHA"}
       </h1>
     </div>
   );

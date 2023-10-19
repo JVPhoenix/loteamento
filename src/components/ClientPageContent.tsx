@@ -19,19 +19,15 @@ import {
   PhoneIcon,
   ObsIcon,
 } from "./Icons";
-import { Dispatch, SetStateAction, useState } from "react";
 import Contacts from "./Contacts";
 
 interface ClientPageInfoInterface {
   data: ClientsDataInterface;
-  setSelectedOption: Dispatch<SetStateAction<string>>;
-  setSearchError: Dispatch<SetStateAction<boolean>>;
-  setCpf: Dispatch<SetStateAction<string>>;
+  page: PageSelector;
+  handleResetOptions?: () => void;
 }
 
-export default function ClientPageInfo(props: ClientPageInfoInterface) {
-  const [debtParcels, setDebtParcels] = useState<number>(0);
-
+export default function ClientPageContent(props: ClientPageInfoInterface) {
   const priceCalc = (value: number) => {
     if (value === PlansSelector.ContractPrice) {
       return (props.data.price / value + props.data.price * 0.1).toLocaleString("pt-br", {
@@ -74,19 +70,13 @@ export default function ClientPageInfo(props: ClientPageInfoInterface) {
     }
   };
 
-  const handleResetOptions = () => {
-    props.setCpf("");
-    props.setSelectedOption("");
-    props.setSearchError(false);
-  };
-
   return (
     <>
-      <div className="flex flex-col w-full m-auto items-center">
-        <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold mb-2 select-none">
+      <div className="flex flex-col w-full m-auto pt-5 items-center">
+        <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold mb-5 select-none">
           USUÁRIO ENCONTRADO
         </h1>
-        {!props.data.standard ? (
+        {!props.data.standard && props.page !== PageSelector.Admin ? (
           <div className="flex flex-col justify-center items-center m-5">
             <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold mb-2 select-none">
               CONTRATO ESPECIAL
@@ -97,9 +87,9 @@ export default function ClientPageInfo(props: ClientPageInfoInterface) {
             <h1>Por isso só pode ser consultado mediante contato direto com algum dos envolvidos com o Loteamento!</h1>
           </div>
         ) : (
-          <>
-            <div className="flex flex-col mb-4 response:gap-1 w-96">
-              <div className="flex leading-tight items-center">
+          <div className="w-full px-2 response:p-0">
+            <div className="flex flex-col pb-4 response:gap-1">
+              <div className="flex leading-tight items-center gap-1">
                 <div>
                   <NameIcon className="" width={50} fill="none" stroke="white" />
                 </div>
@@ -108,7 +98,7 @@ export default function ClientPageInfo(props: ClientPageInfoInterface) {
                   {props.data.name}
                 </h1>
               </div>
-              <div className="flex leading-tight items-center">
+              <div className="flex leading-tight items-center gap-1">
                 <div>
                   <CPFIcon className="" width={50} fill="none" stroke="white" />
                 </div>
@@ -117,7 +107,7 @@ export default function ClientPageInfo(props: ClientPageInfoInterface) {
                   {props.data.cpf}
                 </h1>
               </div>
-              <div className="flex leading-tight items-center">
+              <div className="flex leading-tight items-center gap-1">
                 <div>
                   <BirthIcon className="" width={50} fill="none" stroke="white" />
                 </div>
@@ -126,16 +116,16 @@ export default function ClientPageInfo(props: ClientPageInfoInterface) {
                   {props.data.birth}
                 </h1>
               </div>
-              <div className="flex leading-tight items-center">
+              <div className="flex leading-tight items-center gap-1">
                 <div>
                   <AdressIcon className="" width={50} fill="none" stroke="white" />
                 </div>
-                <h1>
+                <h1 className="response:w-96">
                   <b>Endereço: </b>
                   {props.data.adress}
                 </h1>
               </div>
-              <div className="flex leading-tight items-center">
+              <div className="flex leading-tight items-center gap-1">
                 <div>
                   <PhoneIcon className="" width={50} fill="none" stroke="white" />
                 </div>
@@ -145,10 +135,11 @@ export default function ClientPageInfo(props: ClientPageInfoInterface) {
                 </h1>
               </div>
             </div>
-            <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold mb-2 select-none">
-              CONTRATO
-            </h1>
+
             <div className="flex flex-col w-full items-center gap-2 px-8 pb-3 response:px-0">
+              <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold select-none">
+                CONTRATO
+              </h1>
               <div className="flex items-center response:p-0">
                 <ExpireIcon
                   className={twMerge(
@@ -170,18 +161,24 @@ export default function ClientPageInfo(props: ClientPageInfoInterface) {
                   )}
                 >
                   <b>Status: </b>
-                  {priceCalc(PlansSelector.Debt) === "0,00" || props.data.plan === 0 ? (
-                    "QUITADO"
-                  ) : dateCompare(props.data.lastPaid, props.data.startDate, PlansSelector.IsLate) ? (
-                    "PAGAMENTO EM DIAS - REGULAR"
-                  ) : (
+                  {props.data.standard ? (
                     <>
-                      VENCIDO <br />
-                      <b>
-                        {dateCompare(props.data.lastPaid, props.data.startDate, PlansSelector.MontsLate)} Meses
-                        ATRASADOS
-                      </b>
+                      {priceCalc(PlansSelector.Debt) === "0,00" || props.data.plan === 0 ? (
+                        "QUITADO"
+                      ) : dateCompare(props.data.lastPaid, props.data.startDate, PlansSelector.IsLate) ? (
+                        "REGULAR - Em dias"
+                      ) : (
+                        <>
+                          VENCIDO <br />
+                          <b>
+                            {dateCompare(props.data.lastPaid, props.data.startDate, PlansSelector.MontsLate)} Meses
+                            ATRASADOS
+                          </b>
+                        </>
+                      )}
                     </>
+                  ) : (
+                    "CLIENTE ESPECIAL"
                   )}
                 </h1>
               </div>
@@ -201,48 +198,62 @@ export default function ClientPageInfo(props: ClientPageInfoInterface) {
 
             <div
               className={twMerge(
-                "flex flex-col justify-between items-center mb-4 w-80",
-                "response:flex-row response:gap-4 response:w-full"
+                "flex flex-col justify-between pb-4 w-80",
+                "response:flex-row response:w-auto response:min-w-[700px]"
               )}
             >
-              <div className="flex gap-1">
-                <div className="flex flex-col">
-                  <ContractIcon className="" width={50} fill="white" stroke="none" />
-                  <StageIcon className="" width={50} fill="none" stroke="white" />
-                  <LoteIcon className="" width={50} fill="white" stroke="none" />
-                  <DimensionIcon className="" width={50} fill="white" stroke="none" />
-                  <PlanIcon className="" width={50} fill="white" stroke="none" plan={props.data.plan} />
-                </div>
-                <div className="flex flex-col py-3 w-full justify-between">
+              <div className="flex flex-col response:gap-1">
+                <div className="flex leading-tight items-center gap-1">
+                  <div>
+                    <ContractIcon className="" width={50} fill="white" stroke="none" />
+                  </div>
                   <h1>
                     <b>Contrato: </b> {props.data.contractNumber}
                   </h1>
+                </div>
+                <div className="flex leading-tight items-center gap-1">
+                  <div>
+                    <StageIcon className="" width={50} fill="none" stroke="white" />
+                  </div>
                   <h1>
                     <b>Etapa: </b> {props.data.phase}ª
                   </h1>
+                </div>
+                <div className="flex leading-tight items-center gap-1">
+                  <div>
+                    <LoteIcon className="" width={50} fill="white" stroke="none" />
+                  </div>
                   <h1>
                     <b>Lote: </b> {props.data.lote}
                   </h1>
+                </div>
+                <div className="flex leading-tight items-center gap-1">
+                  <div>
+                    <DimensionIcon className="" width={50} fill="white" stroke="none" />
+                  </div>
                   <h1 className="leading-none">
                     <b>Dimensão: </b>
                     {props.data.dimension}
                   </h1>
+                </div>
+                <div className="flex leading-tight items-center gap-1">
+                  <div>
+                    <PlanIcon className="" width={50} fill="white" stroke="none" plan={props.data.plan} />
+                  </div>
                   <h1>
-                    <b>Plano: </b>
-                    {props.data.plan === 0 ? "A Vista" : `${props.data.plan}x de R$ ${priceCalc(props.data.plan)}`}
+                    <h1>
+                      <b>Plano: </b>
+                      {props.data.plan === 0 ? "A Vista" : `${props.data.plan}x de R$ ${priceCalc(props.data.plan)}`}
+                    </h1>
                   </h1>
                 </div>
               </div>
 
-              <div className="flex gap-1">
-                <div className="flex flex-col">
-                  <ValueIcon className="" width={48} fill="white" stroke="none" />
-                  <DebtBalanceIcon className="" width={50} fill="none" stroke="white" />
-                  <EntranceIcon className="" width={50} fill="none" stroke="white" />
-                  <LastPaidIcon className="" width={50} fill="white" stroke="none" />
-                  <PaidIcon className="" width={50} fill="none" stroke="white" />
-                </div>
-                <div className="flex flex-col py-3 w-full justify-between">
+              <div className="flex flex-col response:gap-1">
+                <div className="flex leading-tight items-center gap-1">
+                  <div>
+                    <ValueIcon className="" width={48} fill="white" stroke="none" />
+                  </div>
                   <h1>
                     <b>Valor Total: </b> R${" "}
                     {props.data.entrance
@@ -252,11 +263,22 @@ export default function ClientPageInfo(props: ClientPageInfoInterface) {
                         })
                       : priceCalc(PlansSelector.ContractPrice)}
                   </h1>
+                </div>
+                <div className="flex leading-tight items-center gap-1">
+                  <div>
+                    <DebtBalanceIcon className="" width={50} fill="none" stroke="white" />
+                  </div>
                   <h1>
-                    <b>Saldo Devedor: </b>R$ {props.data.plan === 0 ? 0 : priceCalc(PlansSelector.Debt)}
+                    <b>Saldo Devedor: </b>
+                    {props.data.standard ? <>R$ {props.data.plan === 0 ? 0 : priceCalc(PlansSelector.Debt)}</> : "ERRO"}
                   </h1>
+                </div>
+                <div className="flex leading-tight items-center gap-1">
+                  <div>
+                    <EntranceIcon className="" width={50} fill="none" stroke="white" />
+                  </div>
+                  <b>Entrada: </b>R${" "}
                   <h1>
-                    <b>Entrada: </b>R${" "}
                     {props.data.entrance
                       ? props.data.entrance.toLocaleString("pt-br", {
                           minimumFractionDigits: 2,
@@ -266,29 +288,43 @@ export default function ClientPageInfo(props: ClientPageInfoInterface) {
                       ? 0
                       : priceCalc(PlansSelector.Entrance)}
                   </h1>
+                </div>
+                <div className="flex leading-tight items-center gap-1">
+                  <div>
+                    <PaidIcon className="" width={50} fill="none" stroke="white" />
+                  </div>
                   <h1>
-                    <b>Nº de Parcelas Pagas: </b> {paidParcels(props.data.startDate, props.data.lastPaid)}
+                    <b>Nº de Parcelas Pagas: </b>
+                    {props.data.standard ? <>{paidParcels(props.data.startDate, props.data.lastPaid)}</> : "ERRO"}
                   </h1>
+                </div>
+                <div className="flex leading-tight items-center gap-1">
+                  <div>
+                    <LastPaidIcon className="" width={50} fill="white" stroke="none" />
+                  </div>
                   <h1>
                     <b>Ultima Parcela Paga: </b> {props.data.lastPaid}
                   </h1>
                 </div>
               </div>
             </div>
+          </div>
+        )}
+        {props.page === PageSelector.Client && (
+          <>
+            <div
+              className={twMerge(
+                "ease-in-out duration-200 mb-8 w-auto p-4 select-none active:duration-100 cursor-not-allowed",
+                "border border-solid rounded-tr-lg rounded-bl-lg rounded-tl-2xl rounded-br-2xl",
+                "hover:text-yellow1 hover:scale-110 active:scale-90 hover:border-yellow1 border-white text-white cursor-pointer"
+              )}
+              onClick={() => props.handleResetOptions?.()}
+            >
+              <h1> FAÇA UMA NOVA BUSCA </h1>
+            </div>
+            <Contacts page={PageSelector.Client} />
           </>
         )}
-
-        <div
-          className={twMerge(
-            "ease-in-out duration-200 mb-8 w-auto p-4 select-none active:duration-100 cursor-not-allowed",
-            "border border-solid rounded-tr-lg rounded-bl-lg rounded-tl-2xl rounded-br-2xl",
-            "hover:text-yellow1 hover:scale-110 active:scale-90 hover:border-yellow1 border-white text-white cursor-pointer"
-          )}
-          onClick={() => handleResetOptions()}
-        >
-          <h1> FAÇA UMA NOVA BUSCA </h1>
-        </div>
-        {props.data.standard && <Contacts page={PageSelector.Client} />}
       </div>
     </>
   );

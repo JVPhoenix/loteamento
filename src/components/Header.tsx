@@ -1,36 +1,55 @@
-import { PageSelector } from "@/types";
+import { AdminsDataInterface, ClientsDataInterface, PageSelector } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { MenuIcon } from "./Icons";
+import { useAdminsData } from "@/context/AdminsDataContext";
 
 interface HeaderInterface {
   page: number;
+  searchAdmin?: AdminsDataInterface[] | null;
+  handleError?: () => void;
+  setSelectedClient?: (selection: null) => void;
 }
 
 export default function Header(props: HeaderInterface) {
+  const { adminLogin, setAdminLogin } = useAdminsData();
   const [toggleEtapas, setToggleEtapas] = useState<boolean>(false);
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
+  const [togglePanel, setTogglePanel] = useState<boolean>(false);
+
   const photosRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const refP = photosRef.current;
-    const refM = menuRef.current;
+    const refPhotos = photosRef.current;
+    const refMenu = menuRef.current;
+    const refPanel = panelRef.current;
 
     document.addEventListener("click", ({ target }: MouseEvent): void => {
-      if (!refP?.contains(target as Node) && !refM?.contains(target as Node)) {
+      if (
+        !refPhotos?.contains(target as Node) &&
+        !refMenu?.contains(target as Node) &&
+        !refPanel?.contains(target as Node)
+      ) {
         setToggleEtapas(false);
         setToggleMenu(false);
+        setTogglePanel(false);
       }
     });
 
     return () => {
       document.removeEventListener("click", ({ target }: MouseEvent): void => {
-        if (!refP?.contains(target as Node) && !refM?.contains(target as Node)) {
+        if (
+          !refPhotos?.contains(target as Node) &&
+          !refMenu?.contains(target as Node) &&
+          !refPanel?.contains(target as Node)
+        ) {
           setToggleEtapas(false);
           setToggleMenu(false);
+          setTogglePanel(false);
         }
       });
     };
@@ -39,13 +58,13 @@ export default function Header(props: HeaderInterface) {
   return (
     <div
       className={twMerge(
-        "flex px-2 justify-between bg-black text-white font-bold mb-4 shadow-xl select-none",
-        "response:justify-normal response:gap-5"
+        "flex justify-between bg-black text-white font-bold shadow-xl select-none m-auto w-full",
+        "response:justify-evenly response:gap-5 px-3"
       )}
       ref={menuRef}
     >
       <Image
-        className="p-3 w-[180px] response:w-[250px]"
+        className="py-2 w-[180px] response:w-[250px]"
         src="/logoLoteamento.png"
         width={500}
         height={200}
@@ -70,11 +89,16 @@ export default function Header(props: HeaderInterface) {
       </div>
       <div
         className={twMerge(
-          "hidden response:flex m-2",
+          "hidden response:flex pr-6 w-full",
           toggleMenu && "flex flex-col absolute w-fit right-0 top-16 rounded-xl bg-black p-2 gap-1 z-50"
         )}
       >
-        <div className="flex flex-col response:flex-row gap-3 response:gap-6 justify-center align-middle items-center p-2 response:pr-0">
+        <div
+          className={twMerge(
+            "flex flex-col gap-3 p-2 relative items-center w-full",
+            "response:gap-6 response:pr-0 response:flex-row"
+          )}
+        >
           {props.page !== PageSelector.HomePage && (
             <Link
               className={twMerge(
@@ -99,9 +123,10 @@ export default function Header(props: HeaderInterface) {
             </Link>
           )}
 
-          <div className="inline-block z-10">
+          <div className="z-50">
             <div
               className={twMerge(
+                "flex justify-center",
                 "cursor-pointer ease-in-out duration-200 hover:scale-110",
                 "hover:text-yellow1 active:scale-90 active:duration-100",
                 toggleEtapas && "text-yellow1"
@@ -113,7 +138,8 @@ export default function Header(props: HeaderInterface) {
             </div>
             <div
               className={twMerge(
-                "hidden absolute rounded-md bg-black p-2 gap-2 -translate-x-2",
+                "hidden rounded-md bg-black1 p-2 gap-2",
+                "response:bg-black response:absolute response:-translate-x-3",
                 toggleEtapas && "flex flex-col"
               )}
             >
@@ -139,6 +165,62 @@ export default function Header(props: HeaderInterface) {
                   ETAPA 2
                 </Link>
               )}
+            </div>
+          </div>
+
+          <div className="z-10">
+            <div className="flex items-center">
+              {props.page !== PageSelector.Admin && (
+                <Link
+                  className={twMerge(
+                    "ease-in-out duration-200 response:absolute right-0",
+                    "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
+                  )}
+                  href="/admin"
+                >
+                  <h1>{adminLogin.cpf ? "PAINEL" : "LOGIN"}</h1>
+                </Link>
+              )}
+              {props.searchAdmin?.length !== 0 && props.page === PageSelector.Admin && (
+                <div
+                  className={twMerge(
+                    "flex text-center cursor-pointer",
+                    "ease-in-out duration-200 response:absolute right-0",
+                    "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100 response:w-20",
+                    togglePanel && "text-yellow1"
+                  )}
+                  onClick={() => setTogglePanel((togglePanel) => !togglePanel)}
+                  ref={panelRef}
+                >
+                  OPÇÕES DO PAINEL
+                </div>
+              )}
+            </div>
+            <div
+              className={twMerge(
+                "hidden rounded-md bg-black1 gap-2 p-2 right-5",
+                "response:-right-8 response:top-24 response:p-3 response:absolute response:bg-black",
+                togglePanel && "flex flex-col"
+              )}
+            >
+              <div
+                className={twMerge(
+                  "ease-in-out duration-200 text-center cursor-pointer",
+                  "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
+                )}
+                onClick={() => {
+                  setAdminLogin({
+                    cpf: "",
+                    password: "",
+                  });
+                  setTogglePanel(false);
+                  setToggleMenu(false);
+                  props.handleError?.();
+                  props.setSelectedClient?.(null);
+                }}
+              >
+                DESCONECTAR
+              </div>
             </div>
           </div>
         </div>

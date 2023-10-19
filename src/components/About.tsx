@@ -1,6 +1,6 @@
 export default function About() {
   return (
-    <div className="flex flex-col gap-1 text-gray1 font-medium text-center items-center mb-8">
+    <div className="flex flex-col gap-1 text-gray1 font-medium text-center items-center my-8">
       <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold mb-4">
         SOBRE O LOTEAMENTO
       </h1>

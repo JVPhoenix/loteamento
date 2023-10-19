@@ -7,6 +7,7 @@ export enum PageSelector {
   Etapa3 = 3,
   Etapa4 = 4,
   Client = 5,
+  Admin = 6,
 }
 
 export enum PlansSelector {
@@ -20,10 +21,6 @@ export enum PlansSelector {
 export type PageType = {
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
-};
-
-export type ClientsDataContextType = {
-  clientsData: ClientsDataInterface[] | null;
 };
 
 export interface PageInfos {
@@ -80,3 +77,15 @@ export interface ClientsDataInterface {
   obs?: string;
   standard: boolean;
 }
+
+export interface AdminsDataInterface {
+  name: string;
+  cpf: string;
+  password: string;
+}
+
+export type AdminsDataContextType = {
+  adminsData: AdminsDataInterface[] | null;
+  adminLogin: { cpf: string; password: string };
+  setAdminLogin: Dispatch<SetStateAction<{ cpf: string; password: string }>>;
+};

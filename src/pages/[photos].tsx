@@ -49,11 +49,12 @@ export default function Images() {
 
   return (
     <div className={twMerge("flex flex-col min-h-screen bg-black1 text-lg", inter.className)}>
-      <Header page={pageInfos.id} />
-      <Head>
-        <title>{pageInfos.title}</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <div>
+        <Head>
+          <title>{pageInfos.title}</title>
+        </Head>
+        <Header page={pageInfos.id} />
+      </div>
 
       {pageInfos.title === "Carregando" ? (
         <div className="text-white gap-2 text-3xl flex m-auto items-center">
@@ -78,8 +79,10 @@ export default function Images() {
           </Link>
         </div>
       ) : (
-        <div className={twMerge("flex flex-col m-auto bg-black1 text-white text-center text-lg", inter.className)}>
-          <h1 className="text-white drop-shadow-titles text-center text-3xl font-bold">FOTOS - {pageInfos.title}</h1>
+        <div className={twMerge("flex flex-col m-auto bg-black1 text-white text-center text-lg my-8", inter.className)}>
+          <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold mb-4">
+            FOTOS - {pageInfos.title}
+          </h1>
           <div className="flex flex-wrap gap-2 justify-center items-center p-3 m-auto">
             {photosData?.photos[pageInfos.index] &&
               Object.values(photosData?.photos[pageInfos.index]).map((value: InnerPhotosInterface) => (

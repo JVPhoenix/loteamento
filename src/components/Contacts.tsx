@@ -8,14 +8,14 @@ interface ContactsInterface {
 
 export default function Contacts(props: ContactsInterface) {
   return (
-    <div className="flex flex-col items-center text-center align-middle mb-4">
-      <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold mb-4">
+    <div className="flex flex-col items-center text-center align-middle pb-4">
+      <h1 className="text-white drop-shadow-titles text-xl response:text-3xl font-bold">
         {props.page === PageSelector.Client ? (
           <>
             ALGUMA INFORMAÇÃO ESTÁ ERRADA? <br /> ENTRE EM CONTATO CONOSCO E NOS INFORME!
           </>
         ) : (
-          <span> ENTRE EM CONTATO E RESERVE SEU LOTE! </span>
+          <> ENTRE EM CONTATO E RESERVE SEU LOTE! </>
         )}
       </h1>
       <div className="flex gap-2 response:gap-5 font-bold text-slate-200 p-6">
