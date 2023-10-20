@@ -55,6 +55,13 @@ export default function Header(props: HeaderInterface) {
     };
   }, [toggleEtapas]);
 
+  useEffect(() => {
+    const data = window.localStorage.getItem("USER_CREDENTIALS");
+    if (data !== null) {
+      setAdminLogin(JSON.parse(data));
+    }
+  }, [setAdminLogin]);
+
   return (
     <div
       className={twMerge(

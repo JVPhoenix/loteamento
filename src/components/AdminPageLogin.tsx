@@ -43,13 +43,6 @@ export default function AdminPageLogin(props: AdminPageLoginInferface) {
     setEffectOn(true);
   };
 
-  useEffect(() => {
-    const data = window.localStorage.getItem("USER_CREDENTIALS");
-    if (data !== null) {
-      setAdminLogin(JSON.parse(data));
-    }
-  });
-
   return (
     <div className="flex flex-col items-center gap-4">
       <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold select-none">ADMINISTRAÇÃO</h1>
