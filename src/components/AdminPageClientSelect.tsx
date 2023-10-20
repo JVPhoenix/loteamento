@@ -70,7 +70,8 @@ export default function AdminPageClientSelect(props: SelectClientProps) {
 
       <div
         className={twMerge(
-          "hidden flex-col absolute w-full max-h-[260px] overflow-y-scroll overflow-overlay top-8 border-4",
+          "hidden flex-col absolute w-full overflow-y-scroll overflow-overlay",
+          "max-h-[30vh] top-8 border-4 px-2",
           "bg-white rounded-lg border-blue-500",
           showOptions && "flex"
         )}

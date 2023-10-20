@@ -14,7 +14,9 @@ export function ClientsDataContextProvider(props: React.PropsWithChildren) {
   const [clientsData, setClientsData] = useState<ClientsDataInterface[] | null>(null);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_CLIENTS_API_LINK}`)
+    fetch(`${process.env.NEXT_PUBLIC_CLIENTS_API_LINK}`, {
+      method: "GET"
+    })
       .then((res) => res.json())
       .then((data: ClientsDataInterface[]) => {
         setClientsData(data);

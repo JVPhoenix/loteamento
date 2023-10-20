@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { CPFIcon, PassowrdIcon } from "./Icons";
+import { CPFIcon, PaidIcon, PassowrdIcon } from "./Icons";
 import { useAdminsData } from "@/context/AdminsDataContext";
 
 interface AdminPageLoginInferface {
   searchError: boolean;
   handleError: () => void;
+  checkRemember: boolean;
+  setCheckRemember: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function AdminPageLogin(props: AdminPageLoginInferface) {
@@ -36,9 +38,17 @@ export default function AdminPageLogin(props: AdminPageLoginInferface) {
       cpf: cpfMask,
       password: password,
     });
+
     props.handleError();
     setEffectOn(true);
   };
+
+  useEffect(() => {
+    const data = window.localStorage.getItem("USER_CREDENTIALS");
+    if (data !== null) {
+      setAdminLogin(JSON.parse(data));
+    }
+  });
 
   return (
     <div className="flex flex-col items-center gap-4">
@@ -63,15 +73,34 @@ export default function AdminPageLogin(props: AdminPageLoginInferface) {
               value={cpfMask}
               onChange={(e) => handleCpfMask(e.target.value)}
             />
-            <div className="flex flex-col py-1 gap-2 whitespace-nowrap response:w-96">
-              <input
-                type="password"
-                placeholder="Digite sua Senha"
-                className={twMerge("rounded-lg text-black p-2 border-4 border-white")}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
+            <input
+              type="password"
+              placeholder="Digite sua Senha"
+              className={twMerge(
+                "flex flex-col py-1 gap-2 whitespace-nowrap response:w-96",
+                "rounded-lg text-black p-2 border-4 border-white"
+              )}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
+        </div>
+
+        <div className="flex justify-center items-center">
+          <div
+            className={twMerge(
+              "ease-in-out duration-200 select-none active:duration-100",
+              "hover:scale-110 active:scale-90 hover:border-yellow1"
+            )}
+            onClick={() => props.setCheckRemember((prevCheckRemember) => !prevCheckRemember)}
+          >
+            <PaidIcon
+              className=""
+              width={40}
+              stroke={props.checkRemember ? "rgb(255, 204, 41)" : "white"}
+              fill={!props.checkRemember ? "white" : "none"}
+            />
+          </div>
+          <h1>Lembrar senha</h1>
         </div>
 
         <div

@@ -16,10 +16,15 @@ export const useAdminsData = () => {
 // react func do context
 export function AdminsDataContextProvider(props: React.PropsWithChildren) {
   const [adminsData, setAdminsData] = useState<AdminsDataInterface[] | null>(null);
-  const [adminLogin, setAdminLogin] = useState<{ cpf: string; password: string }>({ cpf: "", password: "" });
+  const [adminLogin, setAdminLogin] = useState<{ cpf: string; password: string }>({
+    cpf: "",
+    password: "",
+  });
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_ADMINS_API_LINK}`)
+    fetch(`${process.env.NEXT_PUBLIC_ADMINS_API_LINK}`, {
+      method: "GET"
+    })
       .then((res) => res.json())
       .then((data: AdminsDataInterface[]) => {
         setAdminsData(data);

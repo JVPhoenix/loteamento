@@ -14,6 +14,7 @@ export default function Admin() {
   const clientsData = useClientsData();
   const [searchError, setSearchError] = useState<boolean>(false);
   const [selectedClient, setSelectedClient] = useState<ClientsDataInterface | null>(null);
+  const [checkRemember, setCheckRemember] = useState<boolean>(false);
   const searchClient = clientsData && Object.values(clientsData);
 
   const searchAdmin =
@@ -21,6 +22,12 @@ export default function Admin() {
     Object.values(adminsData).filter((admin: AdminsDataInterface) => {
       if (adminLogin.cpf.indexOf(admin.cpf) >= 0) {
         if (adminLogin.password === admin.password) {
+          if (checkRemember) {
+            window.localStorage.setItem(
+              "USER_CREDENTIALS",
+              JSON.stringify({ cpf: admin.cpf, password: admin.password, checkRemember: checkRemember })
+            );
+          }
           return admin.name;
         }
       }
@@ -49,7 +56,12 @@ export default function Admin() {
       </div>
       <div className="flex flex-col m-auto py-6 items-center">
         {searchAdmin?.length === 0 ? (
-          <AdminPageLogin searchError={searchError} handleError={handleError} />
+          <AdminPageLogin
+            checkRemember={checkRemember}
+            setCheckRemember={setCheckRemember}
+            searchError={searchError}
+            handleError={handleError}
+          />
         ) : searchAdmin?.length === 1 ? (
           <>
             <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold select-none mb-2">

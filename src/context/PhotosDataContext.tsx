@@ -14,7 +14,9 @@ export function PhotosDataContextProvider(props: React.PropsWithChildren) {
   const [photosData, setPhotosData] = useState<PhotosDataInterface | null>(null);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_PHOTOS_API_LINK}`)
+    fetch(`${process.env.NEXT_PUBLIC_PHOTOS_API_LINK}`, {
+      method: "GET",
+    })
       .then((res) => res.json())
       .then((data: PhotosDataInterface) => {
         setPhotosData(data);

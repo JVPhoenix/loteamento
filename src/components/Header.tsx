@@ -126,8 +126,8 @@ export default function Header(props: HeaderInterface) {
           <div className="z-50">
             <div
               className={twMerge(
-                "flex justify-center",
-                "cursor-pointer ease-in-out duration-200 hover:scale-110",
+                "flex justify-center cursor-pointer ",
+                "ease-in-out duration-200 hover:scale-110",
                 "hover:text-yellow1 active:scale-90 active:duration-100",
                 toggleEtapas && "text-yellow1"
               )}
@@ -184,22 +184,22 @@ export default function Header(props: HeaderInterface) {
               {props.searchAdmin?.length !== 0 && props.page === PageSelector.Admin && (
                 <div
                   className={twMerge(
-                    "flex text-center cursor-pointer",
+                    "flex justify-center m-auto cursor-pointer",
                     "ease-in-out duration-200 response:absolute right-0",
-                    "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100 response:w-20",
+                    "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100 response:w-28",
                     togglePanel && "text-yellow1"
                   )}
                   onClick={() => setTogglePanel((togglePanel) => !togglePanel)}
                   ref={panelRef}
                 >
-                  OPÇÕES DO PAINEL
+                  {props.searchAdmin?.map((value) => value.name.toLocaleUpperCase())}
                 </div>
               )}
             </div>
             <div
               className={twMerge(
                 "hidden rounded-md bg-black1 gap-2 p-2 right-5",
-                "response:-right-8 response:top-24 response:p-3 response:absolute response:bg-black",
+                "response:-right-6 response:top-24 response:p-3 response:absolute response:bg-black",
                 togglePanel && "flex flex-col"
               )}
             >
@@ -213,6 +213,7 @@ export default function Header(props: HeaderInterface) {
                     cpf: "",
                     password: "",
                   });
+                  window.localStorage.removeItem("USER_CREDENTIALS");
                   setTogglePanel(false);
                   setToggleMenu(false);
                   props.handleError?.();

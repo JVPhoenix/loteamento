@@ -86,6 +86,6 @@ export interface AdminsDataInterface {
 
 export type AdminsDataContextType = {
   adminsData: AdminsDataInterface[] | null;
-  adminLogin: { cpf: string; password: string };
-  setAdminLogin: Dispatch<SetStateAction<{ cpf: string; password: string }>>;
+  adminLogin: { cpf: string; password: string; };
+  setAdminLogin: Dispatch<SetStateAction<{ cpf: string; password: string; }>>;
 };

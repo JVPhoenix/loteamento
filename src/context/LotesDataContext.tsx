@@ -14,7 +14,9 @@ export function LotesDataContextProvider(props: React.PropsWithChildren) {
   const [lotesData, setLotesData] = useState<LotesDataInterface | null>(null);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_LOTES_API_LINK}`)
+    fetch(`${process.env.NEXT_PUBLIC_LOTES_API_LINK}`, {
+      method: "GET",
+    })
       .then((res) => res.json())
       .then((data: LotesDataInterface) => {
         setLotesData(data);
