@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { CPFIcon, PaidIcon, PassowrdIcon } from "./Icons";
+import { CPFIcon, PassowrdIcon, RememberMeIcon } from "./Icons";
 import { useAdminsData } from "@/context/AdminsDataContext";
 
 interface AdminPageLoginInferface {
@@ -78,7 +78,7 @@ export default function AdminPageLogin(props: AdminPageLoginInferface) {
           </div>
         </div>
 
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center gap-1">
           <div
             className={twMerge(
               "ease-in-out duration-200 select-none active:duration-100",
@@ -86,11 +86,11 @@ export default function AdminPageLogin(props: AdminPageLoginInferface) {
             )}
             onClick={() => props.setCheckRemember((prevCheckRemember) => !prevCheckRemember)}
           >
-            <PaidIcon
+            <RememberMeIcon
               className=""
               width={40}
               stroke={props.checkRemember ? "rgb(255, 204, 41)" : "white"}
-              fill={!props.checkRemember ? "white" : "none"}
+              fill={props.checkRemember ? "none" : "white"}
             />
           </div>
           <h1>Lembrar senha</h1>
