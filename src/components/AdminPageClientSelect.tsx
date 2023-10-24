@@ -80,7 +80,16 @@ export default function AdminPageClientSelect(props: SelectClientProps) {
           ?.filter((option) => {
             return (
               !searchItem ||
-              option.name.toLocaleLowerCase().indexOf(searchItem.toLocaleLowerCase()) >= 0 ||
+              option.name
+                .toLocaleLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .indexOf(
+                  searchItem
+                    .toLocaleLowerCase()
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                ) >= 0 ||
               option.lote
                 .replace(/ - /, " ")
                 .toLocaleLowerCase()
