@@ -655,6 +655,21 @@ export const PlanIcon = (props: MainIcons) => {
   }
 };
 
+export const DayIcon = (props: MainIcons) => {
+  return (
+    <svg viewBox="0 0 128 128" className={props.className} width={props.width} fill={props.fill} stroke={props.stroke}>
+      <path d="M95.4,6c2.7,0,4.9,2.2,4.9,4.9v15.4c0,2.7-2.2,4.9-4.9,4.9c-2.7,0-4.9-2.2-4.9-4.9V10.9C90.5,8.2,92.7,6,95.4,6"></path>
+      <polygon points="64.3,57.9 72.4,57.9 72.4,103.1 63.3,103.1 63.3,68.2 55.6,74.4 51.1,68.5 "></polygon>
+      <path
+        d="M105.8,20.2v6.2c0,5.7-4.7,10.4-10.4,10.4c-5.7,0-10.4-4.7-10.4-10.4v-6.2H44.4v6.2c0,5.7-4.7,10.4-10.4,10.4
+      c-5.8,0-10.4-4.7-10.4-10.4v-6.2H8.3v25.8V122h112.8V46.1V20.2H105.8z M115,93.6l-22.4,22.1H14.4V46.1H115V93.6z"
+      ></path>
+      <path d="M34,6c2.7,0,4.9,2.2,4.9,4.9v15.4c0,2.7-2.2,4.9-4.9,4.9c-2.7,0-4.9-2.2-4.9-4.9V10.9C29.1,8.2,31.3,6,34,6"></path>
+      <path d="M95.4,6c2.7,0,4.9,2.2,4.9,4.9v15.4c0,2.7-2.2,4.9-4.9,4.9c-2.7,0-4.9-2.2-4.9-4.9V10.9C90.5,8.2,92.7,6,95.4,6"></path>
+    </svg>
+  );
+};
+
 export const ValueIcon = (props: MainIcons) => {
   return (
     <svg
@@ -775,22 +790,27 @@ export const PaidIcon = (props: MainIcons) => {
   return (
     <svg viewBox="0 0 24 24" className={props.className} width={props.width} fill={props.fill} stroke={props.stroke}>
       <path
-        d="M8 12.5L10.5 15L16 9M7.2 20H16.8C17.9201 20 18.4802 20 18.908 19.782C19.2843 19.5903 19.5903 19.2843 19.782
-        18.908C20 18.4802 20 17.9201 20 16.8V7.2C20 6.0799 20 5.51984 19.782 5.09202C19.5903 4.71569 19.2843 4.40973
-        18.908 4.21799C18.4802 4 17.9201 4 16.8 4H7.2C6.0799 4 5.51984 4 5.09202 4.21799C4.71569 4.40973 4.40973 4.71569
-        4.21799 5.09202C4 5.51984 4 6.07989 4 7.2V16.8C4 17.9201 4 18.4802 4.21799 18.908C4.40973 19.2843 4.71569
-        19.5903 5.09202 19.782C5.51984 20 6.07989 20 7.2 20Z"
-        strokeWidth="1"
+        id="primary"
+        d="M21,11v9a1,1,0,0,1-1,1H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3H16"
         strokeLinecap="round"
         strokeLinejoin="round"
+        strokeWidth="1"
       ></path>
+      <polyline
+        id="primary-2"
+        data-name="primary"
+        points="21 5 12 14 8 10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1"
+      ></polyline>
     </svg>
   );
 };
 
 export const LastPaidIcon = (props: MainIcons) => {
   return (
-    <svg viewBox="0 0 32 32" className={props.className} width={props.width} fill={props.fill} stroke={props.stroke}>
+    <svg viewBox="-1 -1 31 31" className={props.className} width={props.width} fill={props.fill} stroke={props.stroke}>
       <path d="M20.69,24H3.53a1,1,0,0,1-1-1V11.34H26.76v7.05a0.5,0.5,0,0,0,1,0V8a2,2,0,0,0-2-2H24.07V4.5a0.5,0.5,0,0,0-1,0V5.93h-5V4.62a0.5,0.5,0,1,0-1,0V5.93h-5V4.62a0.5,0.5,0,1,0-1,0V5.93h-5V4.62a0.5,0.5,0,1,0-1,0V5.93H3.53a2,2,0,0,0-2,2v15a2,2,0,0,0,2,2H20.69A0.5,0.5,0,0,0,20.69,24ZM3.53,6.93H5.18V8.24a0.5,0.5,0,0,0,1,0V6.93h5V8.24a0.5,0.5,0,0,0,1,0V6.93h5V8.24a0.5,0.5,0,0,0,1,0V6.93h5V8.12a0.5,0.5,0,1,0,1,0V6.93h1.65a1,1,0,0,1,1,1v2.38H2.5V8A1,1,0,0,1,3.53,6.93Z"></path>
       <rect height="1.92" width="1.92" x="9.21" y="13.03"></rect>
       <rect height="1.92" width="1.92" x="13.71" y="13.03"></rect>
@@ -807,6 +827,33 @@ export const LastPaidIcon = (props: MainIcons) => {
       <rect height="1.92" width="1.92" x="22.63" y="16.67"></rect>
       <path d="M26.32,19.65a4.18,4.18,0,1,0,4.17,4.17A4.18,4.18,0,0,0,26.32,19.65Zm0,7.35a3.18,3.18,0,1,1,3.17-3.18A3.18,3.18,0,0,1,26.32,27Z"></path>
       <path d="M27.5,22.42L25.77,24.2l-0.67-.54a0.5,0.5,0,1,0-.63.77l1,0.83a0.5,0.5,0,0,0,.67,0l2.05-2.11A0.5,0.5,0,0,0,27.5,22.42Z"></path>
+    </svg>
+  );
+};
+
+export const DayPaid = (props: MainIcons) => {
+  return (
+    <svg
+      viewBox="0 0 24.00 24.00"
+      className={props.className}
+      width={props.width}
+      fill={props.fill}
+      stroke={props.stroke}
+      strokeWidth="0.9"
+    >
+      <path
+        d="M21 10H3M21 12.5V8.8C21 7.11984 21 6.27976 20.673 5.63803C20.3854 5.07354 19.9265 4.6146 19.362
+            4.32698C18.7202 4 17.8802 4 16.2 4H7.8C6.11984 4 5.27976 4 4.63803 4.32698C4.07354 4.6146 3.6146 5.07354
+            3.32698 5.63803C3 6.27976 3 7.11984 3 8.8V17.2C3 18.8802 3 19.7202 3.32698 20.362C3.6146 20.9265 4.07354
+            21.3854 4.63803 21.673C5.27976 22 6.11984 22 7.8 22H12M16 2V6M8 2V6M14.5 19L16.5 21L21 16.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+      <g>
+        <circle cx="8" cy="15" r="1"></circle>
+        <circle cx="12" cy="15" r="1"></circle>
+        <circle cx="16" cy="15" r="1"></circle>
+      </g>
     </svg>
   );
 };

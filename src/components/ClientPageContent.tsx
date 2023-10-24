@@ -18,6 +18,8 @@ import {
   PlanIcon,
   PhoneIcon,
   ObsIcon,
+  DayIcon,
+  DayPaid,
 } from "./Icons";
 import Contacts from "./Contacts";
 
@@ -28,6 +30,9 @@ interface ClientPageInfoInterface {
 }
 
 export default function ClientPageContent(props: ClientPageInfoInterface) {
+  const ExpireDay = new Date(props.data.startDate.split("-").reverse().join("-")).getDate() + 1;
+  const LastMonth = new Date(props.data.lastPaid.split("-").reverse().join("-"));
+
   const priceCalc = (value: number) => {
     if (value === PlansSelector.ContractPrice) {
       return (props.data.price / value + props.data.price * 0.1).toLocaleString("pt-br", {
@@ -231,7 +236,7 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                   <div>
                     <DimensionIcon className="" width={50} fill="white" stroke="none" />
                   </div>
-                  <h1 className="leading-none">
+                  <h1 className="leading-none response:w-64">
                     <b>Dimensão: </b>
                     {props.data.dimension}
                   </h1>
@@ -241,10 +246,17 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                     <PlanIcon className="" width={50} fill="white" stroke="none" plan={props.data.plan} />
                   </div>
                   <h1>
-                    <h1>
-                      <b>Plano: </b>
-                      {props.data.plan === 0 ? "A Vista" : `${props.data.plan}x de R$ ${priceCalc(props.data.plan)}`}
-                    </h1>
+                    <b>Plano: </b>
+                    {props.data.plan === 0 ? "A Vista" : `${props.data.plan}x de R$ ${priceCalc(props.data.plan)}`}
+                  </h1>
+                </div>
+                <div className="flex leading-tight items-center gap-1">
+                  <div>
+                    <DayIcon className="" width={50} fill="white" stroke="none" plan={props.data.plan} />
+                  </div>
+                  <h1>
+                    <b>Dia do Vencimento: </b>
+                    Dia {ExpireDay}
                   </h1>
                 </div>
               </div>
@@ -303,7 +315,15 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                     <LastPaidIcon className="" width={50} fill="white" stroke="none" />
                   </div>
                   <h1>
-                    <b>Ultima Parcela Paga: </b> {props.data.lastPaid}
+                    <b>Ultimo mês pago: </b> {LastMonth.toLocaleString("default", { month: "long", year: "numeric" })}
+                  </h1>
+                </div>
+                <div className="flex leading-tight items-center gap-1">
+                  <div>
+                    <DayPaid className="" width={50} fill="none" stroke="white" />
+                  </div>
+                  <h1>
+                    <b>Dia pago: </b> {props.data.datePaid}
                   </h1>
                 </div>
               </div>
