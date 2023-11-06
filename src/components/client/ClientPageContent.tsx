@@ -67,12 +67,12 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
     if (returnType === PlansSelector.IsLate) {
       return today < expireDate;
     } else if (returnType === PlansSelector.MonthsExpired) {
-      console.log(today.getMonth() - expireDate.getMonth() + 1);
-
-      return today.getMonth() - expireDate.getMonth() + 1;
+      return Math.ceil(Math.abs(today.valueOf() - expireDate.valueOf()) / (1000 * 60 * 60 * 24) / 30);
     } else if (returnType === PlansSelector.MonthsDebtBalance) {
       const planValue = parseFloat(priceCalc(props.data.plan).replace(",", "."));
-      return (planValue * (today.getMonth() - expireDate.getMonth() + 1)).toLocaleString("pt-br", {
+      return (
+        planValue * Math.ceil(Math.abs(today.valueOf() - expireDate.valueOf()) / (1000 * 60 * 60 * 24) / 30)
+      ).toLocaleString("pt-br", {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       });
