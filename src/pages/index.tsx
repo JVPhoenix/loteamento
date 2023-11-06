@@ -1,8 +1,8 @@
-import About from "@/components/About";
-import Contacts from "@/components/Contacts";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import Products from "@/components/Products";
+import About from "@/components/main/About";
+import Contacts from "@/components/main/Contacts";
+import Footer from "@/components/main/Footer";
+import Header from "@/components/main/Header";
+import Products from "@/components/products/Products";
 import { PageSelector } from "@/types";
 import { Inter } from "next/font/google";
 import Head from "next/head";

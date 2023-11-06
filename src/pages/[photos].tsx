@@ -1,5 +1,5 @@
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+import Footer from "@/components/main/Footer";
+import Header from "@/components/main/Header";
 import { LoadingIcon } from "@/components/Icons";
 import { usePhotosData } from "@/context/PhotosDataContext";
 import { PageSelector, InnerPhotosInterface, PageInfos } from "@/types";

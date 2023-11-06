@@ -1,20 +1,27 @@
-import AdminPageClientSelect from "@/components/AdminPageClientSelect";
-import AdminPageLogin from "@/components/AdminPageLogin";
-import ClientPageContent from "@/components/ClientPageContent";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+import AdminClientSelect from "@/components/admin/AdminClientSelect";
+import AdminClientSelectBox from "@/components/admin/AdminClientSelectBox";
+import AdminPageLogin from "@/components/admin/AdminPageLogin";
+import ClientPageContent from "@/components/client/ClientPageContent";
+import Footer from "@/components/main/Footer";
+import Header from "@/components/main/Header";
 import { useAdminsData } from "@/context/AdminsDataContext";
 import { useClientsData } from "@/context/ClientsDataContext";
-import { AdminsDataInterface, ClientsDataInterface, PageSelector } from "@/types";
+import { AdminsDataInterface, ClientsDataInterface, FilterSelector, PageSelector } from "@/types";
 import Head from "next/head";
 import { useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 export default function Admin() {
   const { adminsData, adminLogin } = useAdminsData();
   const clientsData = useClientsData();
+
   const [searchError, setSearchError] = useState<boolean>(false);
   const [selectedClient, setSelectedClient] = useState<ClientsDataInterface | null>(null);
   const [checkRemember, setCheckRemember] = useState<boolean>(false);
+  const [state, setState] = useState<FilterSelector | null>(null);
+  const [checkSpecial, setCheckSpecial] = useState<boolean>(false);
+  const [stage, setStage] = useState<FilterSelector | null>(null);
+
   const searchClient = clientsData && Object.values(clientsData);
 
   const searchAdmin =
@@ -41,6 +48,13 @@ export default function Admin() {
     }
   };
 
+  const handleState = (newState: FilterSelector) => {
+    setState((state) => (state === newState ? null : newState));
+  };
+  const handleStage = (newStage: FilterSelector) => {
+    setStage((state) => (state === newStage ? null : newStage));
+  };
+
   return (
     <div className="flex flex-col w-full min-h-screen bg-black1 text-lg text-white">
       <div className="w-full h-full">
@@ -63,17 +77,25 @@ export default function Admin() {
             handleError={handleError}
           />
         ) : searchAdmin?.length === 1 ? (
-          <>
-            <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold select-none mb-2">
-              SELECIONE UM CLIENTE
-            </h1>
-            <AdminPageClientSelect
+          <div className="flex flex-col items-center pb-10">
+            <AdminClientSelect
+              state={state}
+              handleState={handleState}
+              checkSpecial={checkSpecial}
+              setCheckSpecial={setCheckSpecial}
+              stage={stage}
+              handleStage={handleStage}
+            />
+            <AdminClientSelectBox
               clients={searchClient}
               placeholder="Digite o Nome do Cliente ou Quadra e Lote"
               selectedClient={selectedClient}
               setSelectedClient={setSelectedClient}
+              state={state}
+              special={checkSpecial}
+              stage={stage}
             />
-          </>
+          </div>
         ) : null}
         {selectedClient && <ClientPageContent data={selectedClient} page={PageSelector.Admin} />}
       </div>

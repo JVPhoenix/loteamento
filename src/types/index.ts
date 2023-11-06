@@ -14,8 +14,19 @@ export enum PlansSelector {
   ContractPrice = 1,
   Debt = 2,
   IsLate = 3,
-  MontsLate = 4,
+  MonthsExpired = 4,
+  MonthsDebtBalance = 5,
   Entrance = 10,
+}
+
+export enum FilterSelector {
+  Special = 0,
+  Etapa1 = 1,
+  Etapa2 = 2,
+  Etapa3 = 3,
+  Etapa4 = 4,
+  Expired = 5,
+  Regular = 6,
 }
 
 export type PageType = {
