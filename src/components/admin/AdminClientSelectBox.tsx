@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { UpArrow } from "../Icons";
 import { twMerge } from "tailwind-merge";
-import { ClientsDataInterface, FilterSelector } from "@/types";
+import { ClientsDataInterface, FilterSelector, PlansSelector } from "@/types";
 
 interface SelectClientProps {
   clients: ClientsDataInterface[] | null;
@@ -45,18 +45,25 @@ export default function AdminClientSelectBox(props: SelectClientProps) {
     };
   }, [showOptions]);
 
-  const dateCompare = (lastPaid: string, startDate: string) => {
+  const checkExpired = (lastPaid: string, startDate: string, returnType: FilterSelector) => {
     const start = new Date(startDate.split("-").reverse().join("-"));
     const last = new Date(lastPaid.split("-").reverse().join("-"));
     const today = new Date();
     const expireDate = new Date(startDate.split("-").reverse().join("-"));
+    const paidParcels = last.getMonth() - start.getMonth() + 12 * (last.getFullYear() - start.getFullYear());
 
     expireDate.setMonth(
       expireDate.getMonth() + last.getMonth() - start.getMonth() + 12 * (last.getFullYear() - start.getFullYear()) + 1
     ); // set 1 moth later (30 days)
     expireDate.setDate(expireDate.getDate() + 1); // set +1 day (to set the same day every month)
 
-    return today < expireDate ? FilterSelector.Regular : FilterSelector.Expired;
+    if (returnType === FilterSelector.Expired || returnType === FilterSelector.Regular) {
+      return today < expireDate ? FilterSelector.Regular : FilterSelector.Expired;
+    } else if (returnType === FilterSelector.PaidOff) {
+      return paidParcels;
+    } else {
+      return 0;
+    }
   };
 
   return (
@@ -96,6 +103,7 @@ export default function AdminClientSelectBox(props: SelectClientProps) {
         {props.clients
           ?.filter((option) => {
             return (
+              // NAME FILTER
               (!searchItem ||
                 option.name
                   .toLocaleLowerCase()
@@ -111,10 +119,37 @@ export default function AdminClientSelectBox(props: SelectClientProps) {
                   .replace(/ - /, " ")
                   .toLocaleLowerCase()
                   .indexOf(searchItem.replace(/ - /, " ").toLocaleLowerCase()) >= 0) &&
+              // SPECIAL FILTER
               (!props.special || option.standard === false) &&
+              // STAGE FILTER
               (!props.stage || option.phase === props.stage) &&
-              (props.state !== FilterSelector.Regular || dateCompare(option.lastPaid, option.startDate) !== FilterSelector.Expired) &&
-              (props.state !== FilterSelector.Expired || dateCompare(option.lastPaid, option.startDate) !== FilterSelector.Regular)
+              // REGULAR FILTER
+              (props.state !== FilterSelector.Regular ||
+                checkExpired(option.lastPaid, option.startDate, FilterSelector.Regular) !== FilterSelector.Expired) &&
+              // EXPIRED FILTER
+              (props.state !== FilterSelector.Expired ||
+                (checkExpired(option.lastPaid, option.startDate, FilterSelector.Expired) !== FilterSelector.Regular &&
+                  option.plan !== 0 &&
+                  (
+                    option.price -
+                    (checkExpired(option.lastPaid, option.startDate, FilterSelector.PaidOff) * option.price) /
+                      option.plan
+                  ).toLocaleString("pt-br", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }) !== "0,00")) &&
+              // PAIDOFF FILTER
+              (props.state !== FilterSelector.PaidOff ||
+                ((
+                  option.price -
+                  (checkExpired(option.lastPaid, option.startDate, FilterSelector.PaidOff) * option.price) / option.plan
+                ).toLocaleString("pt-br", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                }) === "0,00" &&
+                  option.plan &&
+                  option.standard) ||
+                option.plan === 0)
             );
           })
           .map((option) => (

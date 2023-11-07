@@ -64,15 +64,15 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
     expireDate.setMonth(expireDate.getMonth() + paidParcels(startDate, lastPaid) + 1); // set 1 moth later (30 days)
     expireDate.setDate(expireDate.getDate() + 1); // set +1 day (to set the same day every month)
 
+    const dateDiff = Math.ceil(Math.abs(today.valueOf() - expireDate.valueOf()) / (1000 * 60 * 60 * 24) / 30);
+
     if (returnType === PlansSelector.IsLate) {
       return today < expireDate;
     } else if (returnType === PlansSelector.MonthsExpired) {
-      return Math.ceil(Math.abs(today.valueOf() - expireDate.valueOf()) / (1000 * 60 * 60 * 24) / 30);
+      return dateDiff;
     } else if (returnType === PlansSelector.MonthsDebtBalance) {
       const planValue = parseFloat(priceCalc(props.data.plan).replace(",", "."));
-      return (
-        planValue * Math.ceil(Math.abs(today.valueOf() - expireDate.valueOf()) / (1000 * 60 * 60 * 24) / 30)
-      ).toLocaleString("pt-br", {
+      return (planValue * dateDiff).toLocaleString("pt-br", {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       });

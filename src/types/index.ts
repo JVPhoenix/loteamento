@@ -27,6 +27,7 @@ export enum FilterSelector {
   Etapa4 = 4,
   Expired = 5,
   Regular = 6,
+  PaidOff = 7,
 }
 
 export type PageType = {

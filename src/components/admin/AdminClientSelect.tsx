@@ -18,9 +18,7 @@ export default function AdminClientSelect(props: AdminClientSelectInterface) {
       <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold select-none mb-2">
         SELECIONE UM CLIENTE
       </h1>
-      <h1 className="text-white drop-shadow-titles text-xl response:text-2xl font-bold select-none mb-2">
-        Filtros:
-      </h1>
+      <h1 className="text-white drop-shadow-titles text-xl response:text-2xl font-bold select-none mb-2">Filtros:</h1>
       <div className="flex flex-col gap-1 items-center response:flex-row response:gap-8">
         <div className="flex flex-col items-center gap-3">
           <h1 className="text-white text-xl response:text-2xl font-bold select-none">Situação</h1>
@@ -28,7 +26,7 @@ export default function AdminClientSelect(props: AdminClientSelectInterface) {
             <Button
               className={twMerge(
                 props.state === FilterSelector.Expired &&
-                  "border-yellow1 bg-yellow1 text-black1 hover:text-black1 font-bold hover:shadow-white shadow-md"
+                  "border-red-500 bg-red-500 text-black1 hover:text-black1 font-bold hover:shadow-white shadow-md hover:border-red-500"
               )}
               onClick={() => props.handleState(FilterSelector.Expired)}
             >
@@ -37,11 +35,20 @@ export default function AdminClientSelect(props: AdminClientSelectInterface) {
             <Button
               className={twMerge(
                 props.state === FilterSelector.Regular &&
-                  "border-yellow1 bg-yellow1 text-black1 hover:text-black1 font-bold hover:shadow-white shadow-md"
+                  "border-blue-500 bg-blue-500 text-black1 hover:text-black1 font-bold hover:shadow-white shadow-md hover:border-blue-500"
               )}
               onClick={() => props.handleState(FilterSelector.Regular)}
             >
               <h1> Regular </h1>
+            </Button>
+            <Button
+              className={twMerge(
+                props.state === FilterSelector.PaidOff &&
+                  "border-green-500 bg-green-500 text-black1 hover:text-black1 font-bold hover:shadow-white shadow-md hover:border-green-500"
+              )}
+              onClick={() => props.handleState(FilterSelector.PaidOff)}
+            >
+              <h1> Quitado </h1>
             </Button>
           </div>
         </div>
