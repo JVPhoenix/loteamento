@@ -3,14 +3,14 @@ import { InstagramIcon, WhatsappIcon, EmailIcon } from "../Icons";
 import { PageSelector } from "@/types";
 
 interface ContactsInterface {
-  page: number;
+  page: string;
 }
 
 export default function Contacts(props: ContactsInterface) {
   return (
     <div className="flex flex-col items-center text-center align-middle pb-4">
       <h1 className="text-white drop-shadow-titles text-xl response:text-3xl font-bold">
-        {props.page === PageSelector.Client ? (
+        {props.page === PageSelector.ClientSearch ? (
           <>
             ALGUMA INFORMAÇÃO ESTÁ ERRADA? <br /> ENTRE EM CONTATO CONOSCO E NOS INFORME!
           </>

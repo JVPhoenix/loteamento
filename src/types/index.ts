@@ -1,13 +1,16 @@
 import { Dispatch, SetStateAction } from "react";
 
 export enum PageSelector {
-  HomePage = 0,
-  Etapa1 = 1,
-  Etapa2 = 2,
-  Etapa3 = 3,
-  Etapa4 = 4,
-  Client = 5,
-  Admin = 6,
+  HomePage = "",
+  ErrorPage = "Error",
+  Etapa1 = "/etapa1",
+  Etapa2 = "/etapa2",
+  Etapa3 = "/etapa3",
+  Etapa4 = "/etapa4",
+  ClientSearch = "/cliente",
+  AdminLogin = "/login",
+  AdminSearch = "/admin/buscar",
+  AdminSimulate = "/admin/simular",
 }
 
 export enum PlansSelector {
@@ -31,12 +34,12 @@ export enum FilterSelector {
 }
 
 export type PageType = {
-  page: number;
+  page: string;
   setPage: Dispatch<SetStateAction<number>>;
 };
 
 export interface PageInfos {
-  id: number;
+  id: string;
   index: number;
   queryName: string | undefined;
   title: string;
@@ -99,6 +102,7 @@ export interface AdminsDataInterface {
 
 export type AdminsDataContextType = {
   adminsData: AdminsDataInterface[] | null;
+  searchAdmin: AdminsDataInterface[] | null;
   adminLogin: { cpf: string; password: string };
   setAdminLogin: Dispatch<SetStateAction<{ cpf: string; password: string }>>;
 };

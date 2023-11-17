@@ -46,13 +46,13 @@ export default function Client() {
         <Head>
           <title>Área do Cliente</title>
         </Head>
-        <Header page={PageSelector.Client} />
+        <Header page={PageSelector.ClientSearch} />
       </div>
       <div className="w-auto m-auto">
         {searchClient?.length && searchClient?.length === 1 ? (
           <ClientPageContent
             data={searchClient[0]}
-            page={PageSelector.Client}
+            page={PageSelector.ClientSearch}
             handleResetOptions={handleResetOptions}
           />
         ) : (

@@ -6,17 +6,17 @@ import { PageSelector, InnerPhotosInterface, PageInfos } from "@/types";
 import { Inter } from "next/font/google";
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
+import ErrorPage from "@/components/ErrorPage";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Images() {
   const { query } = useRouter();
   const photosData = usePhotosData();
   const [pageInfos, setPageInfos] = useState<PageInfos>({
-    id: 0,
+    id: "",
     index: 0,
     title: "",
     queryName: "",
@@ -39,7 +39,7 @@ export default function Images() {
       });
     } else {
       setPageInfos({
-        id: 0,
+        id: "",
         index: 0,
         queryName: "ERROR",
         title: "ERRO",
@@ -62,22 +62,7 @@ export default function Images() {
           <h1>Carregando página...</h1>
         </div>
       ) : pageInfos.title === "ERRO" ? (
-        <div className="flex flex-col m-auto items-center text-white gap-2 text-3xl select-none font-bold">
-          <div className="flex flex-col items-center justify-center">
-            <h1 className="text-9xl text-white tracking-widest">404</h1>
-            <div className="bg-gray1  text-black1 px-2 text-sm rounded rotate-12 absolute">PAGE NOT FOUND</div>
-          </div>
-          <Link
-            className={twMerge(
-              "ease-in-out duration-200 w-auto text-xl p-4",
-              "hover:text-yellow1 hover:scale-110 active:scale-90 active:duration-100 hover:border-yellow1",
-              "border border-solid rounded-tr-lg rounded-bl-lg rounded-tl-2xl rounded-br-2xl"
-            )}
-            href="/"
-          >
-            <h1> PAGINA INICIAL </h1>
-          </Link>
-        </div>
+        <ErrorPage />
       ) : (
         <div className={twMerge("flex flex-col m-auto bg-black1 text-white text-center text-lg my-8", inter.className)}>
           <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold mb-4">

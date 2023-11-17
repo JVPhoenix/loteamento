@@ -7,14 +7,13 @@ import { MenuIcon } from "../Icons";
 import { useAdminsData } from "@/context/AdminsDataContext";
 
 interface HeaderInterface {
-  page: number;
-  searchAdmin?: AdminsDataInterface[] | null;
+  page: string;
   handleError?: () => void;
   setSelectedClient?: (selection: null) => void;
 }
 
 export default function Header(props: HeaderInterface) {
-  const { adminLogin, setAdminLogin } = useAdminsData();
+  const { searchAdmin, setAdminLogin } = useAdminsData();
   const [toggleEtapas, setToggleEtapas] = useState<boolean>(false);
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
   const [togglePanel, setTogglePanel] = useState<boolean>(false);
@@ -118,13 +117,13 @@ export default function Header(props: HeaderInterface) {
             </Link>
           )}
 
-          {props.page !== PageSelector.Client && (
+          {props.page !== PageSelector.ClientSearch && (
             <Link
               className={twMerge(
                 "ease-in-out duration-200 hover:text-yellow1 hover:scale-110",
                 "active:scale-90 active:duration-100"
               )}
-              href="/client"
+              href={PageSelector.ClientSearch}
             >
               <h3> ÁREA DO CLIENTE </h3>
             </Link>
@@ -146,7 +145,7 @@ export default function Header(props: HeaderInterface) {
             <div
               className={twMerge(
                 "hidden rounded-md bg-black1 p-2 gap-2",
-                "response:bg-black response:absolute response:-translate-x-3",
+                "response:bg-black response:absolute response:-translate-x-3 response:top-24",
                 toggleEtapas && "flex flex-col"
               )}
             >
@@ -156,7 +155,7 @@ export default function Header(props: HeaderInterface) {
                     "ease-in-out duration-200 hover:text-yellow1",
                     "active:scale-90 active:duration-100"
                   )}
-                  href={`/${"etapa1"}`}
+                  href={PageSelector.Etapa1}
                 >
                   ETAPA 1
                 </Link>
@@ -167,7 +166,7 @@ export default function Header(props: HeaderInterface) {
                     "ease-in-out duration-200 hover:text-yellow1",
                     "active:scale-90 active:duration-100"
                   )}
-                  href={`/${"etapa2"}`}
+                  href={PageSelector.Etapa2}
                 >
                   ETAPA 2
                 </Link>
@@ -177,39 +176,69 @@ export default function Header(props: HeaderInterface) {
 
           <div className="z-10">
             <div className="flex items-center">
-              {props.page !== PageSelector.Admin && (
+              {searchAdmin?.length === 0 ? (
                 <Link
                   className={twMerge(
                     "ease-in-out duration-200 response:absolute right-0",
                     "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
                   )}
-                  href="/admin"
+                  href={PageSelector.AdminLogin}
                 >
-                  <h1>{adminLogin.cpf ? "PAINEL" : "LOGIN"}</h1>
+                  <h1>LOGIN</h1>
                 </Link>
-              )}
-              {props.searchAdmin?.length !== 0 && props.page === PageSelector.Admin && (
-                <div
-                  className={twMerge(
-                    "flex justify-center m-auto cursor-pointer",
-                    "ease-in-out duration-200 response:absolute right-0",
-                    "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100 response:w-28",
-                    togglePanel && "text-yellow1"
-                  )}
-                  onClick={() => setTogglePanel((togglePanel) => !togglePanel)}
-                  ref={panelRef}
-                >
-                  {props.searchAdmin?.map((value) => value.name.toLocaleUpperCase())}
-                </div>
+              ) : (
+                searchAdmin?.length !== 0 && (
+                  <div
+                    className={twMerge(
+                      "flex justify-center m-auto cursor-pointer",
+                      "ease-in-out duration-200 response:absolute right-0",
+                      "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100 response:w-28",
+                      togglePanel && "text-yellow1"
+                    )}
+                    onClick={() => setTogglePanel((togglePanel) => !togglePanel)}
+                    ref={panelRef}
+                  >
+                    {searchAdmin?.map((value) => value.name.toLocaleUpperCase())}
+                  </div>
+                )
               )}
             </div>
+
             <div
               className={twMerge(
                 "hidden rounded-md bg-black1 gap-2 p-2 right-5",
-                "response:-right-6 response:top-24 response:p-3 response:absolute response:bg-black",
+                "response:-right-4 response:top-24 response:p-3 response:absolute response:bg-black",
                 togglePanel && "flex flex-col"
               )}
             >
+              {props.page !== PageSelector.AdminLogin && (
+                <>
+                  {props.page !== PageSelector.AdminSearch && (
+                    <Link
+                      className={twMerge(
+                        "ease-in-out duration-200 text-center cursor-pointer",
+                        "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
+                      )}
+                      href={PageSelector.AdminSearch}
+                    >
+                      <h1>BUSCAR CLIENTE</h1>
+                    </Link>
+                  )}
+
+                  {props.page !== PageSelector.AdminSimulate && (
+                    <Link
+                      className={twMerge(
+                        "ease-in-out duration-200 text-center cursor-pointer",
+                        "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
+                      )}
+                      href={PageSelector.AdminSimulate}
+                    >
+                      <h1>SIMULAR REAJUSTE</h1>
+                    </Link>
+                  )}
+                </>
+              )}
+
               <div
                 className={twMerge(
                   "ease-in-out duration-200 text-center cursor-pointer",

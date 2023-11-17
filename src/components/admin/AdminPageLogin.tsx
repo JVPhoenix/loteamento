@@ -93,7 +93,7 @@ export default function AdminPageLogin(props: AdminPageLoginInferface) {
               fill={props.checkRemember ? "none" : "white"}
             />
           </div>
-          <h1>Lembrar senha</h1>
+          <h1>Continuar conectado</h1>
         </div>
 
         <div

@@ -81,11 +81,11 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
 
   return (
     <>
-      <div className="flex flex-col w-full m-auto pt-5 items-center">
-        <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold mb-5 select-none">
+      <div className="flex flex-col w-full m-auto items-center">
+        <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold select-none">
           USUÁRIO ENCONTRADO
         </h1>
-        {!props.data.standard && props.page !== PageSelector.Admin ? (
+        {!props.data.standard && props.page !== PageSelector.AdminLogin ? (
           <div className="flex flex-col justify-center items-center m-5">
             <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold mb-2 select-none">
               CONTRATO ESPECIAL
@@ -96,13 +96,13 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
             <h1>Por isso só pode ser consultado mediante contato direto com algum dos envolvidos com o Loteamento!</h1>
           </div>
         ) : (
-          <div className="w-full px-2 response:p-0">
+          <div className="flex flex-col w-full items-center response:p-0">
             <ClientPageContentUser data={props.data} />
+            <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold select-none">
+              INFORMAÇÕES DO CONTRATO
+            </h1>
 
-            <div className="flex flex-col w-full items-center gap-2 px-8 pb-3 response:px-0">
-              <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold select-none">
-                CONTRATO
-              </h1>
+            <div className="flex flex-col w-full m-auto items-center gap-2 py-3 response:px-0">
               <div className="flex items-center response:p-0">
                 <ExpireIcon
                   className={twMerge(
@@ -162,134 +162,161 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
 
             <div
               className={twMerge(
-                "flex flex-col justify-between pb-4 w-80",
+                "flex flex-col justify-between pb-4 px-2",
                 "response:flex-row response:w-auto response:min-w-[700px]"
               )}
             >
-              <div className="flex flex-col response:gap-1">
-                <div className="flex leading-tight items-center gap-1">
+              <div className="flex flex-col m-auto items-center response:gap-1">
+                <h1 className="text-green-600 text-xl response:text-2xl font-bold select-none">LOCALIZAÇÃO</h1>
+                <div className="flex gap-4 response:mb-5">
                   <div>
-                    <ContractIcon className="" width={50} fill="white" stroke="none" />
+                    <div className="flex leading-tight items-center gap-1">
+                      <div>
+                        <ContractIcon className="" width={50} fill="white" stroke="none" />
+                      </div>
+                      <h1>
+                        <b>Contrato: </b> {props.data.contractNumber}
+                      </h1>
+                    </div>
+                    <div className="flex leading-tight items-center gap-1">
+                      <div>
+                        <StageIcon className="" width={50} fill="none" stroke="white" />
+                      </div>
+                      <h1>
+                        <b>Etapa: </b> {props.data.phase}ª
+                      </h1>
+                    </div>
                   </div>
-                  <h1>
-                    <b>Contrato: </b> {props.data.contractNumber}
-                  </h1>
+                  <div>
+                    <div className="flex leading-tight items-center gap-1">
+                      <div>
+                        <LoteIcon className="" width={50} fill="white" stroke="none" />
+                      </div>
+                      <h1>
+                        <b>Lote: </b> {props.data.lote}
+                      </h1>
+                    </div>
+                    <div className="flex leading-tight items-center gap-1">
+                      <div>
+                        <DimensionIcon className="" width={50} fill="white" stroke="none" />
+                      </div>
+                      <h1 className="leading-none response:w-64">
+                        <b>Dimensão: </b>
+                        {props.data.dimension}
+                      </h1>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex leading-tight items-center gap-1">
+                <h1 className="text-green-600 text-xl response:text-2xl font-bold select-none">VALORES</h1>
+                <div className="flex gap-4 response:mb-5">
                   <div>
-                    <StageIcon className="" width={50} fill="none" stroke="white" />
+                    <div>
+                      <div className="flex leading-tight items-center gap-1">
+                        <div>
+                          <PlanIcon className="" width={50} fill="white" stroke="none" plan={props.data.plan} />
+                        </div>
+                        <h1>
+                          <b>Plano: </b>
+                          {props.data.plan === 0
+                            ? "A Vista"
+                            : `${props.data.plan}x de R$ ${priceCalc(props.data.plan)}`}
+                        </h1>
+                      </div>
+                    </div>
+                    <div className="flex leading-tight items-center gap-1">
+                      <div>
+                        <DayIcon className="" width={50} fill="white" stroke="none" plan={props.data.plan} />
+                      </div>
+                      <h1>
+                        <b>Vencimento dia: </b>
+                        {ExpireDay}
+                      </h1>
+                    </div>
                   </div>
-                  <h1>
-                    <b>Etapa: </b> {props.data.phase}ª
-                  </h1>
+                  <div>
+                    <div className="flex leading-tight items-center gap-1">
+                      <div>
+                        <ValueIcon className="" width={48} fill="white" stroke="none" />
+                      </div>
+                      <h1>
+                        <b>Valor Total: </b> R${" "}
+                        {props.data.entrance
+                          ? (props.data.price + props.data.entrance).toLocaleString("pt-br", {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })
+                          : priceCalc(PlansSelector.ContractPrice)}
+                      </h1>
+                    </div>
+                    <div className="flex leading-tight items-center gap-1">
+                      <div>
+                        <EntranceIcon className="" width={50} fill="none" stroke="white" />
+                      </div>
+                      <b>Entrada: </b>R${" "}
+                      <h1>
+                        {props.data.entrance
+                          ? props.data.entrance.toLocaleString("pt-br", {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })
+                          : props.data.plan === 0
+                          ? 0
+                          : priceCalc(PlansSelector.Entrance)}
+                      </h1>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex leading-tight items-center gap-1">
+                <h1 className="text-green-600 text-xl response:text-2xl font-bold select-none">PAGAMENTO</h1>
+                <div className="flex gap-4 response:mb-5">
                   <div>
-                    <LoteIcon className="" width={50} fill="white" stroke="none" />
+                    <div className="flex leading-tight items-center gap-1">
+                      <div>
+                        <DebtBalanceIcon className="" width={50} fill="none" stroke="white" />
+                      </div>
+                      <h1>
+                        <b>Saldo Devedor: </b>
+                        {props.data.standard ? (
+                          <>R$ {props.data.plan === 0 ? 0 : priceCalc(PlansSelector.Debt)}</>
+                        ) : (
+                          "ERRO"
+                        )}
+                      </h1>
+                    </div>
+                    <div className="flex leading-tight items-center gap-1">
+                      <div>
+                        <PaidIcon className="" width={50} fill="none" stroke="white" />
+                      </div>
+                      <h1>
+                        <b>Nº de Parcelas Pagas: </b>
+                        {props.data.standard ? <>{paidParcels(props.data.startDate, props.data.lastPaid)}</> : "ERRO"}
+                      </h1>
+                    </div>
                   </div>
-                  <h1>
-                    <b>Lote: </b> {props.data.lote}
-                  </h1>
-                </div>
-                <div className="flex leading-tight items-center gap-1">
                   <div>
-                    <DimensionIcon className="" width={50} fill="white" stroke="none" />
+                    <div className="flex leading-tight items-center gap-1">
+                      <div>
+                        <LastPaidIcon className="" width={50} fill="white" stroke="none" />
+                      </div>
+                      <h1>
+                        <b>Ultimo mês pago: </b>{" "}
+                        {LastMonth.toLocaleString("default", { month: "long", year: "numeric" })}
+                      </h1>
+                    </div>
+                    <div className="flex leading-tight items-center gap-1">
+                      <div>
+                        <DayPaid className="" width={50} fill="none" stroke="white" />
+                      </div>
+                      <h1>
+                        <b>Dia pago: </b> {props.data.datePaid}
+                      </h1>
+                    </div>
                   </div>
-                  <h1 className="leading-none response:w-64">
-                    <b>Dimensão: </b>
-                    {props.data.dimension}
-                  </h1>
-                </div>
-                <div className="flex leading-tight items-center gap-1">
-                  <div>
-                    <PlanIcon className="" width={50} fill="white" stroke="none" plan={props.data.plan} />
-                  </div>
-                  <h1>
-                    <b>Plano: </b>
-                    {props.data.plan === 0 ? "A Vista" : `${props.data.plan}x de R$ ${priceCalc(props.data.plan)}`}
-                  </h1>
-                </div>
-                <div className="flex leading-tight items-center gap-1">
-                  <div>
-                    <DayIcon className="" width={50} fill="white" stroke="none" plan={props.data.plan} />
-                  </div>
-                  <h1>
-                    <b>Dia do Vencimento: </b>
-                    Dia {ExpireDay}
-                  </h1>
-                </div>
-              </div>
-
-              <div className="flex flex-col response:gap-1">
-                <div className="flex leading-tight items-center gap-1">
-                  <div>
-                    <ValueIcon className="" width={48} fill="white" stroke="none" />
-                  </div>
-                  <h1>
-                    <b>Valor Total: </b> R${" "}
-                    {props.data.entrance
-                      ? (props.data.price + props.data.entrance).toLocaleString("pt-br", {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })
-                      : priceCalc(PlansSelector.ContractPrice)}
-                  </h1>
-                </div>
-                <div className="flex leading-tight items-center gap-1">
-                  <div>
-                    <DebtBalanceIcon className="" width={50} fill="none" stroke="white" />
-                  </div>
-                  <h1>
-                    <b>Saldo Devedor: </b>
-                    {props.data.standard ? <>R$ {props.data.plan === 0 ? 0 : priceCalc(PlansSelector.Debt)}</> : "ERRO"}
-                  </h1>
-                </div>
-                <div className="flex leading-tight items-center gap-1">
-                  <div>
-                    <EntranceIcon className="" width={50} fill="none" stroke="white" />
-                  </div>
-                  <b>Entrada: </b>R${" "}
-                  <h1>
-                    {props.data.entrance
-                      ? props.data.entrance.toLocaleString("pt-br", {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })
-                      : props.data.plan === 0
-                      ? 0
-                      : priceCalc(PlansSelector.Entrance)}
-                  </h1>
-                </div>
-                <div className="flex leading-tight items-center gap-1">
-                  <div>
-                    <PaidIcon className="" width={50} fill="none" stroke="white" />
-                  </div>
-                  <h1>
-                    <b>Nº de Parcelas Pagas: </b>
-                    {props.data.standard ? <>{paidParcels(props.data.startDate, props.data.lastPaid)}</> : "ERRO"}
-                  </h1>
-                </div>
-                <div className="flex leading-tight items-center gap-1">
-                  <div>
-                    <LastPaidIcon className="" width={50} fill="white" stroke="none" />
-                  </div>
-                  <h1>
-                    <b>Ultimo mês pago: </b> {LastMonth.toLocaleString("default", { month: "long", year: "numeric" })}
-                  </h1>
-                </div>
-                <div className="flex leading-tight items-center gap-1">
-                  <div>
-                    <DayPaid className="" width={50} fill="none" stroke="white" />
-                  </div>
-                  <h1>
-                    <b>Dia pago: </b> {props.data.datePaid}
-                  </h1>
                 </div>
               </div>
             </div>
           </div>
         )}
-        {props.page === PageSelector.Client && (
+        {props.page === PageSelector.ClientSearch && (
           <>
             <div
               className={twMerge(
@@ -301,7 +328,7 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
             >
               <h1> FAÇA UMA NOVA BUSCA </h1>
             </div>
-            <Contacts page={PageSelector.Client} />
+            <Contacts page={PageSelector.ClientSearch} />
           </>
         )}
       </div>
