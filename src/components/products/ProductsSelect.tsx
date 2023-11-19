@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { UpArrow } from "../Icons";
+import { UpArrow } from "../svg/Icons";
 import { twMerge } from "tailwind-merge";
 import { InnerLotesInterface } from "@/types";
 

@@ -8,14 +8,14 @@ interface ErrorPageInterface {
 
 export default function ErrorPage(props: ErrorPageInterface) {
   return (
-    <div className="flex flex-col m-auto items-center text-white gap-2 text-3xl select-none font-bold">
+    <div className="flex flex-col m-auto items-center text-white gap-2 text-3xl select-none font-bold px-3">
       <div className="flex flex-col items-center justify-center">
         <h1 className="text-9xl text-white tracking-widest">404</h1>
         <div className="bg-gray1  text-black1 px-2 text-sm rounded rotate-12 absolute">PAGE NOT FOUND</div>
       </div>
       {props.page === PageSelector.AdminSearch || props.page === PageSelector.AdminSimulate ? (
         <>
-          <h1 className="text-white text-xl response:text-2xl font-bold select-none">
+          <h1 className="text-white text-center text-xl response:text-2xl font-bold select-none">
             Para acessar essa página é necessário fazer Login.
           </h1>
           <Link

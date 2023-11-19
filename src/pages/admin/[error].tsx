@@ -1,5 +1,5 @@
-import ErrorPage from "@/components/ErrorPage";
-import Header from "@/components/main/Header";
+import ErrorPage from "@/components/svg/ErrorPage";
+import Header from "@/components/home/Header";
 import { PageSelector } from "@/types";
 import Head from "next/head";
 

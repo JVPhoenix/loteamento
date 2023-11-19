@@ -12,7 +12,7 @@ interface AdminClientSelectInterface {
   handleStage: (newStage: FilterSelector) => void;
 }
 
-export default function AdminClientSelect(props: AdminClientSelectInterface) {
+export default function AdminSearchFilters(props: AdminClientSelectInterface) {
   return (
     <>
       <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold select-none mb-2">

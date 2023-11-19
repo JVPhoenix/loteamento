@@ -15,8 +15,8 @@ import {
   ObsIcon,
   DayIcon,
   DayPaid,
-} from "../Icons";
-import Contacts from "../main/Contacts";
+} from "../svg/Icons";
+import Contacts from "../home/Contacts";
 import ClientPageContentUser from "./ClientPageContentUser";
 
 interface ClientPageInfoInterface {

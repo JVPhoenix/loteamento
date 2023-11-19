@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { CPFIcon, PassowrdIcon, RememberMeIcon } from "../Icons";
+import { CPFIcon, PassowrdIcon, RememberMeIcon } from "../svg/Icons";
 import { useAdminsData } from "@/context/AdminsDataContext";
 
 interface AdminPageLoginInferface {
@@ -101,9 +101,10 @@ export default function AdminPageLogin(props: AdminPageLoginInferface) {
             "ease-in-out duration-200 w-auto p-4 select-none active:duration-100 cursor-not-allowed",
             "border border-solid rounded-tr-lg rounded-bl-lg rounded-tl-2xl rounded-br-2xl text-gray1 border-gray1",
             checkCpf &&
+              password !== "" &&
               "hover:text-yellow1 hover:scale-110 active:scale-90 hover:border-yellow1 border-white text-white cursor-pointer"
           )}
-          onClick={() => checkCpf && handleSubmit()}
+          onClick={() => checkCpf && password !== "" && handleSubmit()}
         >
           <h1> ENTRAR </h1>
         </div>

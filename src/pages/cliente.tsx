@@ -1,7 +1,7 @@
 import ClientPageContent from "@/components/client/ClientPageContent";
 import ClientPageLogin from "@/components/client/ClientPageSearch";
-import Footer from "@/components/main/Footer";
-import Header from "@/components/main/Header";
+import Footer from "@/components/home/Footer";
+import Header from "@/components/home/Header";
 import { useClientsData } from "@/context/ClientsDataContext";
 import { ClientsDataInterface, PageSelector } from "@/types";
 import Head from "next/head";

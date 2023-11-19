@@ -1,9 +1,9 @@
-import ErrorPage from "@/components/ErrorPage";
-import AdminClientSelect from "@/components/admin/AdminClientSelect";
-import AdminClientSelectBox from "@/components/admin/AdminClientSelectBox";
+import ErrorPage from "@/components/svg/ErrorPage";
+import AdminSearchFilters from "@/components/admin/AdminSearchFilters";
+import AdminSearchSelectBox from "@/components/admin/AdminSearchSelectBox";
 import ClientPageContent from "@/components/client/ClientPageContent";
-import Footer from "@/components/main/Footer";
-import Header from "@/components/main/Header";
+import Footer from "@/components/home/Footer";
+import Header from "@/components/home/Header";
 import { useAdminsData } from "@/context/AdminsDataContext";
 import { useClientsData } from "@/context/ClientsDataContext";
 import { ClientsDataInterface, FilterSelector, PageSelector } from "@/types";
@@ -39,7 +39,7 @@ export default function Buscar() {
         <>
           <div className="flex flex-col m-auto py-6 items-center">
             <div className="flex flex-col items-center pb-10">
-              <AdminClientSelect
+              <AdminSearchFilters
                 state={state}
                 handleState={handleState}
                 checkSpecial={checkSpecial}
@@ -47,7 +47,7 @@ export default function Buscar() {
                 stage={stage}
                 handleStage={handleStage}
               />
-              <AdminClientSelectBox
+              <AdminSearchSelectBox
                 clients={searchClient}
                 placeholder="Digite o Nome do Cliente ou Quadra e Lote"
                 selectedClient={selectedClient}
@@ -61,9 +61,9 @@ export default function Buscar() {
           </div>
           <Footer />
         </>
-      ) : (
+      ) : searchAdmin?.length === 0 ? (
         <ErrorPage page={PageSelector.AdminSearch} />
-      )}
+      ) : null}
     </div>
   );
 }

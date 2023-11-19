@@ -1,7 +1,7 @@
 import AdminDashboard from "@/components/admin/AdminDashboard";
 import AdminPageLogin from "@/components/admin/AdminPageLogin";
-import Footer from "@/components/main/Footer";
-import Header from "@/components/main/Header";
+import Footer from "@/components/home/Footer";
+import Header from "@/components/home/Header";
 import { useAdminsData } from "@/context/AdminsDataContext";
 import { AdminsDataInterface, PageSelector } from "@/types";
 import Head from "next/head";

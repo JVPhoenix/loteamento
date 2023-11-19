@@ -1,5 +1,5 @@
 import { twMerge } from "tailwind-merge";
-import { InstagramIcon, WhatsappIcon, EmailIcon } from "../Icons";
+import { InstagramIcon, WhatsappIcon, EmailIcon } from "../svg/Icons";
 import { PageSelector } from "@/types";
 
 interface ContactsInterface {

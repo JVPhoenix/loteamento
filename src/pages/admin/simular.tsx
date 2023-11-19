@@ -1,9 +1,10 @@
-import ErrorPage from "@/components/ErrorPage";
-import Footer from "@/components/main/Footer";
-import Header from "@/components/main/Header";
+import ErrorPage from "@/components/svg/ErrorPage";
+import Footer from "@/components/home/Footer";
+import Header from "@/components/home/Header";
 import { useAdminsData } from "@/context/AdminsDataContext";
 import { PageSelector } from "@/types";
 import Head from "next/head";
+import MaintenancePage from "@/components/svg/MaintenencePage";
 
 export default function Simular() {
   const { searchAdmin } = useAdminsData();
@@ -18,13 +19,13 @@ export default function Simular() {
       {searchAdmin?.length === 1 ? (
         <>
           <div className="flex flex-col m-auto py-6 items-center">
-            <div className="flex flex-col items-center pb-10">RENDERIZADO</div>
+            <MaintenancePage />
           </div>
           <Footer />
         </>
-      ) : (
+      ) : searchAdmin?.length === 0 ? (
         <ErrorPage page={PageSelector.AdminSimulate} />
-      )}
+      ) : null}
     </div>
   );
 }

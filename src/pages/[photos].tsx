@@ -1,6 +1,6 @@
-import Footer from "@/components/main/Footer";
-import Header from "@/components/main/Header";
-import { LoadingIcon } from "@/components/Icons";
+import Footer from "@/components/home/Footer";
+import Header from "@/components/home/Header";
+import { LoadingIcon } from "@/components/svg/Icons";
 import { usePhotosData } from "@/context/PhotosDataContext";
 import { PageSelector, InnerPhotosInterface, PageInfos } from "@/types";
 import { Inter } from "next/font/google";
@@ -9,7 +9,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import ErrorPage from "@/components/ErrorPage";
+import ErrorPage from "@/components/svg/ErrorPage";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Images() {

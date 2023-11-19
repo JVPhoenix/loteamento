@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { MenuIcon } from "../Icons";
+import { MenuIcon } from "../svg/Icons";
 import { useAdminsData } from "@/context/AdminsDataContext";
 
 interface HeaderInterface {

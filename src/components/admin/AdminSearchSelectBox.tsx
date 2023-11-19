@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { UpArrow } from "../Icons";
+import { UpArrow } from "../svg/Icons";
 import { twMerge } from "tailwind-merge";
 import { ClientsDataInterface, FilterSelector, PlansSelector } from "@/types";
 
@@ -13,7 +13,7 @@ interface SelectClientProps {
   stage: FilterSelector | null;
 }
 
-export default function AdminClientSelectBox(props: SelectClientProps) {
+export default function AdminSearchSelectBox(props: SelectClientProps) {
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const [searchItem, setSearchItem] = useState<string>("");
   const selectRef = useRef<HTMLDivElement>(null);

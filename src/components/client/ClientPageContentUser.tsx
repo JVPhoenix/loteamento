@@ -1,5 +1,5 @@
 import { ClientsDataInterface } from "@/types";
-import { AdressIcon, BirthIcon, CPFIcon, NameIcon, PhoneIcon } from "../Icons";
+import { AdressIcon, BirthIcon, CPFIcon, NameIcon, PhoneIcon } from "../svg/Icons";
 
 interface ClientPageContentUser {
   data: ClientsDataInterface;
