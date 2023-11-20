@@ -10,7 +10,8 @@ export enum PageSelector {
   ClientSearch = "/cliente",
   AdminLogin = "/login",
   AdminSearch = "/admin/buscar",
-  AdminSimulate = "/admin/simular",
+  AdminReajustClient = "/admin/reajustecliente",
+  AdminReajustSimulate = "/admin/simular",
 }
 
 export enum PlansSelector {
@@ -31,6 +32,14 @@ export enum FilterSelector {
   Expired = 5,
   Regular = 6,
   PaidOff = 7,
+}
+
+export enum PlanMonths {
+  FirstYear = 12,
+  SecondYear = 24,
+  ThirdYear = 36,
+  FourthYear = 48,
+  FifthYear = 60,
 }
 
 export type PageType = {

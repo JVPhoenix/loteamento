@@ -6,15 +6,16 @@ import { PageSelector } from "@/types";
 import Head from "next/head";
 import MaintenancePage from "@/components/svg/MaintenencePage";
 
-export default function Simular() {
+export default function SimularLote() {
   const { searchAdmin } = useAdminsData();
+
   return (
     <div className="flex flex-col w-full min-h-screen bg-black1 text-lg text-white">
       <div className="w-full h-full">
         <Head>
-          <title>{searchAdmin?.length !== 0 ? "Simular Reajuste" : "ERRO - Sem Acesso"}</title>
+          <title>{searchAdmin?.length !== 0 ? "Simular Reajuste - Lote" : "ERRO - Sem Acesso"}</title>
         </Head>
-        <Header page={PageSelector.AdminSimulate} />
+        <Header page={PageSelector.AdminReajustSimulate} />
       </div>
       {searchAdmin?.length === 1 ? (
         <>
@@ -24,7 +25,7 @@ export default function Simular() {
           <Footer />
         </>
       ) : searchAdmin?.length === 0 ? (
-        <ErrorPage page={PageSelector.AdminSimulate} />
+        <ErrorPage page={PageSelector.AdminReajustSimulate} />
       ) : null}
     </div>
   );

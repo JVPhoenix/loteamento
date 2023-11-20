@@ -225,13 +225,25 @@ export default function Header(props: HeaderInterface) {
                     </Link>
                   )}
 
-                  {props.page !== PageSelector.AdminSimulate && (
+                  {props.page !== PageSelector.AdminReajustClient && (
                     <Link
                       className={twMerge(
                         "ease-in-out duration-200 text-center cursor-pointer",
                         "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
                       )}
-                      href={PageSelector.AdminSimulate}
+                      href={PageSelector.AdminReajustClient}
+                    >
+                      <h1>REAJUSTE - CLIENTE</h1>
+                    </Link>
+                  )}
+
+                  {props.page !== PageSelector.AdminReajustSimulate && (
+                    <Link
+                      className={twMerge(
+                        "ease-in-out duration-200 text-center cursor-pointer",
+                        "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
+                      )}
+                      href={PageSelector.AdminReajustSimulate}
                     >
                       <h1>SIMULAR REAJUSTE</h1>
                     </Link>

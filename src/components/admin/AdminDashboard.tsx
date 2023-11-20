@@ -8,13 +8,18 @@ export default function AdminDashboard() {
       <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold select-none">
         PAINEL DO ADMINISTRADOR
       </h1>
-      <div className="flex gap-20 px-6">
+      <div className="flex gap-14 px-6">
         <Link href={PageSelector.AdminSearch}>
           <Button className="" onClick={() => null}>
             BUSCAR CLIENTE
           </Button>
         </Link>
-        <Link href={PageSelector.AdminSimulate}>
+        <Link href={PageSelector.AdminReajustClient}>
+          <Button className="" onClick={() => null}>
+            REAJUSTE DO CLIENTE
+          </Button>
+        </Link>
+        <Link href={PageSelector.AdminReajustSimulate}>
           <Button className="" onClick={() => null}>
             SIMULAR REAJUSTES
           </Button>
