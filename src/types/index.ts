@@ -11,7 +11,7 @@ export enum PageSelector {
   AdminLogin = "/login",
   AdminSearch = "/admin/buscar",
   AdminReajustClient = "/admin/reajustecliente",
-  AdminReajustSimulate = "/admin/simular",
+  AdminReajustSimulate = "/admin/reajustesimular",
 }
 
 export enum PlansSelector {
@@ -24,11 +24,11 @@ export enum PlansSelector {
 }
 
 export enum FilterSelector {
-  Special = 0,
-  Etapa1 = 1,
-  Etapa2 = 2,
-  Etapa3 = 3,
-  Etapa4 = 4,
+  Etapa1 = 0,
+  Etapa2 = 1,
+  Etapa3 = 2,
+  Etapa4 = 3,
+  Special = 4,
   Expired = 5,
   Regular = 6,
   PaidOff = 7,

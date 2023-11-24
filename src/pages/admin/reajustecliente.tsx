@@ -8,7 +8,7 @@ import AdminSearchFilters from "@/components/admin/AdminSearchFilters";
 import AdminSearchSelectBox from "@/components/admin/AdminSearchSelectBox";
 import { useState } from "react";
 import { useClientsData } from "@/context/ClientsDataContext";
-import AdminReajustClient from "@/components/admin/AdminReajustClient";
+import AdminReajustClient from "@/components/admin/AdminReajust";
 
 export default function ReajustClient() {
   const { searchAdmin } = useAdminsData();
@@ -17,7 +17,6 @@ export default function ReajustClient() {
 
   const [selectedClient, setSelectedClient] = useState<ClientsDataInterface | null>(null);
   const [state, setState] = useState<FilterSelector | null>(null);
-  const [checkSpecial, setCheckSpecial] = useState<boolean>(false);
   const [stage, setStage] = useState<FilterSelector | null>(null);
 
   const handleState = (newState: FilterSelector) => {
@@ -42,10 +41,9 @@ export default function ReajustClient() {
               <AdminSearchFilters
                 state={state}
                 handleState={handleState}
-                checkSpecial={checkSpecial}
-                setCheckSpecial={setCheckSpecial}
                 stage={stage}
                 handleStage={handleStage}
+                page={PageSelector.AdminReajustClient}
               />
               <AdminSearchSelectBox
                 clients={searchClient}
@@ -53,11 +51,11 @@ export default function ReajustClient() {
                 selectedClient={selectedClient}
                 setSelectedClient={setSelectedClient}
                 state={state}
-                special={checkSpecial}
                 stage={stage}
+                page={PageSelector.AdminReajustClient}
               />
             </div>
-            <AdminReajustClient data={selectedClient} />
+            <AdminReajustClient client={selectedClient} page={PageSelector.AdminReajustClient} />
           </div>
           <Footer />
         </>

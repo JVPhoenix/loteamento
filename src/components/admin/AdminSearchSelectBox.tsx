@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { UpArrow } from "../svg/Icons";
 import { twMerge } from "tailwind-merge";
-import { ClientsDataInterface, FilterSelector, PlansSelector } from "@/types";
+import { ClientsDataInterface, FilterSelector, PageSelector, PlansSelector } from "@/types";
 
 interface SelectClientProps {
   clients: ClientsDataInterface[] | null;
@@ -9,8 +9,9 @@ interface SelectClientProps {
   selectedClient: ClientsDataInterface | null;
   setSelectedClient: (selection: ClientsDataInterface) => void;
   state: FilterSelector | null;
-  special: boolean;
+  special?: boolean;
   stage: FilterSelector | null;
+  page: PageSelector;
 }
 
 export default function AdminSearchSelectBox(props: SelectClientProps) {
@@ -102,6 +103,24 @@ export default function AdminSearchSelectBox(props: SelectClientProps) {
       >
         {props.clients
           ?.filter((option) => {
+            if (props.page === PageSelector.AdminReajustClient) {
+              return (
+                option.standard &&
+                option.plan !== 0 &&
+                (
+                  option.price -
+                  (checkExpired(option.lastPaid, option.startDate, FilterSelector.PaidOff) * option.price) / option.plan
+                ).toLocaleString("pt-br", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                }) !== "0,00" &&
+                option.standard
+              );
+            } else {
+              return option;
+            }
+          })
+          .filter((option) => {
             return (
               // NAME FILTER
               (!searchItem ||
@@ -147,7 +166,6 @@ export default function AdminSearchSelectBox(props: SelectClientProps) {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
                 }) === "0,00" &&
-                  option.plan &&
                   option.standard) ||
                 option.plan === 0)
             );
