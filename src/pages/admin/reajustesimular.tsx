@@ -8,9 +8,9 @@ import AdminSearchFilters from "@/components/admin/AdminSearchFilters";
 import { useState } from "react";
 import ProductsSelect from "@/components/products/ProductsSelect";
 import { useLotesData } from "@/context/LotesDataContext";
-import AdminReajustClient from "@/components/admin/AdminReajust";
+import AdminReadjust from "@/components/admin/AdminReadjust";
 
-export default function ReajustSimulate() {
+export default function ReadjustSimulate() {
   const lotesData = useLotesData();
   const { searchAdmin } = useAdminsData();
 
@@ -30,13 +30,13 @@ export default function ReajustSimulate() {
         <Head>
           <title>{searchAdmin?.length !== 0 ? "Simular Reajuste - Lote" : "ERRO - Sem Acesso"}</title>
         </Head>
-        <Header page={PageSelector.AdminReajustSimulate} />
+        <Header page={PageSelector.AdminReadjustSimulate} />
       </div>
       {searchAdmin?.length === 1 ? (
         <>
           <div className="flex flex-col m-auto py-6 items-center">
             <div className="flex flex-col items-center pb-8">
-              <AdminSearchFilters stage={stage} handleStage={handleStage} page={PageSelector.AdminReajustSimulate} />
+              <AdminSearchFilters stage={stage} handleStage={handleStage} page={PageSelector.AdminReadjustSimulate} />
               {lotesData && (
                 <ProductsSelect
                   options={lotesData[stage === null ? 3 : stage]}
@@ -46,12 +46,12 @@ export default function ReajustSimulate() {
                 />
               )}
             </div>
-            <AdminReajustClient lote={selectedItem} page={PageSelector.AdminReajustSimulate} />
+            <AdminReadjust lote={selectedItem} page={PageSelector.AdminReadjustSimulate} />
           </div>
           <Footer />
         </>
       ) : searchAdmin?.length === 0 ? (
-        <ErrorPage page={PageSelector.AdminReajustSimulate} />
+        <ErrorPage page={PageSelector.AdminReadjustSimulate} />
       ) : null}
     </div>
   );

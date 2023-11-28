@@ -103,7 +103,7 @@ export default function AdminSearchSelectBox(props: SelectClientProps) {
       >
         {props.clients
           ?.filter((option) => {
-            if (props.page === PageSelector.AdminReajustClient) {
+            if (props.page === PageSelector.AdminReadjustClient) {
               return (
                 option.standard &&
                 option.plan !== 0 &&

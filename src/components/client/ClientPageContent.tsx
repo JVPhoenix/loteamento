@@ -96,7 +96,7 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
             <h1>Por isso só pode ser consultado mediante contato direto com algum dos envolvidos com o Loteamento!</h1>
           </div>
         ) : (
-          <div className="flex flex-col w-full items-center response:p-0">
+          <div className="flex flex-col w-full items-center px-5 response:p-0">
             <ClientPageContentUser data={props.data} />
             <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold select-none">
               INFORMAÇÕES DO CONTRATO
@@ -161,14 +161,16 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
             </div>
 
             <div
-              className={twMerge(
-                "flex flex-col justify-between pb-4 px-2",
-                "response:flex-row response:w-auto response:min-w-[700px]"
-              )}
+              className={twMerge("flex flex-col justify-between pb-4 px-2", "response:w-auto response:min-w-[700px]")}
             >
-              <div className="flex flex-col m-auto items-center response:gap-1">
+              <div
+                className={twMerge(
+                  "flex flex-col text-center",
+                  "response:text-left response:m-auto response:items-center response:gap-1"
+                )}
+              >
                 <h1 className="text-green-600 text-xl response:text-2xl font-bold select-none">LOCALIZAÇÃO</h1>
-                <div className="flex gap-4 response:mb-5">
+                <div className="flex flex-col pb-5 response:flex-row response:gap-4">
                   <div>
                     <div className="flex leading-tight items-center gap-1">
                       <div>
@@ -208,7 +210,7 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                   </div>
                 </div>
                 <h1 className="text-green-600 text-xl response:text-2xl font-bold select-none">VALORES</h1>
-                <div className="flex gap-4 response:mb-5">
+                <div className="flex flex-col pb-5 response:flex-row response:gap-4">
                   <div>
                     <div>
                       <div className="flex leading-tight items-center gap-1">
@@ -267,7 +269,7 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                   </div>
                 </div>
                 <h1 className="text-green-600 text-xl response:text-2xl font-bold select-none">PAGAMENTO</h1>
-                <div className="flex gap-4 response:mb-5">
+                <div className="flex flex-col pb-5 response:flex-row response:gap-4">
                   <div>
                     <div className="flex leading-tight items-center gap-1">
                       <div>

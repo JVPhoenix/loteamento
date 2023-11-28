@@ -46,6 +46,7 @@ export default function Buscar() {
                 setCheckSpecial={setCheckSpecial}
                 stage={stage}
                 handleStage={handleStage}
+                page={PageSelector.AdminSearch}
               />
               <AdminSearchSelectBox
                 clients={searchClient}
@@ -55,6 +56,7 @@ export default function Buscar() {
                 state={state}
                 special={checkSpecial}
                 stage={stage}
+                page={PageSelector.AdminSearch}
               />
             </div>
             {selectedClient && <ClientPageContent data={selectedClient} page={PageSelector.AdminLogin} />}

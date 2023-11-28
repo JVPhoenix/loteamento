@@ -10,8 +10,8 @@ export enum PageSelector {
   ClientSearch = "/cliente",
   AdminLogin = "/login",
   AdminSearch = "/admin/buscar",
-  AdminReajustClient = "/admin/reajustecliente",
-  AdminReajustSimulate = "/admin/reajustesimular",
+  AdminReadjustClient = "/admin/reajustecliente",
+  AdminReadjustSimulate = "/admin/reajustesimular",
 }
 
 export enum PlansSelector {

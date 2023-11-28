@@ -17,11 +17,11 @@ export default function AdminSearchFilters(props: AdminClientSelectInterface) {
   return (
     <>
       <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold select-none mb-2">
-        {props.page !== PageSelector.AdminReajustSimulate ? "SELECIONE UM CLIENTE" : "SELECIONE UMA ETAPA"}
+        {props.page !== PageSelector.AdminReadjustSimulate ? "SELECIONE UM CLIENTE" : "SELECIONE UMA ETAPA"}
       </h1>
       <h1 className="text-white drop-shadow-titles text-xl response:text-2xl font-bold select-none mb-2">Filtros:</h1>
       <div className="flex flex-col gap-1 items-center response:flex-row response:gap-8">
-        {props.page !== PageSelector.AdminReajustSimulate && (
+        {props.page !== PageSelector.AdminReadjustSimulate && (
           <div className="flex flex-col items-center gap-3">
             <h1 className="text-white text-xl response:text-2xl font-bold select-none">Situação</h1>
             <div className="flex gap-3">
@@ -43,7 +43,7 @@ export default function AdminSearchFilters(props: AdminClientSelectInterface) {
               >
                 <h1> Regular </h1>
               </Button>
-              {props.page !== PageSelector.AdminReajustClient && (
+              {props.page !== PageSelector.AdminReadjustClient && (
                 <Button
                   className={twMerge(
                     props.state === FilterSelector.PaidOff &&
@@ -57,7 +57,7 @@ export default function AdminSearchFilters(props: AdminClientSelectInterface) {
             </div>
           </div>
         )}
-        {props.page !== PageSelector.AdminReajustClient && props.page !== PageSelector.AdminReajustSimulate && (
+        {props.page !== PageSelector.AdminReadjustClient && props.page !== PageSelector.AdminReadjustSimulate && (
           <div className="flex flex-col items-center gap-3">
             <h1 className="text-white text-xl response:text-2xl font-bold select-none">Tipo</h1>
             <div className="flex gap-3">
@@ -74,7 +74,7 @@ export default function AdminSearchFilters(props: AdminClientSelectInterface) {
           </div>
         )}
         <div className="flex flex-col items-center gap-3">
-          {props.page !== PageSelector.AdminReajustSimulate && (
+          {props.page !== PageSelector.AdminReadjustSimulate && (
             <h1 className="text-white text-xl response:text-2xl font-bold select-none mb-2">Etapa</h1>
           )}
           <div className="flex gap-3">

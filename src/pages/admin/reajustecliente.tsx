@@ -8,9 +8,9 @@ import AdminSearchFilters from "@/components/admin/AdminSearchFilters";
 import AdminSearchSelectBox from "@/components/admin/AdminSearchSelectBox";
 import { useState } from "react";
 import { useClientsData } from "@/context/ClientsDataContext";
-import AdminReajustClient from "@/components/admin/AdminReajust";
+import AdminReadjust from "@/components/admin/AdminReadjust";
 
-export default function ReajustClient() {
+export default function ReadjustClient() {
   const { searchAdmin } = useAdminsData();
   const clientsData = useClientsData();
   const searchClient = clientsData && Object.values(clientsData);
@@ -32,7 +32,7 @@ export default function ReajustClient() {
         <Head>
           <title>{searchAdmin?.length !== 0 ? "Simular Reajuste - Cliente" : "ERRO - Sem Acesso"}</title>
         </Head>
-        <Header page={PageSelector.AdminReajustClient} />
+        <Header page={PageSelector.AdminReadjustClient} />
       </div>
       {searchAdmin?.length === 1 ? (
         <>
@@ -43,7 +43,7 @@ export default function ReajustClient() {
                 handleState={handleState}
                 stage={stage}
                 handleStage={handleStage}
-                page={PageSelector.AdminReajustClient}
+                page={PageSelector.AdminReadjustClient}
               />
               <AdminSearchSelectBox
                 clients={searchClient}
@@ -52,15 +52,15 @@ export default function ReajustClient() {
                 setSelectedClient={setSelectedClient}
                 state={state}
                 stage={stage}
-                page={PageSelector.AdminReajustClient}
+                page={PageSelector.AdminReadjustClient}
               />
             </div>
-            <AdminReajustClient client={selectedClient} page={PageSelector.AdminReajustClient} />
+            <AdminReadjust client={selectedClient} page={PageSelector.AdminReadjustClient} />
           </div>
           <Footer />
         </>
       ) : searchAdmin?.length === 0 ? (
-        <ErrorPage page={PageSelector.AdminReajustClient} />
+        <ErrorPage page={PageSelector.AdminReadjustClient} />
       ) : null}
     </div>
   );

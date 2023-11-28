@@ -14,8 +14,8 @@ export default function ErrorPage(props: ErrorPageInterface) {
         <div className="bg-gray1  text-black1 px-2 text-sm rounded rotate-12 absolute">OCORREU UM ERRO AO CARREGAR</div>
       </div>
       {props.page === PageSelector.AdminSearch ||
-      props.page === PageSelector.AdminReajustClient ||
-      props.page === PageSelector.AdminReajustSimulate ? (
+      props.page === PageSelector.AdminReadjustClient ||
+      props.page === PageSelector.AdminReadjustSimulate ? (
         <>
           <h1 className="text-white text-center text-xl response:text-2xl font-bold select-none">
             Para acessar essa página é necessário fazer Login.

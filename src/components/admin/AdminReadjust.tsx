@@ -2,18 +2,18 @@ import { ClientsDataInterface, InnerLotesInterface, PageSelector, PlanMonths } f
 import { PlanIcon } from "../svg/Icons";
 import { useState } from "react";
 
-interface AdminReajustInterface {
+interface AdminReadjustInterface {
   client?: ClientsDataInterface | null;
   lote?: InnerLotesInterface | null;
   page: PageSelector;
 }
 
-export default function AdminReajustClient(props: AdminReajustInterface) {
+export default function AdminReadjust(props: AdminReadjustInterface) {
   const [selectedPlan, setSelectedPlan] = useState<number>(0);
   const plan = () => {
-    if (props.page === PageSelector.AdminReajustClient) {
+    if (props.page === PageSelector.AdminReadjustClient) {
       return props.client ? props.client?.plan : 0;
-    } else if (props.page === PageSelector.AdminReajustSimulate) {
+    } else if (props.page === PageSelector.AdminReadjustSimulate) {
       return selectedPlan;
     } else {
       return 0;
@@ -21,9 +21,9 @@ export default function AdminReajustClient(props: AdminReajustInterface) {
   };
 
   const price = () => {
-    if (props.page === PageSelector.AdminReajustClient) {
+    if (props.page === PageSelector.AdminReadjustClient) {
       return props.client ? props.client?.price : 0;
-    } else if (props.page === PageSelector.AdminReajustSimulate) {
+    } else if (props.page === PageSelector.AdminReadjustSimulate) {
       return props.lote ? props.lote.price : 0;
     } else {
       return 0;
@@ -67,11 +67,11 @@ export default function AdminReajustClient(props: AdminReajustInterface) {
   return (
     <div className="flex flex-col m-auto w-full items-center gap-4">
       <h1 className="text-white drop-shadow-titles text-xl response:text-2xl font-bold select-none">
-        {props.page === PageSelector.AdminReajustClient
+        {props.page === PageSelector.AdminReadjustClient
           ? `Reaustes para o Plano de ${plan() / 12} anos`
           : "Selecione o plano"}
       </h1>
-      {props.page === PageSelector.AdminReajustSimulate && (
+      {props.page === PageSelector.AdminReadjustSimulate && (
         <select
           onChange={(e) => setSelectedPlan(Number(e.target.value))}
           className="rounded-lg text-black p-2 border-4 border-white"
