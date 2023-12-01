@@ -19,7 +19,6 @@ export enum PlansSelector {
   Debt = 2,
   IsLate = 3,
   MonthsExpired = 4,
-  MonthsDebtBalance = 5,
   Entrance = 10,
 }
 

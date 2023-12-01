@@ -18,6 +18,7 @@ import {
 } from "../svg/Icons";
 import Contacts from "../home/Contacts";
 import ClientPageContentUser from "./ClientPageContentUser";
+import ClientCheckExpire from "./ClientCheckExpire";
 
 interface ClientPageInfoInterface {
   data: ClientsDataInterface;
@@ -70,12 +71,6 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
       return today < expireDate;
     } else if (returnType === PlansSelector.MonthsExpired) {
       return dateDiff;
-    } else if (returnType === PlansSelector.MonthsDebtBalance) {
-      const planValue = parseFloat(priceCalc(props.data.plan).replace(",", "."));
-      return (planValue * dateDiff).toLocaleString("pt-br", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      });
     }
   };
 
@@ -102,63 +97,12 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
               INFORMAÇÕES DO CONTRATO
             </h1>
 
-            <div className="flex flex-col w-full m-auto items-center gap-2 py-3 response:px-0">
-              <div className="flex items-center response:p-0">
-                <ExpireIcon
-                  className={twMerge(
-                    "fill-red-500",
-                    dateCompare(props.data.lastPaid, props.data.startDate, PlansSelector.IsLate) && "fill-blue-300",
-                    priceCalc(PlansSelector.Debt) === "0,00" && "fill-green-300",
-                    props.data.plan === 0 && "fill-green-300"
-                  )}
-                  width={50}
-                  fill=""
-                  stroke="none"
-                />
-                <h1
-                  className={twMerge(
-                    "text-red-500 leading-tight",
-                    dateCompare(props.data.lastPaid, props.data.startDate, PlansSelector.IsLate) && "text-blue-300",
-                    priceCalc(PlansSelector.Debt) === "0,00" && "text-green-300",
-                    props.data.plan === 0 && "text-green-300"
-                  )}
-                >
-                  <b>Status: </b>
-                  {props.data.standard ? (
-                    <>
-                      {priceCalc(PlansSelector.Debt) === "0,00" || props.data.plan === 0 ? (
-                        "QUITADO"
-                      ) : dateCompare(props.data.lastPaid, props.data.startDate, PlansSelector.IsLate) ? (
-                        "REGULAR - Em dias"
-                      ) : (
-                        <>
-                          VENCIDO <br />
-                          {dateCompare(props.data.lastPaid, props.data.startDate, PlansSelector.MonthsExpired)} Meses
-                          <b> ATRASADOS</b>
-                          <br />
-                          <b>Total: </b>
-                          R$ {dateCompare(props.data.lastPaid, props.data.startDate, PlansSelector.MonthsDebtBalance)}
-                        </>
-                      )}
-                    </>
-                  ) : (
-                    "CLIENTE ESPECIAL"
-                  )}
-                </h1>
-              </div>
-
-              {props.data.obs && (
-                <div className="flex items-center gap-2 text-yellow-400 leading-tight">
-                  <div>
-                    <ObsIcon className="" width={50} fill="rgba(250, 204, 21)" stroke="none" />
-                  </div>
-                  <h1 className="text-justify max-w-md">
-                    <b>Obs.: </b>
-                    {props.data.obs}
-                  </h1>
-                </div>
-              )}
-            </div>
+            <ClientCheckExpire
+              data={props.data}
+              dateCompare={dateCompare}
+              priceCalc={priceCalc}
+              paidParcels={paidParcels}
+            />
 
             <div
               className={twMerge("flex flex-col justify-between pb-4 px-2", "response:w-auto response:min-w-[700px]")}
