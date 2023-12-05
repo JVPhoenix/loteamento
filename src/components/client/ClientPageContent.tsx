@@ -77,7 +77,7 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
   return (
     <>
       <div className="flex flex-col w-full m-auto items-center">
-        <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold select-none">
+        <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold pt-8 select-none">
           USUÁRIO ENCONTRADO
         </h1>
         {!props.data.standard && props.page !== PageSelector.AdminLogin ? (

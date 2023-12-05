@@ -38,7 +38,7 @@ export default function Buscar() {
       {searchAdmin?.length === 1 ? (
         <>
           <div className="flex flex-col m-auto py-6 items-center">
-            <div className="flex flex-col items-center pb-10">
+            <div className="flex flex-col items-center">
               <AdminSearchFilters
                 state={state}
                 handleState={handleState}

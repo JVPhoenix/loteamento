@@ -23,14 +23,14 @@ export enum PlansSelector {
 }
 
 export enum FilterSelector {
-  Etapa1 = 0,
-  Etapa2 = 1,
-  Etapa3 = 2,
-  Etapa4 = 3,
-  Special = 4,
-  Expired = 5,
-  Regular = 6,
-  PaidOff = 7,
+  Etapa1 = 1,
+  Etapa2 = 2,
+  Etapa3 = 3,
+  Etapa4 = 4,
+  Special = 5,
+  Expired = 6,
+  Regular = 7,
+  PaidOff = 8,
 }
 
 export enum PlanMonths {

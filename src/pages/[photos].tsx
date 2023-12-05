@@ -1,7 +1,7 @@
 import Footer from "@/components/home/Footer";
 import Header from "@/components/home/Header";
 import { usePhotosData } from "@/context/PhotosDataContext";
-import { PageSelector, InnerPhotosInterface, PageInfos } from "@/types";
+import { PageSelector, InnerPhotosInterface, PageInfos, FilterSelector } from "@/types";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -25,14 +25,14 @@ export default function Images() {
     if (query.photos === "etapa1") {
       setPageInfos({
         id: PageSelector.Etapa1,
-        index: 0,
+        index: FilterSelector.Etapa1,
         queryName: query.photos,
         title: "1ª ETAPA",
       });
     } else if (query.photos === "etapa2") {
       setPageInfos({
         id: PageSelector.Etapa2,
-        index: 1,
+        index: FilterSelector.Etapa2,
         queryName: query.photos,
         title: "2ª ETAPA",
       });
@@ -45,10 +45,6 @@ export default function Images() {
       });
     }
   }, [query.photos]);
-
-  // console.log(photos);
-
-  console.log(pageInfos.title);
 
   return (
     <div className="flex flex-col w-full min-h-screen bg-black1 text-lg">
