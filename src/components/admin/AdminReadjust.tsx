@@ -66,7 +66,7 @@ export default function AdminReadjust(props: AdminReadjustInterface) {
 
   return (
     <div className="flex flex-col m-auto w-full items-center gap-4">
-      <h1 className="text-white drop-shadow-titles text-xl response:text-2xl font-bold select-none">
+      <h1 className="text-white drop-shadow-titles text-xl response:text-2xl font-bold">
         {props.page === PageSelector.AdminReadjustClient
           ? `Reaustes para o Plano de ${plan() / 12} anos`
           : "Selecione o plano"}
@@ -87,37 +87,37 @@ export default function AdminReadjust(props: AdminReadjustInterface) {
       <div className="flex flex-col gap-4 text-center">
         <div className="flex items-center gap-2">
           <PlanIcon className="" width={40} plan={12} fill="white" />
-          <h1 className="text-white text-lg response:text-xl font-bold select-none">Primeiro Ano:</h1>
-          <h1 className="text-white text-lg response:text-xl font-thin select-none">
+          <h1 className="text-white text-lg response:text-xl font-bold">Primeiro Ano:</h1>
+          <h1 className="text-white text-lg response:text-xl font-thin">
             12x de R$ {localeString(priceCalc(PlanMonths.FirstYear))}
           </h1>
         </div>
         <div className="flex items-center gap-2">
           <PlanIcon className="" width={40} plan={24} fill="white" />
-          <h1 className="text-white text-lg response:text-xl font-bold select-none">Segundo Ano:</h1>
-          <h1 className="text-white text-lg response:text-xl font-thin select-none">
+          <h1 className="text-white text-lg response:text-xl font-bold">Segundo Ano:</h1>
+          <h1 className="text-white text-lg response:text-xl font-thin">
             12x de R$ {localeString(priceCalc(PlanMonths.SecondYear))}
           </h1>
         </div>
         <div className="flex items-center gap-2">
           <PlanIcon className="" width={40} plan={36} fill="white" />
-          <h1 className="text-white text-lg response:text-xl font-bold select-none">Terceiro Ano:</h1>
-          <h1 className="text-white text-lg response:text-xl font-thin select-none">
+          <h1 className="text-white text-lg response:text-xl font-bold">Terceiro Ano:</h1>
+          <h1 className="text-white text-lg response:text-xl font-thin">
             12x de R$ {localeString(priceCalc(PlanMonths.ThirdYear))}
           </h1>
         </div>
         <div className="flex items-center gap-2">
           <PlanIcon className="" width={40} plan={48} fill="white" />
-          <h1 className="text-white text-lg response:text-xl font-bold select-none">Quarto Ano:</h1>
-          <h1 className="text-white text-lg response:text-xl font-thin select-none">
+          <h1 className="text-white text-lg response:text-xl font-bold">Quarto Ano:</h1>
+          <h1 className="text-white text-lg response:text-xl font-thin">
             12x de R$ {localeString(priceCalc(PlanMonths.FourthYear))}
           </h1>
         </div>
         {plan() === 60 && (
           <div className="flex items-center gap-2">
             <PlanIcon className="" width={40} plan={60} fill="white" />
-            <h1 className="text-white text-lg response:text-xl font-bold select-none">Quinto Ano:</h1>
-            <h1 className="text-white text-lg response:text-xl font-thin select-none">
+            <h1 className="text-white text-lg response:text-xl font-bold">Quinto Ano:</h1>
+            <h1 className="text-white text-lg response:text-xl font-thin">
               12x de R$ {localeString(priceCalc(PlanMonths.FifthYear))}
             </h1>
           </div>

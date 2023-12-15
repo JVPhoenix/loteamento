@@ -69,13 +69,15 @@ export default function Header(props: HeaderInterface) {
       )}
       ref={menuRef}
     >
-      <Image
-        className="py-2 w-[180px] response:w-[250px]"
-        src="/logoLoteamento.png"
-        width={500}
-        height={200}
-        alt="Logo do Site"
-      />
+      <Link href={"/"}>
+        <Image
+          className="py-2 w-[180px] response:w-[250px]"
+          src="/logoLoteamento.png"
+          width={500}
+          height={200}
+          alt="Logo do Site"
+        />
+      </Link>
       <div
         className="flex response:hidden"
         onClick={() => {

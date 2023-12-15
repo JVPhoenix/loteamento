@@ -19,6 +19,7 @@ import {
 import Contacts from "../home/Contacts";
 import ClientPageContentUser from "./ClientPageContentUser";
 import ClientCheckExpire from "./ClientCheckExpire";
+import { Button } from "../admin/Button";
 
 interface ClientPageInfoInterface {
   data: ClientsDataInterface;
@@ -77,12 +78,10 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
   return (
     <>
       <div className="flex flex-col w-full m-auto items-center">
-        <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold pt-8 select-none">
-          USUÁRIO ENCONTRADO
-        </h1>
+        <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold pt-8 ">USUÁRIO ENCONTRADO</h1>
         {!props.data.standard && props.page !== PageSelector.AdminLogin ? (
           <div className="flex flex-col justify-center items-center m-5">
-            <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold mb-2 select-none">
+            <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold mb-2 ">
               CONTRATO ESPECIAL
             </h1>
             <h1>
@@ -93,7 +92,7 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
         ) : (
           <div className="flex flex-col w-full items-center px-5 response:p-0">
             <ClientPageContentUser data={props.data} />
-            <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold select-none">
+            <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold ">
               INFORMAÇÕES DO CONTRATO
             </h1>
 
@@ -113,7 +112,7 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                   "response:text-left response:m-auto response:items-center response:gap-1"
                 )}
               >
-                <h1 className="text-green-600 text-xl response:text-2xl font-bold select-none">LOCALIZAÇÃO</h1>
+                <h1 className="text-green-600 text-xl response:text-2xl font-bold ">LOCALIZAÇÃO</h1>
                 <div className="flex flex-col pb-5 response:flex-row response:gap-4">
                   <div>
                     <div className="flex leading-tight items-center gap-1">
@@ -153,7 +152,7 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                     </div>
                   </div>
                 </div>
-                <h1 className="text-green-600 text-xl response:text-2xl font-bold select-none">VALORES</h1>
+                <h1 className="text-green-600 text-xl response:text-2xl font-bold ">VALORES</h1>
                 <div className="flex flex-col pb-5 response:flex-row response:gap-4">
                   <div>
                     <div>
@@ -212,7 +211,7 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                     </div>
                   </div>
                 </div>
-                <h1 className="text-green-600 text-xl response:text-2xl font-bold select-none">PAGAMENTO</h1>
+                <h1 className="text-green-600 text-xl response:text-2xl font-bold ">PAGAMENTO</h1>
                 <div className="flex flex-col pb-5 response:flex-row response:gap-4">
                   <div>
                     <div className="flex leading-tight items-center gap-1">
@@ -264,16 +263,9 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
         )}
         {props.page === PageSelector.ClientSearch && (
           <>
-            <div
-              className={twMerge(
-                "ease-in-out duration-200 mb-8 w-auto p-4 select-none active:duration-100 cursor-not-allowed",
-                "border border-solid rounded-tr-lg rounded-bl-lg rounded-tl-2xl rounded-br-2xl",
-                "hover:text-yellow1 hover:scale-110 active:scale-90 hover:border-yellow1 border-white text-white cursor-pointer"
-              )}
-              onClick={() => props.handleResetOptions?.()}
-            >
+            <Button className="mb-8" onClick={() => props.handleResetOptions?.()}>
               <h1> FAÇA UMA NOVA BUSCA </h1>
-            </div>
+            </Button>
             <Contacts page={PageSelector.ClientSearch} />
           </>
         )}

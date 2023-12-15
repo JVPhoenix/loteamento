@@ -8,7 +8,7 @@ interface ContactsInterface {
 
 export default function Contacts(props: ContactsInterface) {
   return (
-    <div className="flex flex-col items-center text-center align-middle pb-4">
+    <div className="flex flex-col items-center text-center align-middle pb-4 select-none">
       <h1 className="text-white drop-shadow-titles text-xl response:text-3xl font-bold">
         {props.page === PageSelector.ClientSearch ? (
           <>
@@ -22,7 +22,7 @@ export default function Contacts(props: ContactsInterface) {
         <div
           className={twMerge(
             "flex items-center response:text-xl text-sm",
-            "fill-white hover:fill-yellow1 select-none",
+            "fill-white hover:fill-yellow1",
             "active:scale-90 active:duration-100 hover:text-yellow1",
             "cursor-pointer ease-in-out duration-200 hover:scale-110"
           )}
@@ -35,7 +35,7 @@ export default function Contacts(props: ContactsInterface) {
         <div
           className={twMerge(
             "flex items-center response:text-xl text-sm",
-            "fill-white hover:fill-yellow1 select-none",
+            "fill-white hover:fill-yellow1",
             "active:scale-90 active:duration-100 hover:text-yellow1",
             "cursor-pointer ease-in-out duration-200 hover:scale-110"
           )}
@@ -49,7 +49,7 @@ export default function Contacts(props: ContactsInterface) {
         <div
           className={twMerge(
             "flex items-center response:text-xl text-sm",
-            "stroke-white hover:stroke-yellow1 select-none",
+            "stroke-white hover:stroke-yellow1",
             "active:scale-90 active:duration-100 hover:text-yellow1",
             "cursor-pointer ease-in-out duration-200 hover:scale-110"
           )}
