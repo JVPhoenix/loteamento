@@ -1,5 +1,5 @@
 import ClientPageContent from "@/components/client/ClientPageContent";
-import ClientPageLogin from "@/components/client/ClientPageSearch";
+import ClientPageSearch from "@/components/client/ClientPageSearch";
 import Footer from "@/components/home/Footer";
 import Header from "@/components/home/Header";
 import { useClientsData } from "@/context/ClientsDataContext";
@@ -57,7 +57,7 @@ export default function Client() {
           />
         ) : (
           searchClient?.length === 0 && (
-            <ClientPageLogin searchError={searchError} handleError={handleError} cpf={cpf} setCpf={setCpf} />
+            <ClientPageSearch searchError={searchError} handleError={handleError} cpf={cpf} setCpf={setCpf} />
           )
         )}
 

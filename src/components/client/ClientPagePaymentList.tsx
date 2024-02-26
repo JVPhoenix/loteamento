@@ -1,0 +1,42 @@
+import { useState } from "react";
+import { Button } from "../admin/Button";
+import { twMerge } from "tailwind-merge";
+
+interface ClientPagePaymentListInterface {
+  paymentList: string[];
+  key: string;
+}
+
+export default function ClientPagePaymentList(props: ClientPagePaymentListInterface) {
+  const [showPaymentList, setShowPaymentList] = useState<boolean>(true);
+
+  const showList = () => {
+    for (let index = 0; index < props.paymentList.length; index++) {
+      return (
+        <>
+          <div
+            className={twMerge(
+              "flex flex-col flex-wrap gap-4 max-h-[600px] w-full items-center p-4",
+              "border border-yellow1 rounded-lg"
+            )}
+          >
+            {props.paymentList.map((value) => (
+              <div key={props.key + index}>
+                {value === "" ? "Nenhuma parcela foi paga!" : index++ + 1 + " → " + value}
+              </div>
+            ))}
+          </div>
+        </>
+      );
+    }
+  };
+
+  return (
+    <>
+      <Button className="mb-8" onClick={() => setShowPaymentList((prevState) => !prevState)}>
+        <h1> {showPaymentList ? "Ocultar" : "Mostrar"} lista de pagamentos </h1>
+      </Button>
+      {showPaymentList && showList()}
+    </>
+  );
+}

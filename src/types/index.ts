@@ -97,7 +97,7 @@ export interface ClientsDataInterface {
   plan: number;
   startDate: string;
   lastPaid: string;
-  datePaid: string;
+  paymentList: string[];
   obs?: string;
   standard: boolean;
 }

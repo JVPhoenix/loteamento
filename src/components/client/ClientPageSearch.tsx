@@ -2,14 +2,14 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { CPFIcon } from "../svg/Icons";
 
-interface ClientPageLoginInferface {
+interface ClientPageSearchInterface {
   searchError: boolean;
   handleError: () => void;
   cpf: string;
   setCpf: Dispatch<SetStateAction<string>>;
 }
 
-export default function ClientPageLogin(props: ClientPageLoginInferface) {
+export default function ClientPageSearch(props: ClientPageSearchInterface) {
   const [checkCpf, setCheckCpf] = useState<boolean>(true);
   const [effectOn, setEffectOn] = useState<boolean>(false);
   const [cpfMask, setCpfMask] = useState<string>("");

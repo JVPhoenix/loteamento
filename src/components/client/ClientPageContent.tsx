@@ -4,7 +4,6 @@ import {
   ContractIcon,
   DebtBalanceIcon,
   EntranceIcon,
-  ExpireIcon,
   LastPaidIcon,
   DimensionIcon,
   PaidIcon,
@@ -12,7 +11,6 @@ import {
   StageIcon,
   ValueIcon,
   PlanIcon,
-  ObsIcon,
   DayIcon,
   DayPaid,
 } from "../svg/Icons";
@@ -20,6 +18,7 @@ import Contacts from "../home/Contacts";
 import ClientPageContentUser from "./ClientPageContentUser";
 import ClientCheckExpire from "./ClientCheckExpire";
 import { Button } from "../admin/Button";
+import ClientPagePaymentList from "./ClientPagePaymentList";
 
 interface ClientPageInfoInterface {
   data: ClientsDataInterface;
@@ -211,7 +210,7 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                     </div>
                   </div>
                 </div>
-                <h1 className="text-green-600 text-xl response:text-2xl font-bold ">PAGAMENTO</h1>
+                <h1 className="text-green-600 text-xl response:text-2xl font-bold ">PAGAMENTOS</h1>
                 <div className="flex flex-col pb-5 response:flex-row response:gap-4">
                   <div>
                     <div className="flex leading-tight items-center gap-1">
@@ -252,7 +251,7 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                         <DayPaid className="" width={50} fill="none" stroke="white" />
                       </div>
                       <h1>
-                        <b>Dia pago: </b> {props.data.datePaid}
+                        <b>Dia pago: </b> {props.data.paymentList[props.data.paymentList.length - 1]}
                       </h1>
                     </div>
                   </div>
@@ -261,13 +260,15 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
             </div>
           </div>
         )}
-        {props.page === PageSelector.ClientSearch && (
+        {props.page === PageSelector.ClientSearch ? (
           <>
             <Button className="mb-8" onClick={() => props.handleResetOptions?.()}>
               <h1> FAÇA UMA NOVA BUSCA </h1>
             </Button>
             <Contacts page={PageSelector.ClientSearch} />
           </>
+        ) : (
+          <ClientPagePaymentList paymentList={props.data.paymentList} key={props.data.cpf} />
         )}
       </div>
     </>

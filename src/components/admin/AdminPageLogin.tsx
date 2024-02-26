@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { CPFIcon, PassowrdIcon, RememberMeIcon } from "../svg/Icons";
 import { useAdminsData } from "@/context/AdminsDataContext";
