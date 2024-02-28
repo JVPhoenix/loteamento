@@ -5,17 +5,16 @@ import { ClientsDataInterface, PlanMonths, PlansSelector } from "@/types";
 interface ClientPageContentExpireInterface {
   data: ClientsDataInterface;
   priceCalc: (value: number) => string;
-  paidParcels: (startDate: string, lastPaid: string) => number;
+  paidParcels: number;
   dateCompare: (
-    lastPaid: string,
     startDate: string,
     returnType: PlansSelector
   ) => string | number | boolean | undefined;
 }
 
 export default function ClientCheckExpire(props: ClientPageContentExpireInterface) {
-  const monthsExpired = props.dateCompare(props.data.lastPaid, props.data.startDate, PlansSelector.MonthsExpired);
-  const paidParcels = props.paidParcels(props.data.startDate, props.data.lastPaid);
+  const monthsExpired = props.dateCompare(props.data.startDate, PlansSelector.MonthsExpired);
+  const paidParcels = props.paidParcels
 
   const localeString = (value: number) =>
     value.toLocaleString("pt-br", {
@@ -53,7 +52,7 @@ export default function ClientCheckExpire(props: ClientPageContentExpireInterfac
 
   const expiredDebtBalance = () => {
     const expireDate = new Date(props.data.startDate.split("-").reverse().join("-"));
-    expireDate.setMonth(expireDate.getMonth() + props.paidParcels(props.data.startDate, props.data.lastPaid) + 1); // set 1 moth later (30 days)
+    expireDate.setMonth(expireDate.getMonth() + paidParcels + 1); // set 1 moth later (30 days)
     expireDate.setDate(expireDate.getDate() + 1); // set +1 day (to set the same day every month)
 
     const dateDiff = Math.ceil(Math.abs(new Date().valueOf() - expireDate.valueOf()) / (1000 * 60 * 60 * 24) / 30);
@@ -79,7 +78,7 @@ export default function ClientCheckExpire(props: ClientPageContentExpireInterfac
         <ExpireIcon
           className={twMerge(
             "fill-red-500",
-            props.dateCompare(props.data.lastPaid, props.data.startDate, PlansSelector.IsLate) && "fill-blue-300",
+            props.dateCompare(props.data.startDate, PlansSelector.IsLate) && "fill-blue-300",
             props.priceCalc(PlansSelector.Debt) === "0,00" && "fill-green-300",
             props.data.plan === 0 && "fill-green-300"
           )}
@@ -90,7 +89,7 @@ export default function ClientCheckExpire(props: ClientPageContentExpireInterfac
         <h1
           className={twMerge(
             "text-red-500 leading-tight",
-            props.dateCompare(props.data.lastPaid, props.data.startDate, PlansSelector.IsLate) && "text-blue-300",
+            props.dateCompare(props.data.startDate, PlansSelector.IsLate) && "text-blue-300",
             props.priceCalc(PlansSelector.Debt) === "0,00" && "text-green-300",
             props.data.plan === 0 && "text-green-300"
           )}
@@ -100,7 +99,7 @@ export default function ClientCheckExpire(props: ClientPageContentExpireInterfac
             <>
               {props.priceCalc(PlansSelector.Debt) === "0,00" || props.data.plan === 0 ? (
                 "QUITADO"
-              ) : props.dateCompare(props.data.lastPaid, props.data.startDate, PlansSelector.IsLate) ? (
+              ) : props.dateCompare(props.data.startDate, PlansSelector.IsLate) ? (
                 "REGULAR - Em dias"
               ) : (
                 <>

@@ -1,14 +1,18 @@
 import { useState } from "react";
 import { Button } from "../admin/Button";
 import { twMerge } from "tailwind-merge";
+import { PageSelector } from "@/types";
 
 interface ClientPagePaymentListInterface {
   paymentList: string[];
-  key: string;
+  keyData: string;
+  page: PageSelector;
 }
 
 export default function ClientPagePaymentList(props: ClientPagePaymentListInterface) {
-  const [showPaymentList, setShowPaymentList] = useState<boolean>(true);
+  const [showPaymentList, setShowPaymentList] = useState<boolean>(
+    props.page === PageSelector.ClientSearch ? false : true
+  );
 
   const showList = () => {
     for (let index = 0; index < props.paymentList.length; index++) {
@@ -21,7 +25,7 @@ export default function ClientPagePaymentList(props: ClientPagePaymentListInterf
             )}
           >
             {props.paymentList.map((value) => (
-              <div key={props.key + index}>
+              <div key={props.keyData + index}>
                 {value === "" ? "Nenhuma parcela foi paga!" : index++ + 1 + " → " + value}
               </div>
             ))}
