@@ -74,6 +74,7 @@ export default function Images() {
                     width={value.width}
                     height={value.height}
                     key={value.url}
+                    unoptimized
                   />
                 ))
               )}

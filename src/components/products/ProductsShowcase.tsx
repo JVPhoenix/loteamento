@@ -38,6 +38,7 @@ export default function ProductsShowcase(props: ProductsShowcaseInterface) {
           src={photosData[photoIndex].url}
           alt="Fotos e mapa dos lotes disponíveis"
           priority
+          unoptimized
         />
       </div>
       <div onClick={prevPhoto}>
