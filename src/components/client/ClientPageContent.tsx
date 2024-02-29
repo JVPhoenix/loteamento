@@ -27,8 +27,11 @@ interface ClientPageInfoInterface {
 }
 
 export default function ClientPageContent(props: ClientPageInfoInterface) {
-  const ExpireDay = new Date(props.data.startDate.split("-").reverse().join("-")).getDate() + 1;
-  const LastMonth = new Date(props.data.lastPaid.split("-").reverse().join("-"));
+  const startDate = new Date(props.data.startDate.split("-").reverse().join("-"));
+  const expireDay = startDate.getDate() + 1;
+  const lastMonthPaid = new Date(
+    startDate.setMonth(startDate.getMonth() + props.data.paymentList.length)
+  ).toLocaleString("default", { month: "long", year: "numeric" });  
 
   const priceCalc = (value: number) => {
     if (value === PlansSelector.ContractPrice) {
@@ -152,7 +155,7 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                     </div>
                     <h1>
                       <b>Vencimento dia: </b>
-                      {ExpireDay}
+                      {expireDay}
                     </h1>
                   </div>
                 </div>
@@ -216,7 +219,7 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                       <LastPaidIcon className="" width={50} fill="white" stroke="none" />
                     </div>
                     <h1>
-                      <b>Ultimo mês pago: </b> {LastMonth.toLocaleString("default", { month: "long", year: "numeric" })}
+                      <b>Ultimo mês pago: </b> {lastMonthPaid}
                     </h1>
                   </div>
                   <div className="flex leading-tight items-center gap-1">

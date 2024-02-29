@@ -46,10 +46,16 @@ export default function AdminSearchSelectBox(props: SelectClientProps) {
     };
   }, [showOptions]);
 
-  const checkExpired = (lastPaid: string, startDate: string, returnType: FilterSelector) => {
-    const start = new Date(startDate.split("-").reverse().join("-"));
-    const last = new Date(lastPaid.split("-").reverse().join("-"));
+  const checkExpired = (paymentList: Array<string>, startDate: string, returnType: FilterSelector) => {
     const today = new Date();
+    const start = new Date(startDate.split("-").reverse().join("-"));
+
+    const last = new Date(
+      new Date(startDate.split("-").reverse().join("-")).setMonth(
+        new Date(startDate.split("-").reverse().join("-")).getMonth() + paymentList.length
+      )
+    );
+
     const expireDate = new Date(startDate.split("-").reverse().join("-"));
     const paidParcels = last.getMonth() - start.getMonth() + 12 * (last.getFullYear() - start.getFullYear());
 
@@ -109,7 +115,8 @@ export default function AdminSearchSelectBox(props: SelectClientProps) {
                 option.plan !== 0 &&
                 (
                   option.price -
-                  (checkExpired(option.lastPaid, option.startDate, FilterSelector.PaidOff) * option.price) / option.plan
+                  (checkExpired(option.paymentList, option.startDate, FilterSelector.PaidOff) * option.price) /
+                    option.plan
                 ).toLocaleString("pt-br", {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
@@ -144,14 +151,16 @@ export default function AdminSearchSelectBox(props: SelectClientProps) {
               (!props.stage || option.phase === props.stage) &&
               // REGULAR FILTER
               (props.state !== FilterSelector.Regular ||
-                checkExpired(option.lastPaid, option.startDate, FilterSelector.Regular) !== FilterSelector.Expired) &&
+                checkExpired(option.paymentList, option.startDate, FilterSelector.Regular) !==
+                  FilterSelector.Expired) &&
               // EXPIRED FILTER
               (props.state !== FilterSelector.Expired ||
-                (checkExpired(option.lastPaid, option.startDate, FilterSelector.Expired) !== FilterSelector.Regular &&
+                (checkExpired(option.paymentList, option.startDate, FilterSelector.Expired) !==
+                  FilterSelector.Regular &&
                   option.plan !== 0 &&
                   (
                     option.price -
-                    (checkExpired(option.lastPaid, option.startDate, FilterSelector.PaidOff) * option.price) /
+                    (checkExpired(option.paymentList, option.startDate, FilterSelector.PaidOff) * option.price) /
                       option.plan
                   ).toLocaleString("pt-br", {
                     minimumFractionDigits: 2,
@@ -161,7 +170,8 @@ export default function AdminSearchSelectBox(props: SelectClientProps) {
               (props.state !== FilterSelector.PaidOff ||
                 ((
                   option.price -
-                  (checkExpired(option.lastPaid, option.startDate, FilterSelector.PaidOff) * option.price) / option.plan
+                  (checkExpired(option.paymentList, option.startDate, FilterSelector.PaidOff) * option.price) /
+                    option.plan
                 ).toLocaleString("pt-br", {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
