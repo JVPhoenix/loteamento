@@ -29,9 +29,11 @@ interface ClientPageInfoInterface {
 export default function ClientPageContent(props: ClientPageInfoInterface) {
   const startDate = new Date(props.data.startDate.split("-").reverse().join("-"));
   const expireDay = startDate.getDate() + 1;
+  
+  const diffZero = props.data.paymentList[0] !== "" ? props.data.paymentList.length : 0
   const lastMonthPaid = new Date(
-    startDate.setMonth(startDate.getMonth() + props.data.paymentList.length)
-  ).toLocaleString("default", { month: "long", year: "numeric" });  
+    startDate.setMonth(startDate.getMonth() + diffZero)
+  ).toLocaleString("default", { month: "long", year: "numeric" });
 
   const priceCalc = (value: number) => {
     if (value === PlansSelector.ContractPrice) {
@@ -40,7 +42,7 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
         maximumFractionDigits: 2,
       });
     } else if (value === PlansSelector.Debt) {
-      return (props.data.price - (props.data.paymentList.length * props.data.price) / props.data.plan).toLocaleString(
+      return (props.data.price - (diffZero * props.data.price) / props.data.plan).toLocaleString(
         "pt-br",
         {
           minimumFractionDigits: 2,
@@ -209,7 +211,7 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                     </div>
                     <h1>
                       <b>Nº de Parcelas Pagas: </b>
-                      {props.data.paymentList.length}
+                      {diffZero}
                     </h1>
                   </div>
                 </div>
@@ -219,7 +221,8 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                       <LastPaidIcon className="" width={50} fill="white" stroke="none" />
                     </div>
                     <h1>
-                      <b>Ultimo mês pago: </b> {lastMonthPaid}
+                      <b>Ultimo mês pago: </b> 
+                      {lastMonthPaid}
                     </h1>
                   </div>
                   <div className="flex leading-tight items-center gap-1">
