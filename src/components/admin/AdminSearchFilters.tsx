@@ -17,18 +17,23 @@ export default function AdminSearchFilters(props: AdminClientSelectInterface) {
   return (
     <>
       <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold select-none mb-2">
-        {props.page !== PageSelector.AdminReadjustSimulate ? "SELECIONE UM CLIENTE" : "SELECIONE UMA ETAPA"}
+        {props.page === PageSelector.AdminReadjustClient || props.page === PageSelector.AdminSearch
+          ? "SELECIONE UM CLIENTE"
+          : props.page === PageSelector.AdminReadjustSimulate
+          ? "SELECIONE UMA ETAPA"
+          : props.page === PageSelector.AdminReservations && "SELECIONE UMA RESERVA"}
       </h1>
       <h1 className="text-white drop-shadow-titles text-xl response:text-2xl font-bold select-none mb-2">Filtros:</h1>
       <div className="flex flex-col gap-1 items-center response:flex-row response:gap-8">
-        {props.page !== PageSelector.AdminReadjustSimulate && (
+        {props.page !== PageSelector.AdminReadjustSimulate && props.page !== PageSelector.AdminReservations && (
           <div className="flex flex-col items-center gap-3">
             <h1 className="text-white text-xl response:text-2xl font-bold select-none">Situação</h1>
             <div className="flex gap-3">
               <Button
                 className={twMerge(
                   props.state === FilterSelector.Expired &&
-                    "border-red-500 bg-red-500 text-black1 hover:text-black1 font-bold hover:shadow-white shadow-md hover:border-red-500"
+                    `border-red-500 bg-red-500 text-black1 hover:text-black1
+                    font-bold hover:shadow-white shadow-md hover:border-red-500`
                 )}
                 onClick={() => props.handleState && props.handleState(FilterSelector.Expired)}
               >
@@ -37,7 +42,8 @@ export default function AdminSearchFilters(props: AdminClientSelectInterface) {
               <Button
                 className={twMerge(
                   props.state === FilterSelector.Regular &&
-                    "border-blue-500 bg-blue-500 text-black1 hover:text-black1 font-bold hover:shadow-white shadow-md hover:border-blue-500"
+                    `border-blue-500 bg-blue-500 text-black1 hover:text-black1 font-bold
+                     hover:shadow-white shadow-md hover:border-blue-500`
                 )}
                 onClick={() => props.handleState && props.handleState(FilterSelector.Regular)}
               >
@@ -47,7 +53,8 @@ export default function AdminSearchFilters(props: AdminClientSelectInterface) {
                 <Button
                   className={twMerge(
                     props.state === FilterSelector.PaidOff &&
-                      "border-green-500 bg-green-500 text-black1 hover:text-black1 font-bold hover:shadow-white shadow-md hover:border-green-500"
+                      `border-green-500 bg-green-500 text-black1 hover:text-black1 font-bold
+                       hover:shadow-white shadow-md hover:border-green-500`
                   )}
                   onClick={() => props.handleState && props.handleState(FilterSelector.PaidOff)}
                 >
@@ -57,14 +64,15 @@ export default function AdminSearchFilters(props: AdminClientSelectInterface) {
             </div>
           </div>
         )}
-        {props.page !== PageSelector.AdminReadjustClient && props.page !== PageSelector.AdminReadjustSimulate && (
+        {props.page === PageSelector.AdminSearch && (
           <div className="flex flex-col items-center gap-3">
             <h1 className="text-white text-xl response:text-2xl font-bold select-none">Tipo</h1>
             <div className="flex gap-3">
               <Button
                 className={twMerge(
                   props.checkSpecial &&
-                    "border-yellow1 bg-yellow1 text-black1 hover:text-black1 font-bold hover:shadow-white shadow-md"
+                    `border-yellow1 bg-yellow1 text-black1 hover:text-black1
+                     font-bold hover:shadow-white shadow-md`
                 )}
                 onClick={() => props.setCheckSpecial && props.setCheckSpecial((prevstate) => !prevstate)}
               >
@@ -81,7 +89,8 @@ export default function AdminSearchFilters(props: AdminClientSelectInterface) {
             <Button
               className={twMerge(
                 props.stage === FilterSelector.Etapa1 &&
-                  "border-yellow1 bg-yellow1 text-black1 hover:text-black1 font-bold hover:shadow-white shadow-md"
+                  `border-yellow1 bg-yellow1 text-black1 hover:text-black1
+                   font-bold hover:shadow-white shadow-md`
               )}
               onClick={() => props.handleStage(FilterSelector.Etapa1)}
             >
@@ -90,7 +99,8 @@ export default function AdminSearchFilters(props: AdminClientSelectInterface) {
             <Button
               className={twMerge(
                 props.stage === FilterSelector.Etapa2 &&
-                  "border-yellow1 bg-yellow1 text-black1 hover:text-black1 font-bold hover:shadow-white shadow-md"
+                  `border-yellow1 bg-yellow1 text-black1 hover:text-black1
+                   font-bold hover:shadow-white shadow-md`
               )}
               onClick={() => props.handleStage(FilterSelector.Etapa2)}
             >

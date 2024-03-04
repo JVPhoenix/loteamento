@@ -69,7 +69,7 @@ export default function Header(props: HeaderInterface) {
       )}
       ref={menuRef}
     >
-      <Link href={"/"}>
+      <Link href={PageSelector.HomePage}>
         <Image
           className="py-2 w-[180px] response:w-[250px]"
           src="/logoLoteamento.png"
@@ -250,10 +250,22 @@ export default function Header(props: HeaderInterface) {
                       <h1>SIMULAR REAJUSTE</h1>
                     </Link>
                   )}
+
+                  {props.page !== PageSelector.AdminReservations && (
+                    <Link
+                      className={twMerge(
+                        "ease-in-out duration-200 text-center cursor-pointer",
+                        "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
+                      )}
+                      href={PageSelector.AdminReservations}
+                    >
+                      <h1>RESERVAS</h1>
+                    </Link>
+                  )}
                 </>
               )}
 
-              <div
+              <Link
                 className={twMerge(
                   "ease-in-out duration-200 text-center cursor-pointer",
                   "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
@@ -269,9 +281,10 @@ export default function Header(props: HeaderInterface) {
                   props.handleError?.();
                   props.setSelectedClient?.(null);
                 }}
+                href={PageSelector.HomePage}
               >
                 DESCONECTAR
-              </div>
+              </Link>
             </div>
           </div>
         </div>

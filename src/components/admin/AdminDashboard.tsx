@@ -24,6 +24,11 @@ export default function AdminDashboard() {
             SIMULAR REAJUSTES
           </Button>
         </Link>
+        <Link href={PageSelector.AdminReservations}>
+          <Button className="" onClick={() => null}>
+            RESERVAS
+          </Button>
+        </Link>
       </div>
     </div>
   );

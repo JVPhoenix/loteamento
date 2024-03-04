@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { UpArrow } from "../svg/Icons";
 import { twMerge } from "tailwind-merge";
-import { InnerLotesInterface } from "@/types";
+import { InnerLotesInterface, LotesStatus } from "@/types";
 
 interface SelectProps {
   options: InnerLotesInterface[];
@@ -91,11 +91,17 @@ export default function ProductsSelect(props: SelectProps) {
               }}
               key={option.value}
               className={twMerge(
-                "hover:bg-gray1 cursor-pointer py-1",
+                "hover:bg-gray1 cursor-pointer py-1 text-center",
                 option.value === props.selectedItem?.value && "bg-blue-500"
               )}
             >
-              <p>{option.label}</p>
+              <p>
+                {option.status.situation === LotesStatus.Free
+                  ? option.label
+                  : option.label +
+                    " - " +
+                    (option.status.client === undefined ? "Não Informado" : option.status.client)}
+              </p>
             </div>
           ))}
       </div>

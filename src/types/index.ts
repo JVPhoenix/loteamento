@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 
 export enum PageSelector {
-  HomePage = "",
+  HomePage = "/",
   ErrorPage = "Error",
   Etapa1 = "/etapa1",
   Etapa2 = "/etapa2",
@@ -12,6 +12,7 @@ export enum PageSelector {
   AdminSearch = "/admin/buscar",
   AdminReadjustClient = "/admin/reajustecliente",
   AdminReadjustSimulate = "/admin/reajustesimular",
+  AdminReservations = "/admin/reservas",
 }
 
 export enum PlansSelector {
@@ -58,7 +59,20 @@ export interface InnerLotesInterface {
   label: string;
   price: number;
   size: string;
+  status: {
+    situation: string;
+    admin: string;
+    client: string;
+    contact: string;
+    date: string;
+  };
 }
+
+export enum LotesStatus {
+  Free = "livre",
+  Blocked = "bloqueado",
+}
+
 export interface InnerPhotosInterface {
   url: string;
   width?: number;

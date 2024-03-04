@@ -2,7 +2,7 @@ import ErrorPage from "@/components/svg/ErrorPage";
 import Footer from "@/components/home/Footer";
 import Header from "@/components/home/Header";
 import { useAdminsData } from "@/context/AdminsDataContext";
-import { FilterSelector, InnerLotesInterface, PageSelector } from "@/types";
+import { FilterSelector, InnerLotesInterface, LotesStatus, PageSelector } from "@/types";
 import Head from "next/head";
 import AdminSearchFilters from "@/components/admin/AdminSearchFilters";
 import { useState } from "react";
@@ -39,7 +39,11 @@ export default function ReadjustSimulate() {
               <AdminSearchFilters stage={stage} handleStage={handleStage} page={PageSelector.AdminReadjustSimulate} />
               {lotesData && (
                 <ProductsSelect
-                  options={lotesData[stage === null ? 3 : stage]}
+                options={lotesData[stage === null ? 0 : stage].filter((lote) => {
+                  if (lote.status.situation === LotesStatus.Free) {
+                    return lote;
+                  }
+                })}
                   placeholder={"DIGITE OU SELECIONE UM LOTE"}
                   selectedItem={selectedItem}
                   onChange={(selection: InnerLotesInterface) => setSelectedItem(selection)}
