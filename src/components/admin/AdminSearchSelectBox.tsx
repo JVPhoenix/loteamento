@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { UpArrow } from "../svg/Icons";
+import { DownArrow, UpArrow } from "../svg/Icons";
 import { twMerge } from "tailwind-merge";
 import { ClientsDataInterface, FilterSelector, PageSelector, PlansSelector } from "@/types";
 
@@ -17,32 +17,29 @@ interface SelectClientProps {
 export default function AdminSearchSelectBox(props: SelectClientProps) {
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const [searchItem, setSearchItem] = useState<string>("");
-  const selectRef = useRef<HTMLDivElement>(null);
+  const selectRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const ref = selectRef.current;
-    document.addEventListener("keydown", (event: KeyboardEvent) => {
+    const checkClickOutside = (event: MouseEvent) => {
+      if (showOptions && selectRef.current && !selectRef.current.contains(event.target as Node)) {
+        setShowOptions(false);
+      } else {
+        return;
+      }
+    };
+
+    const checkEscOption = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setShowOptions(false);
       }
-    });
-    document.addEventListener("click", ({ target }: MouseEvent): void => {
-      if (!ref?.contains(target as Node)) {
-        setShowOptions(false);
-      }
-    });
+    };
+
+    document.addEventListener("click", checkClickOutside);
+    document.addEventListener("keydown", checkEscOption);
 
     return () => {
-      document.removeEventListener("keydown", (event: KeyboardEvent) => {
-        if (event.key === "Escape") {
-          setShowOptions(false);
-        }
-      });
-      document.removeEventListener("click", ({ target }: MouseEvent): void => {
-        if (!ref?.contains(target as Node)) {
-          setShowOptions(false);
-        }
-      });
+      document.removeEventListener("click", checkClickOutside);
+      document.removeEventListener("keydown", checkEscOption);
     };
   }, [showOptions]);
 
@@ -80,8 +77,6 @@ export default function AdminSearchSelectBox(props: SelectClientProps) {
         "ease-in-out duration-200 hover:scale-105",
         showOptions && "scale-105"
       )}
-      onClick={() => setShowOptions((prevShowOptions) => !prevShowOptions)}
-      ref={selectRef}
     >
       <div
         className={twMerge(
@@ -91,12 +86,17 @@ export default function AdminSearchSelectBox(props: SelectClientProps) {
       >
         <input
           className="text-base response:text-lg w-full text-center placeholder:text-black"
-          id="searchInput"
           value={searchItem != "" ? searchItem : ""}
-          onChange={(e) => setSearchItem(e.target.value)}
           placeholder={props.selectedClient ? `${props.selectedClient.name}` : props.placeholder}
+          onChange={(e) => setSearchItem(e.target.value)}
+          onSelect={() => setShowOptions(true)}
+          ref={selectRef}
         />
-        <UpArrow className="flex absolute right-5 top-2" width={20} fill="black" />
+        {showOptions ? (
+          <UpArrow className="flex absolute right-5 top-2" width={20} />
+        ) : (
+          <DownArrow className="flex absolute right-5 top-2" width={20} />
+        )}
       </div>
 
       <div

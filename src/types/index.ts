@@ -59,6 +59,7 @@ export interface InnerLotesInterface {
   label: string;
   price: number;
   size: string;
+  phase: number;
   status: {
     situation: string;
     admin: string;

@@ -1,10 +1,11 @@
-import { ClientsDataInterface, InnerLotesInterface, PageSelector, PlanMonths } from "@/types";
+import { ClientsDataInterface, FilterSelector, InnerLotesInterface, PageSelector, PlanMonths } from "@/types";
 import { PlanIcon } from "../svg/Icons";
 import { useState } from "react";
 
 interface AdminReadjustInterface {
   client?: ClientsDataInterface | null;
   lote?: InnerLotesInterface | null;
+  stage?: FilterSelector | null;
   page: PageSelector;
 }
 
@@ -81,7 +82,9 @@ export default function AdminReadjust(props: AdminReadjustInterface) {
           <option value={24}>2 anos (24 meses)</option>
           <option value={36}>3 anos (36 meses)</option>
           <option value={48}>4 anos (48 meses)</option>
-          <option value={60}>5 anos (60 meses)</option>
+          {props.lote?.phase !== 1 && props.stage !== FilterSelector.Etapa1 && (
+            <option value={60}>5 anos (60 meses)</option>
+          )}
         </select>
       )}
       <div className="flex flex-col gap-4 text-center">

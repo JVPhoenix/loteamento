@@ -140,6 +140,22 @@ export function LeftArrow(props: MainIcons) {
   );
 }
 
+export function DownArrow(props: MainIcons) {
+  return (
+    <svg
+      viewBox="0 0 1024 1024"
+      className={props.className}
+      width={props.width}
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g id="SVGRepo_iconCarrier">
+        <path d="M903.232 256l56.768 50.432L512 768 64 306.432 120.768 256 512 659.072z" fill={props.fill}></path>
+      </g>
+    </svg>
+  );
+}
+
 export function UpArrow(props: MainIcons) {
   return (
     <svg
@@ -148,6 +164,7 @@ export function UpArrow(props: MainIcons) {
       width={props.width}
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
+      transform="scale(-1)"
     >
       <g id="SVGRepo_iconCarrier">
         <path d="M903.232 256l56.768 50.432L512 768 64 306.432 120.768 256 512 659.072z" fill={props.fill}></path>

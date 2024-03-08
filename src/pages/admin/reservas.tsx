@@ -8,11 +8,11 @@ import AdminSearchFilters from "@/components/admin/AdminSearchFilters";
 import { useState } from "react";
 import ProductsSelect from "@/components/products/ProductsSelect";
 import { useLotesData } from "@/context/LotesDataContext";
-import AdminReadjust from "@/components/admin/AdminReadjust";
 import ProductsPrices from "@/components/products/ProductsPrices";
 
-export default function ReadjustSimulate() {
-  const lotesData = useLotesData();
+export default function AdminReservations() {
+  const lotesDataRaw = useLotesData();
+  const lotesData = lotesDataRaw && lotesDataRaw[1].concat(lotesDataRaw[2]);
   const { searchAdmin } = useAdminsData();
 
   const [stage, setStage] = useState<FilterSelector | null>(null);
@@ -38,18 +38,26 @@ export default function ReadjustSimulate() {
           <div className="flex flex-col m-auto py-6 items-center">
             <div className="flex flex-col items-center pb-5">
               <AdminSearchFilters stage={stage} handleStage={handleStage} page={PageSelector.AdminReservations} />
-              {lotesData && (
-                <ProductsSelect
-                  options={lotesData[stage === null ? 0 : stage].filter((lote) => {
+              <ProductsSelect
+                options={lotesData
+                  ?.filter((value) => {
+                    if (stage !== null) {
+                      if (stage === value.phase) {
+                        return value;
+                      }
+                    } else {
+                      return value;
+                    }
+                  })
+                  .filter((lote) => {
                     if (lote.status.situation === LotesStatus.Blocked) {
                       return lote;
                     }
                   })}
-                  placeholder={"Digite o Lote ou o Nome do Cliente"}
-                  selectedItem={selectedItem}
-                  onChange={(selection: InnerLotesInterface) => setSelectedItem(selection)}
-                />
-              )}
+                placeholder={"Digite o Lote ou o Nome do Cliente"}
+                selectedItem={selectedItem}
+                onChange={(selection: InnerLotesInterface) => setSelectedItem(selection)}
+              />
             </div>
 
             <div className="flex flex-col gap-3 items-center p-4">
@@ -82,7 +90,8 @@ export default function ReadjustSimulate() {
 
             <div className="flex flex-col items-center">
               <h1 className="text-green-600 text-xl response:text-2xl font-bold ">DADOS DO LOTE</h1>
-              <ProductsPrices selectedItem={selectedItem} phase={stage} />
+              <h1 className="font-bold">Localizado na {selectedItem?.phase ? selectedItem.phase : "X"}ª Etapa</h1>
+              <ProductsPrices selectedItem={selectedItem} phase={selectedItem?.phase ? selectedItem.phase : stage} />
             </div>
           </div>
           <Footer />

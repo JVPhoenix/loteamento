@@ -11,7 +11,8 @@ import { useLotesData } from "@/context/LotesDataContext";
 import AdminReadjust from "@/components/admin/AdminReadjust";
 
 export default function ReadjustSimulate() {
-  const lotesData = useLotesData();
+  const lotesDataRaw = useLotesData();
+  const lotesData = lotesDataRaw && lotesDataRaw[1].concat(lotesDataRaw[2]);
   const { searchAdmin } = useAdminsData();
 
   const [stage, setStage] = useState<FilterSelector | null>(null);
@@ -39,18 +40,28 @@ export default function ReadjustSimulate() {
               <AdminSearchFilters stage={stage} handleStage={handleStage} page={PageSelector.AdminReadjustSimulate} />
               {lotesData && (
                 <ProductsSelect
-                options={lotesData[stage === null ? 0 : stage].filter((lote) => {
-                  if (lote.status.situation === LotesStatus.Free) {
-                    return lote;
-                  }
-                })}
+                  options={lotesData
+                    ?.filter((value) => {
+                      if (stage !== null) {
+                        if (stage === value.phase) {
+                          return value;
+                        }
+                      } else {
+                        return value;
+                      }
+                    })
+                    .filter((lote) => {
+                      if (lote.status.situation === LotesStatus.Free) {
+                        return lote;
+                      }
+                    })}
                   placeholder={"DIGITE OU SELECIONE UM LOTE"}
                   selectedItem={selectedItem}
                   onChange={(selection: InnerLotesInterface) => setSelectedItem(selection)}
                 />
               )}
             </div>
-            <AdminReadjust lote={selectedItem} page={PageSelector.AdminReadjustSimulate} />
+            <AdminReadjust lote={selectedItem} stage={stage} page={PageSelector.AdminReadjustSimulate} />
           </div>
           <Footer />
         </>

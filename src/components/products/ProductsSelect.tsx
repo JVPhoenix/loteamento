@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { UpArrow } from "../svg/Icons";
+import { DownArrow, UpArrow } from "../svg/Icons";
 import { twMerge } from "tailwind-merge";
 import { InnerLotesInterface, LotesStatus } from "@/types";
 
 interface SelectProps {
-  options: InnerLotesInterface[];
+  options: InnerLotesInterface[] | undefined | null;
   placeholder?: string;
   selectedItem: InnerLotesInterface | null;
   onChange: (selection: InnerLotesInterface) => void;
@@ -13,44 +13,39 @@ interface SelectProps {
 export default function ProductsSelect(props: SelectProps) {
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const [searchItem, setSearchItem] = useState<string>("");
-  const selectRef = useRef<HTMLDivElement>(null);
+  const selectRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const ref = selectRef.current;
-    document.addEventListener("keydown", (event: KeyboardEvent) => {
+    const checkClickOutside = (event: MouseEvent) => {
+      if (showOptions && selectRef.current && !selectRef.current.contains(event.target as Node)) {
+        setShowOptions(false);
+      } else {
+        return;
+      }
+    };
+
+    const checkEscOption = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setShowOptions(false);
       }
-    });
-    document.addEventListener("click", ({ target }: MouseEvent): void => {
-      if (!ref?.contains(target as Node)) {
-        setShowOptions(false);
-      }
-    });
+    };
+
+    document.addEventListener("click", checkClickOutside);
+    document.addEventListener("keydown", checkEscOption);
 
     return () => {
-      document.removeEventListener("keydown", (event: KeyboardEvent) => {
-        if (event.key === "Escape") {
-          setShowOptions(false);
-        }
-      });
-      document.removeEventListener("click", ({ target }: MouseEvent): void => {
-        if (!ref?.contains(target as Node)) {
-          setShowOptions(false);
-        }
-      });
+      document.removeEventListener("click", checkClickOutside);
+      document.removeEventListener("keydown", checkEscOption);
     };
   }, [showOptions]);
 
   return (
     <div
       className={twMerge(
-        "flex flex-col relative text-black w-[380px] response:w-[500px] select-none z-10",
-        "ease-in-out duration-200 hover:scale-105",
+        "flex flex-col relative text-black w-[380px] response:w-[500px] select-none",
+        "ease-in-out duration-200 hover:scale-105 z-10",
         showOptions && "scale-105"
       )}
-      onClick={() => setShowOptions((prevShowOptions) => !prevShowOptions)}
-      ref={selectRef}
     >
       <div
         className={twMerge(
@@ -59,13 +54,18 @@ export default function ProductsSelect(props: SelectProps) {
         )}
       >
         <input
-          className="text-base response:text-lg w-full text-center placeholder:text-black"
-          id="searchInput"
+          className="text-base response:text-lg w-full text-center placeholder:text-black z-0"
           value={searchItem != "" ? searchItem : ""}
           onChange={(e) => setSearchItem(e.target.value)}
           placeholder={props.selectedItem ? props.selectedItem.label : props.placeholder}
+          onSelect={() => setShowOptions(true)}
+          ref={selectRef}
         />
-        <UpArrow className="flex absolute right-5 top-2" width={20} fill="black" />
+        {showOptions ? (
+          <UpArrow className="flex absolute right-5 top-2" width={20} />
+        ) : (
+          <DownArrow className="flex absolute right-5 top-2" width={20} />
+        )}
       </div>
 
       <div
@@ -89,7 +89,7 @@ export default function ProductsSelect(props: SelectProps) {
                 props.onChange(option);
                 setSearchItem("");
               }}
-              key={option.value}
+              key={option.value + option.price}
               className={twMerge(
                 "hover:bg-gray1 cursor-pointer py-1 text-center",
                 option.value === props.selectedItem?.value && "bg-blue-500"
