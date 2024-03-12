@@ -1,17 +1,17 @@
 import { useState } from "react";
 import ProductsSelect from "./ProductsSelect";
 import ProductsPrices from "./ProductsPrices";
-import { InnerLotesInterface, InnerPhotosInterface } from "@/types";
+import { LotesDataInterface, InnerPhotosInterface } from "@/types";
 import ProductsShowcase from "./ProductsShowcase";
 
 interface ProductsPhaseInterface {
-  data: InnerLotesInterface[];
+  data: LotesDataInterface[];
   showcase: { [index: number]: InnerPhotosInterface } | undefined;
   phase: number;
 }
 
 export default function ProductsPhases(props: ProductsPhaseInterface) {
-  const [selectedItem, setSelectedItem] = useState<InnerLotesInterface | null>(null);
+  const [selectedItem, setSelectedItem] = useState<LotesDataInterface | null>(null);
 
   return (
     <div className="flex flex-col gap-1 text-gray1 font-medium text-center items-center">
@@ -25,7 +25,7 @@ export default function ProductsPhases(props: ProductsPhaseInterface) {
           options={props.data}
           placeholder={"DIGITE OU SELECIONE UM LOTE"}
           selectedItem={selectedItem}
-          onChange={(selection: InnerLotesInterface) => setSelectedItem(selection)}
+          onChange={(selection: LotesDataInterface) => setSelectedItem(selection)}
         />
       )}
 

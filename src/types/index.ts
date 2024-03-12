@@ -54,7 +54,7 @@ export interface PageInfos {
   title: string;
 }
 
-export interface InnerLotesInterface {
+export interface LotesDataInterface {
   value: number;
   label: string;
   price: number;
@@ -78,10 +78,6 @@ export interface InnerPhotosInterface {
   url: string;
   width?: number;
   height?: number;
-}
-
-export interface LotesDataInterface {
-  [index: number]: InnerLotesInterface[];
 }
 
 export interface PhotosDataInterface {

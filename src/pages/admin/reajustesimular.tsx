@@ -2,7 +2,7 @@ import ErrorPage from "@/components/svg/ErrorPage";
 import Footer from "@/components/home/Footer";
 import Header from "@/components/home/Header";
 import { useAdminsData } from "@/context/AdminsDataContext";
-import { FilterSelector, InnerLotesInterface, LotesStatus, PageSelector } from "@/types";
+import { FilterSelector, LotesDataInterface, LotesStatus, PageSelector } from "@/types";
 import Head from "next/head";
 import AdminSearchFilters from "@/components/admin/AdminSearchFilters";
 import { useState } from "react";
@@ -11,12 +11,11 @@ import { useLotesData } from "@/context/LotesDataContext";
 import AdminReadjust from "@/components/admin/AdminReadjust";
 
 export default function ReadjustSimulate() {
-  const lotesDataRaw = useLotesData();
-  const lotesData = lotesDataRaw && lotesDataRaw[1].concat(lotesDataRaw[2]);
+  const lotesData = useLotesData()?.filter((value) => value.status.situation === LotesStatus.Free && value);
   const { searchAdmin } = useAdminsData();
 
   const [stage, setStage] = useState<FilterSelector | null>(null);
-  const [selectedItem, setSelectedItem] = useState<InnerLotesInterface | null>(null);
+  const [selectedItem, setSelectedItem] = useState<LotesDataInterface | null>(null);
 
   const handleStage = (newStage: FilterSelector) => {
     setStage((state) => (state === newStage ? null : newStage));
@@ -57,7 +56,7 @@ export default function ReadjustSimulate() {
                     })}
                   placeholder={"DIGITE OU SELECIONE UM LOTE"}
                   selectedItem={selectedItem}
-                  onChange={(selection: InnerLotesInterface) => setSelectedItem(selection)}
+                  onChange={(selection: LotesDataInterface) => setSelectedItem(selection)}
                 />
               )}
             </div>

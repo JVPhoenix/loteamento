@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { DownArrow, UpArrow } from "../svg/Icons";
 import { twMerge } from "tailwind-merge";
-import { InnerLotesInterface, LotesStatus } from "@/types";
+import { LotesDataInterface, LotesStatus } from "@/types";
 
 interface SelectProps {
-  options: InnerLotesInterface[] | undefined | null;
+  options: LotesDataInterface[] | undefined | null;
   placeholder?: string;
-  selectedItem: InnerLotesInterface | null;
-  onChange: (selection: InnerLotesInterface) => void;
+  selectedItem: LotesDataInterface | null;
+  onChange: (selection: LotesDataInterface) => void;
 }
 
 export default function ProductsSelect(props: SelectProps) {

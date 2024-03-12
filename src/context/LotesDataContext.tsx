@@ -2,7 +2,7 @@ import { LotesDataInterface } from "@/types";
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 // contexto criado
-export const LotesDataContext = createContext<LotesDataInterface | null>(null);
+export const LotesDataContext = createContext<LotesDataInterface[] | null>(null);
 
 // usar o contexto criado
 export const useLotesData = () => {
@@ -11,14 +11,14 @@ export const useLotesData = () => {
 
 // react func do context
 export function LotesDataContextProvider(props: React.PropsWithChildren) {
-  const [lotesData, setLotesData] = useState<LotesDataInterface | null>(null);
+  const [lotesData, setLotesData] = useState<LotesDataInterface[] | null>(null);
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_LOTES_API_LINK}`, {
       method: "GET",
     })
       .then((res) => res.json())
-      .then((data: LotesDataInterface) => {
+      .then((data: LotesDataInterface[]) => {
         setLotesData(data);
       })
       .catch((error) => console.error(error));

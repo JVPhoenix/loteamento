@@ -1,10 +1,10 @@
-import { ClientsDataInterface, FilterSelector, InnerLotesInterface, PageSelector, PlanMonths } from "@/types";
+import { ClientsDataInterface, FilterSelector, LotesDataInterface, PageSelector, PlanMonths } from "@/types";
 import { PlanIcon } from "../svg/Icons";
 import { useState } from "react";
 
 interface AdminReadjustInterface {
   client?: ClientsDataInterface | null;
-  lote?: InnerLotesInterface | null;
+  lote?: LotesDataInterface | null;
   stage?: FilterSelector | null;
   page: PageSelector;
 }

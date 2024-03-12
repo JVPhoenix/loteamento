@@ -1,7 +1,7 @@
-import { FilterSelector, InnerLotesInterface } from "@/types";
+import { FilterSelector, LotesDataInterface } from "@/types";
 
 interface ProductsPricesInterface {
-  selectedItem: InnerLotesInterface | null;
+  selectedItem: LotesDataInterface | null;
   phase: FilterSelector | null,
 }
 
