@@ -48,7 +48,6 @@ export default function ReadjustClient() {
               <AdminSearchSelectBox
                 options={searchClient}
                 placeholder="Digite o Nome do Cliente ou Quadra e Lote"
-                selectedClient={selectedClient}
                 setSelectedClient={setSelectedClient}
                 state={state}
                 stage={stage}

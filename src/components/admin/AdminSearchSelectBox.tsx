@@ -2,7 +2,7 @@ import { ClientsDataInterface, FilterSelector, PageSelector } from "@/types";
 import Select, { createFilter } from "react-select";
 
 interface SelectClientProps {
-  options: ClientsDataInterface[] | undefined;
+  options: ClientsDataInterface[] | null;
   page: PageSelector;
   placeholder?: string;
   setSelectedClient: (selection: ClientsDataInterface | null) => void;

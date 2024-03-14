@@ -51,7 +51,6 @@ export default function Buscar() {
               <AdminSearchSelectBox
                 options={searchClient}
                 placeholder="Digite o Nome do Cliente ou Quadra e Lote"
-                selectedClient={selectedClient}
                 setSelectedClient={setSelectedClient}
                 state={state}
                 special={checkSpecial}

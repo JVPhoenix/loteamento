@@ -36,7 +36,7 @@ export default function ReadjustSimulate() {
               <AdminSearchFilters stage={stage} handleStage={handleStage} page={PageSelector.AdminReadjustSimulate} />
               {lotesData && (
                 <ProductsSelect
-                  lotesOptions={lotesData?.filter((value) => {
+                  options={lotesData?.filter((value) => {
                     if (stage !== null) {
                       if (stage === value.phase) {
                         return value;
