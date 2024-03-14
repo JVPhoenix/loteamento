@@ -49,7 +49,7 @@ export default function Buscar() {
                 page={PageSelector.AdminSearch}
               />
               <AdminSearchSelectBox
-                clients={searchClient}
+                options={searchClient}
                 placeholder="Digite o Nome do Cliente ou Quadra e Lote"
                 selectedClient={selectedClient}
                 setSelectedClient={setSelectedClient}

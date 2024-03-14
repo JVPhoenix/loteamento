@@ -46,7 +46,7 @@ export default function ReadjustClient() {
                 page={PageSelector.AdminReadjustClient}
               />
               <AdminSearchSelectBox
-                clients={searchClient}
+                options={searchClient}
                 placeholder="Digite o Nome do Cliente ou Quadra e Lote"
                 selectedClient={selectedClient}
                 setSelectedClient={setSelectedClient}
