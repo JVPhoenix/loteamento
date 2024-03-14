@@ -11,7 +11,7 @@ import { useLotesData } from "@/context/LotesDataContext";
 import ProductsPrices from "@/components/products/ProductsPrices";
 
 export default function AdminReservations() {
-  const lotesData = useLotesData()?.filter((value) => value.status.situation === LotesStatus.Free && value);
+  const lotesData = useLotesData()?.filter((value) => value.status.situation === LotesStatus.Blocked && value);
   const { searchAdmin } = useAdminsData();
 
   const [stage, setStage] = useState<FilterSelector | null>(null);
@@ -54,8 +54,8 @@ export default function AdminReservations() {
                     }
                   })}
                 placeholder={"Digite o Lote ou o Nome do Cliente"}
-                selectedItem={selectedItem}
-                onChange={(selection: LotesDataInterface) => setSelectedItem(selection)}
+                onChange={(selection: LotesDataInterface | null) => setSelectedItem(selection)}
+                page={PageSelector.AdminReservations}
               />
             </div>
 
@@ -64,25 +64,25 @@ export default function AdminReservations() {
               <div className="flex leading-tight items-center gap-1">
                 <h1>
                   <b>Reservado por: </b>
-                  {selectedItem?.status.admin === undefined ? "Não Informado" : selectedItem?.status.admin}
+                  {selectedItem?.status.admin === undefined ? "Não Informado" : selectedItem.status.admin}
                 </h1>
               </div>
               <div className="flex leading-tight items-center gap-1">
                 <h1>
                   <b>Nome do Interessado: </b>
-                  {selectedItem?.status.client === undefined ? "Não Informado" : selectedItem?.status.client}
+                  {selectedItem?.status.client === undefined ? "Não Informado" : selectedItem.status.client}
                 </h1>
               </div>
               <div className="flex leading-tight items-center gap-1">
                 <h1>
                   <b>Contato do Cliente: </b>
-                  {selectedItem?.status.contact === undefined ? "Não Informado" : selectedItem?.status.contact}
+                  {selectedItem?.status.contact === undefined ? "Não Informado" : selectedItem.status.contact}
                 </h1>
               </div>
               <div className="flex leading-tight items-center gap-1">
                 <h1>
                   <b>Data da Reserva: </b>
-                  {selectedItem?.status.date === undefined ? "Não Informado" : selectedItem?.status.date}
+                  {selectedItem?.status.date === undefined ? "Não Informado" : selectedItem.status.date}
                 </h1>
               </div>
             </div>

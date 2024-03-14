@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { LeftArrow, RightArrow, SelectDot } from "../svg/Icons";
 import { twMerge } from "tailwind-merge";
-import { InnerPhotosInterface, PhotosDataInterface } from "@/types";
+import { InnerPhotosInterface } from "@/types";
 
 interface ProductsShowcaseInterface {
   photos: { [index: number]: InnerPhotosInterface };

@@ -19,9 +19,6 @@ export default function ReadjustSimulate() {
 
   const handleStage = (newStage: FilterSelector) => {
     setStage((state) => (state === newStage ? null : newStage));
-    if (stage === null) {
-      setSelectedItem(null);
-    }
   };
 
   return (
@@ -39,24 +36,18 @@ export default function ReadjustSimulate() {
               <AdminSearchFilters stage={stage} handleStage={handleStage} page={PageSelector.AdminReadjustSimulate} />
               {lotesData && (
                 <ProductsSelect
-                  options={lotesData
-                    ?.filter((value) => {
-                      if (stage !== null) {
-                        if (stage === value.phase) {
-                          return value;
-                        }
-                      } else {
+                  lotesOptions={lotesData?.filter((value) => {
+                    if (stage !== null) {
+                      if (stage === value.phase) {
                         return value;
                       }
-                    })
-                    .filter((lote) => {
-                      if (lote.status.situation === LotesStatus.Free) {
-                        return lote;
-                      }
-                    })}
-                  placeholder={"DIGITE OU SELECIONE UM LOTE"}
-                  selectedItem={selectedItem}
-                  onChange={(selection: LotesDataInterface) => setSelectedItem(selection)}
+                    } else {
+                      return value;
+                    }
+                  })}
+                  placeholder={"Digite ou Selecione um Lote"}
+                  onChange={(selection: LotesDataInterface | null) => setSelectedItem(selection)}
+                  page={PageSelector.AdminReadjustSimulate}
                 />
               )}
             </div>

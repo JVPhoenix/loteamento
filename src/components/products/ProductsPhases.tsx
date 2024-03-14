@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ProductsSelect from "./ProductsSelect";
 import ProductsPrices from "./ProductsPrices";
-import { LotesDataInterface, InnerPhotosInterface } from "@/types";
+import { LotesDataInterface, InnerPhotosInterface, PageSelector } from "@/types";
 import ProductsShowcase from "./ProductsShowcase";
 
 interface ProductsPhaseInterface {
@@ -24,8 +24,8 @@ export default function ProductsPhases(props: ProductsPhaseInterface) {
         <ProductsSelect
           options={props.data}
           placeholder={"DIGITE OU SELECIONE UM LOTE"}
-          selectedItem={selectedItem}
-          onChange={(selection: LotesDataInterface) => setSelectedItem(selection)}
+          onChange={(selection: LotesDataInterface | null) => setSelectedItem(selection)}
+          page={PageSelector.HomePage}
         />
       )}
 
