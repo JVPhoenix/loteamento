@@ -38,21 +38,15 @@ export default function AdminReservations() {
             <div className="flex flex-col items-center pb-5">
               <AdminSearchFilters stage={stage} handleStage={handleStage} page={PageSelector.AdminReservations} />
               <ProductsSelect
-                options={lotesData
-                  ?.filter((value) => {
-                    if (stage !== null) {
-                      if (stage === value.phase) {
-                        return value;
-                      }
-                    } else {
+                options={lotesData?.filter((value) => {
+                  if (stage !== null) {
+                    if (stage === value.phase) {
                       return value;
                     }
-                  })
-                  .filter((lote) => {
-                    if (lote.status.situation === LotesStatus.Blocked) {
-                      return lote;
-                    }
-                  })}
+                  } else {
+                    return value;
+                  }
+                })}
                 placeholder={"Digite o Lote ou o Nome do Cliente"}
                 onChange={(selection: LotesDataInterface | null) => setSelectedItem(selection)}
                 page={PageSelector.AdminReservations}
@@ -90,7 +84,11 @@ export default function AdminReservations() {
             <div className="flex flex-col items-center">
               <h1 className="text-green-600 text-xl response:text-2xl font-bold ">DADOS DO LOTE</h1>
               <h1 className="font-bold">Localizado na {selectedItem?.phase ? selectedItem.phase : "X"}ª Etapa</h1>
-              <ProductsPrices selectedItem={selectedItem} phase={selectedItem?.phase ? selectedItem.phase : stage} />
+              <ProductsPrices
+                selectedItem={selectedItem}
+                phase={selectedItem?.phase ? selectedItem.phase : stage}
+                page={PageSelector.AdminReservations}
+              />
             </div>
           </div>
           <Footer />

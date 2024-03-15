@@ -13,6 +13,7 @@ export enum PageSelector {
   AdminReadjustClient = "/admin/reajustecliente",
   AdminReadjustSimulate = "/admin/reajustesimular",
   AdminReservations = "/admin/reservas",
+  AdminPersonalizedQuote = "/admin/orcamentos-personalizados"
 }
 
 export enum PlansSelector {

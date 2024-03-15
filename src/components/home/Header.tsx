@@ -176,7 +176,7 @@ export default function Header(props: HeaderInterface) {
             </div>
           </div>
 
-          <div className="z-10">
+          <div className="z-50">
             <div className="flex items-center">
               {searchAdmin?.length === 0 ? (
                 <Link
@@ -248,6 +248,18 @@ export default function Header(props: HeaderInterface) {
                       href={PageSelector.AdminReadjustSimulate}
                     >
                       <h1>SIMULAR REAJUSTE</h1>
+                    </Link>
+                  )}
+
+                  {props.page !== PageSelector.AdminPersonalizedQuote && (
+                    <Link
+                      className={twMerge(
+                        "ease-in-out duration-200 text-center cursor-pointer",
+                        "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
+                      )}
+                      href={PageSelector.AdminPersonalizedQuote}
+                    >
+                      <h1>ORÇAMENTO PERSONALIZADO</h1>
                     </Link>
                   )}
 

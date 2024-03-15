@@ -29,7 +29,7 @@ export default function ProductsPhases(props: ProductsPhaseInterface) {
         />
       )}
 
-      <ProductsPrices selectedItem={selectedItem} phase={props.phase} />
+      <ProductsPrices selectedItem={selectedItem} phase={props.phase} page={PageSelector.HomePage} />
 
       <p className="mt-3 px-3">
         *Os valores <strong>parcelados</strong> tem reajuste de

@@ -21,49 +21,53 @@ export default function AdminSearchFilters(props: AdminClientSelectInterface) {
           ? "SELECIONE UM CLIENTE"
           : props.page === PageSelector.AdminReadjustSimulate
           ? "SELECIONE UMA ETAPA"
-          : props.page === PageSelector.AdminReservations && "SELECIONE UMA RESERVA"}
+          : props.page === PageSelector.AdminReservations
+          ? "SELECIONE UMA RESERVA"
+          : props.page === PageSelector.AdminPersonalizedQuote && "COMPLETE OS CAMPOS ABAIXO"}
       </h1>
       <h1 className="text-white drop-shadow-titles text-xl response:text-2xl font-bold select-none mb-2">Filtros:</h1>
       <div className="flex flex-col gap-1 items-center response:flex-row response:gap-8">
-        {props.page !== PageSelector.AdminReadjustSimulate && props.page !== PageSelector.AdminReservations && (
-          <div className="flex flex-col items-center gap-3">
-            <h1 className="text-white text-xl response:text-2xl font-bold select-none">Situação</h1>
-            <div className="flex gap-3">
-              <Button
-                className={twMerge(
-                  props.state === FilterSelector.Expired &&
-                    `border-red-500 bg-red-500 text-black1 hover:text-black1
-                    font-bold hover:shadow-white shadow-md hover:border-red-500`
-                )}
-                onClick={() => props.handleState && props.handleState(FilterSelector.Expired)}
-              >
-                <h1> Atrasado </h1>
-              </Button>
-              <Button
-                className={twMerge(
-                  props.state === FilterSelector.Regular &&
-                    `border-blue-500 bg-blue-500 text-black1 hover:text-black1 font-bold
-                     hover:shadow-white shadow-md hover:border-blue-500`
-                )}
-                onClick={() => props.handleState && props.handleState(FilterSelector.Regular)}
-              >
-                <h1> Regular </h1>
-              </Button>
-              {props.page !== PageSelector.AdminReadjustClient && (
+        {props.page !== PageSelector.AdminReadjustSimulate &&
+          props.page !== PageSelector.AdminReservations &&
+          props.page !== PageSelector.AdminPersonalizedQuote && (
+            <div className="flex flex-col items-center gap-3">
+              <h1 className="text-white text-xl response:text-2xl font-bold select-none">Situação</h1>
+              <div className="flex gap-3">
                 <Button
                   className={twMerge(
-                    props.state === FilterSelector.PaidOff &&
-                      `border-green-500 bg-green-500 text-black1 hover:text-black1 font-bold
-                       hover:shadow-white shadow-md hover:border-green-500`
+                    props.state === FilterSelector.Expired &&
+                      `border-red-500 bg-red-500 text-black1 hover:text-black1
+                    font-bold hover:shadow-white shadow-md hover:border-red-500`
                   )}
-                  onClick={() => props.handleState && props.handleState(FilterSelector.PaidOff)}
+                  onClick={() => props.handleState && props.handleState(FilterSelector.Expired)}
                 >
-                  <h1> Quitado </h1>
+                  <h1> Atrasado </h1>
                 </Button>
-              )}
+                <Button
+                  className={twMerge(
+                    props.state === FilterSelector.Regular &&
+                      `border-blue-500 bg-blue-500 text-black1 hover:text-black1 font-bold
+                     hover:shadow-white shadow-md hover:border-blue-500`
+                  )}
+                  onClick={() => props.handleState && props.handleState(FilterSelector.Regular)}
+                >
+                  <h1> Regular </h1>
+                </Button>
+                {props.page !== PageSelector.AdminReadjustClient && (
+                  <Button
+                    className={twMerge(
+                      props.state === FilterSelector.PaidOff &&
+                        `border-green-500 bg-green-500 text-black1 hover:text-black1 font-bold
+                       hover:shadow-white shadow-md hover:border-green-500`
+                    )}
+                    onClick={() => props.handleState && props.handleState(FilterSelector.PaidOff)}
+                  >
+                    <h1> Quitado </h1>
+                  </Button>
+                )}
+              </div>
             </div>
-          </div>
-        )}
+          )}
         {props.page === PageSelector.AdminSearch && (
           <div className="flex flex-col items-center gap-3">
             <h1 className="text-white text-xl response:text-2xl font-bold select-none">Tipo</h1>
@@ -82,7 +86,7 @@ export default function AdminSearchFilters(props: AdminClientSelectInterface) {
           </div>
         )}
         <div className="flex flex-col items-center gap-3">
-          {props.page !== PageSelector.AdminReadjustSimulate && (
+          {props.page !== PageSelector.AdminReadjustSimulate && props.page !== PageSelector.AdminPersonalizedQuote && (
             <h1 className="text-white text-xl response:text-2xl font-bold select-none mb-2">Etapa</h1>
           )}
           <div className="flex gap-3">

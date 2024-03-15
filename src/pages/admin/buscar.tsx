@@ -10,7 +10,7 @@ import { ClientsDataInterface, FilterSelector, PageSelector } from "@/types";
 import Head from "next/head";
 import { useState } from "react";
 
-export default function Buscar() {
+export default function Search() {
   const clientsData = useClientsData();
   const searchClient = clientsData && Object.values(clientsData);
   const { searchAdmin } = useAdminsData();
@@ -58,7 +58,7 @@ export default function Buscar() {
                 page={PageSelector.AdminSearch}
               />
             </div>
-            {selectedClient && <ClientPageContent data={selectedClient} page={PageSelector.AdminLogin} />}
+            {selectedClient && <ClientPageContent data={selectedClient} page={PageSelector.AdminSearch} />}
           </div>
           <Footer />
         </>

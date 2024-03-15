@@ -16,7 +16,7 @@ export default function ProductsSelect(props: SelectProps) {
       getOptionLabel={(option) =>
         props.page === PageSelector.AdminReservations
           ? option.label + " - " + option.status.client
-          : props.page === PageSelector.AdminReadjustSimulate
+          : props.page === PageSelector.AdminReadjustSimulate || props.page === PageSelector.AdminPersonalizedQuote
           ? option.label + " - Fase " + option.phase
           : option.label
       }
