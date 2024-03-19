@@ -26,7 +26,7 @@ export default function AdminDashboard() {
         </Link>
         <Link href={PageSelector.AdminPersonalizedQuote}>
           <Button className="" onClick={() => null}>
-            SIMULAR REAJUSTES
+            ORÇAMENTO PERSONALIZADO
           </Button>
         </Link>
         <Link href={PageSelector.AdminReservations}>

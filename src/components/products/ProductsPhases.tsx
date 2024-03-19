@@ -3,6 +3,7 @@ import ProductsSelect from "./ProductsSelect";
 import ProductsPrices from "./ProductsPrices";
 import { LotesDataInterface, InnerPhotosInterface, PageSelector } from "@/types";
 import ProductsShowcase from "./ProductsShowcase";
+import { MultiValue } from "react-select";
 
 interface ProductsPhaseInterface {
   data: LotesDataInterface[];
@@ -11,7 +12,7 @@ interface ProductsPhaseInterface {
 }
 
 export default function ProductsPhases(props: ProductsPhaseInterface) {
-  const [selectedItem, setSelectedItem] = useState<LotesDataInterface | null>(null);
+  const [selectedItem, setSelectedItem] = useState<MultiValue<LotesDataInterface> | null>(null);
 
   return (
     <div className="flex flex-col gap-1 text-gray1 font-medium text-center items-center">
@@ -24,7 +25,7 @@ export default function ProductsPhases(props: ProductsPhaseInterface) {
         <ProductsSelect
           options={props.data}
           placeholder={"DIGITE OU SELECIONE UM LOTE"}
-          onChange={(selection: LotesDataInterface | null) => setSelectedItem(selection)}
+          onChange={(selection: MultiValue<LotesDataInterface> | null) => setSelectedItem(selection)}
           page={PageSelector.HomePage}
         />
       )}

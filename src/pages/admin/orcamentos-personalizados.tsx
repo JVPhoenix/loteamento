@@ -10,6 +10,7 @@ import ProductsSelect from "@/components/products/ProductsSelect";
 import { useLotesData } from "@/context/LotesDataContext";
 import ProductsPrices from "@/components/products/ProductsPrices";
 import { twMerge } from "tailwind-merge";
+import { MultiValue } from "react-select";
 
 export default function PersonalizedQuotes() {
   const lotesData = useLotesData()?.filter((value) => value.status.situation === LotesStatus.Free && value);
@@ -17,7 +18,7 @@ export default function PersonalizedQuotes() {
 
   const [stage, setStage] = useState<FilterSelector | null>(null);
 
-  const [selectedItem, setSelectedItem] = useState<LotesDataInterface | null>(null);
+  const [selectedItem, setSelectedItem] = useState<MultiValue<LotesDataInterface> | null>(null);
   const [entranceValue, setEntranceValue] = useState<string>("");
   const [parcelsValue, setParcelsValue] = useState<number>(0);
 
@@ -37,8 +38,6 @@ export default function PersonalizedQuotes() {
       .replace(/(\d)(\d{2})$/, "$1,$2")
       .replace(/(?=(\d{3})+(\D))\B/g, ".")
       .replace(/^0/, "");
-
-    console.log(convertedValue);
 
     if (convertedValue !== "") {
       setEntranceValue("R$ " + convertedValue);
@@ -86,11 +85,11 @@ export default function PersonalizedQuotes() {
                   }
                 })}
                 placeholder={"Digite ou Selecione um Lote"}
-                onChange={(selection: LotesDataInterface | null) => setSelectedItem(selection)}
+                onChange={(selection: MultiValue<LotesDataInterface> | null) => setSelectedItem(selection)}
                 page={PageSelector.AdminPersonalizedQuote}
               />
             </div>
-            <div className="flex flex-col response:flex-row gap-8 mb-2">
+            <div className="flex flex-col response:flex-row response:gap-8 mb-2">
               <div className="flex flex-col items-center">
                 <h1 className="text-white text-xl response:text-2xl font-bold select-none mb-2">Valor da Entrada</h1>
                 <input
@@ -127,11 +126,21 @@ export default function PersonalizedQuotes() {
             </div>
 
             <div className="flex flex-col items-center">
-              <h1 className="text-green-600 text-xl response:text-2xl font-bold ">DADOS DO LOTE</h1>
-              <h1 className="font-bold">Localizado na {selectedItem?.phase ? selectedItem.phase : "X"}ª Etapa</h1>
+              <h1 className="text-green-600 text-xl response:text-2xl font-bold ">DADOS FINAIS DO ORÇAMENTO</h1>
+              <h1 className="font-bold">
+                Localizado na{" "}
+                {selectedItem?.length
+                  ? selectedItem
+                      .map((value) => value.phase + "ª Etapa")
+                      .filter((value, index, array) => {
+                        return array.indexOf(value) === index;
+                      })
+                      .join(" e ")
+                  : "X Etapa"}
+              </h1>
               <ProductsPrices
                 selectedItem={selectedItem}
-                phase={selectedItem?.phase ? selectedItem.phase : stage}
+                phase={selectedItem?.map((value) => value.phase).includes(2) ? 2 : 1}
                 page={PageSelector.AdminPersonalizedQuote}
                 entrance={entranceValue}
                 parcels={parcelsValue}

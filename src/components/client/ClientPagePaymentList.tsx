@@ -20,7 +20,7 @@ export default function ClientPagePaymentList(props: ClientPagePaymentListInterf
         <>
           <div
             className={twMerge(
-              "flex flex-col flex-wrap gap-4 max-h-[600px] w-full items-center p-4",
+              "flex flex-col flex-wrap gap-4 response:max-h-[600px] w-full items-center p-4",
               "border border-yellow1 rounded-lg"
             )}
           >
@@ -37,7 +37,7 @@ export default function ClientPagePaymentList(props: ClientPagePaymentListInterf
 
   return (
     <>
-      <Button className="mb-8" onClick={() => setShowPaymentList((prevState) => !prevState)}>
+      <Button className="mb-8 w-fit" onClick={() => setShowPaymentList((prevState) => !prevState)}>
         <h1> {showPaymentList ? "Ocultar" : "Mostrar"} lista de pagamentos </h1>
       </Button>
       {showPaymentList && showList()}

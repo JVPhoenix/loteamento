@@ -9,13 +9,14 @@ import { useState } from "react";
 import ProductsSelect from "@/components/products/ProductsSelect";
 import { useLotesData } from "@/context/LotesDataContext";
 import ProductsPrices from "@/components/products/ProductsPrices";
+import { MultiValue } from "react-select";
 
 export default function AdminReservations() {
   const lotesData = useLotesData()?.filter((value) => value.status.situation === LotesStatus.Blocked && value);
   const { searchAdmin } = useAdminsData();
 
   const [stage, setStage] = useState<FilterSelector | null>(null);
-  const [selectedItem, setSelectedItem] = useState<LotesDataInterface | null>(null);
+  const [selectedItem, setSelectedItem] = useState<MultiValue<LotesDataInterface> | null>(null);
 
   const handleStage = (newStage: FilterSelector) => {
     setStage((state) => (state === newStage ? null : newStage));
@@ -48,45 +49,83 @@ export default function AdminReservations() {
                   }
                 })}
                 placeholder={"Digite o Lote ou o Nome do Cliente"}
-                onChange={(selection: LotesDataInterface | null) => setSelectedItem(selection)}
+                onChange={(selection: MultiValue<LotesDataInterface> | null) => setSelectedItem(selection)}
                 page={PageSelector.AdminReservations}
               />
             </div>
 
-            <div className="flex flex-col gap-3 items-center p-4">
+            <div className="flex flex-col max-w-md gap-3 items-center p-4">
               <h1 className="text-green-600 text-xl response:text-2xl font-bold ">DADOS DA RESERVA</h1>
               <div className="flex leading-tight items-center gap-1">
                 <h1>
                   <b>Reservado por: </b>
-                  {selectedItem?.status.admin === undefined ? "Não Informado" : selectedItem.status.admin}
+                  {selectedItem
+                    ?.map((mapValue) => {
+                      return mapValue.status.admin ? mapValue.status.admin : "Não Informado";
+                    })
+                    .filter((value, index, array) => {
+                      return array.indexOf(value) === index;
+                    })
+                    .join(", ")}
                 </h1>
               </div>
               <div className="flex leading-tight items-center gap-1">
                 <h1>
                   <b>Nome do Interessado: </b>
-                  {selectedItem?.status.client === undefined ? "Não Informado" : selectedItem.status.client}
+                  {selectedItem
+                    ?.map((value) => {
+                      return value.status.client ? value.status.client : "Não Informado";
+                    })
+                    .filter((value, index, array) => {
+                      return array.indexOf(value) === index;
+                    })
+                    .join(", ")}
                 </h1>
               </div>
               <div className="flex leading-tight items-center gap-1">
                 <h1>
                   <b>Contato do Cliente: </b>
-                  {selectedItem?.status.contact === undefined ? "Não Informado" : selectedItem.status.contact}
+                  {selectedItem
+                    ?.map((value) => {
+                      return value.status.contact ? value.status.contact : "Não Informado";
+                    })
+                    .filter((value, index, array) => {
+                      return array.indexOf(value) === index;
+                    })
+                    .join(", ")}
                 </h1>
               </div>
               <div className="flex leading-tight items-center gap-1">
                 <h1>
                   <b>Data da Reserva: </b>
-                  {selectedItem?.status.date === undefined ? "Não Informado" : selectedItem.status.date}
+                  {selectedItem
+                    ?.map((value) => {
+                      return value.status.date ? value.status.date : "Não Informado";
+                    })
+                    .filter((value, index, array) => {
+                      return array.indexOf(value) === index;
+                    })
+                    .join(", ")}
                 </h1>
               </div>
             </div>
 
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center p-4">
               <h1 className="text-green-600 text-xl response:text-2xl font-bold ">DADOS DO LOTE</h1>
-              <h1 className="font-bold">Localizado na {selectedItem?.phase ? selectedItem.phase : "X"}ª Etapa</h1>
+              <h1 className="font-bold">
+                Localizado na{" "}
+                {selectedItem?.length
+                  ? selectedItem
+                      .map((value) => value.phase + "ª Etapa")
+                      .filter((value, index, array) => {
+                        return array.indexOf(value) === index;
+                      })
+                      .join(" e ")
+                  : "X Etapa"}
+              </h1>
               <ProductsPrices
                 selectedItem={selectedItem}
-                phase={selectedItem?.phase ? selectedItem.phase : stage}
+                phase={selectedItem?.map((value) => value.phase).includes(2) ? 2 : 1}
                 page={PageSelector.AdminReservations}
               />
             </div>

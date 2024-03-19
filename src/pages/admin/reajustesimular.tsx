@@ -9,13 +9,14 @@ import { useState } from "react";
 import ProductsSelect from "@/components/products/ProductsSelect";
 import { useLotesData } from "@/context/LotesDataContext";
 import AdminReadjust from "@/components/admin/AdminReadjust";
+import { MultiValue } from "react-select";
 
 export default function ReadjustSimulate() {
   const lotesData = useLotesData()?.filter((value) => value.status.situation === LotesStatus.Free && value);
   const { searchAdmin } = useAdminsData();
 
   const [stage, setStage] = useState<FilterSelector | null>(null);
-  const [selectedItem, setSelectedItem] = useState<LotesDataInterface | null>(null);
+  const [selectedItem, setSelectedItem] = useState<MultiValue<LotesDataInterface> | null>(null);
 
   const handleStage = (newStage: FilterSelector) => {
     setStage((state) => (state === newStage ? null : newStage));
@@ -46,7 +47,7 @@ export default function ReadjustSimulate() {
                     }
                   })}
                   placeholder={"Digite ou Selecione um Lote"}
-                  onChange={(selection: LotesDataInterface | null) => setSelectedItem(selection)}
+                  onChange={(selection: MultiValue<LotesDataInterface> | null) => setSelectedItem(selection)}
                   page={PageSelector.AdminReadjustSimulate}
                 />
               )}

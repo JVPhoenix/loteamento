@@ -1,12 +1,12 @@
 import React from "react";
 import { LotesDataInterface, PageSelector } from "@/types";
-import Select, { createFilter } from "react-select";
+import Select, { MultiValue, createFilter } from "react-select";
 
 interface SelectProps {
   options: LotesDataInterface[] | undefined;
   page: PageSelector;
   placeholder?: string;
-  onChange: (selection: LotesDataInterface | null) => void;
+  onChange: (selection: MultiValue<LotesDataInterface> | null) => void;
 }
 
 export default function ProductsSelect(props: SelectProps) {
@@ -29,9 +29,9 @@ export default function ProductsSelect(props: SelectProps) {
           textAlign: "center",
           display: "flex",
           ":hover": {
-            scale: "110%",
+            scale: window.innerWidth <= 1080 ? "105%" : "110%",
           },
-          scale: state.isFocused ? "110%" : "100%",
+          scale: window.innerWidth <= 1080 ? (state.isFocused ? "105%" : "100%") : state.isFocused ? "110%" : "100%",
         }),
         option: (optionStyles) => ({
           ...optionStyles,
@@ -42,11 +42,15 @@ export default function ProductsSelect(props: SelectProps) {
           return {
             ...placeholderStyles,
             color: "#00000",
+            marginLeft: window.innerWidth <= 1080 ? 0 : 2,
+            marginRight: window.innerWidth <= 1080 ? 0 : 2,
+            fontSize: window.innerWidth <= 1080 ? 16 : 18,
           };
         },
       }}
       placeholder={props.placeholder}
-      onChange={(option: LotesDataInterface | null) => props.onChange(option)}
+      onChange={(option: MultiValue<LotesDataInterface> | null) => props.onChange(option)}
+      isMulti
     />
   );
 }

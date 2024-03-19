@@ -29,11 +29,12 @@ interface ClientPageInfoInterface {
 export default function ClientPageContent(props: ClientPageInfoInterface) {
   const startDate = new Date(props.data.startDate.split("-").reverse().join("-"));
   const expireDay = startDate.getDate() + 1;
-  
-  const diffZero = props.data.paymentList[0] !== "" ? props.data.paymentList.length : 0
-  const lastMonthPaid = new Date(
-    startDate.setMonth(startDate.getMonth() + diffZero)
-  ).toLocaleString("default", { month: "long", year: "numeric" });
+
+  const diffZero = props.data.paymentList[0] !== "" ? props.data.paymentList.length : 0;
+  const lastMonthPaid = new Date(startDate.setMonth(startDate.getMonth() + diffZero)).toLocaleString("default", {
+    month: "long",
+    year: "numeric",
+  });
 
   const priceCalc = (value: number) => {
     if (value === PlansSelector.ContractPrice) {
@@ -42,13 +43,10 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
         maximumFractionDigits: 2,
       });
     } else if (value === PlansSelector.Debt) {
-      return (props.data.price - (diffZero * props.data.price) / props.data.plan).toLocaleString(
-        "pt-br",
-        {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        }
-      );
+      return (props.data.price - (diffZero * props.data.price) / props.data.plan).toLocaleString("pt-br", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
     } else {
       return (props.data.price / value).toLocaleString("pt-br", {
         minimumFractionDigits: 2,
@@ -90,7 +88,12 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
             paidParcels={props.data.paymentList.length}
           />
 
-          <div className={twMerge("flex flex-col justify-between pb-4 px-2", "response:w-auto response:min-w-[700px]")}>
+          <div
+            className={twMerge(
+              "flex flex-col justify-between items-center pb-4 px-2",
+              "response:w-auto response:min-w-[700px]"
+            )}
+          >
             <div
               className={twMerge(
                 "flex flex-col text-center",
@@ -221,7 +224,7 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                       <LastPaidIcon className="" width={50} fill="white" stroke="none" />
                     </div>
                     <h1>
-                      <b>Ultimo mês pago: </b> 
+                      <b>Ultimo mês pago: </b>
                       {lastMonthPaid}
                     </h1>
                   </div>
@@ -236,9 +239,9 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                 </div>
               </div>
             </div>
+            <ClientPagePaymentList paymentList={props.data.paymentList} keyData={props.data.cpf} page={props.page} />
           </div>
         </div>
-        <ClientPagePaymentList paymentList={props.data.paymentList} keyData={props.data.cpf} page={props.page} />
         {props.page === PageSelector.ClientSearch && (
           <>
             <Button className="my-8" onClick={() => props.handleResetOptions?.()}>

@@ -1,5 +1,5 @@
 import { ClientsDataInterface, FilterSelector, PageSelector } from "@/types";
-import Select, { createFilter } from "react-select";
+import Select from "react-select";
 
 interface SelectClientProps {
   options: ClientsDataInterface[] | null;
@@ -67,7 +67,6 @@ export default function AdminSearchSelectBox(props: SelectClientProps) {
       onChange={(option: ClientsDataInterface | null) => props.setSelectedClient(option)}
       getOptionLabel={(option) => option.name}
       getOptionValue={(option) => option.contractNumber}
-      // filterOption={createFilter({ ignoreCase: true, ignoreAccents: true, trim: true })}
       filterOption={(e, input) => customSearchFilter(e.data, input)}
       //CUSTOM STYLES
       className={"w-[380px] response:w-[500px] select-none z-10"}
@@ -78,9 +77,9 @@ export default function AdminSearchSelectBox(props: SelectClientProps) {
           textAlign: "center",
           display: "flex",
           ":hover": {
-            scale: "110%",
+            scale: window.innerWidth <= 1080 ? "105%" : "110%",
           },
-          scale: state.isFocused ? "110%" : "100%",
+          scale: window.innerWidth <= 1080 ? (state.isFocused ? "105%" : "100%") : state.isFocused ? "110%" : "100%",
         }),
         option: (optionStyles) => ({
           ...optionStyles,
@@ -91,6 +90,9 @@ export default function AdminSearchSelectBox(props: SelectClientProps) {
           return {
             ...placeholderStyles,
             color: "#00000",
+            marginLeft: window.innerWidth <= 1080 ? 0 : 2,
+            marginRight: window.innerWidth <= 1080 ? 0 : 2,
+            fontSize: window.innerWidth <= 1080 ? 16 : 18,
           };
         },
       }}

@@ -1,10 +1,17 @@
-import { ClientsDataInterface, FilterSelector, LotesDataInterface, PageSelector, PlanMonths } from "@/types";
+import {
+  ClientsDataInterface,
+  FilterSelector,
+  LotesDataInterface,
+  PageSelector,
+  PlanMonths,
+} from "@/types";
 import { PlanIcon } from "../svg/Icons";
 import { useState } from "react";
+import { MultiValue } from "react-select";
 
 interface AdminReadjustInterface {
   client?: ClientsDataInterface | null;
-  lote?: LotesDataInterface | null;
+  lote?: MultiValue<LotesDataInterface> | null;
   stage?: FilterSelector | null;
   page: PageSelector;
 }
@@ -25,7 +32,7 @@ export default function AdminReadjust(props: AdminReadjustInterface) {
     if (props.page === PageSelector.AdminReadjustClient) {
       return props.client ? props.client?.price : 0;
     } else if (props.page === PageSelector.AdminReadjustSimulate) {
-      return props.lote ? props.lote.price : 0;
+      return props.lote ? props.lote.reduce((accumulator, value) => (accumulator = accumulator + value.price), 0) : 0;
     } else {
       return 0;
     }
@@ -65,6 +72,8 @@ export default function AdminReadjust(props: AdminReadjustInterface) {
     }
   };
 
+  // console.log(props.client?.phase, props.lote?.map((value) => value.phase).includes(FilterSelector.Etapa2));
+
   return (
     <div className="flex flex-col m-auto w-full items-center gap-4">
       <h1 className="text-white drop-shadow-titles text-xl response:text-2xl font-bold">
@@ -82,7 +91,7 @@ export default function AdminReadjust(props: AdminReadjustInterface) {
           <option value={24}>2 anos (24 meses)</option>
           <option value={36}>3 anos (36 meses)</option>
           <option value={48}>4 anos (48 meses)</option>
-          {props.lote?.phase !== 1 && props.stage !== FilterSelector.Etapa1 && (
+          {props.lote?.map((value) => value.phase).includes(FilterSelector.Etapa2) && (
             <option value={60}>5 anos (60 meses)</option>
           )}
         </select>
@@ -116,15 +125,25 @@ export default function AdminReadjust(props: AdminReadjustInterface) {
             12x de R$ {localeString(priceCalc(PlanMonths.FourthYear))}
           </h1>
         </div>
-        {plan() === 60 && (
-          <div className="flex items-center gap-2">
-            <PlanIcon className="" width={40} plan={60} fill="white" />
-            <h1 className="text-white text-lg response:text-xl font-bold">Quinto Ano:</h1>
-            <h1 className="text-white text-lg response:text-xl font-thin">
-              12x de R$ {localeString(priceCalc(PlanMonths.FifthYear))}
-            </h1>
-          </div>
-        )}
+        {props.page === PageSelector.AdminReadjustClient
+          ? props.client?.phase === FilterSelector.Etapa2 && (
+              <div className="flex items-center gap-2">
+                <PlanIcon className="" width={40} plan={60} fill="white" />
+                <h1 className="text-white text-lg response:text-xl font-bold">Quinto Ano:</h1>
+                <h1 className="text-white text-lg response:text-xl font-thin">
+                  12x de R$ {localeString(priceCalc(PlanMonths.FifthYear))}
+                </h1>
+              </div>
+            )
+          : props.lote?.map((value) => value.phase).includes(FilterSelector.Etapa2) && (
+              <div className="flex items-center gap-2">
+                <PlanIcon className="" width={40} plan={60} fill="white" />
+                <h1 className="text-white text-lg response:text-xl font-bold">Quinto Ano:</h1>
+                <h1 className="text-white text-lg response:text-xl font-thin">
+                  12x de R$ {localeString(priceCalc(PlanMonths.FifthYear))}
+                </h1>
+              </div>
+            )}
       </div>
     </div>
   );
