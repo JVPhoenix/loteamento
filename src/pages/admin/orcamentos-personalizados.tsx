@@ -13,7 +13,7 @@ import { twMerge } from "tailwind-merge";
 import { MultiValue } from "react-select";
 
 export default function PersonalizedQuotes() {
-  const lotesData = useLotesData()?.filter((value) => value.status.situation === LotesStatus.Free && value);
+  const lotesData = useLotesData()?.filter((value) => value.situation === LotesStatus.Free && value);
   const { searchAdmin } = useAdminsData();
 
   const [stage, setStage] = useState<FilterSelector | null>(null);

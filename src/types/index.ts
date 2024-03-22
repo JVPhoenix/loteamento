@@ -13,7 +13,7 @@ export enum PageSelector {
   AdminReadjustClient = "/admin/reajustecliente",
   AdminReadjustSimulate = "/admin/reajustesimular",
   AdminReservations = "/admin/reservas",
-  AdminPersonalizedQuote = "/admin/orcamentos-personalizados"
+  AdminPersonalizedQuote = "/admin/orcamentos-personalizados",
 }
 
 export enum PlansSelector {
@@ -61,13 +61,11 @@ export interface LotesDataInterface {
   price: number;
   size: string;
   phase: number;
-  status: {
-    situation: string;
-    admin: string;
-    client: string;
-    contact: string;
-    date: string;
-  };
+  situation: string;
+  reservedBy?: string;
+  reservedFor?: string;
+  reservedForContact?: string;
+  reservedDate?: string;
 }
 
 export enum LotesStatus {

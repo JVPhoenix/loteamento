@@ -4,7 +4,7 @@ import { usePhotosData } from "@/context/PhotosDataContext";
 import { FilterSelector, LotesStatus } from "@/types";
 
 export default function Products() {
-  const lotesData = useLotesData()?.filter((value) => value.status.situation === LotesStatus.Free && value);
+  const lotesData = useLotesData()?.filter((value) => value.situation === LotesStatus.Free && value);
   const photosData = usePhotosData();
 
   return (

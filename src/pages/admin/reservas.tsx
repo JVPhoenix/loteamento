@@ -12,7 +12,7 @@ import ProductsPrices from "@/components/products/ProductsPrices";
 import { MultiValue } from "react-select";
 
 export default function AdminReservations() {
-  const lotesData = useLotesData()?.filter((value) => value.status.situation === LotesStatus.Blocked && value);
+  const lotesData = useLotesData()?.filter((value) => value.situation === LotesStatus.Blocked && value);
   const { searchAdmin } = useAdminsData();
 
   const [stage, setStage] = useState<FilterSelector | null>(null);
@@ -61,7 +61,7 @@ export default function AdminReservations() {
                   <b>Reservado por: </b>
                   {selectedItem
                     ?.map((mapValue) => {
-                      return mapValue.status.admin ? mapValue.status.admin : "Não Informado";
+                      return mapValue.reservedBy ? mapValue.reservedBy : "Não Informado";
                     })
                     .filter((value, index, array) => {
                       return array.indexOf(value) === index;
@@ -74,7 +74,7 @@ export default function AdminReservations() {
                   <b>Nome do Interessado: </b>
                   {selectedItem
                     ?.map((value) => {
-                      return value.status.client ? value.status.client : "Não Informado";
+                      return value.reservedFor ? value.reservedFor : "Não Informado";
                     })
                     .filter((value, index, array) => {
                       return array.indexOf(value) === index;
@@ -87,7 +87,7 @@ export default function AdminReservations() {
                   <b>Contato do Cliente: </b>
                   {selectedItem
                     ?.map((value) => {
-                      return value.status.contact ? value.status.contact : "Não Informado";
+                      return value.reservedForContact ? value.reservedForContact : "Não Informado";
                     })
                     .filter((value, index, array) => {
                       return array.indexOf(value) === index;
@@ -100,7 +100,7 @@ export default function AdminReservations() {
                   <b>Data da Reserva: </b>
                   {selectedItem
                     ?.map((value) => {
-                      return value.status.date ? value.status.date : "Não Informado";
+                      return value.reservedDate ? value.reservedDate : "Não Informado";
                     })
                     .filter((value, index, array) => {
                       return array.indexOf(value) === index;

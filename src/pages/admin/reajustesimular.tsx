@@ -12,7 +12,7 @@ import AdminReadjust from "@/components/admin/AdminReadjust";
 import { MultiValue } from "react-select";
 
 export default function ReadjustSimulate() {
-  const lotesData = useLotesData()?.filter((value) => value.status.situation === LotesStatus.Free && value);
+  const lotesData = useLotesData()?.filter((value) => value.situation === LotesStatus.Free && value);
   const { searchAdmin } = useAdminsData();
 
   const [stage, setStage] = useState<FilterSelector | null>(null);
