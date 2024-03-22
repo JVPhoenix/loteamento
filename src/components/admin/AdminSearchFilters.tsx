@@ -1,7 +1,7 @@
 import { twMerge } from "tailwind-merge";
-import { FilterSelector, PageSelector } from "@/types";
+import { FilterSelector, LotesStatus, PageSelector } from "@/types";
 import { Dispatch, SetStateAction } from "react";
-import { Button } from "./Button";
+import { Button } from "../utils/Button";
 
 interface AdminClientSelectInterface {
   state?: FilterSelector | null;
@@ -11,6 +11,7 @@ interface AdminClientSelectInterface {
   stage: FilterSelector | null;
   handleStage: (newStage: FilterSelector) => void;
   page: PageSelector;
+  actionType?: LotesStatus | null;
 }
 
 export default function AdminSearchFilters(props: AdminClientSelectInterface) {
@@ -21,14 +22,16 @@ export default function AdminSearchFilters(props: AdminClientSelectInterface) {
           ? "SELECIONE UM CLIENTE"
           : props.page === PageSelector.AdminReadjustSimulate
           ? "SELECIONE UMA ETAPA"
-          : props.page === PageSelector.AdminReservations
+          : props.page === PageSelector.AdminShowReservations || props.actionType === LotesStatus.Blocked
           ? "SELECIONE UMA RESERVA"
-          : props.page === PageSelector.AdminPersonalizedQuote && "COMPLETE OS CAMPOS ABAIXO"}
+          : props.page === PageSelector.AdminPersonalizedQuote ||
+            (props.actionType === LotesStatus.Free && "COMPLETE OS CAMPOS ABAIXO")}
       </h1>
       <h1 className="text-white drop-shadow-titles text-xl response:text-2xl font-bold select-none mb-2">Filtros:</h1>
       <div className="flex flex-col gap-1 items-center response:flex-row response:gap-8">
         {props.page !== PageSelector.AdminReadjustSimulate &&
-          props.page !== PageSelector.AdminReservations &&
+          props.page !== PageSelector.AdminShowReservations &&
+          props.page !== PageSelector.AdminEditReservations &&
           props.page !== PageSelector.AdminPersonalizedQuote && (
             <div className="flex flex-col items-center gap-3">
               <h1 className="text-white text-xl response:text-2xl font-bold select-none">Situação</h1>

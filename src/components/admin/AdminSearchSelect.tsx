@@ -11,7 +11,7 @@ interface SelectClientProps {
   stage: FilterSelector | null;
 }
 
-export default function AdminSearchSelectBox(props: SelectClientProps) {
+export default function AdminSearchSelect(props: SelectClientProps) {
   const checkExpired = (paymentList: Array<string>, startDate: string, returnType: FilterSelector) => {
     const today = new Date();
     const start = new Date(startDate.split("-").reverse().join("-"));

@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { MenuIcon } from "../svg/Icons";
+import { MenuIcon } from "../utils/Icons";
 import { useAdminsData } from "@/context/AdminsDataContext";
 
 interface HeaderInterface {
@@ -263,13 +263,13 @@ export default function Header(props: HeaderInterface) {
                     </Link>
                   )}
 
-                  {props.page !== PageSelector.AdminReservations && (
+                  {props.page !== PageSelector.AdminShowReservations && (
                     <Link
                       className={twMerge(
                         "ease-in-out duration-200 text-center cursor-pointer",
                         "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
                       )}
-                      href={PageSelector.AdminReservations}
+                      href={PageSelector.AdminShowReservations}
                     >
                       <h1>RESERVAS</h1>
                     </Link>

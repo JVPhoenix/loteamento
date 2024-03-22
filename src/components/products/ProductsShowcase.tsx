@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
-import { LeftArrow, RightArrow, SelectDot } from "../svg/Icons";
+import { LeftArrow, RightArrow, SelectDot } from "../utils/Icons";
 import { twMerge } from "tailwind-merge";
 import { InnerPhotosInterface } from "@/types";
 

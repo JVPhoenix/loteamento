@@ -1,6 +1,6 @@
-import ErrorPage from "@/components/svg/ErrorPage";
+import ErrorPage from "@/components/utils/ErrorPage";
 import AdminSearchFilters from "@/components/admin/AdminSearchFilters";
-import AdminSearchSelectBox from "@/components/admin/AdminSearchSelectBox";
+import AdminSearchSelect from "@/components/admin/AdminSearchSelect";
 import ClientPageContent from "@/components/client/ClientPageContent";
 import Footer from "@/components/home/Footer";
 import Header from "@/components/home/Header";
@@ -48,7 +48,7 @@ export default function Search() {
                 handleStage={handleStage}
                 page={PageSelector.AdminSearch}
               />
-              <AdminSearchSelectBox
+              <AdminSearchSelect
                 options={searchClient}
                 placeholder="Digite o Nome do Cliente ou Quadra e Lote"
                 setSelectedClient={setSelectedClient}

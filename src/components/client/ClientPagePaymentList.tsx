@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "../admin/Button";
+import { Button } from "../utils/Button";
 import { twMerge } from "tailwind-merge";
 import { PageSelector } from "@/types";
 

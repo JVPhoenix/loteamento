@@ -6,8 +6,8 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import ErrorPage from "@/components/svg/ErrorPage";
-import MaintenancePage from "@/components/svg/MaintenencePage";
+import ErrorPage from "@/components/utils/ErrorPage";
+import MaintenancePage from "@/components/utils/MaintenencePage";
 
 export default function Images() {
   const { query } = useRouter();

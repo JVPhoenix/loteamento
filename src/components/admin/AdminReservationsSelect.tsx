@@ -1,24 +1,26 @@
-import React from "react";
-import { LotesDataInterface, PageSelector } from "@/types";
-import Select, { MultiValue, createFilter } from "react-select";
+import React, { Dispatch, useState } from "react";
+import { LotesDataInterface, LotesStatus } from "@/types";
+import Select, { createFilter } from "react-select";
+import { Button } from "../utils/Button";
 
-interface SelectProps {
+interface SelectReservationsProps {
   options: LotesDataInterface[] | undefined;
-  page: PageSelector;
+  loteStatus: LotesStatus | null;
   placeholder?: string;
-  onChange: (selection: MultiValue<LotesDataInterface> | null) => void;
+  onChange: (selection: LotesDataInterface | null) => void;
+  setSelectRef: Dispatch<any>
 }
 
-export default function ProductsSelect(props: SelectProps) {
+export default function AdminReservationsSelect(props: SelectReservationsProps) {
   return (
+    <>
     <Select
+      ref={(ref) => {
+        props.setSelectRef(ref);
+      }}
       options={props.options}
       getOptionLabel={(option) =>
-        props.page === PageSelector.AdminShowReservations
-          ? option.label + " - " + option.reservedFor
-          : props.page === PageSelector.AdminReadjustSimulate || props.page === PageSelector.AdminPersonalizedQuote
-          ? option.label + " - Fase " + option.phase
-          : option.label
+        props.loteStatus === LotesStatus.Blocked ? option.label + " - " + option.reservedFor : option.label
       }
       filterOption={createFilter({ ignoreCase: true, ignoreAccents: true, trim: true })}
       className={"w-[380px] response:w-[500px] select-none z-10"}
@@ -49,8 +51,11 @@ export default function ProductsSelect(props: SelectProps) {
         },
       }}
       placeholder={props.placeholder}
-      onChange={(option: MultiValue<LotesDataInterface> | null) => props.onChange(option)}
-      isMulti
+      onChange={(option: LotesDataInterface | null) => props.onChange(option)}
     />
+    {/* <Button onClick={() => clearValue()}>
+      test
+    </Button> */}
+    </>
   );
 }

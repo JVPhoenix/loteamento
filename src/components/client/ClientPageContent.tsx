@@ -13,11 +13,11 @@ import {
   PlanIcon,
   DayIcon,
   DayPaid,
-} from "../svg/Icons";
+} from "../utils/Icons";
 import Contacts from "../home/Contacts";
 import ClientPageContentUser from "./ClientPageContentUser";
 import ClientCheckExpire from "./ClientCheckExpire";
-import { Button } from "../admin/Button";
+import { Button } from "../utils/Button";
 import ClientPagePaymentList from "./ClientPagePaymentList";
 
 interface ClientPageInfoInterface {

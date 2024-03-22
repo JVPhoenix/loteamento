@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button } from "./Button";
+import { Button } from "../utils/Button";
 import { PageSelector } from "@/types";
 
 export default function AdminDashboard() {
@@ -29,7 +29,7 @@ export default function AdminDashboard() {
             ORÇAMENTO PERSONALIZADO
           </Button>
         </Link>
-        <Link href={PageSelector.AdminReservations}>
+        <Link href={PageSelector.AdminShowReservations}>
           <Button className="" onClick={() => null}>
             RESERVAS
           </Button>

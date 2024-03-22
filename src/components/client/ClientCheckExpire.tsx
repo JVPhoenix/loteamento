@@ -1,5 +1,5 @@
 import { twMerge } from "tailwind-merge";
-import { ExpireIcon, ObsIcon } from "../svg/Icons";
+import { ExpireIcon, ObsIcon } from "../utils/Icons";
 import { ClientsDataInterface, PlanMonths, PlansSelector } from "@/types";
 
 interface ClientPageContentExpireInterface {

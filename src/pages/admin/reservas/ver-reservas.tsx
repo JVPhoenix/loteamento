@@ -8,11 +8,11 @@ import AdminSearchFilters from "@/components/admin/AdminSearchFilters";
 import { useState } from "react";
 import ProductsSelect from "@/components/products/ProductsSelect";
 import { useLotesData } from "@/context/LotesDataContext";
-import AdminReadjust from "@/components/admin/AdminReadjust";
 import { MultiValue } from "react-select";
+import AdminReservationsInfos from "@/components/admin/AdminShowReservationsInfos";
 
-export default function ReadjustSimulate() {
-  const lotesData = useLotesData().lotesData?.filter((value) => value.situation === LotesStatus.Free && value);
+export default function AdminShowReservations() {
+  const lotesData = useLotesData().lotesData?.filter((value) => value.situation === LotesStatus.Blocked && value);
   const { searchAdmin } = useAdminsData();
 
   const [stage, setStage] = useState<FilterSelector | null>(null);
@@ -20,39 +20,40 @@ export default function ReadjustSimulate() {
 
   const handleStage = (newStage: FilterSelector) => {
     setStage((state) => (state === newStage ? null : newStage));
+    if (stage === null) {
+      setSelectedItem(null);
+    }
   };
 
   return (
     <div className="flex flex-col w-full min-h-screen bg-black1 text-lg text-white">
       <div className="w-full h-full">
         <Head>
-          <title>{searchAdmin?.length !== 0 ? "Simular Reajuste - Lote" : "ERRO - Sem Acesso"}</title>
+          <title>{searchAdmin?.length !== 0 ? "Ver Reservas" : "ERRO - Sem Acesso"}</title>
         </Head>
-        <Header page={PageSelector.AdminReadjustSimulate} />
+        <Header page={PageSelector.AdminShowReservations} />
       </div>
       {searchAdmin?.length === 1 ? (
         <>
           <div className="flex flex-col m-auto py-6 items-center">
-            <div className="flex flex-col items-center pb-8">
-              <AdminSearchFilters stage={stage} handleStage={handleStage} page={PageSelector.AdminReadjustSimulate} />
-              {lotesData && (
-                <ProductsSelect
-                  options={lotesData?.filter((value) => {
-                    if (stage !== null) {
-                      if (stage === value.phase) {
-                        return value;
-                      }
-                    } else {
+            <div className="flex flex-col items-center pb-5">
+              <AdminSearchFilters stage={stage} handleStage={handleStage} page={PageSelector.AdminShowReservations} />
+              <ProductsSelect
+                options={lotesData?.filter((value) => {
+                  if (stage !== null) {
+                    if (stage === value.phase) {
                       return value;
                     }
-                  })}
-                  placeholder={"Digite ou Selecione um Lote"}
-                  onChange={(selection: MultiValue<LotesDataInterface> | null) => setSelectedItem(selection)}
-                  page={PageSelector.AdminReadjustSimulate}
-                />
-              )}
+                  } else {
+                    return value;
+                  }
+                })}
+                placeholder={"Digite o Lote ou o Nome do Cliente"}
+                onChange={(selection: MultiValue<LotesDataInterface> | null) => setSelectedItem(selection)}
+                page={PageSelector.AdminShowReservations}
+              />
             </div>
-            <AdminReadjust lote={selectedItem} stage={stage} page={PageSelector.AdminReadjustSimulate} />
+            <AdminReservationsInfos selectedItem={selectedItem} />
           </div>
           <Footer />
         </>

@@ -5,7 +5,7 @@ import {
   PageSelector,
   PlanMonths,
 } from "@/types";
-import { PlanIcon } from "../svg/Icons";
+import { PlanIcon } from "../utils/Icons";
 import { useState } from "react";
 import { MultiValue } from "react-select";
 
