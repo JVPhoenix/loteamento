@@ -1,11 +1,10 @@
-import React, { Dispatch, useState } from "react";
+import React, { Dispatch } from "react";
 import { LotesDataInterface, LotesStatus } from "@/types";
 import Select, { createFilter } from "react-select";
-import { Button } from "../utils/Button";
 
 interface SelectReservationsProps {
   options: LotesDataInterface[] | undefined;
-  loteStatus: LotesStatus | null;
+  lotesStatus: LotesStatus | null;
   placeholder?: string;
   onChange: (selection: LotesDataInterface | null) => void;
   setSelectRef: Dispatch<any>
@@ -20,7 +19,7 @@ export default function AdminReservationsSelect(props: SelectReservationsProps) 
       }}
       options={props.options}
       getOptionLabel={(option) =>
-        props.loteStatus === LotesStatus.Blocked ? option.label + " - " + option.reservedFor : option.label
+        props.lotesStatus === LotesStatus.Blocked ? option.label + " - " + option.reservedFor : option.label
       }
       filterOption={createFilter({ ignoreCase: true, ignoreAccents: true, trim: true })}
       className={"w-[380px] response:w-[500px] select-none z-10"}
@@ -53,9 +52,6 @@ export default function AdminReservationsSelect(props: SelectReservationsProps) 
       placeholder={props.placeholder}
       onChange={(option: LotesDataInterface | null) => props.onChange(option)}
     />
-    {/* <Button onClick={() => clearValue()}>
-      test
-    </Button> */}
     </>
   );
 }

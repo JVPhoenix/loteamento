@@ -8,7 +8,7 @@ export default function AdminDashboard() {
       <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold select-none">
         PAINEL DO ADMINISTRADOR
       </h1>
-      <div className="flex flex-col gap-10 px-6 items-center response:flex-row response:gap-14">
+      <div className="flex flex-col gap-10 px-6 items-center response1:flex-row response:gap-14">
         <Link href={PageSelector.AdminSearch}>
           <Button className="" onClick={() => null}>
             BUSCAR CLIENTE
@@ -31,7 +31,12 @@ export default function AdminDashboard() {
         </Link>
         <Link href={PageSelector.AdminShowReservations}>
           <Button className="" onClick={() => null}>
-            RESERVAS
+            VER RESERVAS
+          </Button>
+        </Link>
+        <Link href={PageSelector.AdminEditReservations}>
+          <Button className="" onClick={() => null}>
+            EDITAR OU DELETAR RESERVAS
           </Button>
         </Link>
       </div>

@@ -67,16 +67,18 @@ export interface LotesDataInterface {
   reservedBy: string;
   reservedFor: string;
   reservedForContact: string;
-  reservedDate: Date;
+  reservedDate: string;
 }
 
 export enum LotesStatus {
   Free = "livre",
   Blocked = "bloqueado",
+  Sold = "vendido",
 }
 
 export interface InnerPhotosInterface {
   url: string;
+  label?: string;
   width?: number;
   height?: number;
 }
@@ -88,6 +90,11 @@ export interface PhotosDataInterface {
     };
   };
   photos: {
+    [index: number]: {
+      [index: number]: InnerPhotosInterface;
+    };
+  };
+  lotesStatus: {
     [index: number]: {
       [index: number]: InnerPhotosInterface;
     };
@@ -130,10 +137,10 @@ export enum Methods {
   POST = "POST",
   PUT = "PUT",
   DELETE = "DELETE",
-  DeleteSucess = "Deletado com sucesso",
 }
 
 export enum StatusResponses {
+  Loading = 0,
   Sucess = 200,
   Failure = 400,
 }

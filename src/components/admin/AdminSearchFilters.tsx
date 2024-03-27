@@ -11,7 +11,7 @@ interface AdminClientSelectInterface {
   stage: FilterSelector | null;
   handleStage: (newStage: FilterSelector) => void;
   page: PageSelector;
-  actionType?: LotesStatus | null;
+  lotesStatus?: LotesStatus | null;
 }
 
 export default function AdminSearchFilters(props: AdminClientSelectInterface) {
@@ -22,13 +22,13 @@ export default function AdminSearchFilters(props: AdminClientSelectInterface) {
           ? "SELECIONE UM CLIENTE"
           : props.page === PageSelector.AdminReadjustSimulate
           ? "SELECIONE UMA ETAPA"
-          : props.page === PageSelector.AdminShowReservations || props.actionType === LotesStatus.Blocked
+          : props.page === PageSelector.AdminShowReservations || props.lotesStatus === LotesStatus.Blocked
           ? "SELECIONE UMA RESERVA"
           : props.page === PageSelector.AdminPersonalizedQuote ||
-            (props.actionType === LotesStatus.Free && "COMPLETE OS CAMPOS ABAIXO")}
+            (props.lotesStatus === LotesStatus.Free && "COMPLETE OS CAMPOS ABAIXO")}
       </h1>
       <h1 className="text-white drop-shadow-titles text-xl response:text-2xl font-bold select-none mb-2">Filtros:</h1>
-      <div className="flex flex-col gap-1 items-center response:flex-row response:gap-8">
+      <div className="flex flex-col gap-1 items-center response:flex-row response:gap-8 mb-2">
         {props.page !== PageSelector.AdminReadjustSimulate &&
           props.page !== PageSelector.AdminShowReservations &&
           props.page !== PageSelector.AdminEditReservations &&

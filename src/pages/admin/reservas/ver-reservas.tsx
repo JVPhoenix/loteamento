@@ -9,7 +9,7 @@ import { useState } from "react";
 import ProductsSelect from "@/components/products/ProductsSelect";
 import { useLotesData } from "@/context/LotesDataContext";
 import { MultiValue } from "react-select";
-import AdminReservationsInfos from "@/components/admin/AdminShowReservationsInfos";
+import AdminReservationsInfos from "@/components/admin/reservation/AdminShowReservationsInfos";
 
 export default function AdminShowReservations() {
   const lotesData = useLotesData().lotesData?.filter((value) => value.situation === LotesStatus.Blocked && value);

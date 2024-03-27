@@ -1,10 +1,25 @@
 import { LotesDataInterface, Methods } from "@/types";
 import React, { createContext, useContext, useState, useEffect, Dispatch } from "react";
 
+// INTERFACE FOR SUBMITS
+interface LotesInfosSUBMIT {
+  id: string;
+  value?: number;
+  label?: string;
+  price?: number;
+  size?: string;
+  phase?: number;
+  situation?: string;
+  reservedBy?: string;
+  reservedFor?: string;
+  reservedForContact?: string | null;
+  reservedDate?: Date;
+}
+
 // contexto criado
 type LotesDataContextType = {
   lotesData: LotesDataInterface[] | null;
-  handleSubmit: (infos: LotesDataInterface, methodSelection: Methods) => void;
+  handleSubmit: (infos: LotesInfosSUBMIT, methodSelection: Methods) => void;
   responseData: number;
   setResponseData: Dispatch<React.SetStateAction<number>>;
 };
@@ -22,7 +37,7 @@ export const useLotesData = () => {
 };
 
 // react func do context
-export function LotesDataContextProvider(props: React.PropsWithChildren) {
+export function LotesDataContextProvider(loteInfos: React.PropsWithChildren) {
   const [lotesData, setLotesData] = useState<LotesDataInterface[] | null>(null);
   const [responseData, setResponseData] = useState<number>(0);
 
@@ -37,26 +52,29 @@ export function LotesDataContextProvider(props: React.PropsWithChildren) {
       .catch((error) => console.error(error));
   }, [responseData]);
 
-  const handleSubmit = (infos: LotesDataInterface, methodSelection: Methods) => {
+  const handleSubmit = (loteInfos: LotesInfosSUBMIT, methodSelection: Methods) => {
     fetch(`${process.env.NEXT_PUBLIC_LOTES_API_LINK}`, {
       method: methodSelection,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(infos),
+      body:
+        methodSelection === Methods.DELETE
+          ? JSON.stringify(loteInfos)
+          : methodSelection === Methods.PUT
+          ? JSON.stringify(loteInfos)
+          : null,
     })
       .then((response) => {
         setResponseData(response.status);
-        console.log(response);
       })
       .catch((error) => {
         console.log(error);
-
         setResponseData(error);
       });
   };
 
   return (
     <LotesDataContext.Provider value={{ lotesData, handleSubmit, responseData, setResponseData }}>
-      {props.children}
+      {loteInfos.children}
     </LotesDataContext.Provider>
   );
 }

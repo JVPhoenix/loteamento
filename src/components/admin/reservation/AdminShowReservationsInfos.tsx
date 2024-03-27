@@ -1,5 +1,5 @@
 import { LotesDataInterface, LotesStatus, PageSelector } from "@/types";
-import ProductsPrices from "../products/ProductsPrices";
+import ProductsPrices from "../../products/ProductsPrices";
 import { MultiValue } from "react-select";
 
 interface ReservationsInfosInterface {
@@ -57,7 +57,7 @@ export default function AdminReservationsInfos({ selectedItem }: ReservationsInf
             {selectedItem
               ?.map((value) => {
                 return value.reservedDate
-                  ? value.reservedDate.toLocaleString("default", {
+                  ? new Date(value.reservedDate).toLocaleString("default", {
                       month: "long",
                       year: "numeric",
                     })

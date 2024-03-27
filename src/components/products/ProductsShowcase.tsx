@@ -2,14 +2,23 @@ import Image from "next/image";
 import { useState } from "react";
 import { LeftArrow, RightArrow, SelectDot } from "../utils/Icons";
 import { twMerge } from "tailwind-merge";
-import { InnerPhotosInterface } from "@/types";
+import { InnerPhotosInterface, LotesDataInterface, LotesStatus } from "@/types";
+import { useLotesData } from "@/context/LotesDataContext";
 
 interface ProductsShowcaseInterface {
-  photos: { [index: number]: InnerPhotosInterface };
+  data: LotesDataInterface[];
+  showcasePhotos: { [index: number]: InnerPhotosInterface };
+  phase: number;
 }
 
 export default function ProductsShowcase(props: ProductsShowcaseInterface) {
-  const photosData = Object.values(props.photos);
+  const lotesData = useLotesData()
+    .lotesData?.filter(
+      (value) => value.situation === LotesStatus.Blocked || (value.situation === LotesStatus.Sold && value)
+    )
+    .filter((status) => status.phase === props.phase && status);
+
+  const photosData = Object.values(props.showcasePhotos);
   const [photoIndex, setPhotoIndex] = useState<number>(0);
 
   const prevPhoto = () => {
@@ -30,21 +39,35 @@ export default function ProductsShowcase(props: ProductsShowcaseInterface) {
 
   return (
     <div className="relative group select-none">
-      <div className="flex response:max-w-[800px] max-w-[400px]">
+      <div className="flex relative response:max-w-[800px] max-w-[400px] bg-green-500 rounded-xl">
         <Image
-          width={8379}
-          height={7921}
-          style={{ borderRadius: "8px", objectFit: "cover" }}
+          className="z-10 rounded-xl"
+          width={3200}
+          height={1980}
+          style={{ objectFit: "cover" }}
           src={photosData[photoIndex].url}
           alt="Fotos e mapa dos lotes disponíveis"
           priority
           unoptimized
         />
+        {photosData[photoIndex] === photosData[0] &&
+          lotesData?.map((value) => (
+            <Image
+              className="z-0 rounded-xl absolute"
+              width={3200}
+              height={1980}
+              style={{ objectFit: "cover" }}
+              src={`./${value.phase}/${value.label}.png`}
+              alt="Fotos e mapa dos lotes disponíveis"
+              unoptimized
+              key={value.id}
+            />
+          ))}
       </div>
       <div onClick={prevPhoto}>
         <LeftArrow
           className={twMerge(
-            "hidden group-hover:block",
+            "hidden group-hover:block z-10",
             "rounded-full p-2 bg-black/50 cursor-pointer",
             "absolute top-[45%] -translate-x-0 translate-y-[-50%] left-5",
             "hover:scale-125 active:scale-90 ease-in-out duration-200"
@@ -56,7 +79,7 @@ export default function ProductsShowcase(props: ProductsShowcaseInterface) {
       <div onClick={nextPhoto}>
         <RightArrow
           className={twMerge(
-            "hidden group-hover:block",
+            "hidden group-hover:block z-10",
             "rounded-full p-2 bg-black/50 cursor-pointer",
             "absolute top-[45%] -translate-x-0 translate-y-[-50%] right-5",
             "hover:scale-125 active:scale-90 ease-in-out duration-200"
