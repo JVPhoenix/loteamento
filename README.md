@@ -7,8 +7,8 @@ in my day to day serving customers.
 So, after approximately 2 years of presencial working, i moved from my born city to another city, mmaking it impossible to go to the company.
 Then, i start to work remotely as a Frontend developar (and sometimes as a very beginner backend), since i was able to implement on the website, most of the company's systems.
 
-Today, i still work for the company doing this two things:
-1 → Frontend: Bringing new features, updates, fixing bugs and imrpooving UX/UI.
+Today, i still work for the company doing this two things:<br>
+1 → Frontend: Bringing new features, updates, fixing bugs and imrpooving UX/UI.<br>
 2 → Backend: Doing updates to the database, and developing integrations for the Frontend, to make available common users to do CRUD operations.
 
 Sooo, thats all, thanks for reading.
@@ -27,9 +27,9 @@ Sooo, thats all, thanks for reading.
 The website is deployed on the Netlify, and you can see the result clicking on the badge below!! <br>
 [![Netlify Status](https://api.netlify.com/api/v1/badges/d65cbdf1-6882-46b5-b228-7fadcbb776d3/deploy-status)](https://loteamentormartins.netlify.app/)
 
-<!-- Some pages in the app are not accessible to all users as they are admin pages, so you can check them on a <b>Test Build</b> using the following infos:<br>
+<!-- Some pages in the app are not accessible to all users as they are admin pages, so you can check them on a <b>Test Build Branch</b> using the following infos:<br>
 <br>
 Login: 000.000.000-00<br>
 Password: admin<br>
 <br>
-[![TestBuild](https://img.shields.io/badge/Website_TEST_BUILD-darkgreen?style=for-the-badge&logo=next.js)](https://loteamento-testbuild.netlify.app/) -->
+[![TestBuild](https://img.shields.io/badge/Website_TEST_BUILD-darkgreen?style=for-the-badge&logo=next.js)](https://new-updates--loteamentormartins.netlify.app/) -->

@@ -283,7 +283,7 @@ export default function Header(props: HeaderInterface) {
                       )}
                       href={PageSelector.AdminEditReservations}
                     >
-                      <h1>EDITAR RESERVAS</h1>
+                      <h1>MODIFICAR RESERVAS</h1>
                     </Link>
                   )}
                 </>
