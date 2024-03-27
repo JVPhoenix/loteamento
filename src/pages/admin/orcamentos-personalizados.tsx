@@ -1,4 +1,4 @@
-import ErrorPage from "@/components/svg/ErrorPage";
+import ErrorPage from "@/components/utils/ErrorPage";
 import Footer from "@/components/home/Footer";
 import Header from "@/components/home/Header";
 import { useAdminsData } from "@/context/AdminsDataContext";
@@ -13,7 +13,7 @@ import { twMerge } from "tailwind-merge";
 import { MultiValue } from "react-select";
 
 export default function PersonalizedQuotes() {
-  const lotesData = useLotesData()?.filter((value) => value.situation === LotesStatus.Free && value);
+  const lotesData = useLotesData().lotesData?.filter((value) => value.situation === LotesStatus.Free && value);
   const { searchAdmin } = useAdminsData();
 
   const [stage, setStage] = useState<FilterSelector | null>(null);

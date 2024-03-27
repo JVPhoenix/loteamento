@@ -14,7 +14,7 @@ export default function ProductsSelect(props: SelectProps) {
     <Select
       options={props.options}
       getOptionLabel={(option) =>
-        props.page === PageSelector.AdminReservations
+        props.page === PageSelector.AdminShowReservations
           ? option.label + " - " + option.reservedFor
           : props.page === PageSelector.AdminReadjustSimulate || props.page === PageSelector.AdminPersonalizedQuote
           ? option.label + " - Fase " + option.phase

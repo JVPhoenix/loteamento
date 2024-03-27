@@ -19,7 +19,9 @@ export default function ProductsPhases(props: ProductsPhaseInterface) {
       <h1 className="text-white drop-shadow-titles text-center text-3xl font-bold">
         LOTES DISPONÍVEIS - {props.phase}ª ETAPA
       </h1>
-      {props.showcase && <ProductsShowcase photos={props.showcase} />}
+      {props.showcase && (
+        <ProductsShowcase showcasePhotos={props.showcase} phase={props.phase} data={props.data} />
+      )}
 
       {props.data && (
         <ProductsSelect

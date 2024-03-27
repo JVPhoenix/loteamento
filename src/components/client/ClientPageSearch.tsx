@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { CPFIcon } from "../svg/Icons";
+import { CPFIcon } from "../utils/Icons";
 
 interface ClientPageSearchInterface {
   searchError: boolean;

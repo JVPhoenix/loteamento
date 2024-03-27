@@ -12,8 +12,9 @@ export enum PageSelector {
   AdminSearch = "/admin/buscar",
   AdminReadjustClient = "/admin/reajustecliente",
   AdminReadjustSimulate = "/admin/reajustesimular",
-  AdminReservations = "/admin/reservas",
   AdminPersonalizedQuote = "/admin/orcamentos-personalizados",
+  AdminShowReservations = "/admin/reservas/ver-reservas",
+  AdminEditReservations = "/admin/reservas/editar-reservas",
 }
 
 export enum PlansSelector {
@@ -56,25 +57,28 @@ export interface PageInfos {
 }
 
 export interface LotesDataInterface {
+  id: string;
   value: number;
   label: string;
   price: number;
   size: string;
   phase: number;
   situation: string;
-  reservedBy?: string;
-  reservedFor?: string;
-  reservedForContact?: string;
-  reservedDate?: string;
+  reservedBy: string;
+  reservedFor: string;
+  reservedForContact: string;
+  reservedDate: string;
 }
 
 export enum LotesStatus {
   Free = "livre",
   Blocked = "bloqueado",
+  Sold = "vendido",
 }
 
 export interface InnerPhotosInterface {
   url: string;
+  label?: string;
   width?: number;
   height?: number;
 }
@@ -86,6 +90,11 @@ export interface PhotosDataInterface {
     };
   };
   photos: {
+    [index: number]: {
+      [index: number]: InnerPhotosInterface;
+    };
+  };
+  lotesStatus: {
     [index: number]: {
       [index: number]: InnerPhotosInterface;
     };
@@ -123,3 +132,15 @@ export type AdminsDataContextType = {
   adminLogin: { cpf: string; password: string };
   setAdminLogin: Dispatch<SetStateAction<{ cpf: string; password: string }>>;
 };
+
+export enum Methods {
+  POST = "POST",
+  PUT = "PUT",
+  DELETE = "DELETE",
+}
+
+export enum StatusResponses {
+  Loading = 0,
+  Sucess = 200,
+  Failure = 400,
+}

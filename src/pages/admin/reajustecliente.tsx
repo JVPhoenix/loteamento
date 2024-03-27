@@ -1,11 +1,11 @@
-import ErrorPage from "@/components/svg/ErrorPage";
+import ErrorPage from "@/components/utils/ErrorPage";
 import Footer from "@/components/home/Footer";
 import Header from "@/components/home/Header";
 import { useAdminsData } from "@/context/AdminsDataContext";
 import { ClientsDataInterface, FilterSelector, PageSelector } from "@/types";
 import Head from "next/head";
 import AdminSearchFilters from "@/components/admin/AdminSearchFilters";
-import AdminSearchSelectBox from "@/components/admin/AdminSearchSelectBox";
+import AdminSearchSelect from "@/components/admin/AdminSearchSelect";
 import { useState } from "react";
 import { useClientsData } from "@/context/ClientsDataContext";
 import AdminReadjust from "@/components/admin/AdminReadjust";
@@ -45,7 +45,7 @@ export default function ReadjustClient() {
                 handleStage={handleStage}
                 page={PageSelector.AdminReadjustClient}
               />
-              <AdminSearchSelectBox
+              <AdminSearchSelect
                 options={searchClient}
                 placeholder="Digite o Nome do Cliente ou Quadra e Lote"
                 setSelectedClient={setSelectedClient}
