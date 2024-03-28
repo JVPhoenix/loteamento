@@ -73,7 +73,7 @@ export default function AdminShowReservations() {
       {searchAdmin?.length === 1 ? (
         <>
           {/* ACTION TYPE SELECTOR */}
-          <div className="flex flex-col m-auto items-center">
+          <div className="flex flex-col m-auto items-center px-3">
             <h1 className="text-white drop-shadow-titles text-xl response:text-2xl font-bold select-none mb-2">
               SELECIONE UMA AÇÃO
             </h1>
