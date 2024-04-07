@@ -4,7 +4,6 @@ import Footer from "@/components/home/Footer";
 import Header from "@/components/home/Header";
 import { useClientsData } from "@/context/ClientsDataContext";
 import { ClientsDataInterface, PageSelector } from "@/types";
-import Head from "next/head";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -43,9 +42,6 @@ export default function Client() {
   return (
     <div className="flex flex-col w-full min-h-screen bg-black1 text-lg text-white">
       <div className="w-full h-full">
-        <Head>
-          <title>Área do Cliente</title>
-        </Head>
         <Header page={PageSelector.ClientSearch} />
       </div>
       <div className="w-auto m-auto">

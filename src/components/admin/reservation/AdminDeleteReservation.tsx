@@ -1,6 +1,7 @@
 import { Button } from "@/components/utils/Button";
 import { useLotesData } from "@/context/LotesDataContext";
 import { FilterSelector, LotesDataInterface, Methods, StatusResponses } from "@/types";
+import { useUser } from "@auth0/nextjs-auth0/client";
 import { Dispatch, SetStateAction, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -15,6 +16,7 @@ interface AdminDeleteReservationInterface {
 }
 
 export default function AdminDeleteReservation(props: AdminDeleteReservationInterface) {
+  const { user } = useUser();
   const { handleSubmit } = useLotesData();
   const [buyed, setBuyed] = useState<boolean | null>(null);
 
@@ -104,7 +106,14 @@ export default function AdminDeleteReservation(props: AdminDeleteReservationInte
           onClick={() => {
             if (buyed !== null) {
               if (buyed === true) {
-                handleSubmit({ id: props.selectedItem?.id, situation: "vendido" }, Methods.PUT);
+                handleSubmit(
+                  {
+                    id: props.selectedItem?.id,
+                    situation: "vendido",
+                    reservedBy: user?.name?.split(" ")[0].toLocaleUpperCase(),
+                  },
+                  Methods.PUT
+                );
                 setBuyed(null);
                 props.setResponsesPopup(StatusResponses.Loading);
               } else {

@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { MenuIcon } from "../utils/Icons";
-import { useAdminsData } from "@/context/AdminsDataContext";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import Head from "next/head";
 
 interface HeaderInterface {
   page: string;
@@ -13,7 +14,8 @@ interface HeaderInterface {
 }
 
 export default function Header(props: HeaderInterface) {
-  const { searchAdmin, setAdminLogin } = useAdminsData();
+  const { user, error, isLoading } = useUser();
+
   const [toggleEtapas, setToggleEtapas] = useState<boolean>(false);
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
   const [togglePanel, setTogglePanel] = useState<boolean>(false);
@@ -54,12 +56,33 @@ export default function Header(props: HeaderInterface) {
     };
   }, [toggleEtapas]);
 
-  useEffect(() => {
-    const data = window.localStorage.getItem("USER_CREDENTIALS");
-    if (data !== null) {
-      setAdminLogin(JSON.parse(data));
+  const handlePageHeader = () => {
+    if (props.page === PageSelector.ErrorPage) {
+      return "ERRO";
+    } else if (props.page === PageSelector.Etapa1) {
+      return "Etapa 1";
+    } else if (props.page === PageSelector.Etapa2) {
+      return "Etapa 2";
+    } else if (props.page === PageSelector.Etapa3) {
+      return "Etapa 3";
+    } else if (props.page === PageSelector.Etapa4) {
+      return "Etapa 4";
+    } else if (props.page === PageSelector.ClientSearch) {
+      return "Área do Cliente";
+    } else if (props.page === PageSelector.AdminSearch) {
+      return "Buscar Cliente";
+    } else if (props.page === PageSelector.AdminReadjustClient) {
+      return "Simular Reajuste - Cliente";
+    } else if (props.page === PageSelector.AdminReadjustSimulate) {
+      return "Simular Reajuste - Lote";
+    } else if (props.page === PageSelector.AdminPersonalizedQuote) {
+      return "Orçamento Personalizado";
+    } else if (props.page === PageSelector.AdminShowReservations) {
+      return "Ver Reservas";
+    } else if (props.page === PageSelector.AdminEditReservations) {
+      return "Editar Reservas";
     }
-  }, [setAdminLogin]);
+  };
 
   return (
     <div
@@ -69,6 +92,13 @@ export default function Header(props: HeaderInterface) {
       )}
       ref={menuRef}
     >
+      <Head>
+        {props.page === PageSelector.HomePage ? (
+          <title>Loteamento R. Martins</title>
+        ) : (
+          <title>{isLoading ? "Carregando..." : `${user ? handlePageHeader() : "ERRO - Sem Acesso"}`}</title>
+        )}
+      </Head>
       <Link href={PageSelector.HomePage}>
         <Image
           className="py-2 w-[180px] response:w-[250px]"
@@ -175,24 +205,23 @@ export default function Header(props: HeaderInterface) {
               )}
             </div>
           </div>
-
-          <div className="z-50">
-            <div className="flex items-center">
-              {searchAdmin?.length === 0 ? (
-                <Link
-                  className={twMerge(
-                    "ease-in-out duration-200 response:absolute right-0",
-                    "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
-                  )}
-                  href={PageSelector.AdminLogin}
-                >
-                  <h1>LOGIN</h1>
-                </Link>
-              ) : (
-                searchAdmin?.length !== 0 && (
+          {!isLoading && (
+            <div className="z-50">
+              <div className="flex items-center">
+                {!user ? (
+                  <Link
+                    className={twMerge(
+                      "ease-in-out duration-200 response:absolute right-0",
+                      "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
+                    )}
+                    href={PageSelector.AdminLogin}
+                  >
+                    <h1>LOGIN</h1>
+                  </Link>
+                ) : (
                   <div
                     className={twMerge(
-                      "flex justify-center m-auto cursor-pointer",
+                      "flex justify-center items-center text-center gap-2 m-auto cursor-pointer",
                       "ease-in-out duration-200 response:absolute right-0",
                       "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100 response:w-28",
                       togglePanel && "text-yellow1"
@@ -200,117 +229,120 @@ export default function Header(props: HeaderInterface) {
                     onClick={() => setTogglePanel((togglePanel) => !togglePanel)}
                     ref={panelRef}
                   >
-                    {searchAdmin?.map((value) => value.name.toLocaleUpperCase())}
+                    <Image
+                      className="w-[40px] response:w-[60px] rounded-lg"
+                      src={`${user.picture}`}
+                      width={500}
+                      height={500}
+                      alt="User icon"
+                      unoptimized
+                    />
+                    {user.name?.split(" ")[0].toLocaleUpperCase()}
                   </div>
-                )
-              )}
-            </div>
-
-            <div
-              className={twMerge(
-                "hidden rounded-md bg-black1 gap-2 p-2 right-5",
-                "response:-right-4 response:top-24 response:p-3 response:absolute response:bg-black",
-                togglePanel && "flex flex-col"
-              )}
-            >
-              {props.page !== PageSelector.AdminLogin && (
-                <>
-                  {props.page !== PageSelector.AdminSearch && (
-                    <Link
-                      className={twMerge(
-                        "ease-in-out duration-200 text-center cursor-pointer",
-                        "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
-                      )}
-                      href={PageSelector.AdminSearch}
-                    >
-                      <h1>BUSCAR CLIENTE</h1>
-                    </Link>
-                  )}
-
-                  {props.page !== PageSelector.AdminReadjustClient && (
-                    <Link
-                      className={twMerge(
-                        "ease-in-out duration-200 text-center cursor-pointer",
-                        "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
-                      )}
-                      href={PageSelector.AdminReadjustClient}
-                    >
-                      <h1>REAJUSTE - CLIENTE</h1>
-                    </Link>
-                  )}
-
-                  {props.page !== PageSelector.AdminReadjustSimulate && (
-                    <Link
-                      className={twMerge(
-                        "ease-in-out duration-200 text-center cursor-pointer",
-                        "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
-                      )}
-                      href={PageSelector.AdminReadjustSimulate}
-                    >
-                      <h1>SIMULAR REAJUSTE</h1>
-                    </Link>
-                  )}
-
-                  {props.page !== PageSelector.AdminPersonalizedQuote && (
-                    <Link
-                      className={twMerge(
-                        "ease-in-out duration-200 text-center cursor-pointer",
-                        "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
-                      )}
-                      href={PageSelector.AdminPersonalizedQuote}
-                    >
-                      <h1>ORÇAMENTO PERSONALIZADO</h1>
-                    </Link>
-                  )}
-
-                  {props.page !== PageSelector.AdminShowReservations && (
-                    <Link
-                      className={twMerge(
-                        "ease-in-out duration-200 text-center cursor-pointer",
-                        "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
-                      )}
-                      href={PageSelector.AdminShowReservations}
-                    >
-                      <h1>VER RESERVAS</h1>
-                    </Link>
-                  )}
-
-                  {props.page !== PageSelector.AdminEditReservations && (
-                    <Link
-                      className={twMerge(
-                        "ease-in-out duration-200 text-center cursor-pointer",
-                        "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
-                      )}
-                      href={PageSelector.AdminEditReservations}
-                    >
-                      <h1>MODIFICAR RESERVAS</h1>
-                    </Link>
-                  )}
-                </>
-              )}
-
-              <Link
-                className={twMerge(
-                  "ease-in-out duration-200 text-center cursor-pointer",
-                  "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
                 )}
-                onClick={() => {
-                  setAdminLogin({
-                    cpf: "",
-                    password: "",
-                  });
-                  window.localStorage.removeItem("USER_CREDENTIALS");
-                  setTogglePanel(false);
-                  setToggleMenu(false);
-                  props.handleError?.();
-                  props.setSelectedClient?.(null);
-                }}
-                href={PageSelector.HomePage}
+              </div>
+
+              <div
+                className={twMerge(
+                  "hidden rounded-md bg-black1 gap-2 p-2 right-5",
+                  "response:-right-4 response:top-24 response:p-3 response:absolute response:bg-black",
+                  togglePanel && "flex flex-col"
+                )}
               >
-                DESCONECTAR
-              </Link>
+                {props.page !== PageSelector.AdminLogin && (
+                  <>
+                    {props.page !== PageSelector.AdminSearch && (
+                      <Link
+                        className={twMerge(
+                          "ease-in-out duration-200 text-center cursor-pointer",
+                          "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
+                        )}
+                        href={PageSelector.AdminSearch}
+                      >
+                        <h1>BUSCAR CLIENTE</h1>
+                      </Link>
+                    )}
+
+                    {props.page !== PageSelector.AdminReadjustClient && (
+                      <Link
+                        className={twMerge(
+                          "ease-in-out duration-200 text-center cursor-pointer",
+                          "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
+                        )}
+                        href={PageSelector.AdminReadjustClient}
+                      >
+                        <h1>REAJUSTE - CLIENTE</h1>
+                      </Link>
+                    )}
+
+                    {props.page !== PageSelector.AdminReadjustSimulate && (
+                      <Link
+                        className={twMerge(
+                          "ease-in-out duration-200 text-center cursor-pointer",
+                          "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
+                        )}
+                        href={PageSelector.AdminReadjustSimulate}
+                      >
+                        <h1>SIMULAR REAJUSTE</h1>
+                      </Link>
+                    )}
+
+                    {props.page !== PageSelector.AdminPersonalizedQuote && (
+                      <Link
+                        className={twMerge(
+                          "ease-in-out duration-200 text-center cursor-pointer",
+                          "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
+                        )}
+                        href={PageSelector.AdminPersonalizedQuote}
+                      >
+                        <h1>ORÇAMENTO PERSONALIZADO</h1>
+                      </Link>
+                    )}
+
+                    {props.page !== PageSelector.AdminShowReservations && (
+                      <Link
+                        className={twMerge(
+                          "ease-in-out duration-200 text-center cursor-pointer",
+                          "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
+                        )}
+                        href={PageSelector.AdminShowReservations}
+                      >
+                        <h1>VER RESERVAS</h1>
+                      </Link>
+                    )}
+
+                    {props.page !== PageSelector.AdminEditReservations && (
+                      <Link
+                        className={twMerge(
+                          "ease-in-out duration-200 text-center cursor-pointer",
+                          "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
+                        )}
+                        href={PageSelector.AdminEditReservations}
+                      >
+                        <h1>MODIFICAR RESERVAS</h1>
+                      </Link>
+                    )}
+                  </>
+                )}
+
+                <Link
+                  className={twMerge(
+                    "ease-in-out duration-200 text-center cursor-pointer",
+                    "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
+                  )}
+                  onClick={() => {
+                    setTogglePanel(false);
+                    setToggleMenu(false);
+                    props.handleError?.();
+                    props.setSelectedClient?.(null);
+                  }}
+                  href={PageSelector.AdminLogout}
+                >
+                  DESCONECTAR
+                </Link>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

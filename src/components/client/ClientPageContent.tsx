@@ -38,10 +38,14 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
 
   const priceCalc = (value: number) => {
     if (value === PlansSelector.ContractPrice) {
-      return (props.data.price / value + props.data.price * 0.1).toLocaleString("pt-br", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      });
+      if (props.data.plan === 0) {
+        return props.data.price.toLocaleString("pt-br", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      } else {
+        return (props.data.price / value + props.data.price * 0.1).toLocaleString("pt-br", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        });
+      }
     } else if (value === PlansSelector.Debt) {
       return (props.data.price - (diffZero * props.data.price) / props.data.plan).toLocaleString("pt-br", {
         minimumFractionDigits: 2,
@@ -239,7 +243,9 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                 </div>
               </div>
             </div>
-            <ClientPagePaymentList paymentList={props.data.paymentList} keyData={props.data.cpf} page={props.page} />
+            {props.data.plan !== 0 && (
+              <ClientPagePaymentList paymentList={props.data.paymentList} keyData={props.data.cpf} page={props.page} />
+            )}
           </div>
         </div>
         {props.page === PageSelector.ClientSearch && (

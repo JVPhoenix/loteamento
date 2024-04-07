@@ -1,7 +1,7 @@
 import { Button } from "@/components/utils/Button";
-import { useAdminsData } from "@/context/AdminsDataContext";
 import { useLotesData } from "@/context/LotesDataContext";
 import { FilterSelector, LotesDataInterface, Methods, StatusResponses } from "@/types";
+import { useUser } from "@auth0/nextjs-auth0/client";
 import { Dispatch, SetStateAction, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -16,9 +16,7 @@ interface AdminUpdateReservationInterface {
 }
 
 export default function AdminUpdateReservation(props: AdminUpdateReservationInterface) {
-  const searchAdmin = useAdminsData()
-    .searchAdmin?.map((value) => value.name)
-    .toString();
+  const { user } = useUser();
   const { handleSubmit } = useLotesData();
 
   const [reservedName, setReservedName] = useState<string>(props.selectedItem.reservedFor);
@@ -72,7 +70,7 @@ export default function AdminUpdateReservation(props: AdminUpdateReservationInte
                 {
                   id: props.selectedItem.id,
                   situation: "bloqueado",
-                  reservedBy: searchAdmin,
+                  reservedBy: user?.name?.split(" ")[0].toLocaleUpperCase(),
                   reservedFor: reservedName,
                   reservedForContact: reservedContact !== "" ? reservedContact : null,
                   reservedDate: new Date(),

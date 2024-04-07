@@ -3,15 +3,15 @@ import { ClientsDataContextProvider } from "@/context/ClientsDataContext";
 import { PhotosDataContextProvider } from "@/context/PhotosDataContext";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import { AdminsDataContextProvider } from "@/context/AdminsDataContext";
 import { twMerge } from "tailwind-merge";
 import { Inter } from "next/font/google";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <div className={twMerge(inter.className)}>
-      <AdminsDataContextProvider>
+      <UserProvider>
         <ClientsDataContextProvider>
           <LotesDataContextProvider>
             <PhotosDataContextProvider>
@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
             </PhotosDataContextProvider>
           </LotesDataContextProvider>
         </ClientsDataContextProvider>
-      </AdminsDataContextProvider>
+      </UserProvider>
     </div>
   );
 }

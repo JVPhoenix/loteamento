@@ -72,8 +72,6 @@ export default function AdminReadjust(props: AdminReadjustInterface) {
     }
   };
 
-  // console.log(props.client?.phase, props.lote?.map((value) => value.phase).includes(FilterSelector.Etapa2));
-
   return (
     <div className="flex flex-col m-auto w-full items-center gap-4">
       <h1 className="text-white drop-shadow-titles text-xl response:text-2xl font-bold">

@@ -10,7 +10,7 @@ interface LotesInfosSUBMIT {
   size?: string;
   phase?: number;
   situation?: string;
-  reservedBy?: string;
+  reservedBy?: string | null;
   reservedFor?: string;
   reservedForContact?: string | null;
   reservedDate?: Date;
