@@ -1,10 +1,12 @@
+import test from "../../../package.json";
+
 export default function Footer() {
   return (
     <div className="text-center text-white select-none">
       <p>
-        Versão {process.env.NEXT_PUBLIC_APP_VERSION}, desenvolvido e projetado por
+        Versão {test.version}, desenvolvido e projetado por{" "} 
         <span onClick={() => window.open("https://jvphoenixportfolio.netlify.app/", "_blank", "noopener, noreferrer")}>
-          <u className="cursor-pointer"> jvphoenix</u>
+          <u className="cursor-pointer">jvphoenix</u>
         </span>
       </p>
 
