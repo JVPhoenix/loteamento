@@ -110,7 +110,7 @@ export default function AdminDeleteReservation(props: AdminDeleteReservationInte
                   {
                     id: props.selectedItem?.id,
                     situation: "vendido",
-                    reservedBy: user?.name?.split(" ")[0].toLocaleUpperCase(),
+                    reservedBy: user?.name?.split(" ")[0],
                   },
                   Methods.PUT
                 );

@@ -70,7 +70,7 @@ export default function AdminCreateReservation(props: AdminCreateReservationInte
                 {
                   id: props.selectedItem.id,
                   situation: "bloqueado",
-                  reservedBy: user?.name?.split(" ")[0].toLocaleUpperCase(),
+                  reservedBy: user?.name?.split(" ")[0],
                   reservedFor: reservedName,
                   reservedForContact: reservedContact !== "" ? reservedContact : null,
                   reservedDate: new Date(),
