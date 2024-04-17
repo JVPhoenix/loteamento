@@ -152,15 +152,17 @@ export default function Search() {
                   </div>
                 ) : (
                   <>
-                    <h1 className="text-white drop-shadow-titles text-xl response:text-2xl font-bold select-none mb-2">
-                      {actionType === Methods.DELETE
-                        ? "DESEJA MESMO DELETAR A OBSERVAÇÃO?"
-                        : actionType === Methods.PUT
-                        ? "EDITAR A OBSERVAÇÃO"
-                        : actionType === Methods.POST
-                        ? "ADICIONAR UMA OBSERVAÇÃO"
-                        : null}
-                    </h1>
+                    <div className="flex text-center">
+                      <h1 className="text-white drop-shadow-titles text-xl response:text-2xl font-bold select-none mb-2">
+                        {actionType === Methods.DELETE
+                          ? "DESEJA MESMO DELETAR A OBSERVAÇÃO?"
+                          : actionType === Methods.PUT
+                          ? "EDITAR A OBSERVAÇÃO"
+                          : actionType === Methods.POST
+                          ? "ADICIONAR UMA OBSERVAÇÃO"
+                          : null}
+                      </h1>
+                    </div>
                     {actionType !== Methods.DELETE && (
                       <>
                         <textarea
@@ -192,7 +194,11 @@ export default function Search() {
                             handleSubmit({ id: selectedClient?.id, obs: null }, Methods.PUT);
                             setResponsesPopup(StatusResponses.Loading);
                           } else if (actionType === Methods.PUT) {
-                            handleSubmit({ id: selectedClient?.id, obs: editObs }, Methods.PUT);
+                            if (editObs !== "") {
+                              handleSubmit({ id: selectedClient?.id, obs: editObs }, Methods.PUT);
+                            } else {
+                              handleSubmit({ id: selectedClient?.id, obs: null }, Methods.PUT);
+                            }
                             setResponsesPopup(StatusResponses.Loading);
                           } else if (actionType === Methods.POST) {
                             if (editObs !== null) {

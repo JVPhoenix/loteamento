@@ -64,8 +64,6 @@ export function ClientsDataContextProvider(props: React.PropsWithChildren) {
       body: JSON.stringify(clientInfos),
     })
       .then((response) => {
-        console.log(response.status);
-
         setClientsResponseData(response.status);
       })
       .catch((error) => {

@@ -60,6 +60,9 @@ export default function AdminReservationsInfos({ selectedItem }: ReservationsInf
                   ? new Date(value.reservedDate).toLocaleString("default", {
                       month: "long",
                       year: "numeric",
+                      day: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
                     })
                   : "Não Informado";
               })
