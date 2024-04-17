@@ -1,20 +1,17 @@
 import { twMerge } from "tailwind-merge";
-import { ExpireIcon, ObsIcon } from "../utils/Icons";
+import { ExpireIcon } from "../utils/Icons";
 import { ClientsDataInterface, PlanMonths, PlansSelector } from "@/types";
 
 interface ClientPageContentExpireInterface {
   data: ClientsDataInterface;
   priceCalc: (value: number) => string;
   paidParcels: number;
-  dateCompare: (
-    startDate: string,
-    returnType: PlansSelector
-  ) => string | number | boolean | undefined;
+  dateCompare: (startDate: string, returnType: PlansSelector) => string | number | boolean | undefined;
 }
 
 export default function ClientCheckExpire(props: ClientPageContentExpireInterface) {
   const monthsExpired = props.dateCompare(props.data.startDate, PlansSelector.MonthsExpired);
-  const paidParcels = props.paidParcels
+  const paidParcels = props.paidParcels;
 
   const localeString = (value: number) =>
     value.toLocaleString("pt-br", {
@@ -117,18 +114,6 @@ export default function ClientCheckExpire(props: ClientPageContentExpireInterfac
           )}
         </h1>
       </div>
-
-      {props.data.obs && (
-        <div className="flex items-center gap-2 text-yellow-400 leading-tight">
-          <div>
-            <ObsIcon className="" width={50} fill="rgba(250, 204, 21)" stroke="none" />
-          </div>
-          <h1 className="text-justify max-w-md">
-            <b>Obs.: </b>
-            {props.data.obs}
-          </h1>
-        </div>
-      )}
     </div>
   );
 }

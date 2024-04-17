@@ -1,4 +1,4 @@
-import { ClientsDataInterface, PageSelector, PlansSelector } from "@/types";
+import { ClientsDataInterface, Methods, PageSelector, PlansSelector } from "@/types";
 import { twMerge } from "tailwind-merge";
 import {
   ContractIcon,
@@ -13,6 +13,10 @@ import {
   PlanIcon,
   DayIcon,
   DayPaid,
+  ObsIcon,
+  DeleteIcon,
+  EditIcon,
+  AddIcon,
 } from "../utils/Icons";
 import Contacts from "../home/Contacts";
 import ClientPageContentUser from "./ClientPageContentUser";
@@ -24,6 +28,7 @@ interface ClientPageInfoInterface {
   data: ClientsDataInterface;
   page: PageSelector;
   handleResetOptions?: () => void;
+  handleActionType?: (newState: Methods) => void;
 }
 
 export default function ClientPageContent(props: ClientPageInfoInterface) {
@@ -91,6 +96,52 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
             priceCalc={priceCalc}
             paidParcels={props.data.paymentList.length}
           />
+
+          {props.data.obs ? (
+            <div className="flex gap-2 items-center justify-center py-3">
+              <div className="flex items-center gap-2 text-yellow-400 leading-tight">
+                <div>
+                  <ObsIcon className="" width={50} fill="rgba(250, 204, 21)" stroke="none" />
+                </div>
+                <h1 className="text-justify max-w-md">
+                  <b>Obs.: </b>
+                  {props.data.obs}
+                </h1>
+              </div>
+              {props.page !== PageSelector.ClientSearch && (
+                <div className="flex flex-col gap-3">
+                  <DeleteIcon
+                    className="hover:fill-red-500 hover:scale-125 ease-in-out duration-200 active:scale-95 select-none"
+                    fill="white"
+                    width={30}
+                    onClick={() => props.handleActionType && props.handleActionType(Methods.DELETE)}
+                  />
+                  <EditIcon
+                    className="hover:fill-blue-500 hover:scale-125 ease-in-out duration-200 active:scale-95 select-none"
+                    fill="white"
+                    width={30}
+                    onClick={() => props.handleActionType && props.handleActionType(Methods.PUT)}
+                  />
+                </div>
+              )}
+            </div>
+          ) : !props.data.obs && props.page !== PageSelector.ClientSearch ? (
+            <Button
+              className="flex items-center gap-2 leading-tight group mb-2"
+              onClick={() => props.handleActionType && props.handleActionType(Methods.POST)}
+            >
+              <div>
+                <AddIcon
+                  className="fill-white group-hover:fill-[#FACC15] ease-in-out duration-200"
+                  width={30}
+                  stroke="none"
+                />
+              </div>
+              <h1 className="text-justify max-w-md">
+                <b>Adicionar Observação</b>
+              </h1>
+            </Button>
+          ) : null}
 
           <div
             className={twMerge(

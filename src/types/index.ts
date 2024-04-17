@@ -103,6 +103,7 @@ export interface PhotosDataInterface {
 }
 
 export interface ClientsDataInterface {
+  id: string;
   name: string;
   cpf: string;
   birth: string;

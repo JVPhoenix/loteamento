@@ -20,15 +20,15 @@ interface LotesInfosSUBMIT {
 type LotesDataContextType = {
   lotesData: LotesDataInterface[] | null;
   handleSubmit: (infos: LotesInfosSUBMIT, methodSelection: Methods) => void;
-  responseData: number;
-  setResponseData: Dispatch<React.SetStateAction<number>>;
+  lotesResponseData: number;
+  setLotesResponseData: Dispatch<React.SetStateAction<number>>;
 };
 
 export const LotesDataContext = createContext<LotesDataContextType>({
   lotesData: null,
   handleSubmit: () => undefined,
-  responseData: 0,
-  setResponseData: () => null,
+  lotesResponseData: 0,
+  setLotesResponseData: () => null,
 });
 
 // usar o contexto criado
@@ -39,7 +39,7 @@ export const useLotesData = () => {
 // react func do context
 export function LotesDataContextProvider(loteInfos: React.PropsWithChildren) {
   const [lotesData, setLotesData] = useState<LotesDataInterface[] | null>(null);
-  const [responseData, setResponseData] = useState<number>(0);
+  const [lotesResponseData, setLotesResponseData] = useState<number>(0);
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_LOTES_API_LINK}`, {
@@ -50,30 +50,24 @@ export function LotesDataContextProvider(loteInfos: React.PropsWithChildren) {
         setLotesData(data);
       })
       .catch((error) => console.error(error));
-  }, [responseData]);
+  }, [lotesResponseData]);
 
   const handleSubmit = (loteInfos: LotesInfosSUBMIT, methodSelection: Methods) => {
     fetch(`${process.env.NEXT_PUBLIC_LOTES_API_LINK}`, {
       method: methodSelection,
       headers: { "Content-Type": "application/json" },
-      body:
-        methodSelection === Methods.DELETE
-          ? JSON.stringify(loteInfos)
-          : methodSelection === Methods.PUT
-          ? JSON.stringify(loteInfos)
-          : null,
+      body: JSON.stringify(loteInfos),
     })
       .then((response) => {
-        setResponseData(response.status);
+        setLotesResponseData(response.status);
       })
       .catch((error) => {
         console.log(error);
-        setResponseData(error);
       });
   };
 
   return (
-    <LotesDataContext.Provider value={{ lotesData, handleSubmit, responseData, setResponseData }}>
+    <LotesDataContext.Provider value={{ lotesData, handleSubmit, lotesResponseData, setLotesResponseData }}>
       {loteInfos.children}
     </LotesDataContext.Provider>
   );

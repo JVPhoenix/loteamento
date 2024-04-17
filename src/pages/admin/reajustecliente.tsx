@@ -11,8 +11,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 
 export default function ReadjustClient() {
   const { user, isLoading } = useUser();
-  const clientsData = useClientsData();
-  const searchClient = clientsData && Object.values(clientsData);
+  const { clientsData } = useClientsData();
 
   const [selectedClient, setSelectedClient] = useState<ClientsDataInterface | null>(null);
   const [state, setState] = useState<FilterSelector | null>(null);
@@ -44,7 +43,7 @@ export default function ReadjustClient() {
                     page={PageSelector.AdminReadjustClient}
                   />
                   <AdminSearchSelect
-                    options={searchClient}
+                    options={clientsData}
                     placeholder="Digite o Nome do Cliente ou Quadra e Lote"
                     setSelectedClient={setSelectedClient}
                     state={state}

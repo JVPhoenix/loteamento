@@ -1,8 +1,40 @@
-import { ClientsDataInterface } from "@/types";
-import React, { createContext, useContext, useState, useEffect } from "react";
+import { ClientsDataInterface, Methods } from "@/types";
+import React, { createContext, useContext, useState, useEffect, Dispatch } from "react";
+
+interface ClientsSUBMIT {
+  id: string | undefined;
+  name?: string;
+  cpf?: string;
+  birth?: string;
+  adress?: string;
+  phone?: string;
+  contractNumber?: string;
+  phase?: number;
+  lote?: string;
+  dimension?: string;
+  price?: number;
+  plan?: number;
+  startDate?: string;
+  paymentList?: string[];
+  standard?: boolean;
+  entrance?: number;
+  obs?: string | null;
+}
+
+type ClientsDataContextType = {
+  clientsData: ClientsDataInterface[] | null;
+  handleSubmit: (infos: ClientsSUBMIT, methodSelection: Methods) => void;
+  clientsResponseData: number;
+  setClientsResponseData: Dispatch<React.SetStateAction<number>>;
+};
 
 // contexto criado
-export const ClientsDataContext = createContext<ClientsDataInterface[] | null>(null);
+export const ClientsDataContext = createContext<ClientsDataContextType>({
+  clientsData: null,
+  handleSubmit: () => undefined,
+  clientsResponseData: 0,
+  setClientsResponseData: () => null,
+});
 
 // usar o contexto criado
 export const useClientsData = () => {
@@ -12,17 +44,38 @@ export const useClientsData = () => {
 // react func do context
 export function ClientsDataContextProvider(props: React.PropsWithChildren) {
   const [clientsData, setClientsData] = useState<ClientsDataInterface[] | null>(null);
+  const [clientsResponseData, setClientsResponseData] = useState<number>(0);
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_CLIENTS_API_LINK}`, {
-      method: "GET"
+      method: "GET",
     })
       .then((res) => res.json())
       .then((data: ClientsDataInterface[]) => {
         setClientsData(data);
       })
       .catch((error) => console.error(error));
-  }, []);
+  }, [clientsResponseData]);
 
-  return <ClientsDataContext.Provider value={clientsData}>{props.children}</ClientsDataContext.Provider>;
+  const handleSubmit = (clientInfos: ClientsSUBMIT, methodSelection: Methods) => {
+    fetch(`${process.env.NEXT_PUBLIC_CLIENTS_API_LINK}`, {
+      method: methodSelection,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(clientInfos),
+    })
+      .then((response) => {
+        console.log(response.status);
+
+        setClientsResponseData(response.status);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  return (
+    <ClientsDataContext.Provider value={{ clientsData, handleSubmit, clientsResponseData, setClientsResponseData }}>
+      {props.children}
+    </ClientsDataContext.Provider>
+  );
 }

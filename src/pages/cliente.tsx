@@ -8,22 +8,20 @@ import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 export default function Client() {
-  const clientsData = useClientsData();
+  const { clientsData } = useClientsData();
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [searchError, setSearchError] = useState<boolean>(false);
   const [cpf, setCpf] = useState<string>("");
 
-  const searchClient =
-    clientsData &&
-    Object.values(clientsData)
-      .filter((client: ClientsDataInterface) => {
-        if (cpf.indexOf(client.cpf) >= 0) {
-          return client.cpf;
-        }
-      })
-      .filter((client) => {
-        return !selectedOption || client.contractNumber === selectedOption;
-      });
+  const searchClient = clientsData
+    ?.filter((client: ClientsDataInterface) => {
+      if (cpf.indexOf(client.cpf) >= 0) {
+        return client.cpf;
+      }
+    })
+    .filter((client) => {
+      return !selectedOption || client.contractNumber === selectedOption;
+    });
 
   const handleError = () => {
     if (searchClient?.length === 0) {

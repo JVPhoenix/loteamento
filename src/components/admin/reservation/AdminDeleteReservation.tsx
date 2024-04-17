@@ -117,7 +117,10 @@ export default function AdminDeleteReservation(props: AdminDeleteReservationInte
                 setBuyed(null);
                 props.setResponsesPopup(StatusResponses.Loading);
               } else {
-                handleSubmit({ id: props.selectedItem?.id, situation: "livre" }, Methods.PUT);
+                handleSubmit(
+                  { id: props.selectedItem?.id, situation: "livre", reservedFor: "", reservedForContact: "" },
+                  Methods.PUT
+                );
                 setBuyed(null);
                 props.setStage(null);
                 props.setResponsesPopup(StatusResponses.Loading);

@@ -1,4 +1,5 @@
 import { ClientsDataInterface, FilterSelector, PageSelector } from "@/types";
+import { Dispatch } from "react";
 import Select from "react-select";
 
 interface SelectClientProps {
@@ -9,6 +10,7 @@ interface SelectClientProps {
   state: FilterSelector | null;
   special?: boolean;
   stage: FilterSelector | null;
+  setSelectRef?: Dispatch<any>;
 }
 
 export default function AdminSearchSelect(props: SelectClientProps) {
@@ -62,6 +64,9 @@ export default function AdminSearchSelect(props: SelectClientProps) {
 
   return (
     <Select
+      ref={(ref) => {
+        props.setSelectRef ? props.setSelectRef(ref) : null;
+      }}
       //CUSTOM OPTIONS
       placeholder={props.placeholder}
       onChange={(option: ClientsDataInterface | null) => props.setSelectedClient(option)}

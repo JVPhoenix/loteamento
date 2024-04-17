@@ -16,7 +16,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 
 export default function AdminShowReservations() {
   const { user, isLoading } = useUser();
-  const { lotesData, responseData, setResponseData } = useLotesData();
+  const { lotesData, lotesResponseData, setLotesResponseData } = useLotesData();
 
   const [stage, setStage] = useState<FilterSelector | null>(null);
   const [lotesStatus, setLotesStatus] = useState<LotesStatus | null>(null);
@@ -46,22 +46,32 @@ export default function AdminShowReservations() {
   };
 
   useEffect(() => {
-    if (responseData === StatusResponses.Sucess) {
+    if (lotesResponseData === StatusResponses.Sucess) {
       setSelectedItem(null);
       setActionType(null);
       setResponsesPopup(StatusResponses.Sucess);
       setLotesStatus(null);
       clearValue();
+    } else if (lotesResponseData === StatusResponses.Failure) {
+      setSelectedItem(null);
+      setActionType(null);
+      setResponsesPopup(StatusResponses.Failure);
+      setLotesStatus(null);
+      clearValue();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [responseData]);
+  }, [lotesResponseData]);
 
   const [error, setError] = useState<boolean>(false);
 
   return (
     <div
       className="flex flex-col w-full min-h-screen bg-black1 text-lg text-white"
-      onMouseMove={() => responsesPopup && setResponsesPopup(null)}
+      onMouseMove={() =>
+        setTimeout(() => {
+          responsesPopup && setResponsesPopup(null);
+        }, 10000)
+      }
     >
       <div className="w-full h-full">
         <Header page={PageSelector.AdminEditReservations} />
@@ -86,7 +96,8 @@ export default function AdminShowReservations() {
                     onClick={() => {
                       handleActionType(Methods.POST);
                       handleLotesStatus(LotesStatus.Free);
-                      setResponseData(0);
+                      setLotesResponseData(0);
+                      setResponsesPopup(null);
                     }}
                   >
                     <h1> Fazer uma reserva </h1>
@@ -101,7 +112,8 @@ export default function AdminShowReservations() {
                     onClick={() => {
                       handleActionType(Methods.PUT);
                       handleLotesStatus(LotesStatus.Blocked);
-                      setResponseData(0);
+                      setLotesResponseData(0);
+                      setResponsesPopup(null);
                     }}
                   >
                     <h1> Editar uma reserva </h1>
@@ -116,19 +128,20 @@ export default function AdminShowReservations() {
                     onClick={() => {
                       handleActionType(Methods.DELETE);
                       handleLotesStatus(LotesStatus.Blocked);
-                      setResponseData(0);
+                      setLotesResponseData(0);
+                      setResponsesPopup(null);
                     }}
                   >
                     <h1> Remover uma reserva </h1>
                   </Button>
                 </div>
                 {responsesPopup === StatusResponses.Sucess ? (
-                  <h1 className="text-green-500">
+                  <h1 className="text-green-500 p-3">
                     A ação foi executada com <b>com sucesso!</b>
                   </h1>
                 ) : (
                   responsesPopup === StatusResponses.Failure && (
-                    <h1 className="text-green-500">
+                    <h1 className="text-red-500 p-3">
                       <b>ERRO:</b> Não foi possível executar tal ação!
                     </h1>
                   )
