@@ -69,7 +69,7 @@ export default function AdminShowReservations() {
       className="flex flex-col w-full min-h-screen bg-black1 text-lg text-white"
       onMouseMove={() =>
         setTimeout(() => {
-          responsesPopup && setResponsesPopup(null);
+          !actionType && responsesPopup && setResponsesPopup(null);
         }, 10000)
       }
     >

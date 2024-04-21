@@ -36,31 +36,28 @@ export default function Search() {
 
   const handleActionType = (newState: Methods) => {
     setActionType((state) => (state === newState ? null : newState));
+    setResponsesPopup(null);
     setEditObs(selectedClient?.obs);
     setClientsResponseData(0);
   };
 
   const clearValue = () => {
     setSelectRef(selectRef.clearValue());
+    setSelectedClient(null);
+    setEditObs(null);
+    setActionType(null);
+    setError(false);
   };
 
   useEffect(() => {
     if (clientsResponseData === StatusResponses.Sucess) {
       clearValue();
-      setSelectedClient(null);
-      setActionType(null);
       setResponsesPopup(StatusResponses.Sucess);
-      setEditObs(null);
-      setError(false);
       setStage(null);
       setState(null);
-      setError(false);
     } else if (clientsResponseData === StatusResponses.Failure) {
-      setSelectedClient(null);
-      setActionType(null);
-      setResponsesPopup(StatusResponses.Failure);
-      setError(false);
       clearValue();
+      setResponsesPopup(StatusResponses.Failure);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clientsResponseData]);
@@ -78,7 +75,7 @@ export default function Search() {
                 className="flex flex-col m-auto py-6 items-center"
                 onMouseMove={() =>
                   setTimeout(() => {
-                    responsesPopup && setResponsesPopup(null);
+                    !actionType && responsesPopup && setResponsesPopup(null);
                   }, 10000)
                 }
               >
@@ -138,8 +135,9 @@ export default function Search() {
                   )}
                   onClick={() => {
                     setActionType(null);
+                    setResponsesPopup(null);
                     setEditObs("");
-                    // setError(false);
+                    setError(false);
                   }}
                 >
                   <CloseIcon className="" stroke="white" width={70} />
@@ -218,6 +216,8 @@ export default function Search() {
                         className={twMerge("hover:text-red-500 hover:border-red-500")}
                         onClick={() => {
                           setActionType(null);
+                          setResponsesPopup(null);
+                          setEditObs("");
                           setError(false);
                         }}
                       >
