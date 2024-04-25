@@ -66,7 +66,7 @@ export default function AdminShowReservations() {
 
   return (
     <div
-      className="flex flex-col w-full min-h-screen bg-black1 text-lg text-white"
+      className="flex flex-col min-w-full min-h-screen bg-black1 text-lg text-white relative overflow-auto"
       onMouseMove={() =>
         setTimeout(() => {
           !actionType && responsesPopup && setResponsesPopup(null);
@@ -85,7 +85,7 @@ export default function AdminShowReservations() {
                 <h1 className="text-white drop-shadow-titles text-xl response:text-2xl font-bold select-none mb-2">
                   SELECIONE UMA AÇÃO
                 </h1>
-                <div className="flex m-auto items-center gap-5">
+                <div className="flex response:flex-row flex-col m-auto items-center gap-5">
                   <Button
                     className={twMerge(
                       "hover:text-green-500 hover:border-green-500",
@@ -150,11 +150,12 @@ export default function AdminShowReservations() {
 
               <div
                 className={twMerge(
-                  "absolute hidden flex-col items-center justify-center w-full h-full bg-black bg-opacity-90 z-50",
+                  "absolute hidden flex-col bg-black bg-opacity-90 z-50 w-full h-full overflow-auto",
+                  "",
                   actionType !== null && "flex"
                 )}
               >
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col m-auto py-4">
                   <div className={twMerge("hidden flex-col items-center", responsesPopup === null && "flex")}>
                     <AdminSearchFilters
                       stage={stage}
