@@ -2,13 +2,13 @@ import Image from "next/image";
 import React, { useRef, useState } from "react";
 import { LeftArrow, RightArrow, SelectDot } from "../utils/Icons";
 import { twMerge } from "tailwind-merge";
-import { InnerPhotosInterface, LotesDataInterface, LotesStatus } from "@/types";
+import { FilterSelector, LotesDataInterface, LotesStatus, PhotosDataInterface } from "@/types";
 import { useLotesData } from "@/context/LotesDataContext";
 
 interface ProductsShowcaseInterface {
   data: LotesDataInterface[];
-  showcasePhotos: { [index: number]: InnerPhotosInterface };
-  phase: number;
+  showcasePhotos: PhotosDataInterface[] | undefined;
+  phase: FilterSelector;
 }
 
 export default function ProductsShowcase(props: ProductsShowcaseInterface) {
@@ -19,17 +19,17 @@ export default function ProductsShowcase(props: ProductsShowcaseInterface) {
     .filter((status) => status.phase === props.phase && status);
 
   // DOTS - SELECT SHOWCASE PHOTO
-  const photosData = Object.values(props.showcasePhotos);
+  const photos = props.showcasePhotos ? props.showcasePhotos : [];
   const [photoIndex, setPhotoIndex] = useState<number>(0);
 
   const prevPhoto = () => {
     const isFirstPhoto = photoIndex === 0;
-    const newIndex = isFirstPhoto ? photosData.length - 1 : photoIndex - 1;
+    const newIndex = isFirstPhoto ? photos.length - 1 : photoIndex - 1;
     setPhotoIndex(newIndex);
   };
 
   const nextPhoto = () => {
-    const isLastPhoto = photoIndex === photosData.length - 1;
+    const isLastPhoto = photoIndex === photos.length - 1;
     const newIndex = isLastPhoto ? 0 : photoIndex + 1;
     setPhotoIndex(newIndex);
   };
@@ -87,13 +87,13 @@ export default function ProductsShowcase(props: ProductsShowcaseInterface) {
           width={3200}
           height={1980}
           style={{ objectFit: "cover" }}
-          src={photosData[photoIndex].url}
+          src={photos[photoIndex]?.url}
           alt="Fotos e mapa dos lotes disponíveis"
           priority
           unoptimized
         />
         {/* RESERVED IMAGES */}
-        {photosData[photoIndex] === photosData[0] &&
+        {photos[photoIndex] === photos[0] &&
           lotesData?.map((value) => (
             <Image
               className="z-0 rounded-xl absolute"
@@ -155,7 +155,7 @@ export default function ProductsShowcase(props: ProductsShowcaseInterface) {
         />
       </div>
       <div className="flex my-2 justify-center">
-        {photosData.map((photo, dotIndex) => (
+        {photos.map((photo, dotIndex) => (
           <div key={dotIndex} onClick={() => photoSelectDots(dotIndex)}>
             <SelectDot
               className="m-[4px] hover:scale-110 active:scale-90 ease-in-out duration-200 cursor-pointer"

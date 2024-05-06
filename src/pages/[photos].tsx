@@ -1,7 +1,7 @@
 import Footer from "@/components/home/Footer";
 import Header from "@/components/home/Header";
 import { usePhotosData } from "@/context/PhotosDataContext";
-import { PageSelector, InnerPhotosInterface, PageInfos, FilterSelector } from "@/types";
+import { PageSelector, FilterSelector } from "@/types";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -9,9 +9,15 @@ import { useEffect, useState } from "react";
 import ErrorPage from "@/components/utils/ErrorPage";
 import MaintenancePage from "@/components/utils/MaintenencePage";
 
+interface PageInfos {
+  id: string;
+  index: FilterSelector | number;
+  queryName: string | undefined;
+  title: string;
+}
+
 export default function Images() {
   const { query } = useRouter();
-  const photosData = usePhotosData();
   const [pageInfos, setPageInfos] = useState<PageInfos>({
     id: "",
     index: 0,
@@ -19,7 +25,9 @@ export default function Images() {
     queryName: "",
   });
 
-  const photos = photosData?.photos[pageInfos.index] && Object.values(photosData?.photos[pageInfos.index]);
+  const photosData = usePhotosData()
+    ?.filter((filterBy) => filterBy.type === FilterSelector.Photos && filterBy)
+    .filter((filterBy) => filterBy.phase === pageInfos.index);
 
   useEffect(() => {
     if (query.photos === "etapa1") {
@@ -63,10 +71,10 @@ export default function Images() {
               FOTOS - {pageInfos.title}
             </h1>
             <div className="flex flex-wrap gap-2 justify-center items-center p-3 m-auto">
-              {photos?.length === 0 ? (
+              {photosData?.length === 0 ? (
                 <MaintenancePage />
               ) : (
-                photos?.map((value: InnerPhotosInterface) => (
+                photosData?.map((value) => (
                   <Image
                     className="rounded-xl max-w-sm response:max-w-md max-h-[340px] object-cover"
                     src={value.url}

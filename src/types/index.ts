@@ -35,6 +35,8 @@ export enum FilterSelector {
   Expired = 6,
   Regular = 7,
   PaidOff = 8,
+  Showcase = "showcase",
+  Photos = "photos",
 }
 
 export enum PlanMonths {
@@ -49,13 +51,6 @@ export type PageType = {
   page: string;
   setPage: Dispatch<SetStateAction<number>>;
 };
-
-export interface PageInfos {
-  id: string;
-  index: number;
-  queryName: string | undefined;
-  title: string;
-}
 
 export interface LotesDataInterface {
   id: string;
@@ -77,31 +72,6 @@ export enum LotesStatus {
   Sold = "vendido",
 }
 
-export interface InnerPhotosInterface {
-  url: string;
-  label?: string;
-  width?: number;
-  height?: number;
-}
-
-export interface PhotosDataInterface {
-  showcase: {
-    [index: number]: {
-      [index: number]: InnerPhotosInterface;
-    };
-  };
-  photos: {
-    [index: number]: {
-      [index: number]: InnerPhotosInterface;
-    };
-  };
-  lotesStatus: {
-    [index: number]: {
-      [index: number]: InnerPhotosInterface;
-    };
-  };
-}
-
 export interface ClientsDataInterface {
   id: string;
   name: string;
@@ -120,6 +90,15 @@ export interface ClientsDataInterface {
   paymentList: string[];
   obs?: string;
   standard: boolean;
+}
+
+export interface PhotosDataInterface {
+  id: string;
+  url: string;
+  type: string;
+  phase: number;
+  width?: number;
+  height?: number;
 }
 
 export interface AdminsDataInterface {
