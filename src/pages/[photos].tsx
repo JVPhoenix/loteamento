@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import ErrorPage from "@/components/utils/ErrorPage";
-import MaintenancePage from "@/components/utils/MaintenencePage";
+import MaintenancePage from "@/components/utils/MaintenancePage";
 
 interface PageInfos {
   id: string;

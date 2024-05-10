@@ -107,7 +107,8 @@ export default function ProductsShowcase(props: ProductsShowcaseInterface) {
             />
           ))}
       </div>
-      {/* NEXT/PREVIUS DOTS && ZOOM RANGE  */}
+
+      {/* NEXT/PREVIOUS DOTS && ZOOM RANGE  */}
 
       <div
         className={twMerge(

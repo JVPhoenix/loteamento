@@ -8,7 +8,7 @@ export default function About() {
           <div className="text-justify">
             <p>O Loteamento R. Martins é mais completo e mais estruturado de Cocal, atualmente ele possui:</p>
             <ul className="list-disc pl-10 py-2 leading-7">
-              <li>Localização Privlegiada.</li>
+              <li>Localização Privilegiada.</li>
               <li>Rede Elétrica Completa.</li>
               <li>Iluminação Pública.</li>
               <li>Água Encanada.</li>
@@ -27,12 +27,12 @@ export default function About() {
           <h3 className="font-bold text-white text-xl">Localização</h3>
           <div className="flex flex-col text-justify gap-3">
             <p>
-              O loteamento está ocalizado as margens da PI-309 na saída de Cocal para o Videu, no Bairro Noventa, em
+              O loteamento está localizado as margens da PI-309 na saída de Cocal para o Vidéu, no Bairro Noventa, em
               frente ao Parque Aquático Vale Encantado.
             </p>
             <p>
               Nosso escritório de vendas está localizado na Rua José Barcelos Fontenele, Nº 710, no centro de Cocal -
-              Píaui.
+              Piauí.
             </p>
           </div>
         </div>

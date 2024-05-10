@@ -22,7 +22,7 @@ export default function PersonalizedQuotes() {
   const [parcelsValue, setParcelsValue] = useState<number>(0);
 
   const [checkParcels, setCheckParcels] = useState<boolean>(false);
-  const [checkEntrance, setcheckEntrance] = useState<boolean>(false);
+  const [checkEntrance, setCheckEntrance] = useState<boolean>(false);
 
   const handleStage = (newStage: FilterSelector) => {
     setStage((state) => (state === newStage ? null : newStage));
@@ -40,10 +40,10 @@ export default function PersonalizedQuotes() {
 
     if (convertedValue !== "") {
       setEntranceValue("R$ " + convertedValue);
-      setcheckEntrance(false);
+      setCheckEntrance(false);
     } else if (convertedValue === "") {
       setEntranceValue("");
-      setcheckEntrance(true);
+      setCheckEntrance(true);
     }
   };
 

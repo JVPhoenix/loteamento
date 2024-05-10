@@ -81,7 +81,7 @@ export default function AdminSearchFilters(props: AdminClientSelectInterface) {
                     `border-yellow1 bg-yellow1 text-black1 hover:text-black1
                      font-bold hover:shadow-white shadow-md`
                 )}
-                onClick={() => props.setCheckSpecial && props.setCheckSpecial((prevstate) => !prevstate)}
+                onClick={() => props.setCheckSpecial && props.setCheckSpecial((prevState) => !prevState)}
               >
                 <h1> Especial </h1>
               </Button>

@@ -143,7 +143,7 @@ export default function AdminSearchSelect(props: SelectClientProps) {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
                 }) !== "0,00")) &&
-            // PAIDOFF FILTER
+            // PAID OFF FILTER
             (props.state !== FilterSelector.PaidOff ||
               ((
                 option.price -

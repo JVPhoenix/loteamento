@@ -6,7 +6,7 @@ interface ClientsSUBMIT {
   name?: string;
   cpf?: string;
   birth?: string;
-  adress?: string;
+  address?: string;
   phone?: string;
   contractNumber?: string;
   phase?: number;

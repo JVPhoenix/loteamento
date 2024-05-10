@@ -1,5 +1,5 @@
 import { twMerge } from "tailwind-merge";
-import { InstagramIcon, WhatsappIcon, EmailIcon } from "../utils/Icons";
+import { InstagramIcon, WhatsAppIcon, EmailIcon } from "../utils/Icons";
 import { PageSelector } from "@/types";
 
 interface ContactsInterface {
@@ -28,8 +28,8 @@ export default function Contacts(props: ContactsInterface) {
           )}
           onClick={() => window.open("https://wa.me/message/CQB2TCWWX3HIN1", "_blank", "noopener, noreferrer")}
         >
-          <WhatsappIcon className="fill-inherit" width={50} />
-          <h3>Whatsapp</h3>
+          <WhatsAppIcon className="fill-inherit" width={50} />
+          <h3>WhatsApp</h3>
         </div>
 
         <div

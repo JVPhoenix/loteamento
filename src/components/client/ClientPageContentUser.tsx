@@ -1,5 +1,5 @@
 import { ClientsDataInterface } from "@/types";
-import { AdressIcon, BirthIcon, CPFIcon, NameIcon, PhoneIcon } from "../utils/Icons";
+import { AddressIcon, BirthIcon, CPFIcon, NameIcon, PhoneIcon } from "../utils/Icons";
 
 interface ClientPageContentUser {
   data: ClientsDataInterface;
@@ -37,11 +37,11 @@ export default function ClientPageContentUser(props: ClientPageContentUser) {
         </div>
         <div className="flex leading-tight items-center gap-1">
           <div>
-            <AdressIcon className="" width={50} fill="none" stroke="white" />
+            <AddressIcon className="" width={50} fill="none" stroke="white" />
           </div>
           <h1 className="max-w-md response:max-w-xl">
             <b>Endereço: </b>
-            {props.data.adress}
+            {props.data.address}
           </h1>
         </div>
         <div className="flex leading-tight items-center gap-1">

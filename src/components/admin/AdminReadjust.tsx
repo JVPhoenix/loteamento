@@ -76,7 +76,7 @@ export default function AdminReadjust(props: AdminReadjustInterface) {
     <div className="flex flex-col m-auto w-full items-center gap-4">
       <h1 className="text-white drop-shadow-titles text-xl response:text-2xl font-bold">
         {props.page === PageSelector.AdminReadjustClient
-          ? `Reaustes para o Plano de ${plan() / 12} anos`
+          ? `Reajustes para o Plano de ${plan() / 12} anos`
           : "Selecione o plano"}
       </h1>
       {props.page === PageSelector.AdminReadjustSimulate && (

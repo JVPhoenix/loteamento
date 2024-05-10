@@ -77,7 +77,7 @@ export interface ClientsDataInterface {
   name: string;
   cpf: string;
   birth: string;
-  adress: string;
+  address: string;
   phone: string;
   contractNumber: string;
   phase: number;
@@ -118,10 +118,16 @@ export enum Methods {
   POST = "POST",
   PUT = "PUT",
   DELETE = "DELETE",
+  Observation_NEW = "Obs_POST",
+  Observation_EDIT = "Obs_PUT",
+  Observation_DELETE = "Obs_DELETE",
+  Payment_NEW = "Pay_POST",
+  Payment_EDIT = "Pay_PUT",
+  Payment_DELETE = "Pay_DELETE",
 }
 
 export enum StatusResponses {
   Loading = 0,
-  Sucess = 200,
+  Success = 200,
   Failure = 400,
 }

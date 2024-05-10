@@ -46,10 +46,10 @@ export default function AdminShowReservations() {
   };
 
   useEffect(() => {
-    if (lotesResponseData === StatusResponses.Sucess) {
+    if (lotesResponseData === StatusResponses.Success) {
       setSelectedItem(null);
       setActionType(null);
-      setResponsesPopup(StatusResponses.Sucess);
+      setResponsesPopup(StatusResponses.Success);
       setLotesStatus(null);
       clearValue();
     } else if (lotesResponseData === StatusResponses.Failure) {
@@ -135,7 +135,7 @@ export default function AdminShowReservations() {
                     <h1> Remover uma reserva </h1>
                   </Button>
                 </div>
-                {responsesPopup === StatusResponses.Sucess ? (
+                {responsesPopup === StatusResponses.Success ? (
                   <h1 className="text-green-500 p-3">
                     A ação foi executada com <b>com sucesso!</b>
                   </h1>

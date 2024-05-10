@@ -7,7 +7,7 @@ interface MainIcons {
   onClick?: () => void;
 }
 
-export function WhatsappIcon(props: MainIcons) {
+export function WhatsAppIcon(props: MainIcons) {
   return (
     <svg
       className={props.className}
@@ -336,7 +336,7 @@ export const BirthIcon = (props: MainIcons) => {
   );
 };
 
-export const AdressIcon = (props: MainIcons) => {
+export const AddressIcon = (props: MainIcons) => {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -906,7 +906,7 @@ export const MenuIcon = (props: MainIcons) => {
   );
 };
 
-export const MaintenenceIcon = (props: MainIcons) => {
+export const MaintenanceIcon = (props: MainIcons) => {
   return (
     <svg className={props.className} width={props.width} fill={props.fill} stroke={props.stroke} viewBox="0 0 512 512">
       <path

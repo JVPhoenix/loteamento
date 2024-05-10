@@ -18,10 +18,10 @@ interface AdminDeleteReservationInterface {
 export default function AdminDeleteReservation(props: AdminDeleteReservationInterface) {
   const { user } = useUser();
   const { handleSubmit } = useLotesData();
-  const [buyed, setBuyed] = useState<boolean | null>(null);
+  const [purchased, setPurchased] = useState<boolean | null>(null);
 
-  const handleBuyed = (newState: boolean) => {
-    setBuyed((state) => (state === newState ? null : newState));
+  const handlePurchased = (newState: boolean) => {
+    setPurchased((state) => (state === newState ? null : newState));
   };
   return (
     <>
@@ -65,12 +65,12 @@ export default function AdminDeleteReservation(props: AdminDeleteReservationInte
           <Button
             className={twMerge(
               "hover:text-green-500 hover:border-green-500",
-              buyed &&
+              purchased &&
                 `border-green-500 bg-green-500 text-black1 hover:text-black1 font-bold 
                 hover:shadow-white shadow-md hover:border-green-500`
             )}
             onClick={() => {
-              handleBuyed(true);
+              handlePurchased(true);
               props.setError(false);
             }}
           >
@@ -79,12 +79,12 @@ export default function AdminDeleteReservation(props: AdminDeleteReservationInte
           <Button
             className={twMerge(
               "hover:text-red-500 hover:border-red-500",
-              buyed === false &&
+              purchased === false &&
                 `border-red-500 bg-red-500 text-black1 hover:text-black1
                   font-bold hover:shadow-white shadow-md hover:border-red-500`
             )}
             onClick={() => {
-              handleBuyed(false);
+              handlePurchased(false);
               props.setError(false);
             }}
           >
@@ -104,8 +104,8 @@ export default function AdminDeleteReservation(props: AdminDeleteReservationInte
         <Button
           className={twMerge("hover:text-green-500 hover:border-green-500")}
           onClick={() => {
-            if (buyed !== null) {
-              if (buyed === true) {
+            if (purchased !== null) {
+              if (purchased === true) {
                 handleSubmit(
                   {
                     id: props.selectedItem?.id,
@@ -114,14 +114,14 @@ export default function AdminDeleteReservation(props: AdminDeleteReservationInte
                   },
                   Methods.PUT
                 );
-                setBuyed(null);
+                setPurchased(null);
                 props.setResponsesPopup(StatusResponses.Loading);
               } else {
                 handleSubmit(
                   { id: props.selectedItem?.id, situation: "livre", reservedFor: "", reservedForContact: "" },
                   Methods.PUT
                 );
-                setBuyed(null);
+                setPurchased(null);
                 props.setStage(null);
                 props.setResponsesPopup(StatusResponses.Loading);
               }
