@@ -94,6 +94,7 @@ export interface ClientsDataInterface {
 
 export interface PhotosDataInterface {
   id: string;
+  value: number;
   url: string;
   type: string;
   phase: number;

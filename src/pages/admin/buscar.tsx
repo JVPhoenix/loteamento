@@ -53,7 +53,7 @@ export default function Search() {
         if (selectedClient.paymentList.length === 1) {
           return [""];
         } else {
-          return selectedClient.paymentList.splice(paymentIndex, 1);
+          return selectedClient.paymentList.toSpliced(paymentIndex, 1);
         }
       } else {
         return selectedClient.paymentList;
@@ -250,7 +250,7 @@ export default function Search() {
                           <input
                             type="date"
                             value={paymentInsert}
-                            onChange={(e) => setPaymentInsert(e.target.value)}
+                            onChange={(e) => (setPaymentInsert(e.target.value), setError(false))}
                             placeholder="Digite aqui a data"
                             className={twMerge(
                               "placeholder:text-center text-justify rounded-lg text-black",

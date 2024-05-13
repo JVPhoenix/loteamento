@@ -22,11 +22,17 @@ export default function ProductsPhases(props: ProductsPhaseInterface) {
       <h1 className="text-white drop-shadow-titles text-center text-3xl font-bold">
         LOTES DISPONÍVEIS - {props.phase}ª ETAPA
       </h1>
-      {PhotosData && <ProductsShowcase showcasePhotos={PhotosData} phase={props.phase} data={props.data} />}
+      {PhotosData && (
+        <ProductsShowcase
+          showcasePhotos={PhotosData.toSorted((a, b) => a.value - b.value)}
+          phase={props.phase}
+          data={props.data}
+        />
+      )}
 
       {props.data && (
         <ProductsSelect
-          options={props.data}
+          options={props.data.toSorted((a, b) => a.value - b.value)}
           placeholder={"DIGITE OU SELECIONE UM LOTE"}
           onChange={(selection: MultiValue<LotesDataInterface> | null) => setSelectedItem(selection)}
           page={PageSelector.HomePage}
