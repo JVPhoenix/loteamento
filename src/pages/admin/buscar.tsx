@@ -34,12 +34,24 @@ export default function Search() {
   const [paymentIndex, setPaymentIndex] = useState<number | undefined>(undefined);
 
   // PAYMENT ADD OR EDIT ONE
-  const paymentAddOrEdit = () => {
+  const paymentAdd = () => {
     if (selectedClient) {
       if (selectedClient?.paymentList[0] === "") {
         return [paymentInsert.split("-").reverse().join("-")];
       } else {
         return [...selectedClient.paymentList, paymentInsert.split("-").reverse().join("-")];
+      }
+    } else {
+      return [""];
+    }
+  };
+
+  const paymentEdit = () => {
+    if (selectedClient) {
+      if (paymentIndex !== undefined) {
+        return selectedClient.paymentList.toSpliced(paymentIndex, 1, paymentInsert.split("-").reverse().join("-"));
+      } else {
+        return selectedClient.paymentList;
       }
     } else {
       return [""];
@@ -304,16 +316,16 @@ export default function Search() {
 
                             // Condition to: EDIT PAY - SUBMIT
                           } else if (actionType === Methods.Payment_EDIT) {
-                            handleSubmit({ id: selectedClient?.id, paymentList: paymentAddOrEdit() }, Methods.PUT);
+                            handleSubmit({ id: selectedClient?.id, paymentList: paymentEdit() }, Methods.PUT);
                             setResponsesPopup(StatusResponses.Loading);
 
-                            // Condition to: POST PAY SUBMIT
+                            // Condition to: POST PAY - SUBMIT
                           } else if (actionType === Methods.Payment_NEW) {
                             if (paymentInsert !== "") {
                               handleSubmit(
                                 {
                                   id: selectedClient?.id,
-                                  paymentList: paymentAddOrEdit(),
+                                  paymentList: paymentAdd(),
                                 },
                                 Methods.PUT
                               );
