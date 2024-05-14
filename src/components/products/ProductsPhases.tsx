@@ -24,7 +24,7 @@ export default function ProductsPhases(props: ProductsPhaseInterface) {
       </h1>
       {PhotosData && (
         <ProductsShowcase
-          showcasePhotos={PhotosData.toSorted((a, b) => a.value - b.value)}
+          showcasePhotos={PhotosData.sort((a, b) => a.value - b.value)}
           phase={props.phase}
           data={props.data}
         />
@@ -32,7 +32,7 @@ export default function ProductsPhases(props: ProductsPhaseInterface) {
 
       {props.data && (
         <ProductsSelect
-          options={props.data.toSorted((a, b) => a.value - b.value)}
+          options={props.data.sort((a, b) => a.value - b.value)}
           placeholder={"DIGITE OU SELECIONE UM LOTE"}
           onChange={(selection: MultiValue<LotesDataInterface> | null) => setSelectedItem(selection)}
           page={PageSelector.HomePage}
