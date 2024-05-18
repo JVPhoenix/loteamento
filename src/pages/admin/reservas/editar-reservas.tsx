@@ -201,7 +201,7 @@ export default function AdminShowReservations() {
                               ? value.reservedBy === user?.name?.split(" ")[0] && value
                               : value;
                           }
-                        })}
+                        }).sort((a, b) => a.value - b.value)}
                       placeholder={"Digite o Lote ou o Nome do Cliente"}
                       onChange={(selection: LotesDataInterface | null) => setSelectedItem(selection)}
                       lotesStatus={lotesStatus}
