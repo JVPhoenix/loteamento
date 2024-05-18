@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Button } from "../utils/Button";
 import { twMerge } from "tailwind-merge";
-import { Methods, PageSelector } from "@/types";
+import { Methods, PageSelector, UserRoles } from "@/types";
 import { AddIcon, DeleteIcon, EditIcon } from "../utils/Icons";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 interface ClientPagePaymentListInterface {
   paymentList: string[];
@@ -12,6 +13,14 @@ interface ClientPagePaymentListInterface {
 }
 
 export default function ClientPagePaymentList(props: ClientPagePaymentListInterface) {
+  const { user } = useUser();
+  const checkRoles = (role: string) => {
+    if (user) {
+      const userRoles: any = user.userRoles;
+      return userRoles.includes(role) ? true : false;
+    }
+  };
+
   const [showPaymentList, setShowPaymentList] = useState<boolean>(
     props.page === PageSelector.ClientSearch ? false : true
   );
@@ -28,7 +37,7 @@ export default function ClientPagePaymentList(props: ClientPagePaymentListInterf
           {props.paymentList.map((value, index) => (
             <div className="flex gap-5 group" key={props.keyData + index}>
               <h1>{value === "" ? "Nenhuma parcela foi paga!" : index + 1 + " → " + value}</h1>
-              {props.page !== PageSelector.ClientSearch && value !== "" && (
+              {props.page !== PageSelector.ClientSearch && value !== "" && checkRoles(UserRoles.Admins) && (
                 <div className="flex gap-2 opacity-0 group-hover:opacity-100 ease-in-out duration-100">
                   <DeleteIcon
                     className="hover:fill-red-500 hover:scale-125 ease-in-out duration-200 active:scale-95 select-none cursor-pointer"
@@ -63,7 +72,7 @@ export default function ClientPagePaymentList(props: ClientPagePaymentListInterf
       {showPaymentList && (
         <>
           {showList()}
-          {props.page === PageSelector.AdminSearch && (
+          {props.page === PageSelector.AdminSearch && checkRoles(UserRoles.Admins) && (
             <Button
               className="flex items-center gap-2 leading-tight group mt-5"
               onClick={() => props.handleActionType && props.handleActionType(Methods.Payment_NEW, "DateCenter")}

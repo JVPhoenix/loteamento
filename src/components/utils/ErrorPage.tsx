@@ -1,10 +1,12 @@
 import { PageSelector } from "@/types";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 interface ErrorPageInterface {
   page?: PageSelector;
 }
 
 export default function ErrorPage(props: ErrorPageInterface) {
+  const { user } = useUser();
   return (
     <div className="flex flex-col m-auto items-center text-white gap-2 text-3xl select-none font-bold px-3">
       <div className="flex flex-col items-center justify-center">
@@ -21,7 +23,9 @@ export default function ErrorPage(props: ErrorPageInterface) {
       props.page === PageSelector.AdminEditReservations ? (
         <>
           <h1 className="text-white text-center text-xl response:text-2xl font-bold select-none">
-            Para acessar essa página é necessário fazer Login.
+            {user
+              ? "Você não tem permissão para ver esta página!"
+              : "Para acessar essa página é necessário fazer Login."}
           </h1>
         </>
       ) : (

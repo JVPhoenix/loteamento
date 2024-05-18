@@ -1,7 +1,7 @@
 import ErrorPage from "@/components/utils/ErrorPage";
 import Footer from "@/components/home/Footer";
 import Header from "@/components/home/Header";
-import { FilterSelector, LotesDataInterface, LotesStatus, PageSelector } from "@/types";
+import { FilterSelector, LotesDataInterface, LotesStatus, PageSelector, UserRoles } from "@/types";
 import AdminSearchFilters from "@/components/admin/AdminSearchFilters";
 import { useState } from "react";
 import ProductsSelect from "@/components/products/ProductsSelect";
@@ -13,6 +13,13 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 
 export default function PersonalizedQuotes() {
   const { user, isLoading } = useUser();
+  const checkRoles = (role: string) => {
+    if (user) {
+      const userRoles: any = user.userRoles;
+      return userRoles.includes(role) ? true : false;
+    }
+  };
+
   const lotesData = useLotesData().lotesData?.filter((value) => value.situation === LotesStatus.Free && value);
 
   const [stage, setStage] = useState<FilterSelector | null>(null);
@@ -67,7 +74,7 @@ export default function PersonalizedQuotes() {
       </div>
       {!isLoading && (
         <>
-          {user ? (
+          {user && checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Agents) ? (
             <>
               <div className="flex flex-col m-auto py-6 items-center">
                 <div className="flex flex-col items-center pb-5">

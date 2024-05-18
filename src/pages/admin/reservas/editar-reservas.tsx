@@ -1,7 +1,15 @@
 import ErrorPage from "@/components/utils/ErrorPage";
 import Footer from "@/components/home/Footer";
 import Header from "@/components/home/Header";
-import { FilterSelector, LotesDataInterface, LotesStatus, Methods, PageSelector, StatusResponses } from "@/types";
+import {
+  FilterSelector,
+  LotesDataInterface,
+  LotesStatus,
+  Methods,
+  PageSelector,
+  StatusResponses,
+  UserRoles,
+} from "@/types";
 import AdminSearchFilters from "@/components/admin/AdminSearchFilters";
 import { useEffect, useState } from "react";
 import { useLotesData } from "@/context/LotesDataContext";
@@ -16,6 +24,13 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 
 export default function AdminShowReservations() {
   const { user, isLoading } = useUser();
+  const checkRoles = (role: string) => {
+    if (user) {
+      const userRoles: any = user.userRoles;
+      return userRoles.includes(role) ? true : false;
+    }
+  };
+
   const { lotesData, lotesResponseData, setLotesResponseData } = useLotesData();
 
   const [stage, setStage] = useState<FilterSelector | null>(null);
@@ -78,9 +93,9 @@ export default function AdminShowReservations() {
       </div>
       {!isLoading && (
         <>
-          {user ? (
+          {(user && checkRoles(UserRoles.Admins)) || checkRoles(UserRoles.Agents) ? (
             <>
-              {/* ACTION TYPE SELECTOR */}
+              {/* ACTION TYPE SELECTOR - MAIN PAGE*/}
               <div className="flex flex-col m-auto items-center px-3">
                 <h1 className="text-white drop-shadow-titles text-xl response:text-2xl font-bold select-none mb-2">
                   SELECIONE UMA AÇÃO
@@ -102,6 +117,7 @@ export default function AdminShowReservations() {
                   >
                     <h1> Fazer uma reserva </h1>
                   </Button>
+
                   <Button
                     className={twMerge(
                       "hover:text-blue-500 hover:border-blue-500",
@@ -118,6 +134,7 @@ export default function AdminShowReservations() {
                   >
                     <h1> Editar uma reserva </h1>
                   </Button>
+
                   <Button
                     className={twMerge(
                       "hover:text-red-500 hover:border-red-500",
@@ -148,6 +165,7 @@ export default function AdminShowReservations() {
                 )}
               </div>
 
+              {/* POP-UP PAGE */}
               <div
                 className={twMerge(
                   "absolute hidden flex-col bg-black bg-opacity-90 z-50 w-full h-full overflow-auto",
@@ -173,6 +191,15 @@ export default function AdminShowReservations() {
                             }
                           } else {
                             return value;
+                          }
+                        })
+                        .filter((value) => {
+                          if (checkRoles(UserRoles.Admins)) {
+                            return value;
+                          } else {
+                            return value.situation === LotesStatus.Blocked
+                              ? value.reservedBy === user?.name?.split(" ")[0] && value
+                              : value;
                           }
                         })}
                       placeholder={"Digite o Lote ou o Nome do Cliente"}

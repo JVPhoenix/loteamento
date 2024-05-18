@@ -1,7 +1,7 @@
 import ErrorPage from "@/components/utils/ErrorPage";
 import Footer from "@/components/home/Footer";
 import Header from "@/components/home/Header";
-import { ClientsDataInterface, FilterSelector, PageSelector } from "@/types";
+import { ClientsDataInterface, FilterSelector, PageSelector, UserRoles } from "@/types";
 import AdminSearchFilters from "@/components/admin/AdminSearchFilters";
 import AdminSearchSelect from "@/components/admin/AdminSearchSelect";
 import { useState } from "react";
@@ -11,6 +11,13 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 
 export default function ReadjustClient() {
   const { user, isLoading } = useUser();
+  const checkRoles = (role: string) => {
+    if (user) {
+      const userRoles: any = user.userRoles;
+      return userRoles.includes(role) ? true : false;
+    }
+  };
+
   const { clientsData } = useClientsData();
 
   const [selectedClient, setSelectedClient] = useState<ClientsDataInterface | null>(null);
@@ -31,7 +38,7 @@ export default function ReadjustClient() {
       </div>
       {!isLoading && (
         <>
-          {user ? (
+          {(user && checkRoles(UserRoles.Admins)) || checkRoles(UserRoles.Agents) ? (
             <>
               <div className="flex flex-col m-auto py-6 items-center">
                 <div className="flex flex-col items-center pb-10">

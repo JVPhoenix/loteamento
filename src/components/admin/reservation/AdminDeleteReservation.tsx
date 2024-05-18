@@ -1,6 +1,6 @@
 import { Button } from "@/components/utils/Button";
 import { useLotesData } from "@/context/LotesDataContext";
-import { FilterSelector, LotesDataInterface, Methods, StatusResponses } from "@/types";
+import { FilterSelector, LotesDataInterface, Methods, StatusResponses, UserRoles } from "@/types";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { Dispatch, SetStateAction, useState } from "react";
 import { twMerge } from "tailwind-merge";
@@ -17,6 +17,13 @@ interface AdminDeleteReservationInterface {
 
 export default function AdminDeleteReservation(props: AdminDeleteReservationInterface) {
   const { user } = useUser();
+  const checkRoles = (role: string) => {
+    if (user) {
+      const userRoles: any = user.userRoles;
+      return userRoles.includes(role) ? true : false;
+    }
+  };
+
   const { handleSubmit } = useLotesData();
   const [purchased, setPurchased] = useState<boolean | null>(null);
 
@@ -44,7 +51,7 @@ export default function AdminDeleteReservation(props: AdminDeleteReservationInte
           {props.selectedItem.reservedForContact ? props.selectedItem.reservedForContact : "Não Informado"}
         </h1>
       </div>
-      <div className="flex leading-tight items-center gap-1">
+      <div className="flex leading-tight items-center gap-1 pb-4">
         <h1>
           <b>Data da Reserva: </b>
           {props.selectedItem.reservedDate
@@ -59,42 +66,44 @@ export default function AdminDeleteReservation(props: AdminDeleteReservationInte
         </h1>
       </div>
 
-      <div className="flex flex-col leading-tight m-auto items-center gap-1 mt-5 mb-3">
-        <h1 className="text-green-600 text-xl response:text-2xl font-bold"> O LOTE FOI VENDIDO? </h1>
-        <div className="flex gap-5 items-center">
-          <Button
-            className={twMerge(
-              "hover:text-green-500 hover:border-green-500",
-              purchased &&
-                `border-green-500 bg-green-500 text-black1 hover:text-black1 font-bold 
+      {checkRoles(UserRoles.Admins) && (
+        <div className="flex flex-col leading-tight m-auto items-center gap-1 mb-3">
+          <h1 className="text-green-600 text-xl response:text-2xl font-bold"> O LOTE FOI VENDIDO? </h1>
+          <div className="flex gap-5 items-center">
+            <Button
+              className={twMerge(
+                "hover:text-green-500 hover:border-green-500",
+                purchased &&
+                  `border-green-500 bg-green-500 text-black1 hover:text-black1 font-bold 
                 hover:shadow-white shadow-md hover:border-green-500`
-            )}
-            onClick={() => {
-              handlePurchased(true);
-              props.setError(false);
-            }}
-          >
-            <h1> Sim </h1>
-          </Button>
-          <Button
-            className={twMerge(
-              "hover:text-red-500 hover:border-red-500",
-              purchased === false &&
-                `border-red-500 bg-red-500 text-black1 hover:text-black1
+              )}
+              onClick={() => {
+                handlePurchased(true);
+                props.setError(false);
+              }}
+            >
+              <h1> Sim </h1>
+            </Button>
+            <Button
+              className={twMerge(
+                "hover:text-red-500 hover:border-red-500",
+                purchased === false &&
+                  `border-red-500 bg-red-500 text-black1 hover:text-black1
                   font-bold hover:shadow-white shadow-md hover:border-red-500`
-            )}
-            onClick={() => {
-              handlePurchased(false);
-              props.setError(false);
-            }}
-          >
-            <h1> Não </h1>
-          </Button>
+              )}
+              onClick={() => {
+                handlePurchased(false);
+                props.setError(false);
+              }}
+            >
+              <h1> Não </h1>
+            </Button>
+          </div>
+          <h1 className={twMerge("invisible text-red-500 text-sm", props.error && "visible animate-pulse")}>
+            Selecione uma destas opções!
+          </h1>
         </div>
-        <h1 className={twMerge("invisible text-red-500 text-sm", props.error && "visible animate-pulse")}>
-          Selecione uma destas opções!
-        </h1>
-      </div>
+      )}
 
       <h1 className="text-gray1 text-xl response:text-2xl font-normal select-none">
         Deseja mesmo remover esta reserva?
@@ -104,7 +113,7 @@ export default function AdminDeleteReservation(props: AdminDeleteReservationInte
         <Button
           className={twMerge("hover:text-green-500 hover:border-green-500")}
           onClick={() => {
-            if (purchased !== null) {
+            if (purchased !== null && checkRoles(UserRoles.Admins)) {
               if (purchased === true) {
                 handleSubmit(
                   {
@@ -125,6 +134,14 @@ export default function AdminDeleteReservation(props: AdminDeleteReservationInte
                 props.setStage(null);
                 props.setResponsesPopup(StatusResponses.Loading);
               }
+            } else if (checkRoles(UserRoles.Agents) && !checkRoles(UserRoles.Admins)) {
+              handleSubmit(
+                { id: props.selectedItem?.id, situation: "livre", reservedFor: "", reservedForContact: "" },
+                Methods.PUT
+              );
+              setPurchased(null);
+              props.setStage(null);
+              props.setResponsesPopup(StatusResponses.Loading);
             } else {
               props.setError(true);
             }

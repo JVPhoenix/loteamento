@@ -1,4 +1,4 @@
-import { PageSelector } from "@/types";
+import { PageSelector, UserRoles } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -14,7 +14,13 @@ interface HeaderInterface {
 }
 
 export default function Header(props: HeaderInterface) {
-  const { user, error, isLoading } = useUser();
+  const { user, isLoading } = useUser();
+  const checkRoles = (role: string) => {
+    if (user) {
+      const userRoles: any = user.userRoles;
+      return userRoles.includes(role) ? true : false;
+    }
+  };
 
   const [toggleEtapas, setToggleEtapas] = useState<boolean>(false);
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
@@ -249,7 +255,8 @@ export default function Header(props: HeaderInterface) {
                   togglePanel && "flex flex-col"
                 )}
               >
-                {props.page !== PageSelector.AdminLogin && (
+                {/* ADMINS & AGENTS - OPTIONS */}
+                {(checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Agents)) && (
                   <>
                     {props.page !== PageSelector.AdminSearch && (
                       <Link
@@ -260,42 +267,6 @@ export default function Header(props: HeaderInterface) {
                         href={PageSelector.AdminSearch}
                       >
                         <h1>BUSCAR CLIENTE</h1>
-                      </Link>
-                    )}
-
-                    {props.page !== PageSelector.AdminReadjustClient && (
-                      <Link
-                        className={twMerge(
-                          "ease-in-out duration-200 text-center cursor-pointer",
-                          "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
-                        )}
-                        href={PageSelector.AdminReadjustClient}
-                      >
-                        <h1>REAJUSTE - CLIENTE</h1>
-                      </Link>
-                    )}
-
-                    {props.page !== PageSelector.AdminReadjustSimulate && (
-                      <Link
-                        className={twMerge(
-                          "ease-in-out duration-200 text-center cursor-pointer",
-                          "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
-                        )}
-                        href={PageSelector.AdminReadjustSimulate}
-                      >
-                        <h1>SIMULAR REAJUSTE</h1>
-                      </Link>
-                    )}
-
-                    {props.page !== PageSelector.AdminPersonalizedQuote && (
-                      <Link
-                        className={twMerge(
-                          "ease-in-out duration-200 text-center cursor-pointer",
-                          "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
-                        )}
-                        href={PageSelector.AdminPersonalizedQuote}
-                      >
-                        <h1>ORÇAMENTO PERSONALIZADO</h1>
                       </Link>
                     )}
 
@@ -320,6 +291,42 @@ export default function Header(props: HeaderInterface) {
                         href={PageSelector.AdminEditReservations}
                       >
                         <h1>MODIFICAR RESERVAS</h1>
+                      </Link>
+                    )}
+
+                    {props.page !== PageSelector.AdminPersonalizedQuote && (
+                      <Link
+                        className={twMerge(
+                          "ease-in-out duration-200 text-center cursor-pointer",
+                          "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
+                        )}
+                        href={PageSelector.AdminPersonalizedQuote}
+                      >
+                        <h1>ORÇAMENTO PERSONALIZADO</h1>
+                      </Link>
+                    )}
+
+                    {props.page !== PageSelector.AdminReadjustSimulate && (
+                      <Link
+                        className={twMerge(
+                          "ease-in-out duration-200 text-center cursor-pointer",
+                          "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
+                        )}
+                        href={PageSelector.AdminReadjustSimulate}
+                      >
+                        <h1>SIMULAR REAJUSTE</h1>
+                      </Link>
+                    )}
+
+                    {props.page !== PageSelector.AdminReadjustClient && (
+                      <Link
+                        className={twMerge(
+                          "ease-in-out duration-200 text-center cursor-pointer",
+                          "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
+                        )}
+                        href={PageSelector.AdminReadjustClient}
+                      >
+                        <h1>REAJUSTE DE CLIENTE</h1>
                       </Link>
                     )}
                   </>

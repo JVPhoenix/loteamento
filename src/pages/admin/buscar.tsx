@@ -5,7 +5,7 @@ import ClientPageContent from "@/components/client/ClientPageContent";
 import Footer from "@/components/home/Footer";
 import Header from "@/components/home/Header";
 import { useClientsData } from "@/context/ClientsDataContext";
-import { ClientsDataInterface, FilterSelector, Methods, PageSelector, StatusResponses } from "@/types";
+import { ClientsDataInterface, FilterSelector, Methods, PageSelector, StatusResponses, UserRoles } from "@/types";
 import { useEffect, useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { twMerge } from "tailwind-merge";
@@ -14,6 +14,13 @@ import { Button } from "@/components/utils/Button";
 
 export default function Search() {
   const { user, isLoading } = useUser();
+  const checkRoles = (role: string) => {
+    if (user) {
+      const userRoles: any = user.userRoles;
+      return userRoles.includes(role) ? true : false;
+    }
+  };
+
   const { clientsData, clientsResponseData, handleSubmit, setClientsResponseData } = useClientsData();
 
   // HANDLES useState SECTION
@@ -130,7 +137,7 @@ export default function Search() {
       </div>
       {!isLoading && (
         <>
-          {user ? (
+          {user && checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Agents) ? (
             <>
               <div
                 className="flex flex-col m-auto py-6 items-center"
@@ -182,6 +189,8 @@ export default function Search() {
                   />
                 )}
               </div>
+
+              {/* POPUP EDIT DIV */}
               <div
                 className={twMerge(
                   "absolute hidden flex-col gap-5 items-center justify-center w-full h-full",

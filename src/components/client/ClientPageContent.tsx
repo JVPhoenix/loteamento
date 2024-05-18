@@ -1,4 +1,4 @@
-import { ClientsDataInterface, Methods, PageSelector, PlansSelector } from "@/types";
+import { ClientsDataInterface, Methods, PageSelector, PlansSelector, UserRoles } from "@/types";
 import { twMerge } from "tailwind-merge";
 import {
   ContractIcon,
@@ -23,6 +23,7 @@ import ClientPageContentUser from "./ClientPageContentUser";
 import ClientCheckExpire from "./ClientCheckExpire";
 import { Button } from "../utils/Button";
 import ClientPagePaymentList from "./ClientPagePaymentList";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 interface ClientPageInfoInterface {
   data: ClientsDataInterface;
@@ -32,6 +33,13 @@ interface ClientPageInfoInterface {
 }
 
 export default function ClientPageContent(props: ClientPageInfoInterface) {
+  const { user } = useUser();
+  const checkRoles = (role: string) => {
+    if (user) {
+      const userRoles: any = user.userRoles;
+      return userRoles.includes(role) ? true : false;
+    }
+  };
   const startDate = new Date(props.data.startDate.split("-").reverse().join("-"));
   const expireDay = startDate.getDate() + 1;
 
@@ -108,7 +116,7 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                   {props.data.obs}
                 </h1>
               </div>
-              {props.page !== PageSelector.ClientSearch && (
+              {props.page !== PageSelector.ClientSearch && checkRoles(UserRoles.Admins) &&  (
                 <div className="flex flex-col gap-3">
                   <DeleteIcon
                     className="hover:fill-red-500 hover:scale-125 ease-in-out duration-200 active:scale-95 select-none cursor-pointer"
@@ -131,7 +139,7 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                 </div>
               )}
             </div>
-          ) : !props.data.obs && props.page !== PageSelector.ClientSearch ? (
+          ) : !props.data.obs && props.page !== PageSelector.ClientSearch && checkRoles(UserRoles.Admins) ? (
             <Button
               className="flex items-center gap-2 leading-tight group mb-2"
               onClick={() =>

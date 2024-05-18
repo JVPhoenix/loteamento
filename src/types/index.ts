@@ -132,3 +132,9 @@ export enum StatusResponses {
   Success = 200,
   Failure = 400,
 }
+
+export enum UserRoles {
+  Admins = "Administrador",
+  Agents = "Vendas",
+  Users = "Usuário"
+}
