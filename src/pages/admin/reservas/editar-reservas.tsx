@@ -85,7 +85,7 @@ export default function AdminShowReservations() {
       onMouseMove={() =>
         setTimeout(() => {
           !actionType && responsesPopup && setResponsesPopup(null);
-        }, 10000)
+        }, 3000)
       }
     >
       <div className="w-full h-full">

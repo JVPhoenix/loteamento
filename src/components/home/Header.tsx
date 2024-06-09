@@ -75,18 +75,38 @@ export default function Header(props: HeaderInterface) {
       return "Etapa 4";
     } else if (props.page === PageSelector.ClientSearch) {
       return "Área do Cliente";
-    } else if (props.page === PageSelector.AdminSearch) {
+    } else if (
+      (checkRoles(UserRoles.Agents) || checkRoles(UserRoles.Admins)) &&
+      props.page === PageSelector.AdminSearch
+    ) {
       return "Buscar Cliente";
-    } else if (props.page === PageSelector.AdminReadjustClient) {
+    } else if (
+      (checkRoles(UserRoles.Agents) || checkRoles(UserRoles.Admins)) &&
+      props.page === PageSelector.AdminReadjustClient
+    ) {
       return "Simular Reajuste - Cliente";
-    } else if (props.page === PageSelector.AdminReadjustSimulate) {
+    } else if (
+      (checkRoles(UserRoles.Agents) || checkRoles(UserRoles.Admins)) &&
+      props.page === PageSelector.AdminReadjustSimulate
+    ) {
       return "Simular Reajuste - Lote";
-    } else if (props.page === PageSelector.AdminPersonalizedQuote) {
+    } else if (
+      (checkRoles(UserRoles.Agents) || checkRoles(UserRoles.Admins)) &&
+      props.page === PageSelector.AdminPersonalizedQuote
+    ) {
       return "Orçamento Personalizado";
-    } else if (props.page === PageSelector.AdminShowReservations) {
+    } else if (
+      (checkRoles(UserRoles.Agents) || checkRoles(UserRoles.Admins)) &&
+      props.page === PageSelector.AdminShowReservations
+    ) {
       return "Ver Reservas";
-    } else if (props.page === PageSelector.AdminEditReservations) {
+    } else if (
+      (checkRoles(UserRoles.Agents) || checkRoles(UserRoles.Admins)) &&
+      props.page === PageSelector.AdminEditReservations
+    ) {
       return "Editar Reservas";
+    } else {
+      return "ERRO - Sem Acesso";
     }
   };
 
@@ -102,7 +122,7 @@ export default function Header(props: HeaderInterface) {
         {props.page === PageSelector.HomePage ? (
           <title>Loteamento R. Martins</title>
         ) : (
-          <title>{isLoading ? "Carregando..." : `${user ? handlePageHeader() : "ERRO - Sem Acesso"}`}</title>
+          <title>{isLoading ? "Carregando..." : handlePageHeader()}</title>
         )}
       </Head>
       <Link href={PageSelector.HomePage}>

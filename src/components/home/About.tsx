@@ -46,7 +46,7 @@ export default function About() {
             </p>
             <p>
               2 - Pagamentos <strong>A PRAZO</strong>, com entrada de <strong> 10% do valor do lote, </strong>
-              pagos em dinheiro, pix ou cartão (com acréscimo), com parcelas de até 48x.
+              pagos em dinheiro, pix ou cartão (com acréscimo), com parcelas de até 60x.
             </p>
             <span>
               As parcelas serão emitidas em um <strong>carnê</strong>, que é pago em nosso escritório com dinheiro em

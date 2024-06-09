@@ -173,7 +173,7 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
               )}
             >
               <h1 className="text-green-600 text-xl response:text-2xl font-bold ">LOCALIZAÇÃO</h1>
-              <div className="flex flex-col pb-5 response:flex-row response:gap-4">
+              <div className="flex flex-col pb-5 response:flex-row response:gap-4 text-left">
                 <div>
                   <div className="flex leading-tight items-center gap-1">
                     <div>
@@ -205,7 +205,7 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                     <div>
                       <DimensionIcon className="" width={50} fill="white" stroke="none" />
                     </div>
-                    <h1 className="leading-none response:w-64">
+                    <h1 className="leading-tight response:w-64">
                       <b>Dimensão: </b>
                       {props.data.dimension}
                     </h1>

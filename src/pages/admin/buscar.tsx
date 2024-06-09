@@ -131,22 +131,22 @@ export default function Search() {
   }, [clientsResponseData]);
 
   return (
-    <div className="flex flex-col w-full min-h-screen bg-black1 text-lg text-white relative">
+    <div
+      className="flex flex-col w-full min-h-screen bg-black1 text-lg text-white relative"
+      onMouseMove={() =>
+        setTimeout(() => {
+          !actionType && responsesPopup && setResponsesPopup(null);
+        }, 3000)
+      }
+    >
       <div className="w-full h-full">
         <Header page={PageSelector.AdminSearch} />
       </div>
       {!isLoading && (
         <>
-          {user && checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Agents) ? (
+          {(user && checkRoles(UserRoles.Admins)) || checkRoles(UserRoles.Agents) ? (
             <>
-              <div
-                className="flex flex-col m-auto py-6 items-center"
-                onMouseMove={() =>
-                  setTimeout(() => {
-                    !actionType && responsesPopup && setResponsesPopup(null);
-                  }, 10000)
-                }
-              >
+              <div className="flex flex-col m-auto py-6 items-center">
                 <div className="flex flex-col items-center">
                   <AdminSearchFilters
                     state={state}
