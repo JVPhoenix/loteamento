@@ -72,23 +72,24 @@ export default function ClientPagePaymentList(props: ClientPagePaymentListInterf
       {showPaymentList && (
         <>
           {showList()}
-          {props.page === PageSelector.AdminSearch && checkRoles(UserRoles.Admins) && (
-            <Button
-              className="flex items-center gap-2 leading-tight group mt-5"
-              onClick={() => props.handleActionType && props.handleActionType(Methods.Payment_NEW, "DateCenter")}
-            >
-              <div>
-                <AddIcon
-                  className="fill-white group-hover:fill-[#FACC15] ease-in-out duration-200"
-                  width={30}
-                  stroke="none"
-                />
-              </div>
-              <h1 className="text-justify max-w-md">
-                <b>Adicionar Pagamento</b>
-              </h1>
-            </Button>
-          )}
+          {props.page === PageSelector.AdminSearch &&
+            (checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) && (
+              <Button
+                className="flex items-center gap-2 leading-tight group mt-5"
+                onClick={() => props.handleActionType && props.handleActionType(Methods.Payment_NEW, "DateCenter")}
+              >
+                <div>
+                  <AddIcon
+                    className="fill-white group-hover:fill-[#FACC15] ease-in-out duration-200"
+                    width={30}
+                    stroke="none"
+                  />
+                </div>
+                <h1 className="text-justify max-w-md">
+                  <b>Adicionar Pagamento</b>
+                </h1>
+              </Button>
+            )}
         </>
       )}
     </>

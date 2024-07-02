@@ -93,7 +93,7 @@ export default function AdminShowReservations() {
       </div>
       {!isLoading && (
         <>
-          {(user && checkRoles(UserRoles.Admins)) || checkRoles(UserRoles.Agents) ? (
+          {(user && checkRoles(UserRoles.Admins)) || checkRoles(UserRoles.Sales) ? (
             <>
               {/* ACTION TYPE SELECTOR - MAIN PAGE*/}
               <div className="flex flex-col m-auto items-center px-3">

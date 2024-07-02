@@ -144,7 +144,7 @@ export default function Search() {
       </div>
       {!isLoading && (
         <>
-          {(user && checkRoles(UserRoles.Admins)) || checkRoles(UserRoles.Agents) ? (
+          {(user && checkRoles(UserRoles.Admins)) || checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Employee) ? (
             <>
               <div className="flex flex-col m-auto py-6 items-center">
                 <div className="flex flex-col items-center">

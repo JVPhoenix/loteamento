@@ -11,11 +11,11 @@ export enum PageSelector {
   AdminLogin = "/api/auth/login",
   AdminLogout = "/api/auth/logout",
   AdminSearch = "/admin/buscar",
-  AdminReadjustClient = "/admin/reajustecliente",
-  AdminReadjustSimulate = "/admin/reajustesimular",
-  AdminPersonalizedQuote = "/admin/orcamentos-personalizados",
+  AdminReadjustClient = "/admin/reajuste/reajuste-de-cliente",
+  AdminReadjustSimulate = "/admin/reajuste/simular-reajuste",
   AdminShowReservations = "/admin/reservas/ver-reservas",
   AdminEditReservations = "/admin/reservas/editar-reservas",
+  AdminPersonalizedQuote = "/admin/orcamentos-personalizados",
 }
 
 export enum PlansSelector {
@@ -135,6 +135,7 @@ export enum StatusResponses {
 
 export enum UserRoles {
   Admins = "Administrador",
-  Agents = "Vendas",
-  Users = "Usuário"
+  Employee = "Funcionário",
+  Sales = "Vendas",
+  Users = "Usuário",
 }

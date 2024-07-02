@@ -134,7 +134,7 @@ export default function AdminDeleteReservation(props: AdminDeleteReservationInte
                 props.setStage(null);
                 props.setResponsesPopup(StatusResponses.Loading);
               }
-            } else if (checkRoles(UserRoles.Agents) && !checkRoles(UserRoles.Admins)) {
+            } else if (checkRoles(UserRoles.Sales) && !checkRoles(UserRoles.Admins)) {
               handleSubmit(
                 { id: props.selectedItem?.id, situation: "livre", reservedFor: "", reservedForContact: "" },
                 Methods.PUT

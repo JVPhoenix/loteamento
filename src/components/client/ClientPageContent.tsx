@@ -116,35 +116,35 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                   {props.data.obs}
                 </h1>
               </div>
-              {props.page !== PageSelector.ClientSearch && checkRoles(UserRoles.Admins) &&  (
-                <div className="flex flex-col gap-3">
-                  <DeleteIcon
-                    className="hover:fill-red-500 hover:scale-125 ease-in-out duration-200 active:scale-95 select-none cursor-pointer"
-                    fill="white"
-                    width={30}
-                    onClick={() =>
-                      props.handleActionType &&
-                      (props.handleActionType(Methods.Observation_DELETE, "DeleteConfirm"))
-                    }
-                  />
-                  <EditIcon
-                    className="hover:fill-blue-500 hover:scale-125 ease-in-out duration-200 active:scale-95 select-none cursor-pointer"
-                    fill="white"
-                    width={30}
-                    onClick={() =>
-                      props.handleActionType &&
-                      (props.handleActionType(Methods.Observation_EDIT, "ObservationCenter"))
-                    }
-                  />
-                </div>
-              )}
+              {props.page !== PageSelector.ClientSearch &&
+                (checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) && (
+                  <div className="flex flex-col gap-3">
+                    <DeleteIcon
+                      className="hover:fill-red-500 hover:scale-125 ease-in-out duration-200 active:scale-95 select-none cursor-pointer"
+                      fill="white"
+                      width={30}
+                      onClick={() =>
+                        props.handleActionType && props.handleActionType(Methods.Observation_DELETE, "DeleteConfirm")
+                      }
+                    />
+                    <EditIcon
+                      className="hover:fill-blue-500 hover:scale-125 ease-in-out duration-200 active:scale-95 select-none cursor-pointer"
+                      fill="white"
+                      width={30}
+                      onClick={() =>
+                        props.handleActionType && props.handleActionType(Methods.Observation_EDIT, "ObservationCenter")
+                      }
+                    />
+                  </div>
+                )}
             </div>
-          ) : !props.data.obs && props.page !== PageSelector.ClientSearch && checkRoles(UserRoles.Admins) ? (
+          ) : !props.data.obs &&
+            props.page !== PageSelector.ClientSearch &&
+            (checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) ? (
             <Button
               className="flex items-center gap-2 leading-tight group mb-2"
               onClick={() =>
-                props.handleActionType &&
-                (props.handleActionType(Methods.Observation_NEW, "ObservationCenter"))
+                props.handleActionType && props.handleActionType(Methods.Observation_NEW, "ObservationCenter")
               }
             >
               <div>

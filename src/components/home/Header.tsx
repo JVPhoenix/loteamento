@@ -8,7 +8,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import Head from "next/head";
 
 interface HeaderInterface {
-  page: string;
+  page: string
   handleError?: () => void;
   setSelectedClient?: (selection: null) => void;
 }
@@ -76,32 +76,37 @@ export default function Header(props: HeaderInterface) {
     } else if (props.page === PageSelector.ClientSearch) {
       return "Área do Cliente";
     } else if (
-      (checkRoles(UserRoles.Agents) || checkRoles(UserRoles.Admins)) &&
-      props.page === PageSelector.AdminSearch
+      checkRoles(UserRoles.Sales) ||
+      checkRoles(UserRoles.Admins) ||
+      (checkRoles(UserRoles.Employee) && props.page === PageSelector.AdminSearch)
     ) {
       return "Buscar Cliente";
     } else if (
-      (checkRoles(UserRoles.Agents) || checkRoles(UserRoles.Admins)) &&
-      props.page === PageSelector.AdminReadjustClient
+      checkRoles(UserRoles.Sales) ||
+      checkRoles(UserRoles.Admins) ||
+      (checkRoles(UserRoles.Employee) && props.page === PageSelector.AdminReadjustClient)
     ) {
       return "Simular Reajuste - Cliente";
     } else if (
-      (checkRoles(UserRoles.Agents) || checkRoles(UserRoles.Admins)) &&
-      props.page === PageSelector.AdminReadjustSimulate
+      checkRoles(UserRoles.Sales) ||
+      checkRoles(UserRoles.Admins) ||
+      (checkRoles(UserRoles.Employee) && props.page === PageSelector.AdminReadjustSimulate)
     ) {
       return "Simular Reajuste - Lote";
     } else if (
-      (checkRoles(UserRoles.Agents) || checkRoles(UserRoles.Admins)) &&
-      props.page === PageSelector.AdminPersonalizedQuote
+      checkRoles(UserRoles.Sales) ||
+      checkRoles(UserRoles.Admins) ||
+      (checkRoles(UserRoles.Employee) && props.page === PageSelector.AdminPersonalizedQuote)
     ) {
       return "Orçamento Personalizado";
     } else if (
-      (checkRoles(UserRoles.Agents) || checkRoles(UserRoles.Admins)) &&
-      props.page === PageSelector.AdminShowReservations
+      checkRoles(UserRoles.Sales) ||
+      checkRoles(UserRoles.Admins) ||
+      (checkRoles(UserRoles.Employee) && props.page === PageSelector.AdminShowReservations)
     ) {
       return "Ver Reservas";
     } else if (
-      (checkRoles(UserRoles.Agents) || checkRoles(UserRoles.Admins)) &&
+      (checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Admins)) &&
       props.page === PageSelector.AdminEditReservations
     ) {
       return "Editar Reservas";
@@ -276,7 +281,7 @@ export default function Header(props: HeaderInterface) {
                 )}
               >
                 {/* ADMINS & AGENTS - OPTIONS */}
-                {(checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Agents)) && (
+                {(checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Employee)) && (
                   <>
                     {props.page !== PageSelector.AdminSearch && (
                       <Link
@@ -302,16 +307,20 @@ export default function Header(props: HeaderInterface) {
                       </Link>
                     )}
 
-                    {props.page !== PageSelector.AdminEditReservations && (
-                      <Link
-                        className={twMerge(
-                          "ease-in-out duration-200 text-center cursor-pointer",
-                          "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
+                    {!checkRoles(UserRoles.Employee) && (
+                      <>
+                        {props.page !== PageSelector.AdminEditReservations && (
+                          <Link
+                            className={twMerge(
+                              "ease-in-out duration-200 text-center cursor-pointer",
+                              "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
+                            )}
+                            href={PageSelector.AdminEditReservations}
+                          >
+                            <h1>MODIFICAR RESERVAS</h1>
+                          </Link>
                         )}
-                        href={PageSelector.AdminEditReservations}
-                      >
-                        <h1>MODIFICAR RESERVAS</h1>
-                      </Link>
+                      </>
                     )}
 
                     {props.page !== PageSelector.AdminPersonalizedQuote && (
