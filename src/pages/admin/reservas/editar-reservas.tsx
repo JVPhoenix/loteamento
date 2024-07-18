@@ -95,7 +95,7 @@ export default function AdminShowReservations() {
       </div>
       {!isLoading && (
         <>
-          {(user && checkRoles(UserRoles.Admins)) || checkRoles(UserRoles.Sales) ? (
+          {(user && checkRoles(UserRoles.Admins)) || checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Employee) ? (
             <>
               {/* ACTION TYPE SELECTOR - MAIN PAGE*/}
               <div className="flex flex-col m-auto items-center px-3">
@@ -186,7 +186,7 @@ export default function AdminShowReservations() {
                           }
                         })
                         .filter((value) => {
-                          if (checkRoles(UserRoles.Admins)) {
+                          if (checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) {
                             return value;
                           } else {
                             return value.situation === LotesStatus.Blocked

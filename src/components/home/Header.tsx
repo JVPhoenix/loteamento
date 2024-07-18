@@ -101,10 +101,10 @@ export default function Header(props: HeaderInterface) {
     ) {
       return "Ver Reservas";
     } else if (
-      (checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Admins)) &&
+      (checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) &&
       props.page === PageSelector.AdminEditReservations
     ) {
-      return "Editar Reservas";
+      return "Modificar Reservas";
     } else if (checkRoles(UserRoles.Admins) && props.page === PageSelector.AdminNewClient) {
       return "Novo Cliente";
     } else {
@@ -304,7 +304,9 @@ export default function Header(props: HeaderInterface) {
                       </Link>
                     )}
 
-                    {!checkRoles(UserRoles.Employee) && (
+                    {(checkRoles(UserRoles.Admins) ||
+                      checkRoles(UserRoles.Employee) ||
+                      checkRoles(UserRoles.Sales)) && (
                       <>
                         {props.page !== PageSelector.AdminEditReservations && (
                           <Link

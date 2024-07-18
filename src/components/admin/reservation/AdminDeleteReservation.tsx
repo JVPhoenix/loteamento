@@ -30,6 +30,7 @@ export default function AdminDeleteReservation(props: AdminDeleteReservationInte
   const handlePurchased = (newState: boolean) => {
     setPurchased((state) => (state === newState ? null : newState));
   };
+
   return (
     <>
       <h1 className="text-green-600 text-xl response:text-2xl font-bold">DADOS DA RESERVA</h1>
@@ -66,7 +67,7 @@ export default function AdminDeleteReservation(props: AdminDeleteReservationInte
         </h1>
       </div>
 
-      {checkRoles(UserRoles.Admins) && (
+      {(checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) && (
         <div className="flex flex-col leading-tight m-auto items-center gap-1 mb-3">
           <h1 className="text-green-600 text-xl response:text-2xl font-bold"> O LOTE FOI VENDIDO? </h1>
           <div className="flex gap-5 items-center">
@@ -113,7 +114,7 @@ export default function AdminDeleteReservation(props: AdminDeleteReservationInte
         <Button
           className={twMerge("hover:text-green-500 hover:border-green-500")}
           onClick={() => {
-            if (purchased !== null && checkRoles(UserRoles.Admins)) {
+            if (purchased !== null && (checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee))) {
               if (purchased === true) {
                 handleSubmit(
                   {
