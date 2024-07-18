@@ -2,7 +2,7 @@ import { ClientsDataInterface, Methods } from "@/types";
 import React, { createContext, useContext, useState, useEffect, Dispatch } from "react";
 
 interface ClientsSUBMIT {
-  id: string | undefined;
+  id?: string | undefined;
   name?: string;
   cpf?: string;
   birth?: string;

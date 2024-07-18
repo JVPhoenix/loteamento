@@ -8,7 +8,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import Head from "next/head";
 
 interface HeaderInterface {
-  page: string
+  page: string;
   handleError?: () => void;
   setSelectedClient?: (selection: null) => void;
 }
@@ -76,33 +76,28 @@ export default function Header(props: HeaderInterface) {
     } else if (props.page === PageSelector.ClientSearch) {
       return "Área do Cliente";
     } else if (
-      checkRoles(UserRoles.Sales) ||
-      checkRoles(UserRoles.Admins) ||
-      (checkRoles(UserRoles.Employee) && props.page === PageSelector.AdminSearch)
+      (checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) &&
+      props.page === PageSelector.AdminSearch
     ) {
       return "Buscar Cliente";
     } else if (
-      checkRoles(UserRoles.Sales) ||
-      checkRoles(UserRoles.Admins) ||
-      (checkRoles(UserRoles.Employee) && props.page === PageSelector.AdminReadjustClient)
+      (checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) &&
+      props.page === PageSelector.AdminReadjustClient
     ) {
       return "Simular Reajuste - Cliente";
     } else if (
-      checkRoles(UserRoles.Sales) ||
-      checkRoles(UserRoles.Admins) ||
-      (checkRoles(UserRoles.Employee) && props.page === PageSelector.AdminReadjustSimulate)
+      (checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) &&
+      props.page === PageSelector.AdminReadjustSimulate
     ) {
       return "Simular Reajuste - Lote";
     } else if (
-      checkRoles(UserRoles.Sales) ||
-      checkRoles(UserRoles.Admins) ||
-      (checkRoles(UserRoles.Employee) && props.page === PageSelector.AdminPersonalizedQuote)
+      (checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) &&
+      props.page === PageSelector.AdminPersonalizedQuote
     ) {
       return "Orçamento Personalizado";
     } else if (
-      checkRoles(UserRoles.Sales) ||
-      checkRoles(UserRoles.Admins) ||
-      (checkRoles(UserRoles.Employee) && props.page === PageSelector.AdminShowReservations)
+      (checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) &&
+      props.page === PageSelector.AdminShowReservations
     ) {
       return "Ver Reservas";
     } else if (
@@ -110,6 +105,8 @@ export default function Header(props: HeaderInterface) {
       props.page === PageSelector.AdminEditReservations
     ) {
       return "Editar Reservas";
+    } else if (checkRoles(UserRoles.Admins) && props.page === PageSelector.AdminNewClient) {
+      return "Novo Cliente";
     } else {
       return "ERRO - Sem Acesso";
     }

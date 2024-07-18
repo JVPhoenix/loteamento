@@ -16,6 +16,7 @@ export enum PageSelector {
   AdminShowReservations = "/admin/reservas/ver-reservas",
   AdminEditReservations = "/admin/reservas/editar-reservas",
   AdminPersonalizedQuote = "/admin/orcamentos-personalizados",
+  AdminNewClient = "/admin/novo-cliente"
 }
 
 export enum PlansSelector {
@@ -125,6 +126,7 @@ export enum Methods {
   Payment_NEW = "Pay_POST",
   Payment_EDIT = "Pay_PUT",
   Payment_DELETE = "Pay_DELETE",
+  Client_DELETE = "Client_DELETE",
 }
 
 export enum StatusResponses {

@@ -9,8 +9,11 @@ import { ClientsDataInterface, FilterSelector, Methods, PageSelector, StatusResp
 import { useEffect, useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { twMerge } from "tailwind-merge";
-import { CloseIcon, LoadingIcon } from "@/components/utils/Icons";
+import { CloseIcon } from "@/components/utils/Icons";
 import { Button } from "@/components/utils/Button";
+import Link from "next/link";
+import LoadingStatus from "@/components/utils/LoadingStatus";
+import StatusPopup from "@/components/utils/StatusPopup";
 
 export default function Search() {
   const { user, isLoading } = useUser();
@@ -146,6 +149,7 @@ export default function Search() {
         <>
           {(user && checkRoles(UserRoles.Admins)) || checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Employee) ? (
             <>
+              {/* PAGE CONTENT */}
               <div className="flex flex-col m-auto py-6 items-center">
                 <div className="flex flex-col items-center">
                   <AdminSearchFilters
@@ -169,17 +173,7 @@ export default function Search() {
                   />
                 </div>
 
-                {responsesPopup === StatusResponses.Success ? (
-                  <h1 className="text-green-500 p-3">
-                    A ação foi executada com <b>com sucesso!</b>
-                  </h1>
-                ) : (
-                  responsesPopup === StatusResponses.Failure && (
-                    <h1 className="text-red-500 p-3">
-                      <b>ERRO:</b> Não foi possível executar tal ação!
-                    </h1>
-                  )
-                )}
+                <StatusPopup responsesPopup={responsesPopup} />
 
                 {selectedClient && (
                   <ClientPageContent
@@ -188,6 +182,29 @@ export default function Search() {
                     handleActionType={handleActionType}
                   />
                 )}
+                {checkRoles(UserRoles.Admins) &&
+                  (selectedClient ? (
+                    <Button
+                      className={twMerge(
+                        "mt-4 hover:text-green-500 hover:border-green-500",
+                        selectedClient && "hover:text-red-500 hover:border-red-500"
+                      )}
+                      onClick={() => handleActionType(Methods.Client_DELETE, "DeleteConfirm")}
+                    >
+                      Deletar este Cliente
+                    </Button>
+                  ) : (
+                    <Link href={PageSelector.AdminNewClient}>
+                      <Button
+                        className={twMerge(
+                          "mt-4 hover:text-green-500 hover:border-green-500",
+                          selectedClient && "hover:text-red-500 hover:border-red-500"
+                        )}
+                      >
+                        Adicionar um novo Cliente
+                      </Button>
+                    </Link>
+                  ))}
               </div>
 
               {/* POPUP EDIT DIV */}
@@ -214,10 +231,7 @@ export default function Search() {
                 </div>
 
                 {responsesPopup === StatusResponses.Loading ? (
-                  <div className="flex items-center justify-center text-white gap-2 text-3xl">
-                    <LoadingIcon width={20} className="text-gray-200 animate-spin fill-red-600" />
-                    <h1>Carregando, aguarde!</h1>
-                  </div>
+                  <LoadingStatus />
                 ) : (
                   <>
                     <div className="flex text-center">
@@ -234,13 +248,16 @@ export default function Search() {
                           ? "EDITAR DATA DE PAGAMENTO"
                           : actionType === Methods.Payment_NEW
                           ? "INSIRA A DATA DO PAGAMENTO"
+                          : actionType === Methods.Client_DELETE
+                          ? "DESEJA MESMO DELETAR ESTE CLIENTE?"
                           : null}
                       </h1>
                     </div>
                     {actionType !== Methods.Observation_DELETE &&
                       actionType !== Methods.Payment_NEW &&
                       actionType !== Methods.Payment_DELETE &&
-                      actionType !== Methods.Payment_EDIT && (
+                      actionType !== Methods.Payment_EDIT &&
+                      actionType !== Methods.Client_DELETE && (
                         <>
                           <textarea
                             value={editObs ? editObs : ""}
@@ -266,7 +283,8 @@ export default function Search() {
                     {actionType !== Methods.Observation_NEW &&
                       actionType !== Methods.Observation_DELETE &&
                       actionType !== Methods.Observation_EDIT &&
-                      actionType !== Methods.Payment_DELETE && (
+                      actionType !== Methods.Payment_DELETE &&
+                      actionType !== Methods.Client_DELETE && (
                         <>
                           <input
                             type="date"
@@ -276,13 +294,13 @@ export default function Search() {
                             className={twMerge(
                               "placeholder:text-center text-justify rounded-lg text-black",
                               "p-2 border-4 border-white",
-                              editObs === "" && error && "border-red-500"
+                              paymentInsert === "" && error && "border-red-500"
                             )}
                           />
                           <b
                             className={twMerge(
                               "invisible text-red-500 text-sm",
-                              editObs === "" && error && "visible animate-pulse"
+                              paymentInsert === "" && error && "visible animate-pulse"
                             )}
                             id="DateCenter"
                           >
@@ -293,7 +311,7 @@ export default function Search() {
 
                     <div className="flex gap-4" id="DeleteConfirm">
                       <Button
-                        className={twMerge("hover:text-green-500 hover:border-green-500")}
+                        className="hover:text-green-500 hover:border-green-500"
                         onClick={() => {
                           // Condition to: DELETE OBS - SUBMIT
                           if (actionType === Methods.Observation_DELETE) {
@@ -343,6 +361,11 @@ export default function Search() {
                               setError(true);
                             }
 
+                            // Condition To: DELETE A CLIENT - SUBMIT
+                          } else if (actionType === Methods.Client_DELETE) {
+                            handleSubmit({ id: selectedClient?.id }, Methods.DELETE);
+                            setResponsesPopup(StatusResponses.Loading);
+
                             // Condition to: Any of above works, sends a failure message.
                           } else {
                             setResponsesPopup(StatusResponses.Failure);
@@ -352,7 +375,7 @@ export default function Search() {
                         <h1> Confirmar </h1>
                       </Button>
                       <Button
-                        className={twMerge("hover:text-red-500 hover:border-red-500")}
+                        className="hover:text-red-500 hover:border-red-500"
                         onClick={() => {
                           setActionType(null);
                           setResponsesPopup(null);

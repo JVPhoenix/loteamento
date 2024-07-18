@@ -15,12 +15,14 @@ import { useEffect, useState } from "react";
 import { useLotesData } from "@/context/LotesDataContext";
 import { Button } from "@/components/utils/Button";
 import { twMerge } from "tailwind-merge";
-import { CloseIcon, LoadingIcon } from "@/components/utils/Icons";
+import { CloseIcon } from "@/components/utils/Icons";
 import AdminReservationsSelect from "@/components/admin/reservation/AdminReservationsSelect";
 import AdminDeleteReservation from "@/components/admin/reservation/AdminDeleteReservation";
 import AdminCreateReservation from "@/components/admin/reservation/AdminCreateReservation";
 import AdminUpdateReservation from "@/components/admin/reservation/AdminUpdateReservation";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import StatusPopup from "@/components/utils/StatusPopup";
+import LoadingStatus from "@/components/utils/LoadingStatus";
 
 export default function AdminShowReservations() {
   const { user, isLoading } = useUser();
@@ -152,17 +154,7 @@ export default function AdminShowReservations() {
                     <h1> Remover uma reserva </h1>
                   </Button>
                 </div>
-                {responsesPopup === StatusResponses.Success ? (
-                  <h1 className="text-green-500 p-3">
-                    A ação foi executada com <b>com sucesso!</b>
-                  </h1>
-                ) : (
-                  responsesPopup === StatusResponses.Failure && (
-                    <h1 className="text-red-500 p-3">
-                      <b>ERRO:</b> Não foi possível executar tal ação!
-                    </h1>
-                  )
-                )}
+                <StatusPopup responsesPopup={responsesPopup} />
               </div>
 
               {/* POP-UP PAGE */}
@@ -201,7 +193,8 @@ export default function AdminShowReservations() {
                               ? value.reservedBy === user?.name?.split(" ")[0] && value
                               : value;
                           }
-                        }).sort((a, b) => a.value - b.value)}
+                        })
+                        .sort((a, b) => a.value - b.value)}
                       placeholder={"Digite o Lote ou o Nome do Cliente"}
                       onChange={(selection: LotesDataInterface | null) => setSelectedItem(selection)}
                       lotesStatus={lotesStatus}
@@ -210,10 +203,7 @@ export default function AdminShowReservations() {
                   </div>
 
                   {responsesPopup === StatusResponses.Loading ? (
-                    <div className="flex items-center justify-center text-white gap-2 text-3xl">
-                      <LoadingIcon width={20} className="text-gray-200 animate-spin fill-red-600" />
-                      <h1>Carregando, aguarde!</h1>
-                    </div>
+                    <LoadingStatus />
                   ) : (
                     <>
                       {selectedItem && (

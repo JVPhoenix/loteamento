@@ -20,19 +20,22 @@ export default function AdminSearchFilters(props: AdminClientSelectInterface) {
       <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold select-none mb-2">
         {props.page === PageSelector.AdminReadjustClient || props.page === PageSelector.AdminSearch
           ? "SELECIONE UM CLIENTE"
-          : props.page === PageSelector.AdminReadjustSimulate
+          : props.page === PageSelector.AdminReadjustSimulate ||
+            (props.page === PageSelector.AdminNewClient && props.lotesStatus === LotesStatus.Free)
           ? "SELECIONE UMA ETAPA"
           : props.page === PageSelector.AdminShowReservations || props.lotesStatus === LotesStatus.Blocked
           ? "SELECIONE UMA RESERVA"
-          : props.page === PageSelector.AdminPersonalizedQuote ||
-            (props.lotesStatus === LotesStatus.Free && "COMPLETE OS CAMPOS ABAIXO")}
+          : props.page === PageSelector.AdminPersonalizedQuote || props.lotesStatus === LotesStatus.Free
+          ? "COMPLETE OS CAMPOS ABAIXO"
+          : null}
       </h1>
       <h1 className="text-white drop-shadow-titles text-xl response:text-2xl font-bold select-none mb-2">Filtros:</h1>
       <div className="flex flex-col gap-1 items-center response:flex-row response:gap-8 mb-2">
         {props.page !== PageSelector.AdminReadjustSimulate &&
           props.page !== PageSelector.AdminShowReservations &&
           props.page !== PageSelector.AdminEditReservations &&
-          props.page !== PageSelector.AdminPersonalizedQuote && (
+          props.page !== PageSelector.AdminPersonalizedQuote &&
+          props.page !== PageSelector.AdminNewClient && (
             <div className="flex flex-col items-center gap-3">
               <h1 className="text-white text-xl response:text-2xl font-bold select-none">Situação</h1>
               <div className="flex gap-3">
