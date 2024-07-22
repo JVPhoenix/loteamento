@@ -329,10 +329,10 @@ export default function NewClient() {
                           />
 
                           {/* SENT BUTTON */}
-                          <div className="flex gap-4">
+                          <div className="flex flex-col gap-2 items-center">
                             <div
                               className={twMerge(
-                                "font-bold text-gray1 w-auto p-4 select-none",
+                                "font-bold text-gray1 w-fit p-4 select-none",
                                 "ease-in-out duration-200 active:duration-100 cursor-not-allowed",
                                 "border border-solid rounded-tr-lg rounded-bl-lg rounded-tl-2xl rounded-br-2xl border-gray1",
                                 allDataInserted &&
@@ -362,11 +362,9 @@ export default function NewClient() {
                                       plan,
                                       startDate: handleStartDate(),
                                       standard: standard,
-                                      entrance: standardEntrance
+                                      entrance: !standardEntrance
                                         ? parseFloat(entrance.replace("R$", "").replaceAll(".", "").replace(",", "."))
-                                        : selectedItem
-                                        ? selectedItem?.price * 0.1
-                                        : 0,
+                                        : null,
                                       obs,
                                     },
                                     Methods.POST
@@ -377,6 +375,15 @@ export default function NewClient() {
                               }}
                             >
                               <h1> Criar Cliente </h1>
+                            </div>
+                            <div
+                              className={twMerge(
+                                "invisible text-red-500 text-sm text-center",
+                                !allDataInserted && error && "visible"
+                              )}
+                            >
+                              <b>ERRO!</b>
+                              <h1>Um ou mais campos estão em branco, complete todos os campos.</h1>
                             </div>
                           </div>
                         </>

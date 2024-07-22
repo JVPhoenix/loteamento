@@ -197,7 +197,7 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                     <div>
                       <LoteIcon className="" width={50} fill="white" stroke="none" />
                     </div>
-                    <h1>
+                    <h1 className="leading-tight response:w-64">
                       <b>Lote: </b> {props.data.lote}
                     </h1>
                   </div>

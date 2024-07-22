@@ -17,7 +17,7 @@ interface ClientsSUBMIT {
   startDate?: string;
   paymentList?: string[];
   standard?: boolean;
-  entrance?: number;
+  entrance?: number | null;
   obs?: string | null;
 }
 

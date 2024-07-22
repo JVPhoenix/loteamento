@@ -38,6 +38,8 @@ interface AdminNewClientInfosInterface {
 }
 
 export default function AdminNewClientInfos(props: AdminNewClientInfosInterface) {
+  const [onFocus, setOnFocus] = useState<boolean>(false);
+
   const [checkCpf, setCheckCpf] = useState<boolean>(false);
   const handleCpfMask = (value: string) => {
     value = value
@@ -92,6 +94,11 @@ export default function AdminNewClientInfos(props: AdminNewClientInfosInterface)
   const handleSpecial = (newState: boolean) => {
     props.setStandard((state) => (state === newState ? false : newState));
   };
+
+  const handleContractNumber = (rawValue: string) => {
+    const convertedValue = rawValue.substring(0, 4)
+    props.setContractNumber(convertedValue)
+  }
 
   return (
     // CLIENT INFOS
@@ -231,17 +238,26 @@ export default function AdminNewClientInfos(props: AdminNewClientInfosInterface)
       {/* CONTRACT NUMBER */}
       <div className="flex flex-col leading-tight items-center gap-1">
         <b className="text-sm">Numero do Contrato</b>
-        <div>
+        <div className="group">
           <input
             type="number"
-            onChange={(e) => props.setContractNumber(e.target.value)}
+            onChange={(e) => handleContractNumber(e.target.value)}
+            value={props.contractNumber}
+            onFocus={() => setOnFocus(true)}
+            onBlur={() => setOnFocus(false)}
             className={twMerge(
-              "text-center rounded-lg text-black p-2 border-4 border-white placeholder:text-black",
-              "group:hover:scale-110 focus:scale-110 ease-in-out duration-100 relative",
+              "relative text-center rounded-lg text-black p-2 border-4 border-white placeholder:text-black",
+              "group-hover:scale-110 ease-in-out duration-100 focus:scale-110",
               props.contractNumber === "" && props.error && "border-red-500 animate-pulse"
             )}
           />
-          <h1 className="relative left-[36px] -top-[35px] text-gray-400">
+          <h1
+            className={twMerge(
+              "relative left-[34px] -top-[34px] text-gray-400 pointer-events-none",
+              "group-hover:scale-110  ease-in-out duration-100",
+              onFocus && "scale-110"
+            )}
+          >
             {props.selectedItem?.phase === 1 ? "202208-" : props.selectedItem?.phase === 2 ? "202309-" : ""}
           </h1>
         </div>
