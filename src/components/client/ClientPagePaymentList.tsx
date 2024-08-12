@@ -30,7 +30,7 @@ export default function ClientPagePaymentList(props: ClientPagePaymentListInterf
       <>
         <div
           className={twMerge(
-            "flex flex-col flex-wrap gap-4 response:max-h-[600px] w-full items-center p-4",
+            "flex flex-col flex-wrap gap-4 response:max-h-[580px] w-full items-center p-4",
             "border border-yellow1 rounded-lg"
           )}
         >

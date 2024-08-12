@@ -75,8 +75,9 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
   const dateCompare = (startDate: string, returnType: PlansSelector) => {
     const today = new Date();
     const expireDate = new Date(startDate.split("-").reverse().join("-"));
+    const paymentList = props.data.paymentList[0] === "" ? 0 : props.data.paymentList.length;
 
-    expireDate.setMonth(expireDate.getMonth() + props.data.paymentList.length + 1); // set 1 moth later (30 days)
+    expireDate.setMonth(expireDate.getMonth() + paymentList + 1); // set 1 moth later (30 days)
     expireDate.setDate(expireDate.getDate() + 1); // set +1 day (to set the same day every month)
 
     const dateDiff = Math.ceil(Math.abs(today.valueOf() - expireDate.valueOf()) / (1000 * 60 * 60 * 24) / 30);
