@@ -15,6 +15,8 @@ interface AdminNewClientInfosInterface {
   setBirth: Dispatch<SetStateAction<string>>;
   phone: string | undefined;
   setPhone: Dispatch<SetStateAction<string | undefined>>;
+  digitalContract: string;
+  setDigitalContract: Dispatch<SetStateAction<string>>;
   address: string;
   setAddress: Dispatch<SetStateAction<string>>;
   plan: number;
@@ -96,9 +98,9 @@ export default function AdminNewClientInfos(props: AdminNewClientInfosInterface)
   };
 
   const handleContractNumber = (rawValue: string) => {
-    const convertedValue = rawValue.substring(0, 4)
-    props.setContractNumber(convertedValue)
-  }
+    const convertedValue = rawValue.substring(0, 4);
+    props.setContractNumber(convertedValue);
+  };
 
   return (
     // CLIENT INFOS
@@ -377,13 +379,26 @@ export default function AdminNewClientInfos(props: AdminNewClientInfosInterface)
       </div>
 
       {/* ANY OBSERVATION ?*/}
-      <div className="flex flex-col leading-tight items-center gap-1">
+      <div className="flex flex-col leading-tight items-center gap-1 mb-5">
         <b className="text-sm">Alguma observação?</b>
         <textarea
           onChange={(e) => props.setObs(e.target.value)}
           placeholder="Digite aqui a observação"
           className={twMerge(
             "placeholder:text-center response:w-[550px] response:h-36 w-64 h-24 text-justify rounded-lg text-black",
+            "p-2 border-4 border-white"
+          )}
+        />
+      </div>
+
+      {/* DIGITAL CONTRACT URL */}
+      <div className="flex flex-col leading-tight items-center gap-1 mb-5">
+        <b className="text-sm">URL da Versão Digital do Contrato</b>
+        <textarea
+          onChange={(e) => props.setDigitalContract(e.target.value)}
+          placeholder="Digite aqui o URL"
+          className={twMerge(
+            "placeholder:text-center response:w-[550px] w-64 h-24 text-justify rounded-lg text-black",
             "p-2 border-4 border-white"
           )}
         />

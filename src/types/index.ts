@@ -16,7 +16,7 @@ export enum PageSelector {
   AdminShowReservations = "/admin/reservas/ver-reservas",
   AdminEditReservations = "/admin/reservas/editar-reservas",
   AdminPersonalizedQuote = "/admin/orcamentos-personalizados",
-  AdminNewClient = "/admin/novo-cliente"
+  AdminNewClient = "/admin/novo-cliente",
 }
 
 export enum PlansSelector {
@@ -80,6 +80,7 @@ export interface ClientsDataInterface {
   birth: string;
   address: string;
   phone: string;
+  digitalContract: string;
   contractNumber: string;
   phase: number;
   lote: string;

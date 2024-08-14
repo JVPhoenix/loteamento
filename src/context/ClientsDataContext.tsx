@@ -8,6 +8,7 @@ interface ClientsSUBMIT {
   birth?: string;
   address?: string;
   phone?: string;
+  digitalContract?: string;
   contractNumber?: string;
   phase?: number;
   lote?: string;

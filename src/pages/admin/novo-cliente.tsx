@@ -72,6 +72,7 @@ export default function NewClient() {
 
   const [standard, setStandard] = useState<boolean>(true);
   const [obs, setObs] = useState<string | null>(null);
+  const [digitalContract, setDigitalContract] = useState<string>("");
 
   const [allDataInserted, setAllDataInserted] = useState<boolean>(false);
 
@@ -99,7 +100,7 @@ export default function NewClient() {
     (!standardEntrance ? entrance !== "" : true)
       ? setAllDataInserted(true)
       : setAllDataInserted(false);
-  }, [name, cpf, birth, phone, address, plan, startDate, selectedItem, standardEntrance, entrance]);
+  }, [name, cpf, birth, phone, address, plan, startDate, selectedItem, standardEntrance, entrance, digitalContract]);
 
   // EXTRAS
   const [error, setError] = useState<boolean>(false);
@@ -123,6 +124,7 @@ export default function NewClient() {
     setEntrance("");
     setStandardEntrance(true);
     setObs("");
+    setDigitalContract("");
     setSelectedItem(null);
     setStage(null);
     setReserved(null);
@@ -320,6 +322,8 @@ export default function NewClient() {
                             standard={standard}
                             setStandard={setStandard}
                             setObs={setObs}
+                            digitalContract={digitalContract}
+                            setDigitalContract={setDigitalContract}
                             selectedItem={selectedItem}
                             allDataInserted={allDataInserted}
                             error={error}
@@ -349,6 +353,7 @@ export default function NewClient() {
                                       birth: birth.split("-").reverse().join("-"),
                                       address,
                                       phone,
+                                      digitalContract,
                                       contractNumber:
                                         selectedItem?.phase === 1
                                           ? `202208-${contractNumber}`

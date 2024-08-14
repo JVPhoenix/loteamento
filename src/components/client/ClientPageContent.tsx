@@ -95,7 +95,7 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
         <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold pt-8 ">USUÁRIO ENCONTRADO</h1>
         <div className="flex flex-col w-full items-center px-5 response:p-0">
           <ClientPageContentUser data={props.data} />
-          <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold ">
+          <h1 className="text-white text-center drop-shadow-titles text-2xl response:text-3xl font-bold ">
             INFORMAÇÕES DO CONTRATO
           </h1>
 
