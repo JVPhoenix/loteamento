@@ -4,6 +4,7 @@ interface MainIcons {
   fill?: string;
   stroke?: string;
   plan?: number;
+  title?: string;
   onClick?: () => void;
 }
 
@@ -993,6 +994,7 @@ export const EditIcon = (props: MainIcons) => {
       width={props.width}
       onClick={props.onClick}
     >
+      <title>{props.title}</title>
       <g transform="translate(-516.000000, -99.000000)">
         <path
           d="M527.786,122.02 L522.414,125.273 C521.925,125.501 521.485,125.029 521.713,124.571 L524.965,119.195
@@ -1023,6 +1025,7 @@ export const DeleteIcon = (props: MainIcons) => {
       width={props.width}
       onClick={props.onClick}
     >
+      <title>{props.title}</title>
       <g transform="translate(-259.000000, -203.000000)">
         <path
           d="M282,211 L262,211 C261.448,211 261,210.553 261,210 C261,209.448 261.448,209 262,209 L282,209 C282.552,209

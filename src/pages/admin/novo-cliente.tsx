@@ -52,6 +52,9 @@ export default function NewClient() {
   };
 
   // USER INFO SECTION
+  const [standardPrice, setStandardPrice] = useState<boolean>(true);
+  const [differentPrice, setDifferentPrice] = useState<string>("");
+
   const [name, setName] = useState<string | undefined>("");
   const [cpf, setCpf] = useState<string>("");
   const [birth, setBirth] = useState<string>("");
@@ -97,10 +100,25 @@ export default function NewClient() {
     plan !== 0 &&
     startDate !== "" &&
     selectedItem !== null &&
+    (!standardPrice ? differentPrice !== "" : true) &&
     (!standardEntrance ? entrance !== "" : true)
       ? setAllDataInserted(true)
       : setAllDataInserted(false);
-  }, [name, cpf, birth, phone, address, plan, startDate, selectedItem, standardEntrance, entrance, digitalContract]);
+  }, [
+    name,
+    cpf,
+    birth,
+    phone,
+    address,
+    plan,
+    startDate,
+    selectedItem,
+    standardEntrance,
+    entrance,
+    standardPrice,
+    differentPrice,
+    digitalContract,
+  ]);
 
   // EXTRAS
   const [error, setError] = useState<boolean>(false);
@@ -122,6 +140,8 @@ export default function NewClient() {
     setPlan(0);
     setStartDate("");
     setEntrance("");
+    setDifferentPrice("");
+    setStandardPrice(false);
     setStandardEntrance(true);
     setObs("");
     setDigitalContract("");
@@ -154,7 +174,7 @@ export default function NewClient() {
 
       {!isLoading && (
         <>
-          {user && checkRoles(UserRoles.Admins) ? (
+          {user && (checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) ? (
             <>
               {responsesPopup === StatusResponses.Loading ? (
                 <LoadingStatus />
@@ -299,6 +319,10 @@ export default function NewClient() {
                           </b>
 
                           <AdminNewClientInfos
+                            standardPrice={standardPrice}
+                            setPriceStandard={setStandardPrice}
+                            differentPrice={differentPrice}
+                            setDifferentPrice={setDifferentPrice}
                             name={name}
                             setName={setName}
                             cpf={cpf}
@@ -363,7 +387,11 @@ export default function NewClient() {
                                       phase: selectedItem?.phase,
                                       lote: selectedItem?.label,
                                       dimension: selectedItem?.size,
-                                      price: selectedItem?.price,
+                                      price: standardPrice
+                                        ? selectedItem?.price
+                                        : parseFloat(
+                                            differentPrice.replace("R$", "").replaceAll(".", "").replace(",", ".")
+                                          ),
                                       plan,
                                       startDate: handleStartDate(),
                                       standard: standard,

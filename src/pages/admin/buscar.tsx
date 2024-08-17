@@ -182,29 +182,20 @@ export default function Search() {
                     handleActionType={handleActionType}
                   />
                 )}
-                {checkRoles(UserRoles.Admins) &&
-                  (selectedClient ? (
-                    <Button
-                      className={twMerge(
-                        "mt-4 hover:text-green-500 hover:border-green-500",
-                        selectedClient && "hover:text-red-500 hover:border-red-500"
-                      )}
-                      onClick={() => handleActionType(Methods.Client_DELETE, "DeleteConfirm")}
-                    >
-                      Deletar este Cliente
+                {(checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) && !selectedClient ? (
+                  <Link href={PageSelector.AdminNewClient}>
+                    <Button className="mt-4 hover:text-green-500 hover:border-green-500">
+                      Adicionar um novo Cliente
                     </Button>
-                  ) : (
-                    <Link href={PageSelector.AdminNewClient}>
-                      <Button
-                        className={twMerge(
-                          "mt-4 hover:text-green-500 hover:border-green-500",
-                          selectedClient && "hover:text-red-500 hover:border-red-500"
-                        )}
-                      >
-                        Adicionar um novo Cliente
-                      </Button>
-                    </Link>
-                  ))}
+                  </Link>
+                ) : checkRoles(UserRoles.Admins) && selectedClient ? (
+                  <Button
+                    className="hover:text-red-500 hover:border-red-500"
+                    onClick={() => handleActionType(Methods.Client_DELETE, "DeleteConfirm")}
+                  >
+                    Deletar este Cliente
+                  </Button>
+                ) : null}
               </div>
 
               {/* POPUP EDIT DIV */}

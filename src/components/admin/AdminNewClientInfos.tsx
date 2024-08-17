@@ -7,6 +7,11 @@ interface AdminNewClientInfosInterface {
   error: boolean;
   setError: Dispatch<SetStateAction<boolean>>;
 
+  standardPrice: boolean;
+  setPriceStandard: Dispatch<SetStateAction<boolean>>;
+  differentPrice: string;
+  setDifferentPrice: Dispatch<SetStateAction<string>>;
+
   name: string | undefined;
   setName: Dispatch<SetStateAction<string | undefined>>;
   cpf: string;
@@ -75,7 +80,21 @@ export default function AdminNewClientInfos(props: AdminNewClientInfosInterface)
     }
   };
 
-  const handleCurrencyMask = (rawValue: string) => {
+  const handleLotePriceCurrencyMask = (rawValue: string) => {
+    const convertedValue = rawValue
+      .replace(/\D/g, "")
+      .replace(/(\d)(\d{2})$/, "$1,$2")
+      .replace(/(?=(\d{3})+(\D))\B/g, ".")
+      .replace(/^0/, "");
+
+    if (convertedValue !== "") {
+      props.setDifferentPrice("R$ " + convertedValue);
+    } else if (convertedValue === "") {
+      props.setDifferentPrice("");
+    }
+  };
+
+  const handleEntranceCurrencyMask = (rawValue: string) => {
     const convertedValue = rawValue
       .replace(/\D/g, "")
       .replace(/(\d)(\d{2})$/, "$1,$2")
@@ -104,8 +123,8 @@ export default function AdminNewClientInfos(props: AdminNewClientInfosInterface)
 
   return (
     // CLIENT INFOS
-    // CLIENT NAME
     <div className="flex flex-col items-center p-4">
+      {/* CLIENT NAME */}
       <div className="flex flex-col leading-tight items-center gap-1">
         <b className="text-sm">Nome do Cliente</b>
         <input
@@ -296,6 +315,63 @@ export default function AdminNewClientInfos(props: AdminNewClientInfosInterface)
         </b>
       </div>
 
+      {/* LOTE PRICE STANDARD ?*/}
+      <div className="flex flex-col leading-tight items-center gap-1">
+        <b className="text-sm">Valor A VISTA é o padrão do site?</b>
+        <div className="flex gap-4 mb-5">
+          <Button
+            className={twMerge(
+              "hover:text-green-500 hover:border-green-500",
+              props.standardPrice &&
+                `border-green-500 bg-green-500 text-black1 hover:text-black1 font-bold
+              hover:shadow-white shadow-md hover:border-green-500`
+            )}
+            onClick={() => {
+              props.setPriceStandard(true), props.setStandardEntrance(true);
+            }}
+          >
+            <h1> Sim </h1>
+          </Button>
+          <Button
+            className={twMerge(
+              "hover:text-red-500 hover:border-red-500",
+              !props.standardPrice &&
+                `border-red-500 bg-red-500 text-black1 hover:text-black1
+                font-bold hover:shadow-white shadow-md hover:border-red-500`
+            )}
+            onClick={() => {
+              props.setPriceStandard(false), props.setStandardEntrance(false);
+            }}
+          >
+            <h1> Não </h1>
+          </Button>
+        </div>
+        {!props.standardPrice && (
+          <>
+            <b className="text-sm">Insira abaixo o novo valor do Lote</b>
+            <input
+              type="text"
+              placeholder="Valor da entrada diferente"
+              onChange={(e) => handleLotePriceCurrencyMask(e.target.value)}
+              value={props.differentPrice}
+              className={twMerge(
+                "text-center rounded-lg text-black p-2 border-4 border-white placeholder:text-black",
+                "hover:scale-110 focus:scale-110 ease-in-out duration-100",
+                !props.standardPrice && props.differentPrice === "" && props.error && "border-red-500 animate-pulse"
+              )}
+            />
+            <b
+              className={twMerge(
+                "invisible text-red-500 text-sm",
+                !props.standardPrice && props.differentPrice === "" && props.error && "visible animate-pulse"
+              )}
+            >
+              Insira a Data da 1ª parcela!
+            </b>
+          </>
+        )}
+      </div>
+
       {/* CLIENT ENTRANCE STANDARD ?*/}
       <div className="flex flex-col leading-tight items-center gap-1 mb-5">
         <b className="text-sm">O cliente pagou uma entrada diferente?</b>
@@ -329,7 +405,7 @@ export default function AdminNewClientInfos(props: AdminNewClientInfosInterface)
             <input
               type="text"
               placeholder="Valor da entrada diferente"
-              onChange={(e) => handleCurrencyMask(e.target.value)}
+              onChange={(e) => handleEntranceCurrencyMask(e.target.value)}
               value={props.entrance}
               className={twMerge(
                 "text-center rounded-lg text-black p-2 border-4 border-white placeholder:text-black",

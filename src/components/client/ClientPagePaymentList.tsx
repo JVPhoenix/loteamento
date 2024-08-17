@@ -37,20 +37,24 @@ export default function ClientPagePaymentList(props: ClientPagePaymentListInterf
           {props.paymentList.map((value, index) => (
             <div className="flex gap-5 group" key={props.keyData + index}>
               <h1>{value === "" ? "Nenhuma parcela foi paga!" : index + 1 + " → " + value}</h1>
-              {props.page !== PageSelector.ClientSearch && value !== "" && checkRoles(UserRoles.Admins) && (
+              {props.page !== PageSelector.ClientSearch && value !== "" && checkRoles(UserRoles.Employee) && (
                 <div className="flex gap-2 opacity-0 group-hover:opacity-100 ease-in-out duration-100">
-                  <DeleteIcon
-                    className="hover:fill-red-500 hover:scale-125 ease-in-out duration-200 active:scale-95 select-none cursor-pointer"
-                    fill="white"
-                    width={20}
-                    onClick={() =>
-                      props.handleActionType && props.handleActionType(Methods.Payment_DELETE, "DeleteConfirm", index)
-                    }
-                  />
+                  {checkRoles(UserRoles.Admins) && (
+                    <DeleteIcon
+                      className="hover:fill-red-500 hover:scale-125 ease-in-out duration-200 active:scale-95 select-none cursor-pointer"
+                      fill="white"
+                      width={20}
+                      title="Delete esse pagamento"
+                      onClick={() =>
+                        props.handleActionType && props.handleActionType(Methods.Payment_DELETE, "DeleteConfirm", index)
+                      }
+                    />
+                  )}
                   <EditIcon
                     className="hover:fill-blue-500 hover:scale-125 ease-in-out duration-200 active:scale-95 select-none cursor-pointer"
                     fill="white"
                     width={20}
+                    title="Edite esse pagamento"
                     onClick={() =>
                       props.handleActionType && props.handleActionType(Methods.Payment_EDIT, "DateCenter", index)
                     }
