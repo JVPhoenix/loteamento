@@ -59,7 +59,7 @@ export default function ClientPageContentUser(props: ClientPageContentUser) {
         href={props.data.digitalContract}
         className={twMerge(
           "flex leading-tight items-center gap-1 group",
-          "ease-in-out duration-200 active:duration-100 hover:scale-110 active:scale-90 hover:text-yellow1"
+          "ease-in-out duration-200 active:duration-100 hover:scale-105 response:hover:scale-110 active:scale-90 hover:text-yellow1"
         )}
         target="_blank"
         rel="noopener noreferrer"

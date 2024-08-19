@@ -270,6 +270,7 @@ export default function AdminNewClientInfos(props: AdminNewClientInfosInterface)
         <div className="group">
           <input
             type="text"
+            placeholder="Número do Contrato"
             onChange={(e) => handleContractNumberMask(e.target.value)}
             value={props.contractNumber}
             className={twMerge(

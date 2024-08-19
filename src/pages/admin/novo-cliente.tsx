@@ -223,7 +223,7 @@ export default function NewClient() {
                   {/* PAGE CONTENT */}
                   <div className="flex flex-col m-auto py-6 items-center">
                     <div className="flex flex-col items-center">
-                      <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold select-none mb-2">
+                      <h1 className="text-center text-white drop-shadow-titles text-2xl response:text-3xl font-bold select-none mb-2">
                         O LOTE DO CLIENTE JÁ POSSUI RESERVA?
                       </h1>
                       <div className="flex gap-3 m-4">
