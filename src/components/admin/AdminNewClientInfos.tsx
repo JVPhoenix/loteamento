@@ -2,6 +2,7 @@ import { LotesDataInterface } from "@/types";
 import { Dispatch, SetStateAction, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { Button } from "../utils/Button";
+import { MultiValue } from "react-select";
 
 interface AdminNewClientInfosInterface {
   error: boolean;
@@ -38,15 +39,13 @@ interface AdminNewClientInfosInterface {
   setStandard: Dispatch<SetStateAction<boolean>>;
   setObs: Dispatch<SetStateAction<string | null>>;
 
-  selectedItem: LotesDataInterface | null;
+  selectedItem: MultiValue<LotesDataInterface> | null;
   allDataInserted: boolean;
   anyDataInserted: boolean;
   setAnyDataInserted: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function AdminNewClientInfos(props: AdminNewClientInfosInterface) {
-  const [onFocus, setOnFocus] = useState<boolean>(false);
-
   const [checkCpf, setCheckCpf] = useState<boolean>(false);
   const handleCpfMask = (value: string) => {
     value = value
@@ -116,9 +115,18 @@ export default function AdminNewClientInfos(props: AdminNewClientInfosInterface)
     props.setStandard((state) => (state === newState ? false : newState));
   };
 
-  const handleContractNumber = (rawValue: string) => {
-    const convertedValue = rawValue.substring(0, 4);
+  const [checkContractNumber, setCheckContractNumber] = useState<boolean>(false);
+  const handleContractNumberMask = (rawValue: string) => {
+    const convertedValue = rawValue
+      .replace(/\D/g, "")
+      .substring(0, 10)
+      .replace(/(^\d{6})(\d)/, "$1-$2");
     props.setContractNumber(convertedValue);
+    if (convertedValue.length < 11) {
+      setCheckContractNumber(false)
+    } else {
+      setCheckContractNumber(true)
+    }
   };
 
   return (
@@ -261,34 +269,23 @@ export default function AdminNewClientInfos(props: AdminNewClientInfosInterface)
         <b className="text-sm">Numero do Contrato</b>
         <div className="group">
           <input
-            type="number"
-            onChange={(e) => handleContractNumber(e.target.value)}
+            type="text"
+            onChange={(e) => handleContractNumberMask(e.target.value)}
             value={props.contractNumber}
-            onFocus={() => setOnFocus(true)}
-            onBlur={() => setOnFocus(false)}
             className={twMerge(
               "relative text-center rounded-lg text-black p-2 border-4 border-white placeholder:text-black",
               "group-hover:scale-110 ease-in-out duration-100 focus:scale-110",
-              props.contractNumber === "" && props.error && "border-red-500 animate-pulse"
+              !checkContractNumber && props.error && "border-red-500 animate-pulse"
             )}
           />
-          <h1
-            className={twMerge(
-              "relative left-[34px] -top-[34px] text-gray-400 pointer-events-none",
-              "group-hover:scale-110  ease-in-out duration-100",
-              onFocus && "scale-110"
-            )}
-          >
-            {props.selectedItem?.phase === 1 ? "202208-" : props.selectedItem?.phase === 2 ? "202309-" : ""}
-          </h1>
         </div>
         <b
           className={twMerge(
             "invisible text-red-500 text-sm",
-            props.contractNumber === "" && props.error && "visible animate-pulse"
+            !checkContractNumber && props.error && "visible animate-pulse"
           )}
         >
-          Insira a Data da 1ª parcela!
+          Insira o Nº do Contrato!
         </b>
       </div>
 

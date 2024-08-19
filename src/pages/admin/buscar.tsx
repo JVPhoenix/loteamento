@@ -111,7 +111,7 @@ export default function Search() {
 
   // CLEAR ALL EDITABLE VARIABLES
   const clearValue = () => {
-    setSelectRef(selectRef.clearValue());
+    setSelectRef(selectRef && selectRef.clearValue());
     setSelectedClient(null);
     setEditObs(null);
     setActionType(null);

@@ -105,7 +105,10 @@ export default function Header(props: HeaderInterface) {
       props.page === PageSelector.AdminEditReservations
     ) {
       return "Modificar Reservas";
-    } else if (checkRoles(UserRoles.Admins) && props.page === PageSelector.AdminNewClient) {
+    } else if (
+      (checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) &&
+      props.page === PageSelector.AdminNewClient
+    ) {
       return "Novo Cliente";
     } else {
       return "ERRO - Sem Acesso";

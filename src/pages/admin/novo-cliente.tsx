@@ -1,8 +1,8 @@
 import AdminNewClientInfos from "@/components/admin/AdminNewClientInfos";
 import AdminSearchFilters from "@/components/admin/AdminSearchFilters";
-import AdminReservationsSelect from "@/components/admin/reservation/AdminReservationsSelect";
 import Footer from "@/components/home/Footer";
 import Header from "@/components/home/Header";
+import ProductsSelect from "@/components/products/ProductsSelect";
 import { Button } from "@/components/utils/Button";
 import ErrorPage from "@/components/utils/ErrorPage";
 import { CloseIcon } from "@/components/utils/Icons";
@@ -21,6 +21,7 @@ import {
 } from "@/types";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useEffect, useState } from "react";
+import { MultiValue } from "react-select";
 import { twMerge } from "tailwind-merge";
 
 export default function NewClient() {
@@ -37,10 +38,10 @@ export default function NewClient() {
   // LOTES CONTEXT SECTION
   const lotesData = useLotesData().lotesData;
 
-  const [selectedItem, setSelectedItem] = useState<LotesDataInterface | null>(null);
+  const [selectedItem, setSelectedItem] = useState<MultiValue<LotesDataInterface> | null>(null);
   const [lotesStatus, setLotesStatus] = useState<LotesStatus | null>(null);
 
-  const [selectRef, setSelectRef] = useState<any>();
+  const phase = selectedItem?.map((value) => value.phase)
 
   // STAGE SELECT SECTION
   const [stage, setStage] = useState<FilterSelector | null>(null);
@@ -150,7 +151,7 @@ export default function NewClient() {
     setReserved(null);
     setError(false);
   };
-
+  
   const [popupConfirm, setPopupConfirm] = useState<boolean>(false);
 
   useEffect(() => {
@@ -162,7 +163,7 @@ export default function NewClient() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clientsResponseData]);
-
+  
   return (
     <div
       className="flex flex-col w-full min-h-screen bg-black1 text-lg text-white relative"
@@ -279,7 +280,7 @@ export default function NewClient() {
                             lotesStatus={lotesStatus}
                           />
 
-                          <AdminReservationsSelect
+                          <ProductsSelect
                             options={lotesData
                               ?.filter((value) => value.situation === lotesStatus && value)
                               ?.filter((value) => {
@@ -297,16 +298,14 @@ export default function NewClient() {
                                 ? "Digite aqui ou Escolha o Lote"
                                 : "Digite o Lote ou o Nome do Cliente"
                             }
-                            onChange={(selection: LotesDataInterface | null) => {
-                              setSelectedItem(selection),
-                                reserved === true &&
-                                  (setName(selection?.reservedFor),
-                                  setPhone(
-                                    selection?.reservedForContact !== null ? selection?.reservedForContact : ""
-                                  ));
+                            onChange={(selection: MultiValue<LotesDataInterface> | null) => {
+                              setSelectedItem(selection);
                             }}
-                            setSelectRef={setSelectRef}
-                            lotesStatus={lotesStatus}
+                            page={
+                              lotesStatus === LotesStatus.Blocked
+                                ? PageSelector.AdminShowReservations
+                                : PageSelector.AdminNewClient
+                            }
                           />
 
                           <b
@@ -378,17 +377,15 @@ export default function NewClient() {
                                       address,
                                       phone,
                                       digitalContract,
-                                      contractNumber:
-                                        selectedItem?.phase === 1
-                                          ? `202208-${contractNumber}`
-                                          : selectedItem?.phase === 2
-                                          ? `202309-${contractNumber}`
-                                          : "",
-                                      phase: selectedItem?.phase,
-                                      lote: selectedItem?.label,
-                                      dimension: selectedItem?.size,
+                                      contractNumber: contractNumber,
+                                      phase: phase?.includes(2) ? 2 : 1,
+                                      lote: selectedItem?.map((value) => value.label).join(", "),
+                                      dimension: selectedItem?.map((value) => value.size).join(", "),
                                       price: standardPrice
-                                        ? selectedItem?.price
+                                        ? selectedItem?.reduce(
+                                            (accumulator, value) => (accumulator = accumulator + value.price),
+                                            0
+                                          )
                                         : parseFloat(
                                             differentPrice.replace("R$", "").replaceAll(".", "").replace(",", ".")
                                           ),

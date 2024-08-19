@@ -1,5 +1,5 @@
 import React from "react";
-import { LotesDataInterface, PageSelector } from "@/types";
+import { LotesDataInterface, LotesStatus, PageSelector } from "@/types";
 import Select, { MultiValue, createFilter } from "react-select";
 
 interface SelectProps {
@@ -7,6 +7,7 @@ interface SelectProps {
   page: PageSelector;
   placeholder?: string;
   onChange: (selection: MultiValue<LotesDataInterface> | null) => void;
+  lotesStatus?: LotesStatus | null;
 }
 
 export default function ProductsSelect(props: SelectProps) {
