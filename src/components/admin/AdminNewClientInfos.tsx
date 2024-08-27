@@ -245,22 +245,23 @@ export default function AdminNewClientInfos(props: AdminNewClientInfosInterface)
         <b className="text-sm">Quantidade de Parcelas (Plano)</b>
         <input
           type="number"
+          min={0}
           onChange={(e) => props.setPlan(Number(e.target.value))}
           placeholder="Nº de Parcelas"
           className={twMerge(
             "text-center rounded-lg text-black p-2 border-4 border-white placeholder:text-black",
             "hover:scale-110 focus:scale-110 ease-in-out duration-100",
             "w-[200px] h-[48px]",
-            props.plan === 0 && props.error && "border-red-500 animate-pulse"
+            props.plan < 0 && props.error && "border-red-500 animate-pulse"
           )}
         />
         <b
           className={twMerge(
             "invisible text-red-500 text-sm",
-            props.plan === 0 && props.error && "visible animate-pulse"
+            props.plan < 0 && props.error && "visible animate-pulse"
           )}
         >
-          Insira a Data de Nascimento do Cliente!
+          Insira a Quantidade de Parcelas!
         </b>
       </div>
 

@@ -61,7 +61,7 @@ export default function NewClient() {
   const [birth, setBirth] = useState<string>("");
   const [phone, setPhone] = useState<string | undefined>("");
   const [address, setAddress] = useState<string>("");
-  const [plan, setPlan] = useState<number>(0);
+  const [plan, setPlan] = useState<number>(-1);
   const [startDate, setStartDate] = useState<string>("");
 
   const handleStartDate = () => {
@@ -86,7 +86,7 @@ export default function NewClient() {
     birth !== "" ||
     phone !== "" ||
     address !== "" ||
-    plan !== 0 ||
+    plan >= 0 ||
     startDate !== "" ||
     selectedItem !== null ||
     (!standardEntrance ? entrance !== "" : false)
@@ -98,7 +98,7 @@ export default function NewClient() {
     birth !== "" &&
     phone !== "" &&
     address !== "" &&
-    plan !== 0 &&
+    plan >= 0 &&
     startDate !== "" &&
     selectedItem !== null &&
     (!standardPrice ? differentPrice !== "" : true) &&

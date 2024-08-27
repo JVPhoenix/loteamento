@@ -188,7 +188,7 @@ export default function Search() {
                       Adicionar um novo Cliente
                     </Button>
                   </Link>
-                ) : checkRoles(UserRoles.Admins) && selectedClient ? (
+                ) : (checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) && selectedClient ? (
                   <Button
                     className="hover:text-red-500 hover:border-red-500"
                     onClick={() => handleActionType(Methods.Client_DELETE, "DeleteConfirm")}
