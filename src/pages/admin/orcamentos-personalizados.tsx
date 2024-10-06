@@ -10,6 +10,7 @@ import ProductsPrices from "@/components/products/ProductsPrices";
 import { twMerge } from "tailwind-merge";
 import { MultiValue } from "react-select";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import { Button } from "@/components/utils/Button";
 
 export default function PersonalizedQuotes() {
   const { user, isLoading } = useUser();
@@ -27,6 +28,7 @@ export default function PersonalizedQuotes() {
   const [selectedItem, setSelectedItem] = useState<MultiValue<LotesDataInterface> | null>(null);
   const [entranceValue, setEntranceValue] = useState<string>("");
   const [parcelsValue, setParcelsValue] = useState<number>(0);
+  const [discount, setDiscount] = useState<boolean>(false);
 
   const [checkParcels, setCheckParcels] = useState<boolean>(false);
   const [checkEntrance, setCheckEntrance] = useState<boolean>(false);
@@ -98,6 +100,7 @@ export default function PersonalizedQuotes() {
                     page={PageSelector.AdminPersonalizedQuote}
                   />
                 </div>
+                {/* DATA TO BE ADDED */}
                 <div className="flex flex-col response:flex-row response:gap-8 mb-2">
                   <div className="flex flex-col items-center">
                     <h1 className="text-white text-xl response:text-2xl font-bold select-none mb-2">
@@ -147,6 +150,46 @@ export default function PersonalizedQuotes() {
                     </b>
                   </div>
                 </div>
+                {/* FULL PRICE? */}
+                <div>
+                  <div className="flex flex-col items-center">
+                    <h1 className="text-white text-xl response:text-2xl font-bold select-none mb-2">
+                      Valor de A Vista?
+                    </h1>
+                    <div className="flex gap-3">
+                      <Button
+                        onClick={() => setDiscount(true)}
+                        className={twMerge(
+                          "hover:text-green-500 hover:border-green-500",
+                          discount &&
+                            `border-green-500 bg-green-500 text-black1 hover:text-black1 font-bold
+                             hover:shadow-white shadow-md hover:border-green-500`
+                        )}
+                      >
+                        Sim
+                      </Button>
+                      <Button
+                        onClick={() => setDiscount(false)}
+                        className={twMerge(
+                          "hover:text-red-500 hover:border-red-500",
+                          discount === false &&
+                            `border-red-500 bg-red-500 text-black1 hover:text-black1 font-bold
+                             hover:shadow-white shadow-md hover:border-red-500`
+                        )}
+                      >
+                        Não
+                      </Button>
+                    </div>
+                    <b
+                      className={twMerge(
+                        "invisible text-red-500 text-sm pt-2",
+                        checkParcels && "visible animate-pulse"
+                      )}
+                    >
+                      Valor inválido!
+                    </b>
+                  </div>
+                </div>
 
                 <div className="flex flex-col items-center">
                   <h1 className="text-green-600 text-xl response:text-2xl font-bold ">DADOS FINAIS DO ORÇAMENTO</h1>
@@ -167,6 +210,7 @@ export default function PersonalizedQuotes() {
                     page={PageSelector.AdminPersonalizedQuote}
                     entrance={entranceValue}
                     parcels={parcelsValue}
+                    discount={discount}
                   />
                 </div>
               </div>

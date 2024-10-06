@@ -7,6 +7,7 @@ interface ProductsPricesInterface {
   phase: FilterSelector | null;
   entrance?: string;
   parcels?: number;
+  discount?: boolean;
 }
 
 export default function ProductsPrices(props: ProductsPricesInterface) {
@@ -14,21 +15,19 @@ export default function ProductsPrices(props: ProductsPricesInterface) {
     ? parseFloat(props.entrance.replace("R$", "").replaceAll(".", "").replace(",", "."))
     : 0;
 
+  const price = props.selectedItem
+    ? props.selectedItem.reduce((accumulator, value) => (accumulator = accumulator + value.price), 0)
+    : 0;
+
   const priceCalc = (plan: number | undefined, page?: PageSelector) => {
     if (props.selectedItem && plan) {
       if (page === PageSelector.AdminPersonalizedQuote) {
-        return (
-          (props.selectedItem?.reduce((accumulator, value) => (accumulator = accumulator + value.price), 0) -
-            entrance) /
-          plan
-        ).toLocaleString("pt-br", {
+        return ((props.discount ? price - entrance : price + price / 10 - entrance) / plan).toLocaleString("pt-br", {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         });
       } else {
-        return (
-          props.selectedItem?.reduce((accumulator, value) => (accumulator = accumulator + value.price), 0) / plan
-        ).toLocaleString("pt-br", {
+        return (price / plan).toLocaleString("pt-br", {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         });
@@ -58,7 +57,7 @@ export default function ProductsPrices(props: ProductsPricesInterface) {
             ) : (
               <>
                 <h3 className="font-bold text-white text-xl">Valor Inicial do Lote</h3>
-                <p> R$ {priceCalc(1)} </p>
+                <p> R$ {priceCalc(1, PageSelector.AdminPersonalizedQuote)} </p>
               </>
             )}
           </div>
