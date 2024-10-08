@@ -49,23 +49,16 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
     year: "numeric",
   });
 
+  const totalPrice = props.data.price - (props.data.entrance ? props.data.entrance : 0);
+
   const priceCalc = (value: number) => {
-    if (value === PlansSelector.ContractPrice) {
-      if (props.data.plan === 0) {
-        return props.data.price.toLocaleString("pt-br", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      } else {
-        return (props.data.price / value + props.data.price * 0.1).toLocaleString("pt-br", {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        });
-      }
-    } else if (value === PlansSelector.Debt) {
-      return (props.data.price - (diffZero * props.data.price) / props.data.plan).toLocaleString("pt-br", {
+    if (value === PlansSelector.Debt) {
+      return (totalPrice - (totalPrice * diffZero) / props.data.plan).toLocaleString("pt-br", {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       });
     } else {
-      return (props.data.price / value).toLocaleString("pt-br", {
+      return (totalPrice / value).toLocaleString("pt-br", {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       });
@@ -244,12 +237,15 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                     </div>
                     <h1>
                       <b>Valor Total: </b> R${" "}
-                      {props.data.entrance
-                        ? (props.data.price + props.data.entrance).toLocaleString("pt-br", {
+                      {props.data.entrance || props.data.plan === 0
+                        ? props.data.price.toLocaleString("pt-br", {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2,
                           })
-                        : priceCalc(PlansSelector.ContractPrice)}
+                        : (props.data.price + props.data.price * 0.1).toLocaleString("pt-br", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
                     </h1>
                   </div>
                   <div className="flex leading-tight items-center gap-1">

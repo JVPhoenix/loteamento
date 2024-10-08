@@ -350,7 +350,7 @@ export default function AdminNewClientInfos(props: AdminNewClientInfosInterface)
             <b className="text-sm">Insira abaixo o novo valor do Lote</b>
             <input
               type="text"
-              placeholder="Valor da entrada diferente"
+              placeholder="Insira aqui o novo valor do lote"
               onChange={(e) => handleLotePriceCurrencyMask(e.target.value)}
               value={props.differentPrice}
               className={twMerge(
