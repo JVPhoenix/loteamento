@@ -20,8 +20,10 @@ export default function ClientCheckExpire(props: ClientPageContentExpireInterfac
     });
 
   const readjustPlan = (year: PlanMonths) => {
-    const firstYear = props.data.price / props.data.plan;
-    const debtFirstYear = props.data.price - firstYear * 12;
+    const price = props.data.entrance ? props.data.price - props.data.entrance : props.data.price
+    
+    const firstYear =  price / props.data.plan;
+    const debtFirstYear = price - firstYear * 12;
 
     const secondYear = debtFirstYear + debtFirstYear * 0.05;
     const debtSecondYear = secondYear - (secondYear / (props.data.plan - 12)) * 12;

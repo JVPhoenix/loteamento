@@ -1,10 +1,4 @@
-import {
-  ClientsDataInterface,
-  FilterSelector,
-  LotesDataInterface,
-  PageSelector,
-  PlanMonths,
-} from "@/types";
+import { ClientsDataInterface, FilterSelector, LotesDataInterface, PageSelector, PlanMonths } from "@/types";
 import { PlanIcon } from "../utils/Icons";
 import { useState } from "react";
 import { MultiValue } from "react-select";
@@ -30,7 +24,11 @@ export default function AdminReadjust(props: AdminReadjustInterface) {
 
   const price = () => {
     if (props.page === PageSelector.AdminReadjustClient) {
-      return props.client ? props.client?.price : 0;
+      if (props.client?.entrance) {
+        return props.client.price - props.client.entrance;
+      } else {
+        return props.client ? props.client?.price : 0;
+      }
     } else if (props.page === PageSelector.AdminReadjustSimulate) {
       return props.lote ? props.lote.reduce((accumulator, value) => (accumulator = accumulator + value.price), 0) : 0;
     } else {
