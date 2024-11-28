@@ -2,8 +2,10 @@ import Image from "next/image";
 import React, { useRef, useState } from "react";
 import { LeftArrow, RightArrow, SelectDot } from "../utils/Icons";
 import { twMerge } from "tailwind-merge";
-import { FilterSelector, LotesDataInterface, LotesStatus, PhotosDataInterface } from "@/types";
+import { FilterSelector, LotesDataInterface, PhotosDataInterface } from "@/types";
 import { useLotesData } from "@/context/LotesDataContext";
+import Phase1SVG from "../utils/Phase1_Reserves";
+import Phase2SVG from "../utils/Phase2_Reserves";
 
 interface ProductsShowcaseInterface {
   data: LotesDataInterface[];
@@ -12,11 +14,7 @@ interface ProductsShowcaseInterface {
 }
 
 export default function ProductsShowcase(props: ProductsShowcaseInterface) {
-  const lotesData = useLotesData()
-    .lotesData?.filter(
-      (value) => value.situation === LotesStatus.Blocked || (value.situation === LotesStatus.Sold && value)
-    )
-    .filter((status) => status.phase === props.phase && status);
+  const lotesData = useLotesData().lotesData?.filter((status) => status.phase === props.phase && status);
 
   // DOTS - SELECT SHOWCASE PHOTO
   const photos = props.showcasePhotos ? props.showcasePhotos : [];
@@ -93,26 +91,17 @@ export default function ProductsShowcase(props: ProductsShowcaseInterface) {
           unoptimized
         />
         {/* RESERVED IMAGES */}
-        {photos[photoIndex] === photos[0] &&
-          lotesData?.map((value) => (
-            <Image
-              className="z-0 rounded-xl absolute"
-              width={3200}
-              height={1980}
-              style={{ objectFit: "cover" }}
-              src={`./${value.phase}/${value.label}.png`}
-              alt="Fotos e mapa dos lotes disponíveis"
-              unoptimized
-              key={value.id}
-            />
-          ))}
+        {props.phase === FilterSelector.Etapa1 ? (
+          <Phase1SVG lotesData={lotesData} />
+        ) : FilterSelector.Etapa2 ? (
+          <Phase2SVG lotesData={lotesData} />
+        ) : null}
       </div>
 
       {/* NEXT/PREVIOUS DOTS && ZOOM RANGE  */}
-
       <div
         className={twMerge(
-          "flex flex-col items-center justify-between h-28 response:h-40 w-14 z-10",
+          "hidden group-hover:flex flex-col items-center justify-between h-28 response:h-40 w-14 z-10",
           "text-white cursor-pointer bg-black/60",
           "hover:scale-110 ease-in-out duration-200 rounded-2xl",
           "absolute top-[2%] response:top-[5%] right-[2%]"
