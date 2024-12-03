@@ -18,12 +18,7 @@ export default function Phase1SVG({ lotesData }: Phase1SVGInterface) {
   };
 
   return (
-    <svg
-      version="1.1"
-      id="Phase1SVG"
-      viewBox="0 0 3160 1733"
-      className="z-0 rounded-xl absolute"
-    >
+    <svg version="1.1" id="Phase1SVG" viewBox="0 0 3160 1733" className="z-0 rounded-xl absolute">
       <path
         fill={getColor("Quadra_1_-_Lote_10")}
         d="m 159.98575,492.84201 205.0824,-1.07373 v 261.99009 l -59.05514,-1.07373 z"
@@ -39,6 +34,19 @@ export default function Phase1SVG({ lotesData }: Phase1SVGInterface) {
         d="m 1498.9269,665.71252 h 260.9163 l -0.5368,86.97212 H 1498.39 Z"
         id="Quadra_2_-_Lote_18"
       />
+      <path fill={getColor("Quadra_3_-_Lote_6")} d="m 2314,207.5 0.5,286 85,-0.5 0.5,-290.5 z" id="Quadra_3_-_Lote_6" />
+      <path fill={getColor("Quadra_3_-_Lote_7")} d="m 2400.5,203 86.5,-4 v 293.5 l -88,-1 z" id="Quadra_3_-_Lote_7" />
+      <path
+        fill={getColor("Quadra_3_-_Lote_8")}
+        d="m 2485.6846,199.17689 1.6106,293.66512 86.9722,-0.53687 V 192.19765 Z"
+        id="Quadra_3_-_Lote_8"
+      />
+      <path
+        fill={getColor("Quadra_3_-_Lote_9")}
+        d="m 2572.6568,193.27138 60.6657,-2.14746 121.3315,216.89343 -180.3866,-2.14746 z"
+        id="Quadra_3_-_Lote_9"
+      />
+
       <path
         fill={getColor("Quadra_3_-_Lote_13")}
         d="m 1879.5641,666.24938 261.4533,-0.53686 v 86.97212 h -261.4533 z"
@@ -79,18 +87,6 @@ export default function Phase1SVG({ lotesData }: Phase1SVGInterface) {
         d="m 2710.8724,1106.5947 325.7147,-0.3796 -95.6645,89.9701 -230.4298,-1.8981 z"
         id="Quadra_6_-_Lote_11"
       />
-      <path
-        fill={getColor("Quadra_3_-_Lote_8")}
-        d="m 2485.6846,199.17689 1.6106,293.66512 86.9722,-0.53687 V 192.19765 Z"
-        id="Quadra_3_-_Lote_8"
-      />
-      <path
-        fill={getColor("Quadra_3_-_Lote_9")}
-        d="m 2572.6568,193.27138 60.6657,-2.14746 121.3315,216.89343 -180.3866,-2.14746 z"
-        id="Quadra_3_-_Lote_9"
-      />
-      <path fill={getColor("Quadra_3_-_Lote_6")} d="m 2314,207.5 0.5,286 85,-0.5 0.5,-290.5 z" id="Quadra_3_-_Lote_6" />
-      <path fill={getColor("Quadra_6_-_Lote_7")} d="m 2400.5,203 86.5,-4 v 293.5 l -88,-1 z" id="Quadra_6_-_Lote_7" />
     </svg>
   );
 }
