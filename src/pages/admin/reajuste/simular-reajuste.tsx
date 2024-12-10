@@ -54,7 +54,7 @@ export default function ReadjustSimulate() {
                         } else {
                           return value;
                         }
-                      })}
+                      }).sort((a, b) => a.value - b.value)}
                       placeholder={"Digite ou Selecione um Lote"}
                       onChange={(selection: MultiValue<LotesDataInterface> | null) => setSelectedItem(selection)}
                       page={PageSelector.AdminReadjustSimulate}

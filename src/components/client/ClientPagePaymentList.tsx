@@ -34,35 +34,45 @@ export default function ClientPagePaymentList(props: ClientPagePaymentListInterf
             "border border-yellow1 rounded-lg"
           )}
         >
-          {props.paymentList.map((value, index) => (
-            <div className="flex gap-5 group" key={props.keyData + index}>
-              <h1>{value === "" ? "Nenhuma parcela foi paga!" : index + 1 + " → " + value}</h1>
-              {props.page !== PageSelector.ClientSearch && value !== "" && checkRoles(UserRoles.Employee) && (
-                <div className="flex gap-2 opacity-0 group-hover:opacity-100 ease-in-out duration-100">
-                  {checkRoles(UserRoles.Admins) && (
-                    <DeleteIcon
-                      className="hover:fill-red-500 hover:scale-125 ease-in-out duration-200 active:scale-95 select-none cursor-pointer"
+          {props.paymentList
+            // Sort List by date
+            .sort((a, b) => {
+              const dateA = new Date(a.split("-").reverse().join("-"));
+              const dateB = new Date(b.split("-").reverse().join("-"));
+
+              return dateA.getTime() - dateB.getTime();
+            })
+            // MAP the values and return the component
+            .map((value, index) => (
+              <div className="flex gap-5 group" key={props.keyData + index}>
+                <h1>{value === "" ? "Nenhuma parcela foi paga!" : index + 1 + " → " + value}</h1>
+                {props.page !== PageSelector.ClientSearch && value !== "" && checkRoles(UserRoles.Employee) && (
+                  <div className="flex gap-2 opacity-0 group-hover:opacity-100 ease-in-out duration-100">
+                    {checkRoles(UserRoles.Admins) && (
+                      <DeleteIcon
+                        className="hover:fill-red-500 hover:scale-125 ease-in-out duration-200 active:scale-95 select-none cursor-pointer"
+                        fill="white"
+                        width={20}
+                        title="Delete esse pagamento"
+                        onClick={() =>
+                          props.handleActionType &&
+                          props.handleActionType(Methods.Payment_DELETE, "DeleteConfirm", index)
+                        }
+                      />
+                    )}
+                    <EditIcon
+                      className="hover:fill-blue-500 hover:scale-125 ease-in-out duration-200 active:scale-95 select-none cursor-pointer"
                       fill="white"
                       width={20}
-                      title="Delete esse pagamento"
+                      title="Edite esse pagamento"
                       onClick={() =>
-                        props.handleActionType && props.handleActionType(Methods.Payment_DELETE, "DeleteConfirm", index)
+                        props.handleActionType && props.handleActionType(Methods.Payment_EDIT, "DateCenter", index)
                       }
                     />
-                  )}
-                  <EditIcon
-                    className="hover:fill-blue-500 hover:scale-125 ease-in-out duration-200 active:scale-95 select-none cursor-pointer"
-                    fill="white"
-                    width={20}
-                    title="Edite esse pagamento"
-                    onClick={() =>
-                      props.handleActionType && props.handleActionType(Methods.Payment_EDIT, "DateCenter", index)
-                    }
-                  />
-                </div>
-              )}
-            </div>
-          ))}
+                  </div>
+                )}
+              </div>
+            ))}
         </div>
       </>
     );

@@ -86,15 +86,17 @@ export default function PersonalizedQuotes() {
                     page={PageSelector.AdminPersonalizedQuote}
                   />
                   <ProductsSelect
-                    options={lotesData?.filter((value) => {
-                      if (stage !== null) {
-                        if (stage === value.phase) {
+                    options={lotesData
+                      ?.filter((value) => {
+                        if (stage !== null) {
+                          if (stage === value.phase) {
+                            return value;
+                          }
+                        } else {
                           return value;
                         }
-                      } else {
-                        return value;
-                      }
-                    })}
+                      })
+                      .sort((a, b) => a.value - b.value)}
                     placeholder={"Digite ou Selecione um Lote"}
                     onChange={(selection: MultiValue<LotesDataInterface> | null) => setSelectedItem(selection)}
                     page={PageSelector.AdminPersonalizedQuote}
