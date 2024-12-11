@@ -41,7 +41,7 @@ export default function NewClient() {
   const [selectedItem, setSelectedItem] = useState<MultiValue<LotesDataInterface> | null>(null);
   const [lotesStatus, setLotesStatus] = useState<LotesStatus | null>(null);
 
-  const phase = selectedItem?.map((value) => value.phase)
+  const phase = selectedItem?.map((value) => value.phase);
 
   // STAGE SELECT SECTION
   const [stage, setStage] = useState<FilterSelector | null>(null);
@@ -138,7 +138,7 @@ export default function NewClient() {
     setBirth("");
     setPhone("");
     setAddress("");
-    setPlan(0);
+    setPlan(-1);
     setStartDate("");
     setEntrance("");
     setDifferentPrice("");
@@ -151,7 +151,7 @@ export default function NewClient() {
     setReserved(null);
     setError(false);
   };
-  
+
   const [popupConfirm, setPopupConfirm] = useState<boolean>(false);
 
   useEffect(() => {
@@ -163,7 +163,7 @@ export default function NewClient() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clientsResponseData]);
-  
+
   return (
     <div
       className="flex flex-col w-full min-h-screen bg-black1 text-lg text-white relative"

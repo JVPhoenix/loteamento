@@ -123,9 +123,9 @@ export default function AdminNewClientInfos(props: AdminNewClientInfosInterface)
       .replace(/(^\d{6})(\d)/, "$1-$2");
     props.setContractNumber(convertedValue);
     if (convertedValue.length < 11) {
-      setCheckContractNumber(false)
+      setCheckContractNumber(false);
     } else {
-      setCheckContractNumber(true)
+      setCheckContractNumber(true);
     }
   };
 
@@ -326,7 +326,7 @@ export default function AdminNewClientInfos(props: AdminNewClientInfosInterface)
               hover:shadow-white shadow-md hover:border-green-500`
             )}
             onClick={() => {
-              props.setPriceStandard(true), props.setStandardEntrance(true);
+              props.setPriceStandard(true);
             }}
           >
             <h1> Sim </h1>
@@ -339,7 +339,7 @@ export default function AdminNewClientInfos(props: AdminNewClientInfosInterface)
                 font-bold hover:shadow-white shadow-md hover:border-red-500`
             )}
             onClick={() => {
-              props.setPriceStandard(false), props.setStandardEntrance(false);
+              props.setPriceStandard(false);
             }}
           >
             <h1> Não </h1>
