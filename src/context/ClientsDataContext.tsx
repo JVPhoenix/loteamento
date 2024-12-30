@@ -20,6 +20,7 @@ interface ClientsSUBMIT {
   standard?: boolean;
   entrance?: number | null;
   obs?: string | null;
+  status?: boolean;
 }
 
 type ClientsDataContextType = {

@@ -354,7 +354,7 @@ export default function Search() {
 
                             // Condition To: DELETE A CLIENT - SUBMIT
                           } else if (actionType === Methods.Client_DELETE) {
-                            handleSubmit({ id: selectedClient?.id }, Methods.DELETE);
+                            handleSubmit({ id: selectedClient?.id, status: false }, Methods.PUT);
                             setResponsesPopup(StatusResponses.Loading);
 
                             // Condition to: Any of above works, sends a failure message.

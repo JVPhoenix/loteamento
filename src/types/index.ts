@@ -92,6 +92,7 @@ export interface ClientsDataInterface {
   paymentList: string[];
   obs?: string;
   standard: boolean;
+  status: boolean;
 }
 
 export interface PhotosDataInterface {
