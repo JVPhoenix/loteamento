@@ -48,7 +48,16 @@ export default function AdminCreateReservation(props: AdminCreateReservationInte
       <div className="flex flex-col leading-tight items-center gap-1">
         <input
           type="text"
-          onChange={(e) => setReservedContact(e.target.value)}
+          onChange={(e) =>
+            setReservedContact(
+              e.target.value
+                .replace(/\D/g, "")
+                .substring(0, 11)
+                .replace(/(^\d{2})(\d)/, "($1) $2")
+                .replace(/(\d{4,5})(\d{4}$)/, "$1-$2")
+            )
+          }
+          value={reservedContact ? reservedContact : ""}
           placeholder="Contato do interessado"
           className={twMerge(
             "text-center rounded-lg text-black p-2 border-4 border-white placeholder:text-black",

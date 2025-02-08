@@ -36,6 +36,7 @@ export enum FilterSelector {
   Expired = 6,
   Regular = 7,
   PaidOff = 8,
+  Disabled = 9,
   Showcase = "showcase",
   Photos = "photos",
 }
@@ -129,6 +130,7 @@ export enum Methods {
   Payment_EDIT = "Pay_PUT",
   Payment_DELETE = "Pay_DELETE",
   Client_DELETE = "Client_DELETE",
+  Client_ACTIVATE = "Client_ACTIVATE",
 }
 
 export enum StatusResponses {

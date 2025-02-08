@@ -94,7 +94,7 @@ export default function ClientCheckExpire(props: ClientPageContentExpireInterfac
           )}
         >
           <b>Status: </b>
-          {props.data.standard ? (
+          {props.data.standard && props.data.status ? (
             <>
               {props.priceCalc(PlansSelector.Debt) === "0,00" || props.data.plan === 0 ? (
                 "QUITADO"
@@ -111,6 +111,8 @@ export default function ClientCheckExpire(props: ClientPageContentExpireInterfac
                 </>
               )}
             </>
+          ) : !props.data.status ? (
+            "CLIENTE DESISTENTE"
           ) : (
             "CLIENTE ESPECIAL"
           )}

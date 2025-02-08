@@ -14,7 +14,9 @@ interface SelectClientProps {
 }
 
 export default function AdminSearchSelect(props: SelectClientProps) {
-  const options = props.options?.filter((option) => option.status);
+  const options = props.options?.filter((option) =>
+    props.state === FilterSelector.Disabled ? !option.status : option.status
+  );
   const checkExpired = (paymentList: Array<string>, startDate: string, returnType: FilterSelector) => {
     const today = new Date();
     const start = new Date(startDate.split("-").reverse().join("-"));

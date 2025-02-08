@@ -71,6 +71,18 @@ export default function AdminSearchFilters(props: AdminClientSelectInterface) {
                     <h1> Quitado </h1>
                   </Button>
                 )}
+                {props.page === PageSelector.AdminSearch && (
+                  <Button
+                    className={twMerge(
+                      props.state === FilterSelector.Disabled &&
+                        `border-gray-400 bg-gray-400 text-black1 hover:text-black1 font-bold
+                     hover:shadow-white shadow-md hover:border-gray-400`
+                    )}
+                    onClick={() => props.handleState && props.handleState(FilterSelector.Disabled)}
+                  >
+                    <h1> Desistente </h1>
+                  </Button>
+                )}
               </div>
             </div>
           )}

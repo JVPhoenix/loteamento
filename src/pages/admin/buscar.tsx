@@ -188,12 +188,19 @@ export default function Search() {
                       Adicionar um novo Cliente
                     </Button>
                   </Link>
-                ) : (checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) && selectedClient ? (
+                ) : (checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) && selectedClient?.status ? (
                   <Button
                     className="hover:text-red-500 hover:border-red-500"
-                    onClick={() => handleActionType(Methods.Client_DELETE, "DeleteConfirm")}
+                    onClick={() => handleActionType(Methods.Client_DELETE, "OptionConfirm")}
                   >
                     Deletar este Cliente
+                  </Button>
+                ) : checkRoles(UserRoles.Admins) && selectedClient && !selectedClient?.status ? (
+                  <Button
+                    className="hover:text-green-500 hover:border-green-500"
+                    onClick={() => handleActionType(Methods.Client_ACTIVATE, "OptionConfirm")}
+                  >
+                    Reativar este Cliente
                   </Button>
                 ) : null}
               </div>
@@ -241,6 +248,8 @@ export default function Search() {
                           ? "INSIRA A DATA DO PAGAMENTO"
                           : actionType === Methods.Client_DELETE
                           ? "DESEJA MESMO DELETAR ESTE CLIENTE?"
+                          : actionType === Methods.Client_ACTIVATE
+                          ? "DESEJA MESMO REATIVAR ESTE CLIENTE?"
                           : null}
                       </h1>
                     </div>
@@ -248,7 +257,8 @@ export default function Search() {
                       actionType !== Methods.Payment_NEW &&
                       actionType !== Methods.Payment_DELETE &&
                       actionType !== Methods.Payment_EDIT &&
-                      actionType !== Methods.Client_DELETE && (
+                      actionType !== Methods.Client_DELETE &&
+                      actionType !== Methods.Client_ACTIVATE && (
                         <>
                           <textarea
                             value={editObs ? editObs : ""}
@@ -275,7 +285,8 @@ export default function Search() {
                       actionType !== Methods.Observation_DELETE &&
                       actionType !== Methods.Observation_EDIT &&
                       actionType !== Methods.Payment_DELETE &&
-                      actionType !== Methods.Client_DELETE && (
+                      actionType !== Methods.Client_DELETE &&
+                      actionType !== Methods.Client_ACTIVATE && (
                         <>
                           <input
                             type="date"
@@ -300,7 +311,7 @@ export default function Search() {
                         </>
                       )}
 
-                    <div className="flex gap-4" id="DeleteConfirm">
+                    <div className="flex gap-4" id="OptionConfirm">
                       <Button
                         className="hover:text-green-500 hover:border-green-500"
                         onClick={() => {
@@ -358,6 +369,9 @@ export default function Search() {
                             setResponsesPopup(StatusResponses.Loading);
 
                             // Condition to: Any of above works, sends a failure message.
+                          } else if (actionType === Methods.Client_ACTIVATE) {
+                            handleSubmit({ id: selectedClient?.id, status: true }, Methods.PUT);
+                            setResponsesPopup(StatusResponses.Loading);
                           } else {
                             setResponsesPopup(StatusResponses.Failure);
                           }

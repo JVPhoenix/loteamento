@@ -50,7 +50,15 @@ export default function AdminUpdateReservation(props: AdminUpdateReservationInte
         <input
           type="text"
           value={reservedContact ? reservedContact : ""}
-          onChange={(e) => setReservedContact(e.target.value)}
+          onChange={(e) =>
+            setReservedContact(
+              e.target.value
+                .replace(/\D/g, "")
+                .substring(0, 11)
+                .replace(/(^\d{2})(\d)/, "($1) $2")
+                .replace(/(\d{4,5})(\d{4}$)/, "$1-$2")
+            )
+          }
           placeholder="Contato do interessado"
           className={twMerge(
             "text-center rounded-lg text-black p-2 border-4 border-white placeholder:text-black",
