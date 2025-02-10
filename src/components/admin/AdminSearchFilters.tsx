@@ -38,7 +38,7 @@ export default function AdminSearchFilters(props: AdminClientSelectInterface) {
           props.page !== PageSelector.AdminNewClient && (
             <div className="flex flex-col items-center gap-3">
               <h1 className="text-white text-xl response:text-2xl font-bold select-none">Situação</h1>
-              <div className="flex gap-3">
+              <div className="flex flex-wrap justify-center gap-3">
                 <Button
                   className={twMerge(
                     props.state === FilterSelector.Expired &&
