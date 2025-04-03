@@ -63,6 +63,11 @@ export default function Phase1SVG({ lotesData }: Phase1SVGInterface) {
         id="Quadra_4_-_Lote_5"
       />
       <path
+        fill={getColor("Quadra_4_-_Lote_13")}
+        d="m 1326.5323,1063.3673 0.6951,255.6369 86.1933,36.5195 -2.0853,-291.4541 z"
+        id="Quadra_4_-_Lote_13"
+      />
+      <path
         fill={getColor("Quadra_5_-_Lote_1")}
         d="m 1880.101,847.70973 87.509,0.53686 -0.5369,257.69521 h -86.9721 z"
         id="Quadra_5_-_Lote_1"

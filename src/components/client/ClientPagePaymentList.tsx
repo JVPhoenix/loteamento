@@ -56,7 +56,7 @@ export default function ClientPagePaymentList(props: ClientPagePaymentListInterf
                         title="Delete esse pagamento"
                         onClick={() =>
                           props.handleActionType &&
-                          props.handleActionType(Methods.Payment_DELETE, "DeleteConfirm", index)
+                          props.handleActionType(Methods.Payment_DELETE, "OptionConfirm", index)
                         }
                       />
                     )}
