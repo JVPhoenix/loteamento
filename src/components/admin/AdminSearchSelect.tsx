@@ -14,9 +14,6 @@ interface SelectClientProps {
 }
 
 export default function AdminSearchSelect(props: SelectClientProps) {
-  const options = props.options?.filter((option) =>
-    props.state === FilterSelector.Disabled ? !option.status : option.status
-  );
   const checkExpired = (paymentList: Array<string>, startDate: string, returnType: FilterSelector) => {
     const today = new Date();
     const start = new Date(startDate.split("-").reverse().join("-"));
@@ -43,6 +40,27 @@ export default function AdminSearchSelect(props: SelectClientProps) {
       return 0;
     }
   };
+
+  // PAID OFF AND DELETED FILTER - Shows only when option is selected
+  const options = props.options?.filter((option) => {
+    const isDisabled = !option.status;
+
+    const isPaidOff =
+      option.plan === 0 ||
+      (
+        option.price -
+        (checkExpired(option.paymentList, option.startDate, FilterSelector.PaidOff) * option.price) / option.plan
+      ).toFixed(2) === "0.00";
+
+    if (props.state === FilterSelector.Disabled) {
+      return isDisabled;
+    }
+
+    if (props.state === FilterSelector.PaidOff) {
+      return isPaidOff;
+    }
+    return option.status && !isPaidOff;
+  });
 
   const customSearchFilter = (option: ClientsDataInterface, searchItem: string) => {
     if (
@@ -145,19 +163,7 @@ export default function AdminSearchSelect(props: SelectClientProps) {
                 ).toLocaleString("pt-br", {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
-                }) !== "0,00")) &&
-            // PAID OFF FILTER
-            (props.state !== FilterSelector.PaidOff ||
-              ((
-                option.price -
-                (checkExpired(option.paymentList, option.startDate, FilterSelector.PaidOff) * option.price) /
-                  option.plan
-              ).toLocaleString("pt-br", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              }) === "0,00" &&
-                option.standard) ||
-              option.plan === 0)
+                }) !== "0,00"))
           );
         })}
     />

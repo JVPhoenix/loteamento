@@ -13,11 +13,11 @@ export default function Footer() {
             target="_blank"
             rel="noopener, noreferrer"
           >
-            desenvolvido e projetado por jvphoenix
+            desenvolvido e projetado por João Vitor Oliveira
           </Link>
         </p>
       </div>
-      <p>Todos os Direitos Reservados ®Loteamento R. Martins 2022-2024</p>
+      <p>Todos os Direitos Reservados ®Loteamento R. Martins 2022-2025</p>
     </div>
   );
 }

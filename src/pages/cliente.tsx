@@ -55,23 +55,31 @@ export default function Client() {
           )
         )}
 
-        {searchClient?.length && searchClient?.length >= 2
-          ? searchClient?.map((clientContracts) => {
-              return (
-                <div
-                  className={twMerge(
-                    "ease-in-out duration-200 m-auto w-auto p-4 select-none active:duration-100 cursor-not-allowed",
-                    "border border-solid rounded-tr-lg rounded-bl-lg rounded-tl-2xl rounded-br-2xl",
-                    "hover:text-yellow1 hover:scale-110 active:scale-90 hover:border-yellow1 border-white text-white cursor-pointer"
-                  )}
-                  key={clientContracts.lote}
-                  onClick={() => setSelectedOption(clientContracts.contractNumber)}
-                >
-                  <h1>{clientContracts.lote}</h1>
-                </div>
-              );
-            })
-          : null}
+        {searchClient?.length && searchClient?.length >= 2 ? (
+          <>
+            <h1 className="text-white text-center drop-shadow-titles text-xl response:text-2xl font-bold select-none mb-2">
+              SELECIONE UM CONTRATO
+            </h1>
+            {searchClient
+              ?.filter((option) => option.status)
+              .map((clientContracts) => {
+                return (
+                  <div
+                    className={twMerge(
+                      "ease-in-out duration-200 m-auto w-auto p-4 select-none active:duration-100 cursor-not-allowed",
+                      "border border-solid rounded-tr-lg rounded-bl-lg rounded-tl-2xl rounded-br-2xl m-2 text-center",
+                      "hover:text-yellow1 hover:scale-110 active:scale-90 hover:border-yellow1 border-white text-white cursor-pointer"
+                    )}
+                    key={clientContracts.lote}
+                    onClick={() => setSelectedOption(clientContracts.contractNumber)}
+                  >
+                    <h1>Contrato Nº {clientContracts.contractNumber}</h1>
+                    <h1>{clientContracts.lote}</h1>
+                  </div>
+                );
+              })}
+          </>
+        ) : null}
       </div>
       <Footer />
     </div>
