@@ -1,19 +1,49 @@
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import React, { useState } from "react";
+import Head from "next/head";
+import { usePathname } from "next/navigation";
 import { PageSelector, UserRoles } from "@/types";
+import { useUser } from "@auth0/nextjs-auth0/client";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import { twMerge } from "tailwind-merge";
-import { MenuIcon } from "../utils/Icons";
-import { useUser } from "@auth0/nextjs-auth0/client";
-import Head from "next/head";
+import { Divider, ListItemIcon, ListItemText, MenuList } from "@mui/material";
+import {
+  DisplaySettingsOutlined,
+  Logout,
+  Search,
+  AccountCircleOutlined,
+  EventAvailableOutlined,
+  EditCalendarOutlined,
+  PriceChangeOutlined,
+  PriceCheckOutlined,
+  ArticleOutlined,
+  LooksOneOutlined,
+  LooksTwoOutlined,
+} from "@mui/icons-material";
+import Router from "next/router";
 
 interface HeaderInterface {
-  page: string;
-  handleError?: () => void;
-  setSelectedClient?: (selection: null) => void;
+  aboutRef: React.RefObject<HTMLDivElement>;
+  maps1Ref: React.RefObject<HTMLDivElement>;
+  maps2Ref: React.RefObject<HTMLDivElement>;
+  contactRef: React.RefObject<HTMLDivElement>;
+  scrollToSection: (ref: React.RefObject<HTMLDivElement>) => void;
 }
 
 export default function Header(props: HeaderInterface) {
+  // ROLES AND PAGES MANAGEMENT
+  const page = usePathname();
   const { user, isLoading } = useUser();
   const checkRoles = (role: string) => {
     if (user) {
@@ -22,92 +52,75 @@ export default function Header(props: HeaderInterface) {
     }
   };
 
-  const [toggleEtapas, setToggleEtapas] = useState<boolean>(false);
-  const [toggleMenu, setToggleMenu] = useState<boolean>(false);
-  const [togglePanel, setTogglePanel] = useState<boolean>(false);
+  // NOT IMPLEMENTED
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const [anchorElMapsPhase, setAnchorElMapsPhase] = useState<null | HTMLElement>(null);
 
-  const photosRef = useRef<HTMLDivElement>(null);
-  const menuRef = useRef<HTMLDivElement>(null);
-  const panelRef = useRef<HTMLDivElement>(null);
+  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
+  };
 
-  useEffect(() => {
-    const refPhotos = photosRef.current;
-    const refMenu = menuRef.current;
-    const refPanel = panelRef.current;
+  const handleOpenMapsPhaseMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElMapsPhase(event.currentTarget);
+  };
 
-    document.addEventListener("click", ({ target }: MouseEvent): void => {
-      if (
-        !refPhotos?.contains(target as Node) &&
-        !refMenu?.contains(target as Node) &&
-        !refPanel?.contains(target as Node)
-      ) {
-        setToggleEtapas(false);
-        setToggleMenu(false);
-        setTogglePanel(false);
-      }
-    });
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
 
-    return () => {
-      document.removeEventListener("click", ({ target }: MouseEvent): void => {
-        if (
-          !refPhotos?.contains(target as Node) &&
-          !refMenu?.contains(target as Node) &&
-          !refPanel?.contains(target as Node)
-        ) {
-          setToggleEtapas(false);
-          setToggleMenu(false);
-          setTogglePanel(false);
-        }
-      });
-    };
-  }, [toggleEtapas]);
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
 
+  const handleCloseMapsPhaseMenu = () => {
+    setAnchorElMapsPhase(null);
+  };
+
+  // PAGE HEADER NAME
   const handlePageHeader = () => {
-    if (props.page === PageSelector.ErrorPage) {
+    if (page === PageSelector.ErrorPage) {
       return "ERRO";
-    } else if (props.page === PageSelector.Etapa1) {
-      return "Etapa 1";
-    } else if (props.page === PageSelector.Etapa2) {
-      return "Etapa 2";
-    } else if (props.page === PageSelector.Etapa3) {
-      return "Etapa 3";
-    } else if (props.page === PageSelector.Etapa4) {
-      return "Etapa 4";
-    } else if (props.page === PageSelector.ClientSearch) {
-      return "Área do Cliente";
+    } else if (page === PageSelector.HomePage) {
+      return "Loteamento R. Martins";
+    } else if (page === PageSelector.Photos) {
+      return "Fotos";
     } else if (
       (checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) &&
-      props.page === PageSelector.AdminSearch
+      page === PageSelector.AdminSearch
     ) {
       return "Buscar Cliente";
     } else if (
       (checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) &&
-      props.page === PageSelector.AdminReadjustClient
+      page === PageSelector.AdminReadjustClient
     ) {
       return "Simular Reajuste - Cliente";
     } else if (
       (checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) &&
-      props.page === PageSelector.AdminReadjustSimulate
+      page === PageSelector.AdminReadjustSimulate
     ) {
       return "Simular Reajuste - Lote";
     } else if (
       (checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) &&
-      props.page === PageSelector.AdminPersonalizedQuote
+      page === PageSelector.AdminPersonalizedQuote
     ) {
       return "Orçamento Personalizado";
     } else if (
       (checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) &&
-      props.page === PageSelector.AdminShowReservations
+      page === PageSelector.AdminShowReservations
     ) {
       return "Ver Reservas";
     } else if (
       (checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) &&
-      props.page === PageSelector.AdminEditReservations
+      page === PageSelector.AdminEditReservations
     ) {
       return "Modificar Reservas";
     } else if (
       (checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) &&
-      props.page === PageSelector.AdminNewClient
+      page === PageSelector.AdminNewClient
     ) {
       return "Novo Cliente";
     } else {
@@ -116,273 +129,315 @@ export default function Header(props: HeaderInterface) {
   };
 
   return (
-    <div
-      className={twMerge(
-        "flex justify-between bg-black text-white font-bold shadow-xl select-none m-auto w-full",
-        "response:justify-evenly response:gap-5 px-3"
-      )}
-      ref={menuRef}
-    >
+    <>
       <Head>
-        {props.page === PageSelector.HomePage ? (
-          <title>Loteamento R. Martins</title>
-        ) : (
-          <title>{isLoading ? "Carregando..." : handlePageHeader()}</title>
-        )}
+        <title>{isLoading ? "Carregando..." : handlePageHeader()}</title>
       </Head>
-      <Link href={PageSelector.HomePage}>
-        <Image
-          className="py-2 w-[180px] response:w-[250px]"
-          src="/logoLoteamento.png"
-          width={500}
-          height={200}
-          alt="Logo do Site"
-        />
-      </Link>
-      <div
-        className="flex response:hidden"
-        onClick={() => {
-          setToggleMenu((prevState) => !prevState);
-          toggleMenu && setToggleEtapas(false);
-        }}
-      >
-        <MenuIcon
-          width={50}
-          className={twMerge(
-            "cursor-pointer ease-in-out duration-200 stroke-white",
-            "hover:scale-110 hover:stroke-yellow1 active:scale-90 active:duration-100",
-            toggleMenu && "stroke-yellow1"
-          )}
-          fill="none"
-        />
-      </div>
-      <div
-        className={twMerge(
-          "hidden response:flex pr-6 w-full",
-          toggleMenu && "flex flex-col absolute w-fit right-0 top-16 rounded-xl bg-black p-2 gap-1 z-50"
-        )}
-      >
-        <div
-          className={twMerge(
-            "flex flex-col gap-3 p-2 relative items-center w-full",
-            "response:gap-6 response:pr-0 response:flex-row"
-          )}
-        >
-          {props.page !== PageSelector.HomePage && (
-            <Link
-              className={twMerge(
-                "ease-in-out duration-200 hover:text-yellow1 hover:scale-110",
-                "active:scale-90 active:duration-100"
-              )}
-              href="/"
-            >
-              <h3> PAGINA INICIAL </h3>
+      <AppBar position="static">
+        <Container maxWidth={false} className="bg-black">
+          <Toolbar disableGutters>
+            {/* MOBILE VERSION */}
+            <Link href={PageSelector.HomePage}>
+              <Image
+                className="hidden lg:flex py-2 w-[180px]"
+                src="/logoLoteamento.png"
+                width={500}
+                height={200}
+                alt="Logo do Site"
+              />
             </Link>
-          )}
 
-          {props.page !== PageSelector.ClientSearch && (
-            <Link
-              className={twMerge(
-                "ease-in-out duration-200 hover:text-yellow1 hover:scale-110",
-                "active:scale-90 active:duration-100"
-              )}
-              href={PageSelector.ClientSearch}
-            >
-              <h3> ÁREA DO CLIENTE </h3>
-            </Link>
-          )}
-
-          <div className="z-50">
-            <div
-              className={twMerge(
-                "flex justify-center cursor-pointer ",
-                "ease-in-out duration-200 hover:scale-110",
-                "hover:text-yellow1 active:scale-90 active:duration-100",
-                toggleEtapas && "text-yellow1"
-              )}
-              onClick={() => setToggleEtapas((toggleEtapas) => !toggleEtapas)}
-              ref={photosRef}
-            >
-              FOTOS
-            </div>
-            <div
-              className={twMerge(
-                "hidden rounded-md bg-black1 p-2 gap-2",
-                "response:bg-black response:absolute response:-translate-x-3 response:top-24",
-                toggleEtapas && "flex flex-col"
-              )}
-            >
-              {props.page !== PageSelector.Etapa1 && (
-                <Link
-                  className={twMerge(
-                    "ease-in-out duration-200 hover:text-yellow1",
-                    "active:scale-90 active:duration-100"
-                  )}
-                  href={PageSelector.Etapa1}
-                >
-                  ETAPA 1
-                </Link>
-              )}
-              {props.page !== PageSelector.Etapa2 && (
-                <Link
-                  className={twMerge(
-                    "ease-in-out duration-200 hover:text-yellow1",
-                    "active:scale-90 active:duration-100"
-                  )}
-                  href={PageSelector.Etapa2}
-                >
-                  ETAPA 2
-                </Link>
-              )}
-            </div>
-          </div>
-          {!isLoading && (
-            <div className="z-50">
-              <div className="flex items-center">
-                {!user ? (
-                  <Link
-                    className={twMerge(
-                      "ease-in-out duration-200 response:absolute right-0",
-                      "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
-                    )}
-                    href={PageSelector.AdminLogin}
-                  >
-                    <h1>LOGIN</h1>
-                  </Link>
-                ) : (
-                  <div
-                    className={twMerge(
-                      "flex justify-center items-center text-center gap-2 m-auto cursor-pointer",
-                      "ease-in-out duration-200 response:absolute right-0",
-                      "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100 response:w-28",
-                      togglePanel && "text-yellow1"
-                    )}
-                    onClick={() => setTogglePanel((togglePanel) => !togglePanel)}
-                    ref={panelRef}
-                  >
-                    <Image
-                      className="w-[40px] response:w-[60px] rounded-lg"
-                      src={`${user.picture}`}
-                      width={500}
-                      height={500}
-                      alt="User icon"
-                      unoptimized
-                    />
-                    {user.name?.split(" ")[0].toLocaleUpperCase()}
-                  </div>
-                )}
-              </div>
-
-              <div
-                className={twMerge(
-                  "hidden rounded-md bg-black1 gap-2 p-2 right-5",
-                  "response:-right-4 response:top-24 response:p-3 response:absolute response:bg-black",
-                  togglePanel && "flex flex-col"
-                )}
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-app-bar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
               >
-                {/* ADMINS & AGENTS - OPTIONS */}
-                {(checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Employee)) && (
-                  <>
-                    {props.page !== PageSelector.AdminSearch && (
-                      <Link
-                        className={twMerge(
-                          "ease-in-out duration-200 text-center cursor-pointer",
-                          "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
-                        )}
-                        href={PageSelector.AdminSearch}
-                      >
-                        <h1>BUSCAR CLIENTE</h1>
-                      </Link>
-                    )}
-
-                    {props.page !== PageSelector.AdminShowReservations && (
-                      <Link
-                        className={twMerge(
-                          "ease-in-out duration-200 text-center cursor-pointer",
-                          "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
-                        )}
-                        href={PageSelector.AdminShowReservations}
-                      >
-                        <h1>VER RESERVAS</h1>
-                      </Link>
-                    )}
-
-                    {(checkRoles(UserRoles.Admins) ||
-                      checkRoles(UserRoles.Employee) ||
-                      checkRoles(UserRoles.Sales)) && (
-                      <>
-                        {props.page !== PageSelector.AdminEditReservations && (
-                          <Link
-                            className={twMerge(
-                              "ease-in-out duration-200 text-center cursor-pointer",
-                              "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
-                            )}
-                            href={PageSelector.AdminEditReservations}
-                          >
-                            <h1>MODIFICAR RESERVAS</h1>
-                          </Link>
-                        )}
-                      </>
-                    )}
-
-                    {props.page !== PageSelector.AdminPersonalizedQuote && (
-                      <Link
-                        className={twMerge(
-                          "ease-in-out duration-200 text-center cursor-pointer",
-                          "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
-                        )}
-                        href={PageSelector.AdminPersonalizedQuote}
-                      >
-                        <h1>ORÇAMENTO PERSONALIZADO</h1>
-                      </Link>
-                    )}
-
-                    {props.page !== PageSelector.AdminReadjustSimulate && (
-                      <Link
-                        className={twMerge(
-                          "ease-in-out duration-200 text-center cursor-pointer",
-                          "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
-                        )}
-                        href={PageSelector.AdminReadjustSimulate}
-                      >
-                        <h1>SIMULAR REAJUSTE</h1>
-                      </Link>
-                    )}
-
-                    {props.page !== PageSelector.AdminReadjustClient && (
-                      <Link
-                        className={twMerge(
-                          "ease-in-out duration-200 text-center cursor-pointer",
-                          "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
-                        )}
-                        href={PageSelector.AdminReadjustClient}
-                      >
-                        <h1>REAJUSTE DE CLIENTE</h1>
-                      </Link>
-                    )}
-                  </>
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-app-bar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{ display: { xs: "block", md: "none" } }}
+              >
+                {!page ? null : page !== PageSelector.HomePage ? (
+                  <Button
+                    sx={{ textAlign: "left", width: "100%", px: 2, color: "inherit", display: "block" }}
+                    onClick={() => Router.push(PageSelector.HomePage)}
+                  >
+                    Página Inicial
+                  </Button>
+                ) : (
+                  <React.Fragment>
+                    <Button
+                      sx={{ textAlign: "left", width: "100%", px: 2, color: "inherit", display: "block" }}
+                      onClick={() => (props.scrollToSection(props.aboutRef), handleCloseNavMenu())}
+                    >
+                      Sobre Nós
+                    </Button>
+                    <Button
+                      sx={{ textAlign: "left", width: "100%", px: 2, color: "inherit", display: "block" }}
+                      onClick={handleOpenMapsPhaseMenu}
+                    >
+                      Mapas
+                    </Button>
+                    <Button
+                      sx={{ textAlign: "left", width: "100%", px: 2, color: "inherit", display: "block" }}
+                      onClick={() => (props.scrollToSection(props.contactRef), handleCloseNavMenu())}
+                    >
+                      Contato
+                    </Button>
+                    <Button
+                      sx={{ textAlign: "left", width: "100%", px: 2, color: "inherit", display: "block" }}
+                      onClick={() => Router.push(PageSelector.Photos)}
+                    >
+                      Fotos
+                    </Button>
+                  </React.Fragment>
                 )}
-
-                <Link
-                  className={twMerge(
-                    "ease-in-out duration-200 text-center cursor-pointer",
-                    "hover:scale-110 hover:text-yellow1 active:scale-90 active:duration-100"
-                  )}
-                  onClick={() => {
-                    setTogglePanel(false);
-                    setToggleMenu(false);
-                    props.handleError?.();
-                    props.setSelectedClient?.(null);
+                <Menu
+                  id="menu-maps-phases"
+                  sx={{ mt: "45px" }}
+                  anchorEl={anchorElMapsPhase}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
                   }}
-                  href={PageSelector.AdminLogout}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElMapsPhase)}
+                  onClose={handleCloseMapsPhaseMenu}
                 >
-                  DESCONECTAR
-                </Link>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+                  <MenuList>
+                    <MenuItem
+                      onClick={() => (
+                        props.scrollToSection(props.maps1Ref), handleCloseMapsPhaseMenu(), handleCloseNavMenu()
+                      )}
+                    >
+                      <ListItemIcon>
+                        <LooksOneOutlined />
+                      </ListItemIcon>
+                      <ListItemText>1ª Etapa</ListItemText>
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => (
+                        props.scrollToSection(props.maps2Ref), handleCloseMapsPhaseMenu(), handleCloseNavMenu()
+                      )}
+                    >
+                      <ListItemIcon>
+                        <LooksTwoOutlined />
+                      </ListItemIcon>
+                      <ListItemText>2ª Etapa</ListItemText>
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
+              </Menu>
+            </Box>
+
+            {/* DESKTOP VERSION  */}
+            <Typography
+              sx={{
+                flexGrow: 1,
+              }}
+            >
+              <Link href={PageSelector.HomePage}>
+                <Image
+                  className="lg:hidden flex py-2 w-[180px]"
+                  src="/logoLoteamento.png"
+                  width={500}
+                  height={200}
+                  alt="Logo do Site"
+                />
+              </Link>
+            </Typography>
+            <Box sx={{ flexGrow: 50, display: { xs: "none", md: "flex" } }}>
+              {!page ? null : page !== PageSelector.HomePage ? (
+                <Button
+                  sx={{ mx: 1, color: "white", display: "block" }}
+                  onClick={() => Router.push(PageSelector.HomePage)}
+                >
+                  Página Inicial
+                </Button>
+              ) : (
+                <React.Fragment>
+                  <Button
+                    sx={{ mx: 1, color: "white", display: "block" }}
+                    onClick={() => props.scrollToSection(props.aboutRef)}
+                  >
+                    Sobre Nós
+                  </Button>
+                  <Button sx={{ mx: 1, color: "white", display: "block" }} onClick={handleOpenMapsPhaseMenu}>
+                    Mapas
+                  </Button>
+                  <Button
+                    sx={{ mx: 1, color: "white", display: "block" }}
+                    onClick={() => props.scrollToSection(props.contactRef)}
+                  >
+                    Contato
+                  </Button>
+                  <Button
+                    sx={{ mx: 1, color: "white", display: "block" }}
+                    onClick={() => Router.push(PageSelector.Photos)}
+                  >
+                    Fotos
+                  </Button>
+                </React.Fragment>
+              )}
+              <Menu
+                id="menu-maps-phases"
+                sx={{ mt: "45px" }}
+                anchorEl={anchorElMapsPhase}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElMapsPhase)}
+                onClose={handleCloseMapsPhaseMenu}
+              >
+                <MenuList>
+                  <MenuItem onClick={() => (props.scrollToSection(props.maps1Ref), handleCloseMapsPhaseMenu())}>
+                    <ListItemIcon>
+                      <LooksOneOutlined />
+                    </ListItemIcon>
+                    <ListItemText>1ª Etapa</ListItemText>
+                  </MenuItem>
+                  <MenuItem onClick={() => (props.scrollToSection(props.maps2Ref), handleCloseMapsPhaseMenu())}>
+                    <ListItemIcon>
+                      <LooksTwoOutlined />
+                    </ListItemIcon>
+                    <ListItemText>2ª Etapa</ListItemText>
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            </Box>
+
+            {/* USER LOGIN / PROFILE -> OPTIONS */}
+            <Box sx={{ flexGrow: 0 }}>
+              {!isLoading &&
+                (!user ? (
+                  <Button variant="text" sx={{ color: "white" }} href={PageSelector.Login}>
+                    <h1>LOGIN</h1>
+                  </Button>
+                ) : (
+                  <>
+                    <Tooltip title="Abrir Opções">
+                      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                        <Avatar alt="User Avatar" src={`${user.picture}`} />
+                      </IconButton>
+                    </Tooltip>
+                    <Menu
+                      sx={{ mt: "45px" }}
+                      id="user-app-box"
+                      anchorEl={anchorElUser}
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                      keepMounted
+                      transformOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                      open={Boolean(anchorElUser)}
+                      onClose={handleCloseUserMenu}
+                    >
+                      <MenuList>
+                        <MenuItem>
+                          <ListItemIcon>
+                            <AccountCircleOutlined />
+                          </ListItemIcon>
+                          <ListItemText>Meu Perfil</ListItemText>
+                        </MenuItem>
+                        <Divider />
+
+                        {/* ADMINS & AGENTS - OPTIONS */}
+                        {checkRoles(UserRoles.Admins) ||
+                        checkRoles(UserRoles.Sales) ||
+                        checkRoles(UserRoles.Employee) ? (
+                          <React.Fragment>
+                            <MenuItem onClick={() => Router.push(PageSelector.AdminSearch)}>
+                              <ListItemIcon>
+                                <Search />
+                              </ListItemIcon>
+                              <ListItemText>Buscar</ListItemText>
+                            </MenuItem>
+                            <MenuItem onClick={() => Router.push(PageSelector.AdminShowReservations)}>
+                              <ListItemIcon>
+                                <EventAvailableOutlined />
+                              </ListItemIcon>
+                              <ListItemText>Ver Reservas</ListItemText>
+                            </MenuItem>
+                            <MenuItem onClick={() => Router.push(PageSelector.AdminEditReservations)}>
+                              <ListItemIcon>
+                                <EditCalendarOutlined />
+                              </ListItemIcon>
+                              <ListItemText>Modificar Reservas</ListItemText>
+                            </MenuItem>
+                            <MenuItem onClick={() => Router.push(PageSelector.AdminPersonalizedQuote)}>
+                              <ListItemIcon>
+                                <DisplaySettingsOutlined />
+                              </ListItemIcon>
+                              <ListItemText>Orçamentos Personalizados</ListItemText>
+                            </MenuItem>
+                            <MenuItem onClick={() => Router.push(PageSelector.AdminReadjustSimulate)}>
+                              <ListItemIcon>
+                                <PriceChangeOutlined />
+                              </ListItemIcon>
+                              <ListItemText>Simular Reajuste</ListItemText>
+                            </MenuItem>
+                            <MenuItem onClick={() => Router.push(PageSelector.AdminReadjustClient)}>
+                              <ListItemIcon>
+                                <PriceCheckOutlined />
+                              </ListItemIcon>
+                              <ListItemText>Reajuste de Cliente</ListItemText>
+                            </MenuItem>
+                          </React.Fragment>
+                        ) : (
+                          <MenuItem>
+                            <ListItemIcon>
+                              <ArticleOutlined />
+                            </ListItemIcon>
+                            <ListItemText>Meus Contratos</ListItemText>
+                          </MenuItem>
+                        )}
+
+                        <Divider />
+                        <MenuItem onClick={() => Router.push(PageSelector.Logout)}>
+                          <ListItemIcon>
+                            <Logout />
+                          </ListItemIcon>
+                          <ListItemText>Desconectar</ListItemText>
+                        </MenuItem>
+                      </MenuList>
+                    </Menu>
+                  </>
+                ))}
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </>
   );
 }

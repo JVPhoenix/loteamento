@@ -1,7 +1,7 @@
-import AdminNewClientInfos from "@/components/admin/AdminNewClientInfos";
-import AdminSearchFilters from "@/components/admin/AdminSearchFilters";
+import AdminNewClientInfos from "@/components/admin/others/AdminNewClientInfos";
+import AdminSearchFilters from "@/components/admin/others/AdminSearchFilters";
 import Footer from "@/components/home/Footer";
-import Header from "@/components/home/Header";
+import OldHeader from "@/components/home/OldHeader";
 import ProductsSelect from "@/components/products/ProductsSelect";
 import { Button } from "@/components/utils/Button";
 import ErrorPage from "@/components/utils/ErrorPage";
@@ -170,7 +170,7 @@ export default function NewClient() {
       onMouseMove={() => reserved !== null && responsesPopup && setResponsesPopup(null)}
     >
       <div className="w-full h-full">
-        <Header page={PageSelector.AdminNewClient} />
+        <OldHeader page={PageSelector.AdminNewClient} />
       </div>
 
       {!isLoading && (

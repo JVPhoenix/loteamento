@@ -1,7 +1,7 @@
 import { LotesDataInterface } from "@/types";
 import { Dispatch, SetStateAction, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { Button } from "../utils/Button";
+import { Button } from "../../utils/Button";
 import { MultiValue } from "react-select";
 
 interface AdminNewClientInfosInterface {

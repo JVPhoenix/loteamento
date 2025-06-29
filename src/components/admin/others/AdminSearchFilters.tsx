@@ -1,7 +1,7 @@
 import { twMerge } from "tailwind-merge";
 import { FilterSelector, LotesStatus, PageSelector } from "@/types";
 import { Dispatch, SetStateAction } from "react";
-import { Button } from "../utils/Button";
+import { Button } from "../../utils/Button";
 
 interface AdminClientSelectInterface {
   state?: FilterSelector | null;
@@ -17,7 +17,7 @@ interface AdminClientSelectInterface {
 export default function AdminSearchFilters(props: AdminClientSelectInterface) {
   return (
     <>
-      <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold select-none mb-2">
+      <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold select-none mb-2 mt-6">
         {props.page === PageSelector.AdminReadjustClient || props.page === PageSelector.AdminSearch
           ? "SELECIONE UM CLIENTE"
           : props.page === PageSelector.AdminReadjustSimulate ||

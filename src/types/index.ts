@@ -7,9 +7,10 @@ export enum PageSelector {
   Etapa2 = "/etapa2",
   Etapa3 = "/etapa3",
   Etapa4 = "/etapa4",
+  Photos = "/fotos",
   ClientSearch = "/cliente",
-  AdminLogin = "/api/auth/login",
-  AdminLogout = "/api/auth/logout",
+  Login = "/api/auth/login",
+  Logout = "/api/auth/logout",
   AdminSearch = "/admin/buscar",
   AdminReadjustClient = "/admin/reajuste/reajuste-de-cliente",
   AdminReadjustSimulate = "/admin/reajuste/simular-reajuste",
@@ -48,6 +49,14 @@ export enum PlanMonths {
   FourthYear = 48,
   FifthYear = 60,
 }
+
+export const ordinalPlansNames = [
+  "Primeiro",
+  "Segundo",
+  "Terceiro",
+  "Quarto",
+  "Quinto",
+];
 
 export type PageType = {
   page: string;
