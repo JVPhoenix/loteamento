@@ -13,11 +13,11 @@ import Photos from "@/components/home/Photos";
 import Products from "@/components/products/Products";
 import ErrorPage from "@/components/utils/ErrorPage";
 import LoadingStatus from "@/components/utils/LoadingStatus";
+import MaintenancePage from "@/components/utils/MaintenancePage";
 import { PageSelector, UserRoles } from "@/types";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { Box } from "@mui/material";
 import { usePathname } from "next/navigation";
-import path from "path";
 import React, { useRef } from "react";
 
 export default function Home() {
@@ -93,6 +93,8 @@ export default function Home() {
           (checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Employee))
         ) {
           return <AdminReadjustClient />;
+        } else if (pathname === PageSelector.ClientSearch || pathname === PageSelector.MyProfile) {
+          return <MaintenancePage />;
         }
       } else {
         return <ErrorPage page={PageSelector.AdminSearch} />;

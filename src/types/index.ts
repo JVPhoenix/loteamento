@@ -8,7 +8,8 @@ export enum PageSelector {
   Etapa3 = "/etapa3",
   Etapa4 = "/etapa4",
   Photos = "/fotos",
-  ClientSearch = "/cliente",
+  ClientSearch = "/cliente", // Remove later
+  MyProfile = "/meu-perfil", // New Client Area
   Login = "/api/auth/login",
   Logout = "/api/auth/logout",
   AdminSearch = "/admin/buscar",
@@ -50,13 +51,7 @@ export enum PlanMonths {
   FifthYear = 60,
 }
 
-export const ordinalPlansNames = [
-  "Primeiro",
-  "Segundo",
-  "Terceiro",
-  "Quarto",
-  "Quinto",
-];
+export const ordinalPlansNames = ["Primeiro", "Segundo", "Terceiro", "Quarto", "Quinto"];
 
 export type PageType = {
   page: string;

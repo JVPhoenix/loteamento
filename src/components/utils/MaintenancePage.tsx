@@ -9,11 +9,11 @@ export default function MaintenancePage() {
         <AlertIcon className="fill-yellow1" width={60} />
       </div>
       <h1 className="text-gray-200 text-4xl response:text-6xl font-bold select-none leading-none tracking-tight">
-        EM CONSTRUÇÃO
+        EM MANUTENÇÃO
       </h1>
       <div className="flex flex-col items-center text-gray-400 response:text-2xl font-thin">
-        <h1>A página em questão ainda está em construção!</h1>
-        <h1>Por favor, aguarde até que ela fique pronta.</h1>
+        <h1>A página em questão está em manutenção!</h1>
+        <h1>Pedimos desculpas pelo incômodo! </h1>
       </div>
     </div>
   );

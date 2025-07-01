@@ -123,6 +123,8 @@ export default function Header(props: HeaderInterface) {
       page === PageSelector.AdminNewClient
     ) {
       return "Novo Cliente";
+    } else if (page === PageSelector.ClientSearch) {
+      return "Área do Cliente";
     } else {
       return "ERRO - Sem Acesso";
     }
@@ -206,6 +208,12 @@ export default function Header(props: HeaderInterface) {
                       onClick={() => Router.push(PageSelector.Photos)}
                     >
                       Fotos
+                    </Button>
+                    <Button
+                      sx={{ textAlign: "left", width: "100%", px: 2, color: "inherit", display: "block" }}
+                      onClick={() => Router.push(PageSelector.ClientSearch)}
+                    >
+                      Área do Cliente
                     </Button>
                   </React.Fragment>
                 )}
@@ -298,6 +306,12 @@ export default function Header(props: HeaderInterface) {
                   >
                     Fotos
                   </Button>
+                  <Button
+                    sx={{ mx: 1, color: "white", display: "block" }}
+                    onClick={() => Router.push(PageSelector.ClientSearch)}
+                  >
+                    Área do Cliente
+                  </Button>
                 </React.Fragment>
               )}
               <Menu
@@ -364,7 +378,7 @@ export default function Header(props: HeaderInterface) {
                       onClose={handleCloseUserMenu}
                     >
                       <MenuList>
-                        <MenuItem>
+                        <MenuItem onClick={() => Router.push(PageSelector.MyProfile)}>
                           <ListItemIcon>
                             <AccountCircleOutlined />
                           </ListItemIcon>
