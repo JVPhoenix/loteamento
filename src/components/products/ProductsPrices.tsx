@@ -56,7 +56,7 @@ export default function ProductsPrices(props: ProductsPricesInterface) {
               </>
             ) : (
               <>
-                <h3 className="font-bold text-white text-xl">Valor Inicial do Lote</h3>
+                <h3 className="font-bold text-white text-xl">Valor Inicial do Lote - A Prazo</h3>
                 <p>
                   R${" "}
                   {(props.discount ? price : price + price / 10).toLocaleString("pt-br", {

@@ -1,7 +1,6 @@
 import AdminNewClientInfos from "@/components/admin/others/AdminNewClientInfos";
 import AdminSearchFilters from "@/components/admin/others/AdminSearchFilters";
 import Footer from "@/components/home/Footer";
-import OldHeader from "@/components/home/OldHeader";
 import ProductsSelect from "@/components/products/ProductsSelect";
 import { Button } from "@/components/utils/Button";
 import ErrorPage from "@/components/utils/ErrorPage";
@@ -169,10 +168,6 @@ export default function NewClient() {
       className="flex flex-col w-full min-h-screen bg-black1 text-lg text-white relative"
       onMouseMove={() => reserved !== null && responsesPopup && setResponsesPopup(null)}
     >
-      <div className="w-full h-full">
-        <OldHeader page={PageSelector.AdminNewClient} />
-      </div>
-
       {!isLoading && (
         <>
           {user && (checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) ? (
@@ -422,7 +417,6 @@ export default function NewClient() {
                   </div>
                 </>
               )}
-              <Footer />
             </>
           ) : (
             <ErrorPage page={PageSelector.AdminSearch} />

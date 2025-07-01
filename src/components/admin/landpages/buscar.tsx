@@ -127,7 +127,7 @@ export default function AdminSearch({ checkRoles }: AdminSearchInterface) {
 
   return (
     <div
-      className="relative"
+      className="flex flex-col m-auto items-center px-3"
       onMouseMove={() =>
         setTimeout(() => {
           !actionType && responsesPopup && setResponsesPopup(null);
@@ -191,26 +191,10 @@ export default function AdminSearch({ checkRoles }: AdminSearchInterface) {
       {/* POPUP EDIT DIV */}
       <div
         className={twMerge(
-          "absolute hidden flex-col gap-5 items-center justify-center w-full h-full",
-          "bg-black bg-opacity-90 z-[99]",
+          "absolute hidden flex-col bg-black bg-opacity-95 z-50 top-0 left-0 w-full h-full items-center justify-center",
           actionType !== null && "flex"
         )}
       >
-        <div
-          className={twMerge(
-            "absolute right-10 top-10",
-            "ease-in-out duration-100 active:duration-100 hover:scale-125 active:scale-90"
-          )}
-          onClick={() => {
-            setActionType(null);
-            setResponsesPopup(null);
-            setEditObs("");
-            setError(false);
-          }}
-        >
-          <CloseIcon className="" stroke="white" width={70} />
-        </div>
-
         {responsesPopup === StatusResponses.Loading ? (
           <LoadingStatus />
         ) : (
@@ -374,6 +358,20 @@ export default function AdminSearch({ checkRoles }: AdminSearchInterface) {
               >
                 <h1> Cancelar </h1>
               </Button>
+            </div>
+            <div
+              className={twMerge(
+                "absolute right-10 top-10",
+                "ease-in-out duration-100 active:duration-100 hover:scale-125 active:scale-90"
+              )}
+              onClick={() => {
+                setActionType(null);
+                setResponsesPopup(null);
+                setEditObs("");
+                setError(false);
+              }}
+            >
+              <CloseIcon className="" stroke="white" width={70} />
             </div>
           </>
         )}

@@ -8,7 +8,7 @@ import {
   UserRoles,
 } from "@/types";
 import AdminSearchFilters from "@/components/admin/others/AdminSearchFilters";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLotesData } from "@/context/LotesDataContext";
 import { Button } from "@/components/utils/Button";
 import { twMerge } from "tailwind-merge";
@@ -20,6 +20,7 @@ import AdminUpdateReservation from "@/components/admin/reservation/AdminUpdateRe
 import StatusPopup from "@/components/utils/StatusPopup";
 import LoadingStatus from "@/components/utils/LoadingStatus";
 import { UserProfile } from "@auth0/nextjs-auth0/client";
+import { Box } from "@mui/material";
 
 interface AdminEditReservationsInterface {
   checkRoles: (role: string) => boolean | undefined;
@@ -147,7 +148,7 @@ export default function AdminEditReservations({ checkRoles, user }: AdminEditRes
       {/* POP-UP PAGE */}
       <div
         className={twMerge(
-          "absolute hidden flex-col bg-black bg-opacity-90 z-50 w-full h-full overflow-auto",
+          "absolute hidden flex-col bg-black bg-opacity-95 z-50 top-0 left-0 w-full h-full items-center justify-center",
           actionType !== null && "flex"
         )}
       >

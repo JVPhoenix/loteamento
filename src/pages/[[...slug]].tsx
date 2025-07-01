@@ -1,4 +1,5 @@
 import AdminSearch from "@/components/admin/landpages/buscar";
+import NewClient from "@/components/admin/landpages/novo-cliente";
 import AdminPersonalizedQuotes from "@/components/admin/landpages/orcamentos-personalizados";
 import AdminReadjustClient from "@/components/admin/landpages/reajuste/reajuste-de-cliente";
 import AdminReadjustSimulate from "@/components/admin/landpages/reajuste/simular-reajuste";
@@ -16,6 +17,7 @@ import { PageSelector, UserRoles } from "@/types";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { Box } from "@mui/material";
 import { usePathname } from "next/navigation";
+import path from "path";
 import React, { useRef } from "react";
 
 export default function Home() {
@@ -64,6 +66,8 @@ export default function Home() {
           (checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Employee))
         ) {
           return <AdminSearch checkRoles={checkRoles} />;
+        } else if (pathname === PageSelector.AdminNewClient && checkRoles(UserRoles.Admins)) {
+          return <NewClient />;
         } else if (
           pathname === PageSelector.AdminShowReservations &&
           (checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Employee))
@@ -100,7 +104,7 @@ export default function Home() {
     }
   };
   return (
-    <Box className="flex flex-col text-white bg-black1 text-lg min-h-screen relative">
+    <Box className="flex flex-col text-white bg-black1 text-lg w-full min-h-screen relative">
       <Header
         aboutRef={aboutRef}
         contactRef={contactRef}
