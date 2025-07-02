@@ -12,7 +12,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import React, { useState } from "react";
 import Head from "next/head";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { PageSelector, UserRoles } from "@/types";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Image from "next/image";
@@ -31,7 +31,6 @@ import {
   LooksOneOutlined,
   LooksTwoOutlined,
 } from "@mui/icons-material";
-import Router from "next/router";
 
 interface HeaderInterface {
   aboutRef: React.RefObject<HTMLDivElement>;
@@ -44,6 +43,7 @@ interface HeaderInterface {
 export default function Header(props: HeaderInterface) {
   // ROLES AND PAGES MANAGEMENT
   const page = usePathname();
+  const Router = useRouter();
   const { user, isLoading } = useUser();
   const checkRoles = (role: string) => {
     if (user) {
@@ -125,6 +125,8 @@ export default function Header(props: HeaderInterface) {
       return "Novo Cliente";
     } else if (page === PageSelector.ClientSearch) {
       return "Área do Cliente";
+    } else if (page === PageSelector.MyProfile) {
+      return "Meu Perfil";
     } else {
       return "ERRO - Sem Acesso";
     }

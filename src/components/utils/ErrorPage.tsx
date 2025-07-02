@@ -2,11 +2,13 @@ import { PageSelector } from "@/types";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
 interface ErrorPageInterface {
-  page?: PageSelector;
+  page?: string;
 }
 
 export default function ErrorPage(props: ErrorPageInterface) {
   const { user } = useUser();
+  console.log(props.page);
+
   return (
     <div className="flex flex-col m-auto items-center text-white gap-2 text-3xl select-none font-bold px-3">
       <div className="flex flex-col items-center justify-center">

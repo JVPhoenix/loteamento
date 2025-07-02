@@ -57,6 +57,8 @@ export default function Home() {
       );
     } else if (pathname === PageSelector.Photos) {
       return <Photos />;
+    } else if (pathname === PageSelector.ClientSearch) {
+      return <MaintenancePage />;
     }
     // ADMIN PAGES
     else if (pathname !== PageSelector.HomePage && !isLoading) {
@@ -93,18 +95,21 @@ export default function Home() {
           (checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Employee))
         ) {
           return <AdminReadjustClient />;
-        } else if (pathname === PageSelector.ClientSearch || pathname === PageSelector.MyProfile) {
+        } else if (pathname === PageSelector.MyProfile) {
           return <MaintenancePage />;
+        } else {
+          return <ErrorPage page={pathname} />;
         }
       } else {
-        return <ErrorPage page={PageSelector.AdminSearch} />;
+        return <ErrorPage page={pathname} />;
       }
     } else if (pathname === null || isLoading) {
       return <LoadingStatus />;
-    } else {
-      return <ErrorPage />;
+    } else if (pathname !== null || !isLoading) {
+      return <ErrorPage page={pathname} />;
     }
   };
+
   return (
     <Box className="flex flex-col text-white bg-black1 text-lg w-full min-h-screen relative">
       <Header
