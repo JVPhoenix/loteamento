@@ -5,6 +5,8 @@ import AdminReadjustClient from "@/components/admin/landpages/reajuste/reajuste-
 import AdminReadjustSimulate from "@/components/admin/landpages/reajuste/simular-reajuste";
 import AdminEditReservations from "@/components/admin/landpages/reservas/editar-reservas";
 import AdminShowReservations from "@/components/admin/landpages/reservas/ver-reservas";
+import ClientPage_Temporary from "@/components/client/ClientPage_Temporary";
+import ClientPageSearch from "@/components/client/ClientPageSearch";
 import About from "@/components/home/About";
 import Contacts from "@/components/home/Contacts";
 import Footer from "@/components/home/Footer";
@@ -42,8 +44,13 @@ export default function Home() {
   };
 
   const renderedContent = () => {
+    // LOADING STATUS
+    if (pathname === null || isLoading) {
+      return <LoadingStatus />;
+    }
+
     // NORMAL PAGES
-    if (pathname === PageSelector.HomePage) {
+    else if (pathname === PageSelector.HomePage) {
       return (
         <React.Fragment>
           <Box ref={aboutRef}>
@@ -58,10 +65,11 @@ export default function Home() {
     } else if (pathname === PageSelector.Photos) {
       return <Photos />;
     } else if (pathname === PageSelector.ClientSearch) {
-      return <MaintenancePage />;
+      return <ClientPage_Temporary />;
     }
+
     // ADMIN PAGES
-    else if (pathname !== PageSelector.HomePage && !isLoading) {
+    else if (!isLoading) {
       if (user) {
         if (
           pathname === PageSelector.AdminSearch &&
@@ -103,8 +111,6 @@ export default function Home() {
       } else {
         return <ErrorPage page={pathname} />;
       }
-    } else if (pathname === null || isLoading) {
-      return <LoadingStatus />;
     } else if (pathname !== null || !isLoading) {
       return <ErrorPage page={pathname} />;
     }
