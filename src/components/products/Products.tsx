@@ -13,7 +13,7 @@ export default function Products(props: ProductsInterface) {
 
   return (
     <div className="flex flex-col gap-4 text-gray1 font-medium text-center items-center mb-8">
-      <Box ref={props.maps1Ref}>
+      <Box ref={props.maps2Ref}>
         {lotesData && (
           <ProductsPhases
             data={lotesData.filter((lote) => lote.phase === FilterSelector.Etapa2 && lote)}
@@ -21,7 +21,7 @@ export default function Products(props: ProductsInterface) {
           />
         )}
       </Box>
-      <Box ref={props.maps2Ref}>
+      <Box ref={props.maps1Ref}>
         {lotesData && (
           <ProductsPhases
             data={lotesData.filter((lote) => lote.phase === FilterSelector.Etapa1 && lote)}
