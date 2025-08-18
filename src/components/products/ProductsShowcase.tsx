@@ -1,159 +1,103 @@
-import Image from "next/image";
-import React, { useRef, useState } from "react";
-import { LeftArrow, RightArrow, SelectDot } from "../utils/Icons";
-import { twMerge } from "tailwind-merge";
-import { FilterSelector, LotesDataInterface, PhotosDataInterface } from "@/types";
+import React, { useState } from "react";
+import { Button } from "@mui/material";
+import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import { useLotesData } from "@/context/LotesDataContext";
+import { FilterSelector, LotesDataInterface, PhotosDataInterface } from "@/types";
+import Image from "next/image";
 import Phase1SVG from "../utils/Phase1_Reserves";
 import Phase2SVG from "../utils/Phase2_Reserves";
+import { twMerge } from "tailwind-merge";
 
 interface ProductsShowcaseInterface {
-  data: LotesDataInterface[];
   showcasePhotos: PhotosDataInterface[] | undefined;
   phase: FilterSelector;
 }
 
-export default function ProductsShowcase(props: ProductsShowcaseInterface) {
-  const lotesData = useLotesData().lotesData?.filter((status) => status.phase === props.phase && status);
+export default function ProductsShowcase({ showcasePhotos, phase }: ProductsShowcaseInterface) {
+  const lotesData = useLotesData().lotesData?.filter((status) => status.phase === phase && status);
+  const images = showcasePhotos ? showcasePhotos : [];
 
-  // DOTS - SELECT SHOWCASE PHOTO
-  const photos = props.showcasePhotos ? props.showcasePhotos : [];
-  const [photoIndex, setPhotoIndex] = useState<number>(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const prevPhoto = () => {
-    const isFirstPhoto = photoIndex === 0;
-    const newIndex = isFirstPhoto ? photos.length - 1 : photoIndex - 1;
-    setPhotoIndex(newIndex);
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 1) % images.length);
   };
 
-  const nextPhoto = () => {
-    const isLastPhoto = photoIndex === photos.length - 1;
-    const newIndex = isLastPhoto ? 0 : photoIndex + 1;
-    setPhotoIndex(newIndex);
-  };
-
-  const photoSelectDots = (dotIndex: number) => {
-    setPhotoIndex(dotIndex);
-  };
-
-  // FEATURE - HOVER ZOOM
-  const imgRef = useRef<HTMLImageElement>(null);
-  const [zoom, setZoom] = useState<number>(1);
-  const [position, setPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
-    if (imgRef.current) {
-      const target = imgRef.current;
-      const x = (100 * e.nativeEvent.offsetX) / target.offsetWidth;
-      const y = (100 * e.nativeEvent.offsetY) / target.offsetHeight;
-
-      setPosition({ x, y });
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setPosition({ x: 0, y: 0 });
-    setZoom(1);
-  };
-
-  const handleRangeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setZoom(parseFloat(event.target.value));
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
   return (
-    <div className="relative group select-none overflow-hidden" onMouseLeave={handleMouseLeave}>
-      <div
-        className="flex relative response:max-w-[800px] max-w-[400px] bg-green-500 rounded-xl"
-        ref={imgRef}
-        onMouseMove={handleMouseMove}
-        style={
-          {
-            "--zoom": zoom,
-            "--x": `${position.x}%`,
-            "--y": `${position.y}%`,
-            transform: `scale(var(--zoom))`,
-            transformOrigin: `var(--x) var(--y)`,
-            clipPath: `inset(calc((1 - 1/var(--zoom)) * (var(--y))) calc((1 - 1/var(--zoom)) * (100% - var(--x))) 
-              calc((1 - 1/var(--zoom)) * (100% - var(--y))) calc((1 - 1/var(--zoom)) * (var(--x))))`,
-            cursor: "crosshair",
-          } as React.CSSProperties
-        }
-      >
-        {/* MAP IMAGE */}
-        <Image
-          className="z-10 rounded-xl"
-          width={3200}
-          height={1980}
-          style={{ objectFit: "cover" }}
-          src={photos[photoIndex]?.url}
-          alt="Fotos e mapa dos lotes disponíveis"
-          priority
-          unoptimized
-        />
-        {/* RESERVED IMAGES */}
-        {props.phase === FilterSelector.Etapa1 ? (
-          <Phase1SVG lotesData={lotesData} />
-        ) : FilterSelector.Etapa2 ? (
-          <Phase2SVG lotesData={lotesData} />
-        ) : null}
-      </div>
-
-      {/* NEXT/PREVIOUS DOTS && ZOOM RANGE  */}
+    <div className="relative max-w-3xl mx-2 overflow-hidden">
+      {/* IMAGES COMPONENT */}
       <div
         className={twMerge(
-          "hidden group-hover:flex flex-col items-center justify-between h-28 response:h-40 w-14 z-10",
-          "text-white cursor-pointer bg-black/60",
-          "hover:scale-110 ease-in-out duration-200 rounded-2xl",
-          "absolute top-[2%] response:top-[5%] right-[2%]"
+          "flex transition-transform duration-500 ease-in-out bg-green-500 rounded-xl",
+          phase === FilterSelector.Etapa1 && "aspect-[3160/1733]"
         )}
+        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
-        <p>Zoom</p>
-        <input
-          type="range"
-          step={0.5}
-          className="appearance-none w-16 response:w-24 bg-gray-200 -rotate-90 rounded-lg overflow-hidden outline-none"
-          min={1}
-          max={3}
-          value={zoom}
-          onChange={handleRangeChange}
-        />
-        <p>{zoom}x</p>
+        {images.map((data, index) => (
+          <Image
+            className="z-10 rounded-xl flex-shrink-0 w-full object-cover"
+            key={index}
+            src={data.url}
+            width={3200}
+            height={1980}
+            alt={`Slide ${index}`}
+            priority
+            unoptimized
+          />
+        ))}
+        {/* RESERVED IMAGES */}
+        <div
+          className={twMerge(
+            "absolute flex items-center justify-center inset-0",
+            phase === FilterSelector.Etapa1 && "aspect-[3160/1733]"
+          )}
+        >
+          {phase === FilterSelector.Etapa1 ? (
+            <Phase1SVG lotesData={lotesData} />
+          ) : FilterSelector.Etapa2 ? (
+            <Phase2SVG lotesData={lotesData} />
+          ) : null}
+        </div>
       </div>
 
-      <div onClick={prevPhoto}>
-        <LeftArrow
-          className={twMerge(
-            "hidden group-hover:block z-10",
-            "rounded-full p-2 bg-black/50 cursor-pointer",
-            "absolute top-[45%] left-[5%]",
-            "hover:scale-125 active:scale-90 ease-in-out duration-200"
-          )}
-          width={40}
-          fill="white"
-        />
+      {/* Next/Prev Buttons */}
+      <div
+        className={twMerge(
+          "absolute top-1/2 left-2 transform -translate-y-1/2 z-10 rounded-full",
+          "bg-black/30 hover:bg-black/60 transition-colors duration-200"
+        )}
+      >
+        <Button onClick={prevSlide} disabled={images.length <= 1}>
+          <KeyboardArrowLeft fontSize="large" className="text-white" />
+        </Button>
       </div>
-      <div onClick={nextPhoto}>
-        <RightArrow
-          className={twMerge(
-            "hidden group-hover:block z-10",
-            "rounded-full p-2 bg-black/50 cursor-pointer",
-            "absolute top-[45%] right-[5%]",
-            "hover:scale-125 active:scale-90 ease-in-out duration-200"
-          )}
-          width={40}
-          fill="white"
-        />
+
+      <div
+        className={twMerge(
+          "absolute top-1/2 right-2 transform -translate-y-1/2 z-10 rounded-full",
+          "bg-black/30 hover:bg-black/60 transition-colors duration-200"
+        )}
+      >
+        <Button onClick={nextSlide} disabled={images.length <= 1}>
+          <KeyboardArrowRight fontSize="large" className="text-white" />
+        </Button>
       </div>
-      <div className="flex my-2 justify-center">
-        {photos.map((photo, dotIndex) => (
-          <div key={dotIndex} onClick={() => photoSelectDots(dotIndex)}>
-            <SelectDot
-              className="m-[4px] hover:scale-110 active:scale-90 ease-in-out duration-200 cursor-pointer"
-              width={30}
-              fill={"white"}
-              stroke={dotIndex === photoIndex ? "black" : "white"}
-            />
-          </div>
+
+      {/* Dots */}
+      <div className="flex justify-center mt-4 gap-2 mb-3">
+        {images.map((_, index) => (
+          <div
+            key={index}
+            onClick={() => setCurrentIndex(index)}
+            className={twMerge(
+              "w-5 h-5 rounded-full cursor-pointer transition-all",
+              index === currentIndex ? "bg-blue-600 scale-110" : "bg-gray-400"
+            )}
+          />
         ))}
       </div>
     </div>

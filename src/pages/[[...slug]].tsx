@@ -82,7 +82,7 @@ export default function Home() {
           pathname === PageSelector.AdminShowReservations &&
           (checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Employee))
         ) {
-          return <AdminShowReservations checkRoles={checkRoles} />;
+          return <AdminShowReservations />;
         } else if (
           pathname === PageSelector.AdminEditReservations &&
           (checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Employee))

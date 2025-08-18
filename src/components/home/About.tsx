@@ -3,7 +3,7 @@ export default function About() {
     <div className="flex flex-col gap-1 text-gray1 font-medium text-center items-center my-8">
       <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold mb-4">SOBRE O LOTEAMENTO</h1>
       <div className="flex flex-col response1:flex-row gap-14">
-        <div className="flex flex-col gap-4 w-[400px] px-4 response:px-0">
+        <div className="flex flex-col gap-4 max-w-[400px] px-4 response:px-0">
           <h3 className="font-bold text-white text-xl">Estrutura</h3>
           <div className="text-justify">
             <p>O Loteamento R. Martins é mais completo e mais estruturado de Cocal, atualmente ele possui:</p>
@@ -23,7 +23,7 @@ export default function About() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 w-[400px] px-4 response:px-0">
+        <div className="flex flex-col gap-4 max-w-[400px] px-4 response:px-0">
           <h3 className="font-bold text-white text-xl">Localização</h3>
           <div className="flex flex-col text-justify gap-3">
             <p>
@@ -37,7 +37,7 @@ export default function About() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 w-[400px] px-4 response:px-0">
+        <div className="flex flex-col gap-4 max-w-[400px] px-4 response:px-0">
           <h3 className="font-bold text-white text-xl">Planos</h3>
           <div className="flex flex-col text-justify gap-2">
             <p>Atualmente trabalhamos com dois tipos de planos para que você adquira seu lote!</p>

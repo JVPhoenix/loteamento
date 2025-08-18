@@ -1,16 +1,15 @@
-import { FilterSelector, LotesDataInterface, LotesStatus, PageSelector, UserRoles } from "@/types";
+import { FilterSelector, LotesDataInterface, LotesStatus, PageSelector } from "@/types";
 import AdminSearchFilters from "@/components/admin/others/AdminSearchFilters";
 import { useState } from "react";
 import ProductsSelect from "@/components/products/ProductsSelect";
 import { useLotesData } from "@/context/LotesDataContext";
 import AdminReadjust from "@/components/admin/others/AdminReadjust";
-import { MultiValue } from "react-select";
 
 export default function AdminReadjustSimulate() {
   const lotesData = useLotesData().lotesData?.filter((value) => value.situation === LotesStatus.Free && value);
 
   const [stage, setStage] = useState<FilterSelector | null>(null);
-  const [selectedItem, setSelectedItem] = useState<MultiValue<LotesDataInterface> | null>(null);
+  const [selectedItem, setSelectedItem] = useState<LotesDataInterface[] | null>(null);
 
   const handleStage = (newStage: FilterSelector) => {
     setStage((state) => (state === newStage ? null : newStage));
@@ -22,19 +21,11 @@ export default function AdminReadjustSimulate() {
         <AdminSearchFilters stage={stage} handleStage={handleStage} page={PageSelector.AdminReadjustSimulate} />
         {lotesData && (
           <ProductsSelect
-            options={lotesData
-              ?.filter((value) => {
-                if (stage !== null) {
-                  if (stage === value.phase) {
-                    return value;
-                  }
-                } else {
-                  return value;
-                }
-              })
-              .sort((a, b) => a.value - b.value)}
+            allOptions={lotesData}
+            selectedItems={selectedItem}
+            stage={stage}
             placeholder={"Digite ou Selecione um Lote"}
-            onChange={(selection: MultiValue<LotesDataInterface> | null) => setSelectedItem(selection)}
+            onChange={setSelectedItem}
             page={PageSelector.AdminReadjustSimulate}
           />
         )}

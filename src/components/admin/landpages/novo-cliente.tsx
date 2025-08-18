@@ -1,6 +1,5 @@
 import AdminNewClientInfos from "@/components/admin/others/AdminNewClientInfos";
 import AdminSearchFilters from "@/components/admin/others/AdminSearchFilters";
-import Footer from "@/components/home/Footer";
 import ProductsSelect from "@/components/products/ProductsSelect";
 import { Button } from "@/components/utils/Button";
 import ErrorPage from "@/components/utils/ErrorPage";
@@ -20,7 +19,6 @@ import {
 } from "@/types";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useEffect, useState } from "react";
-import { MultiValue } from "react-select";
 import { twMerge } from "tailwind-merge";
 
 export default function NewClient() {
@@ -37,7 +35,7 @@ export default function NewClient() {
   // LOTES CONTEXT SECTION
   const lotesData = useLotesData().lotesData;
 
-  const [selectedItem, setSelectedItem] = useState<MultiValue<LotesDataInterface> | null>(null);
+  const [selectedItem, setSelectedItem] = useState<LotesDataInterface[] | null>(null);
   const [lotesStatus, setLotesStatus] = useState<LotesStatus | null>(null);
 
   const phase = selectedItem?.map((value) => value.phase);
@@ -276,26 +274,15 @@ export default function NewClient() {
                           />
 
                           <ProductsSelect
-                            options={lotesData
-                              ?.filter((value) => value.situation === lotesStatus && value)
-                              ?.filter((value) => {
-                                if (stage !== null) {
-                                  if (stage === value.phase) {
-                                    return value;
-                                  }
-                                } else {
-                                  return value;
-                                }
-                              })
-                              .sort((a, b) => a.value - b.value)}
+                            allOptions={lotesData?.filter((value) => value.situation === lotesStatus && value)}
                             placeholder={
                               lotesStatus === LotesStatus.Free
                                 ? "Digite aqui ou Escolha o Lote"
                                 : "Digite o Lote ou o Nome do Cliente"
                             }
-                            onChange={(selection: MultiValue<LotesDataInterface> | null) => {
-                              setSelectedItem(selection);
-                            }}
+                            selectedItems={selectedItem}
+                            stage={stage}
+                            onChange={setSelectedItem}
                             page={
                               lotesStatus === LotesStatus.Blocked
                                 ? PageSelector.AdminShowReservations

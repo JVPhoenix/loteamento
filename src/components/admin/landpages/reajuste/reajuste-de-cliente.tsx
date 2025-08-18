@@ -1,4 +1,3 @@
-import ErrorPage from "@/components/utils/ErrorPage";
 import { ClientsDataInterface, FilterSelector, PageSelector } from "@/types";
 import AdminSearchFilters from "@/components/admin/others/AdminSearchFilters";
 import AdminSearchSelect from "@/components/admin/others/AdminSearchSelect";

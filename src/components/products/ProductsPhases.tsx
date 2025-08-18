@@ -3,7 +3,6 @@ import ProductsSelect from "./ProductsSelect";
 import ProductsPrices from "./ProductsPrices";
 import { LotesDataInterface, PageSelector, FilterSelector } from "@/types";
 import ProductsShowcase from "./ProductsShowcase";
-import { MultiValue } from "react-select";
 import { usePhotosData } from "@/context/PhotosDataContext";
 
 interface ProductsPhaseInterface {
@@ -12,7 +11,8 @@ interface ProductsPhaseInterface {
 }
 
 export default function ProductsPhases(props: ProductsPhaseInterface) {
-  const [selectedItem, setSelectedItem] = useState<MultiValue<LotesDataInterface> | null>(null);
+  const [selectedItem, setSelectedItem] = useState<LotesDataInterface[] | null>(null);
+
   const PhotosData = usePhotosData()
     ?.filter((filterBy) => filterBy.phase === props.phase && filterBy)
     .filter((filterBy) => filterBy.type === FilterSelector.Showcase && filterBy);
@@ -23,23 +23,20 @@ export default function ProductsPhases(props: ProductsPhaseInterface) {
         LOTES DISPONÍVEIS - {props.phase}ª ETAPA
       </h1>
       {PhotosData && (
-        <ProductsShowcase
-          showcasePhotos={PhotosData.sort((a, b) => a.value - b.value)}
-          phase={props.phase}
-          data={props.data}
-        />
+        <ProductsShowcase showcasePhotos={PhotosData.sort((a, b) => a.value - b.value)} phase={props.phase} />
       )}
 
       {props.data && (
         <ProductsSelect
-          options={props.data.sort((a, b) => a.value - b.value)}
-          placeholder={"DIGITE OU SELECIONE UM LOTE"}
-          onChange={(selection: MultiValue<LotesDataInterface> | null) => setSelectedItem(selection)}
+          allOptions={props.data.sort((a, b) => a.value - b.value)}
+          selectedItems={selectedItem}
+          placeholder="SELECIONE UM LOTE"
+          onChange={setSelectedItem}
           page={PageSelector.HomePage}
         />
       )}
 
-      <ProductsPrices selectedItem={selectedItem} phase={props.phase} page={PageSelector.HomePage} />
+      <ProductsPrices selectedItemsData={selectedItem} phase={props.phase} page={PageSelector.HomePage} />
 
       <p className="mt-3 px-3">
         *Os valores <strong>parcelados</strong> tem reajuste de

@@ -1,10 +1,8 @@
-import { LotesDataInterface, LotesStatus, PageSelector } from "@/types";
+import { LotesDataInterface, PageSelector } from "@/types";
 import ProductsPrices from "../../products/ProductsPrices";
-import { MultiValue } from "react-select";
 
 interface ReservationsInfosInterface {
-  selectedItem: MultiValue<LotesDataInterface> | null;
-  actionType?: LotesStatus;
+  selectedItem: LotesDataInterface[] | null;
 }
 
 export default function AdminReservationsInfos({ selectedItem }: ReservationsInfosInterface) {
@@ -88,7 +86,7 @@ export default function AdminReservationsInfos({ selectedItem }: ReservationsInf
             : "X Etapa"}
         </h1>
         <ProductsPrices
-          selectedItem={selectedItem}
+          selectedItemsData={selectedItem}
           phase={selectedItem?.map((value) => value.phase).includes(2) ? 2 : 1}
           page={PageSelector.AdminShowReservations}
         />

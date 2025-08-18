@@ -5,7 +5,6 @@ import ProductsSelect from "@/components/products/ProductsSelect";
 import { useLotesData } from "@/context/LotesDataContext";
 import ProductsPrices from "@/components/products/ProductsPrices";
 import { twMerge } from "tailwind-merge";
-import { MultiValue } from "react-select";
 import { Button } from "@/components/utils/Button";
 
 export default function AdminPersonalizedQuotes() {
@@ -13,7 +12,7 @@ export default function AdminPersonalizedQuotes() {
 
   const [stage, setStage] = useState<FilterSelector | null>(null);
 
-  const [selectedItem, setSelectedItem] = useState<MultiValue<LotesDataInterface> | null>(null);
+  const [selectedItem, setSelectedItem] = useState<LotesDataInterface[] | null>(null);
   const [entranceValue, setEntranceValue] = useState<string>("");
   const [parcelsValue, setParcelsValue] = useState<number>(0);
   const [discount, setDiscount] = useState<boolean>(false);
@@ -23,9 +22,6 @@ export default function AdminPersonalizedQuotes() {
 
   const handleStage = (newStage: FilterSelector) => {
     setStage((state) => (state === newStage ? null : newStage));
-    if (stage === null) {
-      setSelectedItem(null);
-    }
   };
 
   const handleCurrencyMask = (rawValue: string) => {
@@ -62,19 +58,11 @@ export default function AdminPersonalizedQuotes() {
       <div className="flex flex-col items-center pb-5">
         <AdminSearchFilters stage={stage} handleStage={handleStage} page={PageSelector.AdminPersonalizedQuote} />
         <ProductsSelect
-          options={lotesData
-            ?.filter((value) => {
-              if (stage !== null) {
-                if (stage === value.phase) {
-                  return value;
-                }
-              } else {
-                return value;
-              }
-            })
-            .sort((a, b) => a.value - b.value)}
+          allOptions={lotesData}
+          selectedItems={selectedItem}
+          stage={stage}
           placeholder={"Digite ou Selecione um Lote"}
-          onChange={(selection: MultiValue<LotesDataInterface> | null) => setSelectedItem(selection)}
+          onChange={setSelectedItem}
           page={PageSelector.AdminPersonalizedQuote}
         />
       </div>
@@ -162,7 +150,7 @@ export default function AdminPersonalizedQuotes() {
             : "X Etapa"}
         </h1>
         <ProductsPrices
-          selectedItem={selectedItem}
+          selectedItemsData={selectedItem}
           phase={selectedItem?.map((value) => value.phase).includes(2) ? 2 : 1}
           page={PageSelector.AdminPersonalizedQuote}
           entrance={entranceValue}

@@ -20,7 +20,6 @@ import AdminUpdateReservation from "@/components/admin/reservation/AdminUpdateRe
 import StatusPopup from "@/components/utils/StatusPopup";
 import LoadingStatus from "@/components/utils/LoadingStatus";
 import { UserProfile } from "@auth0/nextjs-auth0/client";
-import { Box } from "@mui/material";
 
 interface AdminEditReservationsInterface {
   checkRoles: (role: string) => boolean | undefined;

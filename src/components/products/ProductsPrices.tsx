@@ -1,9 +1,8 @@
 import { FilterSelector, LotesDataInterface, PageSelector } from "@/types";
-import { MultiValue } from "react-select";
 
 interface ProductsPricesInterface {
   page: PageSelector;
-  selectedItem: MultiValue<LotesDataInterface> | null;
+  selectedItemsData: LotesDataInterface[] | null;
   phase: FilterSelector | null;
   entrance?: string;
   parcels?: number;
@@ -15,12 +14,12 @@ export default function ProductsPrices(props: ProductsPricesInterface) {
     ? parseFloat(props.entrance.replace("R$", "").replaceAll(".", "").replace(",", "."))
     : 0;
 
-  const price = props.selectedItem
-    ? props.selectedItem.reduce((accumulator, value) => (accumulator = accumulator + value.price), 0)
+  const price = props.selectedItemsData
+    ? props.selectedItemsData.reduce((accumulator, value) => (accumulator = accumulator + value.price), 0)
     : 0;
 
   const priceCalc = (plan: number | undefined, page?: PageSelector) => {
-    if (props.selectedItem && plan) {
+    if (props.selectedItemsData && plan) {
       if (page === PageSelector.AdminPersonalizedQuote) {
         return ((props.discount ? price - entrance : price + price / 10 - entrance) / plan).toLocaleString("pt-br", {
           minimumFractionDigits: 2,
@@ -42,7 +41,7 @@ export default function ProductsPrices(props: ProductsPricesInterface) {
       <div className="flex flex-col flex-wrap max-w-md gap-3 mt-3 mx-2 text-center text-gray1">
         <h1>
           Dimensões:{" "}
-          {props.selectedItem?.length ? props.selectedItem.map((value) => value.size).join(", ") : "Não Selecionado"}
+          {props.selectedItemsData?.length ? props.selectedItemsData.map((value) => value.size).join(", ") : "Não Selecionado"}
         </h1>
       </div>
 
