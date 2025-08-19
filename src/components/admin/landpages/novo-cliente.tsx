@@ -44,9 +44,6 @@ export default function NewClient() {
   const [stage, setStage] = useState<FilterSelector | null>(null);
   const handleStage = (newStage: FilterSelector) => {
     setStage((state) => (state === newStage ? null : newStage));
-    if (stage === null) {
-      setSelectedItem(null);
-    }
   };
 
   // USER INFO SECTION
