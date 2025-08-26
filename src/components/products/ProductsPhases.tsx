@@ -17,18 +17,34 @@ export default function ProductsPhases(props: ProductsPhaseInterface) {
     ?.filter((filterBy) => filterBy.phase === props.phase && filterBy)
     .filter((filterBy) => filterBy.type === FilterSelector.Showcase && filterBy);
 
+  const handleSelectLot = (lot: LotesDataInterface) => {
+    setSelectedItem((prev) => {
+      if (!prev) return [lot];
+      const exists = prev.find((item) => item.id === lot.id);
+      if (exists) {
+        return prev.filter((item) => item.id !== lot.id);
+      }
+      return [...prev, lot];
+    });
+  };
+
   return (
     <div className="flex flex-col gap-1 text-gray1 font-medium text-center items-center">
       <h1 className="text-white drop-shadow-titles text-center text-3xl font-bold">
         LOTES DISPONÍVEIS - {props.phase}ª ETAPA
       </h1>
       {PhotosData && (
-        <ProductsShowcase showcasePhotos={PhotosData.sort((a, b) => a.value - b.value)} phase={props.phase} />
+        <ProductsShowcase
+          showcasePhotos={PhotosData.sort((a, b) => a.value - b.value)}
+          phase={props.phase}
+          selectedItems={selectedItem}
+          onSelectLot={handleSelectLot}
+        />
       )}
 
       {props.data && (
         <ProductsSelect
-          allOptions={props.data.sort((a, b) => a.value - b.value)}
+          allOptions={props.data}
           selectedItems={selectedItem}
           placeholder="SELECIONE UM LOTE"
           onChange={setSelectedItem}

@@ -137,7 +137,15 @@ export default function Header(props: HeaderInterface) {
       <Head>
         <title>{isLoading ? "Carregando..." : handlePageHeader()}</title>
       </Head>
-      <AppBar position="static">
+      <AppBar
+        position="static"
+        sx={{
+          "& .MuiButtonBase-root": {
+            transition: "all 0.3s ease",
+            ":hover": { backgroundColor: "rgba(255, 255, 255, 0.2)" },
+          },
+        }}
+      >
         <Container maxWidth={false} className="bg-black">
           <Toolbar disableGutters>
             {/* MOBILE VERSION */}
@@ -359,12 +367,18 @@ export default function Header(props: HeaderInterface) {
                 ) : (
                   <>
                     <Tooltip title="Abrir Opções">
-                      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, ":hover": { scale: "110%" } }}>
                         <Avatar alt="User Avatar" src={`${user.picture}`} />
                       </IconButton>
                     </Tooltip>
                     <Menu
-                      sx={{ mt: "45px" }}
+                      sx={{
+                        mt: "45px",
+                        "& .MuiPaper-root .MuiMenuItem-root": {
+                          transition: "all 0.3s ease",
+                          ":hover": { backgroundColor: "rgba(0, 0, 0, 0.3)" },
+                        },
+                      }}
                       id="user-app-box"
                       anchorEl={anchorElUser}
                       anchorOrigin={{

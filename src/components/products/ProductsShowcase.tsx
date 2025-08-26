@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Button } from "@mui/material";
-import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
+import { Button, Tooltip } from "@mui/material";
+import { KeyboardArrowLeft, KeyboardArrowRight, Visibility, VisibilityOff } from "@mui/icons-material";
 import { useLotesData } from "@/context/LotesDataContext";
 import { FilterSelector, LotesDataInterface, PhotosDataInterface } from "@/types";
 import Image from "next/image";
@@ -10,12 +10,21 @@ import { twMerge } from "tailwind-merge";
 
 interface ProductsShowcaseInterface {
   showcasePhotos: PhotosDataInterface[] | undefined;
+  selectedItems: LotesDataInterface[] | null;
   phase: FilterSelector;
+  onSelectLot?: (lot: LotesDataInterface) => void;
 }
 
-export default function ProductsShowcase({ showcasePhotos, phase }: ProductsShowcaseInterface) {
+export default function ProductsShowcase({
+  showcasePhotos,
+  phase,
+  selectedItems,
+  onSelectLot,
+}: ProductsShowcaseInterface) {
   const lotesData = useLotesData().lotesData?.filter((status) => status.phase === phase && status);
   const images = showcasePhotos ? showcasePhotos : [];
+
+  const [visibility, setVisibility] = useState<boolean>(true);
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -57,35 +66,69 @@ export default function ProductsShowcase({ showcasePhotos, phase }: ProductsShow
           )}
         >
           {phase === FilterSelector.Etapa1 ? (
-            <Phase1SVG lotesData={lotesData} />
+            <>
+              <Phase1SVG lotesData={lotesData} selectedItems={selectedItems} />
+              <Phase1SVG
+                lotesData={lotesData}
+                selectedItems={selectedItems}
+                isClickable={true}
+                onSelectLot={onSelectLot}
+              />
+            </>
           ) : FilterSelector.Etapa2 ? (
-            <Phase2SVG lotesData={lotesData} />
+            <>
+              <Phase2SVG lotesData={lotesData} selectedItems={selectedItems} />
+              <Phase2SVG
+                lotesData={lotesData}
+                selectedItems={selectedItems}
+                isClickable={true}
+                onSelectLot={onSelectLot}
+              />
+            </>
           ) : null}
         </div>
       </div>
 
-      {/* Next/Prev Buttons */}
-      <div
-        className={twMerge(
-          "absolute top-1/2 left-2 transform -translate-y-1/2 z-10 rounded-full",
-          "bg-black/30 hover:bg-black/60 transition-colors duration-200"
-        )}
-      >
-        <Button onClick={prevSlide} disabled={images.length <= 1}>
-          <KeyboardArrowLeft fontSize="large" className="text-white" />
+      {/* Next/Prev Buttons - Hide Button */}
+      <Tooltip title={visibility ? "Ocultar setas de navegação" : "Exibir setas de navegação"}>
+        <Button
+          onClick={() => setVisibility(!visibility)}
+          disabled={images.length <= 1}
+          className={twMerge(
+            "!absolute !top-7 !right-2 !transform !-translate-y-1/2 !z-10 !rounded-full",
+            "!bg-black/30 hover:!bg-black/60 !transition-colors !duration-200",
+            "!text-white md:!text-3xl !text-lg !min-w-1"
+          )}
+        >
+          {visibility ? <VisibilityOff fontSize="inherit" /> : <Visibility fontSize="inherit" />}
         </Button>
-      </div>
+      </Tooltip>
 
-      <div
+      <Button
+        onClick={prevSlide}
+        disabled={images.length <= 1}
         className={twMerge(
-          "absolute top-1/2 right-2 transform -translate-y-1/2 z-10 rounded-full",
-          "bg-black/30 hover:bg-black/60 transition-colors duration-200"
+          "!absolute !top-1/2 !left-2 !transform !-translate-y-1/2 !z-10 !rounded-full",
+          "!bg-black/30 hover:!bg-black/60 !transition-colors !duration-200",
+          "!text-white md:!text-3xl !text-lg !min-w-1",
+          visibility ? "" : "!hidden"
         )}
       >
-        <Button onClick={nextSlide} disabled={images.length <= 1}>
-          <KeyboardArrowRight fontSize="large" className="text-white" />
-        </Button>
-      </div>
+        <KeyboardArrowLeft fontSize="inherit" />
+      </Button>
+
+      <Button
+        onClick={nextSlide}
+        disabled={images.length <= 1}
+        className={twMerge(
+          "!absolute !top-1/2 !right-2 !transform !-translate-y-1/2 !z-10 !rounded-full",
+          "!bg-black/30 hover:!bg-black/60 !transition-colors !duration-200",
+          "!text-white md:!text-3xl !text-lg !min-w-1",
+          visibility ? "" : "!hidden"
+        )}
+      >
+        <KeyboardArrowRight fontSize="inherit" />
+      </Button>
 
       {/* Dots */}
       <div className="flex justify-center mt-4 gap-2 mb-3">
@@ -95,7 +138,9 @@ export default function ProductsShowcase({ showcasePhotos, phase }: ProductsShow
             onClick={() => setCurrentIndex(index)}
             className={twMerge(
               "w-5 h-5 rounded-full cursor-pointer transition-all",
-              index === currentIndex ? "bg-blue-600 scale-110" : "bg-gray-400"
+              index === currentIndex
+                ? "bg-blue-600 hover:brightness-125 scale-125"
+                : "bg-gray-400 hover:bg-blue-600 active:scale-90 hover:scale-110 "
             )}
           />
         ))}

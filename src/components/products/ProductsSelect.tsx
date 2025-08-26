@@ -1,16 +1,6 @@
 import React from "react";
-import { LotesDataInterface, PageSelector, FilterSelector } from "@/types";
-import {
-  Box,
-  Chip,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  SelectChangeEvent,
-  Tooltip,
-} from "@mui/material";
+import { Autocomplete, TextField } from "@mui/material";
+import { FilterSelector, LotesDataInterface, PageSelector } from "@/types";
 
 interface SelectProps {
   allOptions: LotesDataInterface[] | undefined;
@@ -22,106 +12,103 @@ interface SelectProps {
 }
 
 export default function ProductsSelect(props: SelectProps) {
-  const handleChange = (event: SelectChangeEvent<string[]>) => {
-    const ids = event.target.value as string[];
-    const newSelectedData = props.allOptions?.filter((item) => ids.includes(item.id)) || [];
-    props.onChange(newSelectedData);
-  };
-
   const visibleOptions = props.stage
     ? props.allOptions?.filter((item) => item.phase === props.stage)
     : props.allOptions;
 
-  const ITEM_HEIGHT = 70;
-  const ITEM_PADDING_TOP = 50;
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
-  };
-
   return (
-    <FormControl
-      className="max-w-[380px] response:max-w-[500px] w-full select-none z-10"
-      sx={{
-        "&:hover .MuiOutlinedInput-notchedOutline, &:hover .MuiInputLabel-outlined, &:hover .MuiSelect-icon": {
-          borderColor: "highlight",
-          color: "highlight",
-          transition: "all 0.3s",
+    <Autocomplete
+      multiple
+      disableCloseOnSelect
+      clearOnBlur={false}
+      clearText="Limpar"
+      closeText="Fechar"
+      noOptionsText="Nenhum resultado encontrado"
+      loadingText="Carregando..."
+      options={visibleOptions?.sort((a, b) => a.value - b.value) || []}
+      value={props.selectedItems || []}
+      onChange={(_, newValue) => props.onChange(newValue)}
+      getOptionLabel={(option) =>
+        props.page === PageSelector.AdminShowReservations
+          ? option.label + " - " + option.reservedFor
+          : props.page === PageSelector.AdminReadjustSimulate || props.page === PageSelector.AdminPersonalizedQuote
+          ? option.label + " - Fase " + option.phase
+          : option.label
+      }
+      isOptionEqualToValue={(option, value) => option.id === value.id}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label={props.placeholder}
+          sx={{
+            "& .MuiInputLabel-root, & .MuiOutlinedInput-root fieldset, & .MuiSvgIcon-root": {
+              color: "white",
+              transition: "all 0.3s ease",
+            },
+            "& .MuiIconButton-root": {
+              "&:hover": { bgcolor: "white" },
+            },
+            "&:hover .MuiInputLabel-root, &:hover .MuiAutocomplete-endAdornment .MuiSvgIcon-root": {
+              color: "highlight",
+            },
+            "& .MuiOutlinedInput-root.Mui-focused .MuiAutocomplete-endAdornment .MuiSvgIcon-root, & .MuiInputLabel-root.Mui-focused":
+              {
+                color: "highlight",
+              },
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": { borderColor: "white" },
+              "&:hover fieldset": { borderColor: "highlight" },
+              "&.Mui-focused fieldset": { borderColor: "highlight" },
+              "& input": { color: "white" },
+            },
+          }}
+        />
+      )}
+      slotProps={{
+        chip: {
+          sx: {
+            backgroundColor: "highlight",
+            color: "white",
+            "& .MuiChip-deleteIcon": {
+              color: "#adcced",
+              "&:hover": { color: "white" },
+            },
+          },
         },
-        "& .MuiInputLabel-outlined, & .MuiSelect-root, & .MuiSelect-icon": {
-          color: "white",
-          marginX: "8px",
+        popper: {
+          sx: {
+            "& .MuiAutocomplete-noOptions": {
+              color: "white",
+            },
+          },
         },
-        "& .MuiInputLabel-shrink": {
-          paddingY: "0px",
-          color: "highlight",
+        listbox: {
+          sx: {
+            "& .MuiAutocomplete-option": {
+              transition: "all 0.2s ease",
+            },
+            "& .MuiAutocomplete-option:hover, & .MuiAutocomplete-option.Mui-focused": {
+              backgroundColor: "highlight",
+              color: "white",
+            },
+            "& .MuiAutocomplete-option.Mui-selected, & .MuiAutocomplete-option[aria-selected='true']": {
+              backgroundColor: "#ff5f5f",
+              color: "white",
+            },
+            "& .MuiAutocomplete-option.Mui-selected:hover, & .MuiAutocomplete-option[aria-selected='true']:hover": {
+              backgroundColor: "#e94a4a",
+            },
+          },
         },
-        "& .MuiBox-root": {
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "0.5rem",
+        paper: {
+          sx: {
+            backgroundColor: "#2b2b2b",
+            border: "2px solid highlight",
+            color: "white",
+          },
         },
       }}
-    >
-      <InputLabel sx={{ paddingY: "5px" }}>{props.placeholder}</InputLabel>
-      <Select
-        multiple
-        value={props.selectedItems?.map((item) => item.id) || []}
-        onChange={handleChange}
-        sx={{
-          minHeight: "65px",
-          "& .MuiOutlinedInput-notchedOutline": { borderColor: "white" },
-          "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: "highlight" },
-          "&.Mui-focused .MuiSelect-icon": { color: "highlight" },
-        }}
-        input={<OutlinedInput label={props.placeholder} />}
-        renderValue={() => (
-          <Box>
-            {props.selectedItems?.map((item) => {
-              const isVisible = !props.stage || item.phase === props.stage;
-              const chip = (
-                <Chip
-                  key={item.id}
-                  label={item.label}
-                  color={isVisible ? "primary" : "default"}
-                  variant={isVisible ? "filled" : "outlined"}
-                  sx={{ opacity: isVisible ? 1 : 0.5 }}
-                />
-              );
-              return isVisible ? (
-                chip
-              ) : (
-                <Tooltip key={item.id} title="Selecionado, mas não está na fase atual">
-                  {chip}
-                </Tooltip>
-              );
-            })}
-          </Box>
-        )}
-        MenuProps={MenuProps}
-      >
-        {visibleOptions?.sort((a, b) => a.value - b.value).map((value) => (
-          <MenuItem
-            key={value.id}
-            value={value.id}
-            sx={{
-              "&:hover": { backgroundColor: "highlight", color: "white" },
-              "&.Mui-selected": { backgroundColor: "green", color: "white" },
-              "&.Mui-selected:hover": { backgroundColor: "#b4b4b4", color: "black" },
-            }}
-          >
-            {props.page === PageSelector.AdminShowReservations
-              ? value.label + " - " + value.reservedFor
-              : props.page === PageSelector.AdminReadjustSimulate || props.page === PageSelector.AdminPersonalizedQuote
-              ? value.label + " - Fase " + value.phase
-              : value.label}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
+      className="max-w-[380px] response:max-w-[500px] w-full select-none z-10 px-2"
+    />
   );
 }
