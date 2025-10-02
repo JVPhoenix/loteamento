@@ -6,11 +6,11 @@ interface ClientPageContentExpireInterface {
   data: ClientsDataInterface;
   priceCalc: (value: number) => string;
   paidParcels: number;
-  dateCompare: (startDate: string, returnType: PlansSelector) => string | number | boolean | undefined;
+  dateCompare: (startDate: string, paymentListLength: number, returnType: PlansSelector) => number | boolean | undefined
 }
 
 export default function ClientCheckExpire(props: ClientPageContentExpireInterface) {
-  const monthsExpired = props.dateCompare(props.data.startDate, PlansSelector.MonthsExpired);
+  const monthsExpired = props.dateCompare(props.data.startDate, props.data.paymentList.length , PlansSelector.MonthsExpired);
   const paidParcels = props.paidParcels;
 
   // BRAZIL CURRENCY FORMATTER
@@ -91,7 +91,7 @@ export default function ClientCheckExpire(props: ClientPageContentExpireInterfac
         <ExpireIcon
           className={twMerge(
             "fill-red-500",
-            props.dateCompare(props.data.startDate, PlansSelector.IsLate) && "fill-blue-300",
+            props.dateCompare(props.data.startDate, props.data.paymentList.length, PlansSelector.IsLate) && "fill-blue-300",
             props.priceCalc(PlansSelector.Debt) === "0,00" && "fill-green-300",
             props.data.plan === 0 && "fill-green-300"
           )}
@@ -102,7 +102,7 @@ export default function ClientCheckExpire(props: ClientPageContentExpireInterfac
         <h1
           className={twMerge(
             "text-red-500 leading-tight",
-            props.dateCompare(props.data.startDate, PlansSelector.IsLate) && "text-blue-300",
+            props.dateCompare(props.data.startDate, props.data.paymentList.length, PlansSelector.IsLate) && "text-blue-300",
             props.priceCalc(PlansSelector.Debt) === "0,00" && "text-green-300",
             props.data.plan === 0 && "text-green-300"
           )}
@@ -112,7 +112,7 @@ export default function ClientCheckExpire(props: ClientPageContentExpireInterfac
             <>
               {props.priceCalc(PlansSelector.Debt) === "0,00" || props.data.plan === 0 ? (
                 "QUITADO"
-              ) : props.dateCompare(props.data.startDate, PlansSelector.IsLate) ? (
+              ) : props.dateCompare(props.data.startDate, props.data.paymentList.length, PlansSelector.IsLate) ? (
                 "REGULAR - Em dias"
               ) : (
                 <>

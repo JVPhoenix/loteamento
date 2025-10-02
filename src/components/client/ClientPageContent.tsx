@@ -65,20 +65,32 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
     }
   };
 
-  const dateCompare = (startDate: string, returnType: PlansSelector) => {
+  const dateCompare = (startDate: string, paymentListLength: number, returnType: PlansSelector) => {
     const today = new Date();
-    const expireDate = new Date(startDate.split("-").reverse().join("-"));
-    const paymentList = props.data.paymentList[0] === "" ? 0 : props.data.paymentList.length;
 
-    expireDate.setMonth(expireDate.getMonth() + paymentList + 1); // set 1 moth later (30 days)
-    expireDate.setDate(expireDate.getDate() + 1); // set +1 day (to set the same day every month)
+    const [day, month, year] = startDate.split("-").map(Number);
 
-    const dateDiff = Math.ceil(Math.abs(today.valueOf() - expireDate.valueOf()) / (1000 * 60 * 60 * 24) / 30);
+    const firstPaymentDate = new Date(year, month, day);
+
+    const paymentList = paymentListLength === 0 ? 0 : paymentListLength;
+
+    const nextDueDate = new Date(firstPaymentDate);
+
+    nextDueDate.setMonth(nextDueDate.getMonth() + paymentList);
+
+    let monthsDiff = (today.getFullYear() - nextDueDate.getFullYear()) * 12;
+    monthsDiff += today.getMonth() - nextDueDate.getMonth();
+
+    if (today.getDate() >= day) {
+      monthsDiff += 1;
+    }
+
+    const isLate = monthsDiff > 0;
 
     if (returnType === PlansSelector.IsLate) {
-      return today < expireDate;
+      return !isLate;
     } else if (returnType === PlansSelector.MonthsExpired) {
-      return dateDiff;
+      return isLate ? monthsDiff : 0;
     }
   };
 
