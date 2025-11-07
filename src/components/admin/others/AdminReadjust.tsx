@@ -33,7 +33,7 @@ export default function AdminReadjust(props: AdminReadjustInterface) {
   const price = () => {
     if (props.page === PageSelector.AdminReadjustClient) {
       if (props.client?.entrance) {
-        return props.client.price - props.client.entrance;
+        return props.client.price + props.client.price * 0.1 - props.client.entrance;
       } else {
         return props.client ? props.client?.price : 0;
       }

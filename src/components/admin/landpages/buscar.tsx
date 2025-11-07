@@ -24,6 +24,12 @@ export default function AdminSearch({ checkRoles }: AdminSearchInterface) {
   const [checkSpecial, setCheckSpecial] = useState<boolean>(false);
   const [stage, setStage] = useState<FilterSelector | null>(null);
 
+  useEffect(() => {
+    if (!selectedClient || !clientsData) return;
+    const updatedClient = clientsData.find((client) => client.id === selectedClient.id);
+    if (updatedClient) setSelectedClient(updatedClient);
+  }, [clientsData, selectedClient]);
+
   // DATAS useState SECTION
   const [selectRef, setSelectRef] = useState<any>();
   const [actionType, setActionType] = useState<Methods | null>(null);

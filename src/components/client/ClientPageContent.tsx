@@ -40,6 +40,14 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
       return userRoles.includes(role) ? true : false;
     }
   };
+
+  const convertValueToString = (value: number) => {
+    return value.toLocaleString("pt-br", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  };
+
   const startDate = new Date(props.data.startDate.split("-").reverse().join("-"));
   const expireDay = startDate.getDate() + 1;
 
@@ -49,19 +57,16 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
     year: "numeric",
   });
 
-  const totalPrice = props.data.price - (props.data.entrance ? props.data.entrance : 0);
+  const totalPrice =
+    props.data.price +
+    (props.data.entrance ? props.data.price * 0.1 : 0) -
+    (props.data.entrance ? props.data.entrance : 0);
 
   const priceCalc = (value: number) => {
     if (value === PlansSelector.Debt) {
-      return (totalPrice - (totalPrice * diffZero) / props.data.plan).toLocaleString("pt-br", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      });
+      return convertValueToString(totalPrice - (totalPrice * diffZero) / props.data.plan);
     } else {
-      return (totalPrice / value).toLocaleString("pt-br", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      });
+      return convertValueToString(totalPrice / value);
     }
   };
 
@@ -228,7 +233,9 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                       </div>
                       <h1>
                         <b>Plano: </b>
-                        {props.data.plan === 0 ? "A Vista" : `${props.data.plan}x de R$ ${priceCalc(props.data.plan)}`}
+                        {props.data.plan === 0
+                          ? "A Vista"
+                          : `${props.data.plan}x de R$ ${convertValueToString(totalPrice / props.data.plan)}`}
                       </h1>
                     </div>
                   </div>
@@ -249,15 +256,9 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                     </div>
                     <h1>
                       <b>Valor Total: </b> R${" "}
-                      {props.data.entrance || props.data.plan === 0
-                        ? props.data.price.toLocaleString("pt-br", {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })
-                        : (props.data.price + props.data.price * 0.1).toLocaleString("pt-br", {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })}
+                      {props.data.plan === 0
+                        ? convertValueToString(props.data.price)
+                        : convertValueToString(props.data.price + props.data.price * 0.1)}
                     </h1>
                   </div>
                   <div className="flex leading-tight items-center gap-1">
@@ -266,14 +267,12 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                     </div>
                     <b>Entrada: </b>R${" "}
                     <h1>
-                      {props.data.entrance
-                        ? props.data.entrance.toLocaleString("pt-br", {
+                      {props.data.plan === 0
+                        ? 0
+                        : (props.data.entrance ? props.data.entrance : props.data.price * 0.1).toLocaleString("pt-br", {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2,
-                          })
-                        : props.data.plan === 0
-                        ? 0
-                        : priceCalc(PlansSelector.Entrance)}
+                          })}
                     </h1>
                   </div>
                 </div>

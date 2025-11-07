@@ -49,14 +49,21 @@ export function ClientsDataContextProvider(props: React.PropsWithChildren) {
   const [clientsResponseData, setClientsResponseData] = useState<number>(0);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_CLIENTS_API_LINK}`, {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((data: ClientsDataInterface[]) => {
-        setClientsData(data);
+    const fetchClients = () => {
+      fetch(`${process.env.NEXT_PUBLIC_CLIENTS_API_LINK}`, {
+        method: "GET",
       })
-      .catch((error) => console.error(error));
+        .then((res) => res.json())
+        .then((data: ClientsDataInterface[]) => {
+          setClientsData(data);
+        })
+        .catch((error) => console.error(error));
+    };
+
+    fetchClients();
+    const interval = setInterval(fetchClients, 5000);
+
+    return () => clearInterval(interval);
   }, [clientsResponseData]);
 
   const handleSubmit = (clientInfos: ClientsSUBMIT, methodSelection: Methods) => {

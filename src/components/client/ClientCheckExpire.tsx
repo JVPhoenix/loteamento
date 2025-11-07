@@ -4,13 +4,21 @@ import { ClientsDataInterface, PlanMonths, PlansSelector } from "@/types";
 
 interface ClientPageContentExpireInterface {
   data: ClientsDataInterface;
-  priceCalc: (value: number) => string;
+  priceCalc: (value: number) => string | number;
   paidParcels: number;
-  dateCompare: (startDate: string, paymentListLength: number, returnType: PlansSelector) => number | boolean | undefined
+  dateCompare: (
+    startDate: string,
+    paymentListLength: number,
+    returnType: PlansSelector
+  ) => number | boolean | undefined;
 }
 
 export default function ClientCheckExpire(props: ClientPageContentExpireInterface) {
-  const monthsExpired = props.dateCompare(props.data.startDate, props.data.paymentList.length , PlansSelector.MonthsExpired);
+  const monthsExpired = props.dateCompare(
+    props.data.startDate,
+    props.data.paymentList.length,
+    PlansSelector.MonthsExpired
+  );
   const paidParcels = props.paidParcels;
 
   // BRAZIL CURRENCY FORMATTER
@@ -30,7 +38,10 @@ export default function ClientCheckExpire(props: ClientPageContentExpireInterfac
 
   // Function to calculate readjusted value according to the payment year
   const readjustPlan = (year: PlanMonths) => {
-    const price = props.data.entrance ? props.data.price - props.data.entrance : props.data.price;
+    const price =
+      props.data.price +
+      (props.data.entrance ? props.data.price * 0.1 : 0) -
+      (props.data.entrance ? props.data.entrance : 0);
 
     const firstYear = price / props.data.plan;
     const debtFirstYear = price - firstYear * 12;
@@ -65,11 +76,9 @@ export default function ClientCheckExpire(props: ClientPageContentExpireInterfac
     expireDate.setMonth(expireDate.getMonth() + paidParcels + 1);
     expireDate.setDate(expireDate.getDate() + 1);
 
-    const dateDiff = Math.ceil(
-      Math.abs(new Date().valueOf() - expireDate.valueOf()) / (1000 * 60 * 60 * 24) / 30
-    );
+    const dateDiff = Math.ceil(Math.abs(new Date().valueOf() - expireDate.valueOf()) / (1000 * 60 * 60 * 24) / 30);
 
-    // SAFE PARSER USE 
+    // SAFE PARSER USE
     const planValue = parseBrazilianNumber(props.priceCalc(props.data.plan));
 
     if (paidParcels < 12) {
@@ -91,7 +100,8 @@ export default function ClientCheckExpire(props: ClientPageContentExpireInterfac
         <ExpireIcon
           className={twMerge(
             "fill-red-500",
-            props.dateCompare(props.data.startDate, props.data.paymentList.length, PlansSelector.IsLate) && "fill-blue-300",
+            props.dateCompare(props.data.startDate, props.data.paymentList.length, PlansSelector.IsLate) &&
+              "fill-blue-300",
             props.priceCalc(PlansSelector.Debt) === "0,00" && "fill-green-300",
             props.data.plan === 0 && "fill-green-300"
           )}
@@ -102,7 +112,8 @@ export default function ClientCheckExpire(props: ClientPageContentExpireInterfac
         <h1
           className={twMerge(
             "text-red-500 leading-tight",
-            props.dateCompare(props.data.startDate, props.data.paymentList.length, PlansSelector.IsLate) && "text-blue-300",
+            props.dateCompare(props.data.startDate, props.data.paymentList.length, PlansSelector.IsLate) &&
+              "text-blue-300",
             props.priceCalc(PlansSelector.Debt) === "0,00" && "text-green-300",
             props.data.plan === 0 && "text-green-300"
           )}
