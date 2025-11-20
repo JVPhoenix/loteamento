@@ -76,7 +76,10 @@ export default function Home() {
           (checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Sales) || checkRoles(UserRoles.Employee))
         ) {
           return <AdminSearch checkRoles={checkRoles} />;
-        } else if (pathname === PageSelector.AdminNewClient && checkRoles(UserRoles.Admins)) {
+        } else if (
+          pathname === PageSelector.AdminNewClient &&
+          (checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee))
+        ) {
           return <NewClient />;
         } else if (
           pathname === PageSelector.AdminShowReservations &&
