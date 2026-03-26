@@ -9,7 +9,7 @@ interface ClientPageContentExpireInterface {
   dateCompare: (
     startDate: string,
     paymentListLength: number,
-    returnType: PlansSelector
+    returnType: PlansSelector,
   ) => number | boolean | undefined;
 }
 
@@ -17,7 +17,7 @@ export default function ClientCheckExpire(props: ClientPageContentExpireInterfac
   const monthsExpired = props.dateCompare(
     props.data.startDate,
     props.data.paymentList.length,
-    PlansSelector.MonthsExpired
+    PlansSelector.MonthsExpired,
   );
   const paidParcels = props.paidParcels;
 
@@ -72,25 +72,22 @@ export default function ClientCheckExpire(props: ClientPageContentExpireInterfac
 
   // EXPIRED CALCULATOR - Debt Balance Calculator
   const expiredDebtBalance = () => {
-    const expireDate = new Date(props.data.startDate.split("-").reverse().join("-"));
-    expireDate.setMonth(expireDate.getMonth() + paidParcels + 1);
-    expireDate.setDate(expireDate.getDate() + 1);
-
-    const dateDiff = Math.ceil(Math.abs(new Date().valueOf() - expireDate.valueOf()) / (1000 * 60 * 60 * 24) / 30);
+    // CHECK IF MONTHS EXPIRED IS A NUMBER, BECAUSE IT CAN BE A UNDEFINED OR BOOLEAN, IF NOT, SET TO 0
+    const checkMonthsExpired = typeof monthsExpired === "number" ? monthsExpired : 0;
 
     // SAFE PARSER USE
     const planValue = parseBrazilianNumber(props.priceCalc(props.data.plan));
 
     if (paidParcels < 12) {
-      return localeString(dateDiff * planValue);
+      return localeString(checkMonthsExpired * planValue);
     } else if (paidParcels >= 12 && paidParcels < 24) {
-      return localeString(dateDiff * readjustPlan(PlanMonths.SecondYear));
+      return localeString(checkMonthsExpired * readjustPlan(PlanMonths.SecondYear));
     } else if (paidParcels >= 24 && paidParcels < 36) {
-      return localeString(dateDiff * readjustPlan(PlanMonths.ThirdYear));
+      return localeString(checkMonthsExpired * readjustPlan(PlanMonths.ThirdYear));
     } else if (paidParcels >= 36 && paidParcels < 48) {
-      return localeString(dateDiff * readjustPlan(PlanMonths.FourthYear));
+      return localeString(checkMonthsExpired * readjustPlan(PlanMonths.FourthYear));
     } else if (paidParcels >= 48 && paidParcels < 60) {
-      return localeString(dateDiff * readjustPlan(PlanMonths.FifthYear));
+      return localeString(checkMonthsExpired * readjustPlan(PlanMonths.FifthYear));
     }
   };
 
@@ -103,7 +100,7 @@ export default function ClientCheckExpire(props: ClientPageContentExpireInterfac
             props.dateCompare(props.data.startDate, props.data.paymentList.length, PlansSelector.IsLate) &&
               "fill-blue-300",
             props.priceCalc(PlansSelector.Debt) === "0,00" && "fill-green-300",
-            props.data.plan === 0 && "fill-green-300"
+            props.data.plan === 0 && "fill-green-300",
           )}
           width={50}
           fill=""
@@ -115,7 +112,7 @@ export default function ClientCheckExpire(props: ClientPageContentExpireInterfac
             props.dateCompare(props.data.startDate, props.data.paymentList.length, PlansSelector.IsLate) &&
               "text-blue-300",
             props.priceCalc(PlansSelector.Debt) === "0,00" && "text-green-300",
-            props.data.plan === 0 && "text-green-300"
+            props.data.plan === 0 && "text-green-300",
           )}
         >
           <b>Status: </b>
