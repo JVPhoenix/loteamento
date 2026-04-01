@@ -1,4 +1,10 @@
-import { ClientsDataInterface, Methods, PageSelector, PlansSelector, UserRoles } from "@/types";
+import {
+  ClientsDataInterface,
+  Methods,
+  PageSelector,
+  PlansSelector,
+  UserRoles,
+} from "@/types";
 import { twMerge } from "tailwind-merge";
 import {
   ContractIcon,
@@ -48,14 +54,31 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
     });
   };
 
-  const startDate = new Date(props.data.startDate.split("-").reverse().join("-"));
-  const expireDay = startDate.getDate() + 1;
+  // Parse centralizado do startDate — reutilizado em dateCompare e lastMonthPaid
+  const [day, month, year] = props.data.startDate.split("-").map(Number);
+  const expireDay = day + 1;
 
-  const diffZero = props.data.paymentList[0] !== "" ? props.data.paymentList.length : 0;
-  const lastMonthPaid = new Date(startDate.setMonth(startDate.getMonth() + diffZero)).toLocaleString("default", {
-    month: "long",
-    year: "numeric",
-  });
+  const diffZero =
+    props.data.paymentList[0] !== "" ? props.data.paymentList.length : 0;
+
+  // Calcula o último mês pago com base no diffZero, sem usar setMonth (evita overflow)
+  const lastMonthTargetMonth = month - 1 + diffZero;
+  const lastMonthTargetYear = year + Math.floor(lastMonthTargetMonth / 12);
+  const lastMonthNormalizedMonth = lastMonthTargetMonth % 12;
+  const lastMonthLastDay = new Date(
+    lastMonthTargetYear,
+    lastMonthNormalizedMonth + 1,
+    0,
+  ).getDate();
+  const lastMonthEffectiveDay = Math.min(day, lastMonthLastDay);
+
+  const lastMonthPaid = new Date(
+    lastMonthTargetYear,
+    lastMonthNormalizedMonth,
+    lastMonthEffectiveDay,
+  )
+    .toLocaleString("pt-BR", { month: "long", year: "numeric" })
+    .replace(/^\w/, (c) => c.toUpperCase());
 
   const totalPrice =
     props.data.price +
@@ -64,29 +87,41 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
 
   const priceCalc = (value: number) => {
     if (value === PlansSelector.Debt) {
-      return convertValueToString(totalPrice - (totalPrice * diffZero) / props.data.plan);
+      return convertValueToString(
+        totalPrice - (totalPrice * diffZero) / props.data.plan,
+      );
     } else {
       return convertValueToString(totalPrice / value);
     }
   };
 
-  const dateCompare = (startDate: string, paymentListLength: number, returnType: PlansSelector) => {
+  const dateCompare = (
+    startDate: string,
+    paymentListLength: number,
+    returnType: PlansSelector,
+  ) => {
     const today = new Date();
 
-    const [day, month, year] = startDate.split("-").map(Number);
+    // Reutiliza o parse já feito acima — não precisa fazer split novamente
+    const paymentList = paymentListLength + 1;
 
-    const firstPaymentDate = new Date(year, month, day);
+    const targetMonth = month - 1 + paymentList;
+    const targetYear = year + Math.floor(targetMonth / 12);
+    const normalizedMonth = targetMonth % 12;
 
-    const paymentList = paymentListLength === 0 ? 0 : paymentListLength;
+    const lastDayOfMonth = new Date(
+      targetYear,
+      normalizedMonth + 1,
+      0,
+    ).getDate();
+    const effectiveDay = Math.min(day, lastDayOfMonth);
 
-    const nextDueDate = new Date(firstPaymentDate);
-
-    nextDueDate.setMonth(nextDueDate.getMonth() + paymentList);
+    const nextDueDate = new Date(targetYear, normalizedMonth, effectiveDay);
 
     let monthsDiff = (today.getFullYear() - nextDueDate.getFullYear()) * 12;
     monthsDiff += today.getMonth() - nextDueDate.getMonth();
 
-    if (today.getDate() >= day) {
+    if (today.getDate() >= effectiveDay) {
       monthsDiff += 1;
     }
 
@@ -102,7 +137,9 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
   return (
     <>
       <div className="flex flex-col w-full m-auto items-center">
-        <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold pt-8 ">USUÁRIO ENCONTRADO</h1>
+        <h1 className="text-white drop-shadow-titles text-2xl response:text-3xl font-bold pt-8 ">
+          USUÁRIO ENCONTRADO
+        </h1>
         <div className="flex flex-col w-full items-center px-5 response:p-0">
           <ClientPageContentUser data={props.data} />
           <h1 className="text-white text-center drop-shadow-titles text-2xl response:text-3xl font-bold ">
@@ -120,7 +157,12 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
             <div className="flex gap-2 items-center justify-center py-3">
               <div className="flex items-center gap-2 text-yellow-400 leading-tight">
                 <div>
-                  <ObsIcon className="" width={50} fill="rgba(250, 204, 21)" stroke="none" />
+                  <ObsIcon
+                    className=""
+                    width={50}
+                    fill="rgba(250, 204, 21)"
+                    stroke="none"
+                  />
                 </div>
                 <h1 className="text-justify max-w-md">
                   <b>Obs.: </b>
@@ -128,14 +170,19 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                 </h1>
               </div>
               {props.page !== PageSelector.ClientSearch &&
-                (checkRoles(UserRoles.Admins) || checkRoles(UserRoles.Employee)) && (
+                (checkRoles(UserRoles.Admins) ||
+                  checkRoles(UserRoles.Employee)) && (
                   <div className="flex flex-col gap-3">
                     <DeleteIcon
                       className="hover:fill-red-500 hover:scale-125 ease-in-out duration-200 active:scale-95 select-none cursor-pointer"
                       fill="white"
                       width={30}
                       onClick={() =>
-                        props.handleActionType && props.handleActionType(Methods.Observation_DELETE, "DeleteConfirm")
+                        props.handleActionType &&
+                        props.handleActionType(
+                          Methods.Observation_DELETE,
+                          "DeleteConfirm",
+                        )
                       }
                     />
                     <EditIcon
@@ -143,7 +190,11 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                       fill="white"
                       width={30}
                       onClick={() =>
-                        props.handleActionType && props.handleActionType(Methods.Observation_EDIT, "ObservationCenter")
+                        props.handleActionType &&
+                        props.handleActionType(
+                          Methods.Observation_EDIT,
+                          "ObservationCenter",
+                        )
                       }
                     />
                   </div>
@@ -155,7 +206,11 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
             <Button
               className="flex items-center gap-2 leading-tight group mb-2"
               onClick={() =>
-                props.handleActionType && props.handleActionType(Methods.Observation_NEW, "ObservationCenter")
+                props.handleActionType &&
+                props.handleActionType(
+                  Methods.Observation_NEW,
+                  "ObservationCenter",
+                )
               }
             >
               <div>
@@ -174,21 +229,28 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
           <div
             className={twMerge(
               "flex flex-col justify-between items-center pb-4 px-2",
-              "response:w-auto response:min-w-[700px]"
+              "response:w-auto response:min-w-[700px]",
             )}
           >
             <div
               className={twMerge(
                 "flex flex-col text-center",
-                "response:text-left response:m-auto response:items-center response:gap-1"
+                "response:text-left response:m-auto response:items-center response:gap-1",
               )}
             >
-              <h1 className="text-green-600 text-xl response:text-2xl font-bold ">LOCALIZAÇÃO</h1>
+              <h1 className="text-green-600 text-xl response:text-2xl font-bold ">
+                LOCALIZAÇÃO
+              </h1>
               <div className="flex flex-col pb-5 response:flex-row response:gap-4 text-left">
                 <div>
                   <div className="flex leading-tight items-center gap-1">
                     <div>
-                      <ContractIcon className="" width={50} fill="white" stroke="none" />
+                      <ContractIcon
+                        className=""
+                        width={50}
+                        fill="white"
+                        stroke="none"
+                      />
                     </div>
                     <h1>
                       <b>Contrato: </b> {props.data.contractNumber}
@@ -196,7 +258,12 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                   </div>
                   <div className="flex leading-tight items-center gap-1">
                     <div>
-                      <StageIcon className="" width={50} fill="none" stroke="white" />
+                      <StageIcon
+                        className=""
+                        width={50}
+                        fill="none"
+                        stroke="white"
+                      />
                     </div>
                     <h1>
                       <b>Etapa: </b> {props.data.phase}ª
@@ -206,7 +273,12 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                 <div>
                   <div className="flex leading-tight items-center gap-1">
                     <div>
-                      <LoteIcon className="" width={50} fill="white" stroke="none" />
+                      <LoteIcon
+                        className=""
+                        width={50}
+                        fill="white"
+                        stroke="none"
+                      />
                     </div>
                     <h1 className="leading-tight response:w-64">
                       <b>Lote: </b> {props.data.lote}
@@ -214,7 +286,12 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                   </div>
                   <div className="flex leading-tight items-center gap-1">
                     <div>
-                      <DimensionIcon className="" width={50} fill="white" stroke="none" />
+                      <DimensionIcon
+                        className=""
+                        width={50}
+                        fill="white"
+                        stroke="none"
+                      />
                     </div>
                     <h1 className="leading-tight response:w-64">
                       <b>Dimensão: </b>
@@ -223,13 +300,21 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                   </div>
                 </div>
               </div>
-              <h1 className="text-green-600 text-xl response:text-2xl font-bold ">VALORES</h1>
+              <h1 className="text-green-600 text-xl response:text-2xl font-bold ">
+                VALORES
+              </h1>
               <div className="flex flex-col pb-5 response:flex-row response:gap-4">
                 <div>
                   <div>
                     <div className="flex leading-tight items-center gap-1">
                       <div>
-                        <PlanIcon className="" width={50} fill="white" stroke="none" plan={props.data.plan} />
+                        <PlanIcon
+                          className=""
+                          width={50}
+                          fill="white"
+                          stroke="none"
+                          plan={props.data.plan}
+                        />
                       </div>
                       <h1>
                         <b>Plano: </b>
@@ -241,7 +326,13 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                   </div>
                   <div className="flex leading-tight items-center gap-1">
                     <div>
-                      <DayIcon className="" width={50} fill="white" stroke="none" plan={props.data.plan} />
+                      <DayIcon
+                        className=""
+                        width={50}
+                        fill="white"
+                        stroke="none"
+                        plan={props.data.plan}
+                      />
                     </div>
                     <h1>
                       <b>Vencimento dia: </b>
@@ -252,24 +343,39 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                 <div>
                   <div className="flex leading-tight items-center gap-1">
                     <div>
-                      <ValueIcon className="" width={48} fill="white" stroke="none" />
+                      <ValueIcon
+                        className=""
+                        width={48}
+                        fill="white"
+                        stroke="none"
+                      />
                     </div>
                     <h1>
                       <b>Valor Total: </b> R${" "}
                       {props.data.plan === 0
                         ? convertValueToString(props.data.price)
-                        : convertValueToString(props.data.price + props.data.price * 0.1)}
+                        : convertValueToString(
+                            props.data.price + props.data.price * 0.1,
+                          )}
                     </h1>
                   </div>
                   <div className="flex leading-tight items-center gap-1">
                     <div>
-                      <EntranceIcon className="" width={50} fill="none" stroke="white" />
+                      <EntranceIcon
+                        className=""
+                        width={50}
+                        fill="none"
+                        stroke="white"
+                      />
                     </div>
                     <b>Entrada: </b>R${" "}
                     <h1>
                       {props.data.plan === 0
                         ? 0
-                        : (props.data.entrance ? props.data.entrance : props.data.price * 0.1).toLocaleString("pt-br", {
+                        : (props.data.entrance
+                            ? props.data.entrance
+                            : props.data.price * 0.1
+                          ).toLocaleString("pt-br", {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2,
                           })}
@@ -277,20 +383,35 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                   </div>
                 </div>
               </div>
-              <h1 className="text-green-600 text-xl response:text-2xl font-bold ">PAGAMENTOS</h1>
+              <h1 className="text-green-600 text-xl response:text-2xl font-bold ">
+                PAGAMENTOS
+              </h1>
               <div className="flex flex-col pb-5 response:flex-row response:gap-4">
                 <div>
                   <div className="flex leading-tight items-center gap-1">
                     <div>
-                      <DebtBalanceIcon className="" width={50} fill="none" stroke="white" />
+                      <DebtBalanceIcon
+                        className=""
+                        width={50}
+                        fill="none"
+                        stroke="white"
+                      />
                     </div>
                     <h1>
-                      <b>Saldo Devedor: </b>R$ {props.data.plan === 0 ? 0 : priceCalc(PlansSelector.Debt)}
+                      <b>Saldo Devedor: </b>R${" "}
+                      {props.data.plan === 0
+                        ? 0
+                        : priceCalc(PlansSelector.Debt)}
                     </h1>
                   </div>
                   <div className="flex leading-tight items-center gap-1">
                     <div>
-                      <PaidIcon className="" width={50} fill="none" stroke="white" />
+                      <PaidIcon
+                        className=""
+                        width={50}
+                        fill="none"
+                        stroke="white"
+                      />
                     </div>
                     <h1>
                       <b>Nº de Parcelas Pagas: </b>
@@ -301,7 +422,12 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                 <div>
                   <div className="flex leading-tight items-center gap-1">
                     <div>
-                      <LastPaidIcon className="" width={50} fill="white" stroke="none" />
+                      <LastPaidIcon
+                        className=""
+                        width={50}
+                        fill="white"
+                        stroke="none"
+                      />
                     </div>
                     <h1>
                       <b>Ultimo mês pago: </b>
@@ -310,10 +436,20 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                   </div>
                   <div className="flex leading-tight items-center gap-1">
                     <div>
-                      <DayPaid className="" width={50} fill="none" stroke="white" />
+                      <DayPaid
+                        className=""
+                        width={50}
+                        fill="none"
+                        stroke="white"
+                      />
                     </div>
                     <h1>
-                      <b>Dia pago: </b> {props.data.paymentList[props.data.paymentList.length - 1]}
+                      <b>Dia pago: </b>{" "}
+                      {
+                        props.data.paymentList[
+                          props.data.paymentList.length - 1
+                        ]
+                      }
                     </h1>
                   </div>
                 </div>
@@ -331,7 +467,10 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
         </div>
         {props.page === PageSelector.ClientSearch && (
           <>
-            <Button className="my-8" onClick={() => props.handleResetOptions?.()}>
+            <Button
+              className="my-8"
+              onClick={() => props.handleResetOptions?.()}
+            >
               <h1> FAÇA UMA NOVA BUSCA </h1>
             </Button>
             <Contacts page={PageSelector.ClientSearch} />

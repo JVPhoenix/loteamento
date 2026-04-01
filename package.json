@@ -1,7 +1,20 @@
 {
   "name": "loteamento",
-  "version": "4.17.11",
+  "version": "4.17.12",
   "private": true,
+  "description": "This is the website for one of my old presencial jobs in my born city (worked as Administrative Auxiliar).\r They don't paid me for develop the website, i made it in my free times, just to increment my portfolio and bring a little comodities\r in my day to day serving customers.",
+  "homepage": "https://github.com/JVPhoenix/loteamento#readme",
+  "bugs": {
+    "url": "https://github.com/JVPhoenix/loteamento/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JVPhoenix/loteamento.git"
+  },
+  "license": "ISC",
+  "author": "jv",
+  "type": "commonjs",
+  "main": "next.config.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

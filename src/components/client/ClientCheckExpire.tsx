@@ -13,13 +13,20 @@ interface ClientPageContentExpireInterface {
   ) => number | boolean | undefined;
 }
 
-export default function ClientCheckExpire(props: ClientPageContentExpireInterface) {
-  const monthsExpired = props.dateCompare(
-    props.data.startDate,
-    props.data.paymentList.length,
-    PlansSelector.MonthsExpired,
-  );
+export default function ClientCheckExpire(
+  props: ClientPageContentExpireInterface,
+) {
   const paidParcels = props.paidParcels;
+
+  // CHECK IF MONTHS EXPIRED IS A NUMBER, BECAUSE IT CAN BE A UNDEFINED OR BOOLEAN, IF NOT, SET TO 0
+  const monthsExpired =
+    Number(
+      props.dateCompare(
+        props.data.startDate,
+        props.data.paymentList.length,
+        PlansSelector.MonthsExpired,
+      ),
+    ) || 0;
 
   // BRAZIL CURRENCY FORMATTER
   const localeString = (value: number) =>
@@ -47,13 +54,15 @@ export default function ClientCheckExpire(props: ClientPageContentExpireInterfac
     const debtFirstYear = price - firstYear * 12;
 
     const secondYear = debtFirstYear + debtFirstYear * 0.05;
-    const debtSecondYear = secondYear - (secondYear / (props.data.plan - 12)) * 12;
+    const debtSecondYear =
+      secondYear - (secondYear / (props.data.plan - 12)) * 12;
 
     const thirdYear = debtSecondYear + debtSecondYear * 0.05;
     const debtThirdYear = thirdYear - (thirdYear / (props.data.plan - 24)) * 12;
 
     const fourthYear = debtThirdYear + debtThirdYear * 0.05;
-    const debtFourthYear = fourthYear - (fourthYear / (props.data.plan - 36)) * 12;
+    const debtFourthYear =
+      fourthYear - (fourthYear / (props.data.plan - 36)) * 12;
 
     const fifthYear = debtFourthYear + debtFourthYear * 0.05;
 
@@ -72,22 +81,27 @@ export default function ClientCheckExpire(props: ClientPageContentExpireInterfac
 
   // EXPIRED CALCULATOR - Debt Balance Calculator
   const expiredDebtBalance = () => {
-    // CHECK IF MONTHS EXPIRED IS A NUMBER, BECAUSE IT CAN BE A UNDEFINED OR BOOLEAN, IF NOT, SET TO 0
-    const checkMonthsExpired = typeof monthsExpired === "number" ? monthsExpired : 0;
-
     // SAFE PARSER USE
     const planValue = parseBrazilianNumber(props.priceCalc(props.data.plan));
 
     if (paidParcels < 12) {
-      return localeString(checkMonthsExpired * planValue);
+      return localeString(monthsExpired * planValue);
     } else if (paidParcels >= 12 && paidParcels < 24) {
-      return localeString(checkMonthsExpired * readjustPlan(PlanMonths.SecondYear));
+      return localeString(
+        monthsExpired * readjustPlan(PlanMonths.SecondYear),
+      );
     } else if (paidParcels >= 24 && paidParcels < 36) {
-      return localeString(checkMonthsExpired * readjustPlan(PlanMonths.ThirdYear));
+      return localeString(
+        monthsExpired * readjustPlan(PlanMonths.ThirdYear),
+      );
     } else if (paidParcels >= 36 && paidParcels < 48) {
-      return localeString(checkMonthsExpired * readjustPlan(PlanMonths.FourthYear));
+      return localeString(
+        monthsExpired * readjustPlan(PlanMonths.FourthYear),
+      );
     } else if (paidParcels >= 48 && paidParcels < 60) {
-      return localeString(checkMonthsExpired * readjustPlan(PlanMonths.FifthYear));
+      return localeString(
+        monthsExpired * readjustPlan(PlanMonths.FifthYear),
+      );
     }
   };
 
@@ -97,8 +111,11 @@ export default function ClientCheckExpire(props: ClientPageContentExpireInterfac
         <ExpireIcon
           className={twMerge(
             "fill-red-500",
-            props.dateCompare(props.data.startDate, props.data.paymentList.length, PlansSelector.IsLate) &&
-              "fill-blue-300",
+            props.dateCompare(
+              props.data.startDate,
+              props.data.paymentList.length,
+              PlansSelector.IsLate,
+            ) && "fill-blue-300",
             props.priceCalc(PlansSelector.Debt) === "0,00" && "fill-green-300",
             props.data.plan === 0 && "fill-green-300",
           )}
@@ -109,8 +126,11 @@ export default function ClientCheckExpire(props: ClientPageContentExpireInterfac
         <h1
           className={twMerge(
             "text-red-500 leading-tight",
-            props.dateCompare(props.data.startDate, props.data.paymentList.length, PlansSelector.IsLate) &&
-              "text-blue-300",
+            props.dateCompare(
+              props.data.startDate,
+              props.data.paymentList.length,
+              PlansSelector.IsLate,
+            ) && "text-blue-300",
             props.priceCalc(PlansSelector.Debt) === "0,00" && "text-green-300",
             props.data.plan === 0 && "text-green-300",
           )}
@@ -118,9 +138,14 @@ export default function ClientCheckExpire(props: ClientPageContentExpireInterfac
           <b>Status: </b>
           {props.data.standard && props.data.status ? (
             <>
-              {props.priceCalc(PlansSelector.Debt) === "0,00" || props.data.plan === 0 ? (
+              {props.priceCalc(PlansSelector.Debt) === "0,00" ||
+              props.data.plan === 0 ? (
                 "QUITADO"
-              ) : props.dateCompare(props.data.startDate, props.data.paymentList.length, PlansSelector.IsLate) ? (
+              ) : props.dateCompare(
+                  props.data.startDate,
+                  props.data.paymentList.length,
+                  PlansSelector.IsLate,
+                ) ? (
                 "REGULAR - Em dias"
               ) : (
                 <>
