@@ -56,7 +56,6 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
 
   // Parse centralizado do startDate — reutilizado em dateCompare e lastMonthPaid
   const [day, month, year] = props.data.startDate.split("-").map(Number);
-  const expireDay = day + 1;
 
   const diffZero =
     props.data.paymentList[0] !== "" ? props.data.paymentList.length : 0;
@@ -336,7 +335,7 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                     </div>
                     <h1>
                       <b>Vencimento dia: </b>
-                      {expireDay}
+                      {day}
                     </h1>
                   </div>
                 </div>

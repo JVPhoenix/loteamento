@@ -18,7 +18,11 @@ export function WhatsAppIcon(props: MainIcons) {
       xmlns="http://www.w3.org/2000/svg"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-      <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></g>
       <g id="SVGRepo_iconCarrier">
         <path
           fillRule="evenodd"
@@ -52,7 +56,11 @@ export function InstagramIcon(props: MainIcons) {
       xmlns="http://www.w3.org/2000/svg"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-      <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></g>
       <g id="SVGRepo_iconCarrier">
         <path
           fillRule="evenodd"
@@ -79,7 +87,11 @@ export function EmailIcon(props: MainIcons) {
       xmlns="http://www.w3.org/2000/svg"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-      <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></g>
       <g id="SVGRepo_iconCarrier">
         <g id="style=linear">
           <g id="email">
@@ -115,9 +127,16 @@ export function RightArrow(props: MainIcons) {
       fill="#000000"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-      <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></g>
       <g id="SVGRepo_iconCarrier">
-        <path d="M256 120.768L306.432 64 768 512l-461.568 448L256 903.232 659.072 512z" fill={props.fill}></path>
+        <path
+          d="M256 120.768L306.432 64 768 512l-461.568 448L256 903.232 659.072 512z"
+          fill={props.fill}
+        ></path>
       </g>
     </svg>
   );
@@ -134,9 +153,16 @@ export function LeftArrow(props: MainIcons) {
       fill="#000000"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-      <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></g>
       <g id="SVGRepo_iconCarrier">
-        <path d="M768 903.232l-50.432 56.768L256 512l461.568-448 50.432 56.768L364.928 512z" fill={props.fill}></path>
+        <path
+          d="M768 903.232l-50.432 56.768L256 512l461.568-448 50.432 56.768L364.928 512z"
+          fill={props.fill}
+        ></path>
       </g>
     </svg>
   );
@@ -152,7 +178,10 @@ export function DownArrow(props: MainIcons) {
       xmlns="http://www.w3.org/2000/svg"
     >
       <g id="SVGRepo_iconCarrier">
-        <path d="M903.232 256l56.768 50.432L512 768 64 306.432 120.768 256 512 659.072z" fill={props.fill}></path>
+        <path
+          d="M903.232 256l56.768 50.432L512 768 64 306.432 120.768 256 512 659.072z"
+          fill={props.fill}
+        ></path>
       </g>
     </svg>
   );
@@ -169,7 +198,10 @@ export function UpArrow(props: MainIcons) {
       transform="scale(-1)"
     >
       <g id="SVGRepo_iconCarrier">
-        <path d="M903.232 256l56.768 50.432L512 768 64 306.432 120.768 256 512 659.072z" fill={props.fill}></path>
+        <path
+          d="M903.232 256l56.768 50.432L512 768 64 306.432 120.768 256 512 659.072z"
+          fill={props.fill}
+        ></path>
       </g>
     </svg>
   );
@@ -184,8 +216,18 @@ export function SelectDot(props: MainIcons) {
       xmlns="http://www.w3.org/2000/svg"
       width={props.width}
     >
-      <g id="SVGRepo_bgCarrier" strokeWidth="0" transform="translate(189.44,189.44), scale(0.26)">
-        <rect x="-70" y="-70" width="800" height="800" fill={props.stroke}></rect>
+      <g
+        id="SVGRepo_bgCarrier"
+        strokeWidth="0"
+        transform="translate(189.44,189.44), scale(0.26)"
+      >
+        <rect
+          x="-70"
+          y="-70"
+          width="800"
+          height="800"
+          fill={props.stroke}
+        ></rect>
       </g>
       <g id="SVGRepo_iconCarrier">
         <path
@@ -267,7 +309,13 @@ export const NameIcon = (props: MainIcons) => {
 
 export const CPFIcon = (props: MainIcons) => {
   return (
-    <svg viewBox="-0.5 0 25 25" className={props.className} width={props.width} fill={props.fill} stroke={props.stroke}>
+    <svg
+      viewBox="-0.5 0 25 25"
+      className={props.className}
+      width={props.width}
+      fill={props.fill}
+      stroke={props.stroke}
+    >
       <g id="SVGRepo_iconCarrier">
         <path
           d="M21 18.5H3C2.72 18.5 2.5 18.28 2.5 18V7C2.5 6.72 2.72 6.5 3 6.5H21C21.28 6.5 21.5 6.72 21.5 7V18C21.5
@@ -290,9 +338,24 @@ export const CPFIcon = (props: MainIcons) => {
           strokeLinecap="round"
           strokeLinejoin="round"
         ></path>
-        <path d="M4.5 12.5H8.92999" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path>
-        <path d="M4.5 10.5H7.92999" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path>
-        <path d="M4.5 14.5H6.92999" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path>
+        <path
+          d="M4.5 12.5H8.92999"
+          strokeMiterlimit="10"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        ></path>
+        <path
+          d="M4.5 10.5H7.92999"
+          strokeMiterlimit="10"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        ></path>
+        <path
+          d="M4.5 14.5H6.92999"
+          strokeMiterlimit="10"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        ></path>
       </g>
     </svg>
   );
@@ -319,12 +382,42 @@ export const BirthIcon = (props: MainIcons) => {
           strokeWidth="1"
           strokeLinecap="round"
         ></path>
-        <path d="M9 9V7" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"></path>
-        <path d="M9 3.5V3" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"></path>
-        <path d="M15 9V7" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"></path>
-        <path d="M15 3.5V3" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"></path>
-        <path d="M12 9V7" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"></path>
-        <path d="M12 3.5V3" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"></path>
+        <path
+          d="M9 9V7"
+          strokeWidth="1"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        ></path>
+        <path
+          d="M9 3.5V3"
+          strokeWidth="1"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        ></path>
+        <path
+          d="M15 9V7"
+          strokeWidth="1"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        ></path>
+        <path
+          d="M15 3.5V3"
+          strokeWidth="1"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        ></path>
+        <path
+          d="M12 9V7"
+          strokeWidth="1"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        ></path>
+        <path
+          d="M12 3.5V3"
+          strokeWidth="1"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        ></path>
         <path
           d="M3 16.0397C3.30926 16.0122 3.63847 16 4 16C5.61017 16 6.38983 17 8 17C9.61017 17 10.3898 16 12 16C13.6102
           16 14.3898 17 16 17C17.6102 17 18.3898 16 20 16C20.3615 16 20.6907 16.0122 21 16.0397"
@@ -365,8 +458,18 @@ export const AddressIcon = (props: MainIcons) => {
 
 export const PhoneIcon = (props: MainIcons) => {
   return (
-    <svg viewBox="0 0 24 24" className={props.className} width={props.width} fill={props.fill} stroke={props.stroke}>
-      <path d="M14 2C14 2 16.2 2.2 19 5C21.8 7.8 22 10 22 10" strokeWidth="1" strokeLinecap="round"></path>
+    <svg
+      viewBox="0 0 24 24"
+      className={props.className}
+      width={props.width}
+      fill={props.fill}
+      stroke={props.stroke}
+    >
+      <path
+        d="M14 2C14 2 16.2 2.2 19 5C21.8 7.8 22 10 22 10"
+        strokeWidth="1"
+        strokeLinecap="round"
+      ></path>
       <path
         d="M14.207 5.53564C14.207 5.53564 15.197 5.81849 16.6819 7.30341C18.1668 8.78834 18.4497 9.77829 18.4497 9.77829"
         strokeWidth="1"
@@ -388,7 +491,13 @@ export const PhoneIcon = (props: MainIcons) => {
 
 export const ObsIcon = (props: MainIcons) => {
   return (
-    <svg viewBox="0 0 32 32" className={props.className} width={props.width} fill={props.fill} stroke={props.stroke}>
+    <svg
+      viewBox="0 0 32 32"
+      className={props.className}
+      width={props.width}
+      fill={props.fill}
+      stroke={props.stroke}
+    >
       <path
         d="M15 21.063v-15.063c0-0.563 0.438-1 1-1s1 0.438 1 1v15.063h-2zM15 23.031h2v1.875h-2v-1.875zM0 16c0-8.844
       7.156-16 16-16s16 7.156 16 16-7.156 16-16 16-16-7.156-16-16zM30.031 16c0-7.719-6.313-14-14.031-14s-14 6.281-14 14
@@ -400,7 +509,13 @@ export const ObsIcon = (props: MainIcons) => {
 
 export const ContractIcon = (props: MainIcons) => {
   return (
-    <svg viewBox="0 0 32 32" className={props.className} width={props.width} fill={props.fill} stroke={props.stroke}>
+    <svg
+      viewBox="0 0 32 32"
+      className={props.className}
+      width={props.width}
+      fill={props.fill}
+      stroke={props.stroke}
+    >
       <g id="SVGRepo_iconCarrier">
         <path
           id="contract"
@@ -422,7 +537,13 @@ export const ContractIcon = (props: MainIcons) => {
 
 export const StageIcon = (props: MainIcons) => {
   return (
-    <svg viewBox="0 0 24 24" className={props.className} width={props.width} fill={props.fill} stroke={props.stroke}>
+    <svg
+      viewBox="0 0 24 24"
+      className={props.className}
+      width={props.width}
+      fill={props.fill}
+      stroke={props.stroke}
+    >
       <path
         d="M10 6L21 6.00066M10 12L21 12.0007M10 18L21 18.0007M3 5L5 4V10M5 10H3M5 10H7M7 20H3L6.41274 17.0139C6.78593
         16.6873 7 16.2156 7 15.7197C7 14.7699 6.23008 14 5.28033 14H5C4.06808 14 3.28503 14.6374 3.06301 15.5"
@@ -497,7 +618,13 @@ export const DimensionIcon = (props: MainIcons) => {
 
 export const ExpireIcon = (props: MainIcons) => {
   return (
-    <svg viewBox="0 0 48 48" className={props.className} width={props.width} fill={props.fill} stroke={props.stroke}>
+    <svg
+      viewBox="0 0 48 48"
+      className={props.className}
+      width={props.width}
+      fill={props.fill}
+      stroke={props.stroke}
+    >
       <path d="M14.2,31.9h0a2,2,0,0,0-.9-2.9A11.8,11.8,0,0,1,6.1,16.8,12,12,0,0,1,16.9,6a12.1,12.1,0,0,1,11.2,5.6,2.3,2.3,0,0,0,2.3.9h0a2,2,0,0,0,1.1-3,15.8,15.8,0,0,0-15-7.4,16,16,0,0,0-4.8,30.6A2,2,0,0,0,14.2,31.9Z"></path>
       <path d="M16.5,11.5v5h-5a2,2,0,0,0,0,4h9v-9a2,2,0,0,0-4,0Z"></path>
       <path d="M45.7,43l-15-26a2,2,0,0,0-3.4,0l-15,26A2,2,0,0,0,14,46H44A2,2,0,0,0,45.7,43ZM29,42a2,2,0,1,1,2-2A2,2,0,0,1,29,42Zm2-8a2,2,0,0,1-4,0V26a2,2,0,0,1,4,0Z"></path>
@@ -506,23 +633,55 @@ export const ExpireIcon = (props: MainIcons) => {
 };
 
 export const PlanIcon = (props: MainIcons) => {
-  if (props.plan) {
-    if (props.plan <= 12) {
-      return (
-        <svg
-          viewBox="0 0 24 24"
-          className={props.className}
-          width={props.width}
-          fill={props.fill}
-          stroke={props.stroke}
-        >
-          <path
-            d="M21 0C20.4477 0 20 0.447715 20 1V2H19C18.4477 2 18 2.44772 18 3C18 3.55228 18.4477 4 19 4H20V5C20 5.55228
+  if (props.plan == null) return null;
+  if (props.plan === 0) {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        className={props.className}
+        width={props.width}
+        fill={props.fill}
+        stroke={props.stroke}
+      >
+        <path
+          d="M21 0C20.4477 0 20 0.447715 20 1V2H19C18.4477 2 18 2.44772 18 3C18 3.55228 18.4477 4 19 4H20V5C20
+          5.55228 20.4477 6 21 6C21.5523 6 22 5.55228 22 5V4H23C23.5523 4 24 3.55228 24 3C24 2.44772 23.5523 2 23 2H22V1C22
+          0.447715 21.5523 0 21 0Z"
+        ></path>
+        <path
+          d="M22.4668 8.6169C22.297 8.09138 21.7016 7.85776 21.1936 8.07463C20.6857 8.29149 20.4525 8.87941 20.6116
+          9.40826C21.113 11.074 21.1224 12.8572 20.6271 14.5397C20.0373 16.5433 18.7684 18.2792 17.0383 19.4493C15.3082
+          20.6195 13.2247 21.1509 11.1455 20.9525C9.06631 20.754 7.121 19.8381 5.64348 18.3618C4.16596 16.8855 3.24838
+          14.9409 3.04821 12.8619C2.84804 10.7828 3.37778 8.69891 4.5465 6.96784C5.71522 5.23677 7.45003 3.96647 9.4532
+          3.37498C11.1353 2.8783 12.9184 2.88626 14.5846 3.38623C15.1136 3.54496 15.7013 3.31122 15.9178 2.80311C16.1342
+          2.29501 15.9001 1.69979 15.3744 1.53036C13.2759 0.853957 11.0142 0.821568 8.88488 1.4503C6.43471 2.17379 4.31277
+          3.72755 2.88325 5.84491C1.45373 7.96227 0.805783 10.5112 1.05062 13.0542C1.29545 15.5972 2.4178 17.9757 4.22503
+          19.7814C6.03225 21.5871 8.41165 22.7075 10.9548 22.9502C13.498 23.193 16.0464 22.5429 18.1626 21.1117C20.2788
+          19.6804 21.8308 17.5572 22.5523 15.1064C23.1792 12.9766 23.145 10.7148 22.4668 8.6169Z"
+        ></path>
+        <path
+          d="M13 7C14.1046 7 15 7.89543 15 9V15C15 16.1046 14.1046 17 13 17H11C9.89542 17 8.99999 16.1046 8.99999
+          15V9C8.99999 7.89543 9.89542 7 11 7H13ZM12 9C12.5523 9 13 9.44772 13 10V14C13 14.5523 12.5523 15 12 15C11.4477
+          15 11 14.5523 11 14V10C11 9.44772 11.4477 9 12 9Z"
+        ></path>
+      </svg>
+    );
+  } else if (props.plan <= 12) {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        className={props.className}
+        width={props.width}
+        fill={props.fill}
+        stroke={props.stroke}
+      >
+        <path
+          d="M21 0C20.4477 0 20 0.447715 20 1V2H19C18.4477 2 18 2.44772 18 3C18 3.55228 18.4477 4 19 4H20V5C20 5.55228
             20.4477 6 21 6C21.5523 6 22 5.55228 22 5V4H23C23.5523 4 24 3.55228 24 3C24 2.44772 23.5523 2 23 2H22V1C22
             0.447715 21.5523 0 21 0Z"
-          ></path>
-          <path
-            d="M22.4668 8.6169C22.297 8.09138 21.7016 7.85776 21.1936 8.07463C20.6857 8.29149 20.4525 8.87941 20.6116
+        ></path>
+        <path
+          d="M22.4668 8.6169C22.297 8.09138 21.7016 7.85776 21.1936 8.07463C20.6857 8.29149 20.4525 8.87941 20.6116
             9.40826C21.113 11.074 21.1224 12.8572 20.6271 14.5397C20.0373 16.5433 18.7684 18.2792 17.0383 19.4493C15.3082
             20.6195 13.2247 21.1509 11.1455 20.9525C9.06631 20.754 7.121 19.8381 5.64348 18.3618C4.16596 16.8855 3.24838
             14.9409 3.04821 12.8619C2.84804 10.7828 3.37778 8.69891 4.5465 6.96784C5.71522 5.23677 7.45004 3.96647
@@ -532,31 +691,31 @@ export const PlanIcon = (props: MainIcons) => {
             13.0542C1.29545 15.5972 2.4178 17.9757 4.22503 19.7814C6.03225 21.5871 8.41165 22.7075 10.9548
             22.9502C13.498 23.193 16.0464 22.5429 18.1626 21.1117C20.2788 19.6804 21.8308 17.5572 22.5523
             15.1064C23.1792 12.9766 23.145 10.7148 22.4668 8.6169Z"
-          ></path>
-          <path
-            d="M11.2944 9.35279L11.7105 9.14472C11.8435 9.07823 12 9.17493 12 9.32361V16C12 16.5523 12.4477 17 13
+        ></path>
+        <path
+          d="M11.2944 9.35279L11.7105 9.14472C11.8435 9.07823 12 9.17493 12 9.32361V16C12 16.5523 12.4477 17 13
           17C13.5523 17 14 16.5523 14 16V8C14 7.44772 13.5523 7 13 7H12.2361C12.0808 7 11.9277 7.03615 11.7888
           7.10557L10.4944 7.75279C10.1914 7.9043 9.99999 8.214 9.99999 8.55279C9.99999 9.21769 10.6997 9.65014 11.2944
           9.35279Z"
-          ></path>
-        </svg>
-      );
-    } else if (props.plan <= 24) {
-      return (
-        <svg
-          viewBox="0 0 24 24"
-          className={props.className}
-          width={props.width}
-          fill={props.fill}
-          stroke={props.stroke}
-        >
-          <path
-            d="M21 0C20.4477 0 20 0.447715 20 1V2H19C18.4477 2 18 2.44772 18 3C18 3.55228 18.4477 4 19 4H20V5C20 5.55228
+        ></path>
+      </svg>
+    );
+  } else if (props.plan <= 24) {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        className={props.className}
+        width={props.width}
+        fill={props.fill}
+        stroke={props.stroke}
+      >
+        <path
+          d="M21 0C20.4477 0 20 0.447715 20 1V2H19C18.4477 2 18 2.44772 18 3C18 3.55228 18.4477 4 19 4H20V5C20 5.55228
           20.4477 6 21 6C21.5523 6 22 5.55228 22 5V4H23C23.5523 4 24 3.55228 24 3C24 2.44772 23.5523 2 23 2H22V1C22
           0.447715 21.5523 0 21 0Z"
-          ></path>
-          <path
-            d="M22.4668 8.6169C22.297 8.09138 21.7016 7.85776 21.1936 8.07463C20.6857 8.29149 20.4525 8.87941 20.6116
+        ></path>
+        <path
+          d="M22.4668 8.6169C22.297 8.09138 21.7016 7.85776 21.1936 8.07463C20.6857 8.29149 20.4525 8.87941 20.6116
           9.40826C21.113 11.074 21.1224 12.8572 20.6271 14.5397C20.0373 16.5433 18.7684 18.2792 17.0383 19.4493C15.3082
           20.6195 13.2247 21.1509 11.1455 20.9525C9.06631 20.754 7.121 19.8381 5.64348 18.3618C4.16596 16.8855 3.24838
           14.9409 3.04821 12.8619C2.84804 10.7828 3.37778 8.69891 4.5465 6.96784C5.71522 5.23677 7.45004 3.96647 9.4532
@@ -565,32 +724,32 @@ export const PlanIcon = (props: MainIcons) => {
           3.72755 2.88325 5.84491C1.45373 7.96227 0.805783 10.5112 1.05062 13.0542C1.29545 15.5972 2.4178 17.9757 4.22503
           19.7814C6.03225 21.5871 8.41165 22.7075 10.9548 22.9502C13.498 23.193 16.0464 22.5429 18.1626 21.1117C20.2788
           19.6804 21.8308 17.5572 22.5523 15.1064C23.1792 12.9766 23.145 10.7148 22.4668 8.6169Z"
-          ></path>
-          <path
-            d="M11.5 9H12.2597C12.6685 9 13 9.33145 13 9.74031C13 9.90842 12.9428 10.0715 12.8378 10.2028L9.21912 
+        ></path>
+        <path
+          d="M11.5 9H12.2597C12.6685 9 13 9.33145 13 9.74031C13 9.90842 12.9428 10.0715 12.8378 10.2028L9.21912 
           14.7261C9.07727 14.9034 8.99999 15.1237 8.99999 15.3508V16C8.99999 16.5523 9.4477 17 9.99999 17H14C14.5523 17
           15 16.5523 15 16C15 15.4477 14.5523 15 14 15H11.9089C11.7425 15 11.6489 14.8086 11.751 14.6772L14.5787
           11.0417C14.8517 10.6906 15 10.2585 15 9.81378V9C15 7.89543 14.1046 7 13 7H11C9.89542 7 8.99999 7.89543 8.99999
           9C8.99999 9.55228 9.4477 10 9.99999 10H10.5C10.7761 10 11 9.77614 11 9.5C11 9.22386 11.2238 9 11.5 9Z"
-          ></path>
-        </svg>
-      );
-    } else if (props.plan <= 36) {
-      return (
-        <svg
-          viewBox="0 0 24 24"
-          className={props.className}
-          width={props.width}
-          fill={props.fill}
-          stroke={props.stroke}
-        >
-          <path
-            d="M21 0C20.4477 0 20 0.447715 20 1V2H19C18.4477 2 18 2.44772 18 3C18 3.55228 18.4477 4 19 4H20V5C20 5.55228
+        ></path>
+      </svg>
+    );
+  } else if (props.plan <= 36) {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        className={props.className}
+        width={props.width}
+        fill={props.fill}
+        stroke={props.stroke}
+      >
+        <path
+          d="M21 0C20.4477 0 20 0.447715 20 1V2H19C18.4477 2 18 2.44772 18 3C18 3.55228 18.4477 4 19 4H20V5C20 5.55228
         20.4477 6 21 6C21.5523 6 22 5.55228 22 5V4H23C23.5523 4 24 3.55228 24 3C24 2.44772 23.5523 2 23 2H22V1C22 0.447715
         21.5523 0 21 0Z"
-          ></path>
-          <path
-            d="M22.4668 8.6169C22.297 8.09138 21.7016 7.85776 21.1936 8.07463C20.6857 8.29149 20.4525 8.87941 20.6116
+        ></path>
+        <path
+          d="M22.4668 8.6169C22.297 8.09138 21.7016 7.85776 21.1936 8.07463C20.6857 8.29149 20.4525 8.87941 20.6116
         9.40826C21.113 11.074 21.1224 12.8572 20.6271 14.5397C20.0373 16.5433 18.7684 18.2792 17.0383 19.4493C15.3082
         20.6195 13.2247 21.1509 11.1455 20.9525C9.06631 20.754 7.121 19.8381 5.64348 18.3618C4.16596 16.8855 3.24838
         14.9409 3.04821 12.8619C2.84804 10.7828 3.37778 8.69891 4.5465 6.96784C5.71522 5.23677 7.45004 3.96647 9.4532
@@ -599,34 +758,34 @@ export const PlanIcon = (props: MainIcons) => {
         3.72755 2.88325 5.84491C1.45373 7.96227 0.805783 10.5112 1.05062 13.0542C1.29545 15.5972 2.4178 17.9757 4.22503
         19.7814C6.03225 21.5871 8.41165 22.7075 10.9548 22.9502C13.498 23.193 16.0464 22.5429 18.1626 21.1117C20.2788
         19.6804 21.8308 17.5572 22.5523 15.1064C23.1792 12.9766 23.145 10.7148 22.4668 8.6169Z"
-          ></path>
-          <path
-            d="M11 7H13C14.1046 7 15 7.89543 15 9V10.1716C15 10.702 14.7893 11.2107 14.4142 11.5858L14.1414
+        ></path>
+        <path
+          d="M11 7H13C14.1046 7 15 7.89543 15 9V10.1716C15 10.702 14.7893 11.2107 14.4142 11.5858L14.1414
         11.8586C14.0633 11.9367 14.0633 12.0633 14.1414 12.1414L14.4142 12.4142C14.7893 12.7893 15 13.298 15 13.8284V15C15
         16.1046 14.1046 17 13 17H11C9.89542 17 8.99999 16.1046 8.99999 15C8.99999 14.4477 9.4477 14 9.99999 14H10.5C10.7761
         14 11 14.2239 11 14.5C11 14.7761 11.2238 15 11.5 15H12C12.5523 15 13 14.5523 13 14C13 13.4477 12.5523 13 12
         13C11.4477 13 11 12.5523 11 12C11 11.4477 11.4477 11 12 11C12.5523 11 13 10.5523 13 10C13 9.44772 12.5523 9 12
         9H11.5C11.2238 9 11 9.22386 11 9.5C11 9.77614 10.7761 10 10.5 10H9.99999C9.4477 10 8.99999 9.55228 8.99999
         9C8.99999 7.89543 9.89542 7 11 7Z"
-          ></path>
-        </svg>
-      );
-    } else if (props.plan <= 48) {
-      return (
-        <svg
-          viewBox="0 0 24 24"
-          className={props.className}
-          width={props.width}
-          fill={props.fill}
-          stroke={props.stroke}
-        >
-          <path
-            d="M21 0C20.4477 0 20 0.447715 20 1V2H19C18.4477 2 18 2.44772 18 3C18 3.55228 18.4477 4 19 4H20V5C20 5.55228
+        ></path>
+      </svg>
+    );
+  } else if (props.plan <= 48) {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        className={props.className}
+        width={props.width}
+        fill={props.fill}
+        stroke={props.stroke}
+      >
+        <path
+          d="M21 0C20.4477 0 20 0.447715 20 1V2H19C18.4477 2 18 2.44772 18 3C18 3.55228 18.4477 4 19 4H20V5C20 5.55228
         20.4477 6 21 6C21.5523 6 22 5.55228 22 5V4H23C23.5523 4 24 3.55228 24 3C24 2.44772 23.5523 2 23 2H22V1C22 0.447715
         21.5523 0 21 0Z"
-          ></path>
-          <path
-            d="M22.4669 8.6169C22.297 8.09138 21.7016 7.85776 21.1936 8.07463C20.6857 8.29149 20.4525 8.87941 20.6116
+        ></path>
+        <path
+          d="M22.4669 8.6169C22.297 8.09138 21.7016 7.85776 21.1936 8.07463C20.6857 8.29149 20.4525 8.87941 20.6116
         9.40826C21.113 11.074 21.1224 12.8572 20.6271 14.5397C20.0373 16.5433 18.7684 18.2792 17.0383 19.4493C15.3082
         20.6195 13.2248 21.1509 11.1455 20.9525C9.06632 20.754 7.12102 19.8381 5.6435 18.3618C4.16598 16.8855 3.24839
         14.9409 3.04823 12.8619C2.84806 10.7828 3.3778 8.69891 4.54651 6.96784C5.71523 5.23677 7.45005 3.96647 9.45321
@@ -635,30 +794,30 @@ export const PlanIcon = (props: MainIcons) => {
         3.72755 2.88327 5.84491C1.45375 7.96227 0.805798 10.5112 1.05063 13.0542C1.29547 15.5972 2.41781 17.9757 4.22504
         19.7814C6.03227 21.5871 8.41167 22.7075 10.9549 22.9502C13.4981 23.193 16.0464 22.5429 18.1626 21.1117C20.2788
         19.6804 21.8308 17.5572 22.5523 15.1064C23.1792 12.9766 23.145 10.7148 22.4669 8.6169Z"
-          ></path>
-          <path
-            d="M14 15V16C14 16.5523 13.5523 17 13 17C12.4477 17 12 16.5523 12 16V15H10C9.44772 15 9 14.5523 9 14V13.2361C9
+        ></path>
+        <path
+          d="M14 15V16C14 16.5523 13.5523 17 13 17C12.4477 17 12 16.5523 12 16V15H10C9.44772 15 9 14.5523 9 14V13.2361C9
           13.0808 9.03615 12.9277 9.10557 12.7889L11.7236 7.55279C11.893 7.214 12.2393 7 12.618 7H13C13.5523 7 14
           7.44772 14 8V13C14.5523 13 15 13.4477 15 14C15 14.5523 14.5523 15 14 15ZM12 11L11 13H12V11Z"
-          ></path>
-        </svg>
-      );
-    } else if (props.plan <= 60) {
-      return (
-        <svg
-          viewBox="0 0 24 24"
-          className={props.className}
-          width={props.width}
-          fill={props.fill}
-          stroke={props.stroke}
-        >
-          <path
-            d="M21 0C20.4477 0 20 0.447715 20 1V2H19C18.4477 2 18 2.44772 18 3C18 3.55228 18.4477 4 19 4H20V5C20
+        ></path>
+      </svg>
+    );
+  } else if (props.plan <= 60) {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        className={props.className}
+        width={props.width}
+        fill={props.fill}
+        stroke={props.stroke}
+      >
+        <path
+          d="M21 0C20.4477 0 20 0.447715 20 1V2H19C18.4477 2 18 2.44772 18 3C18 3.55228 18.4477 4 19 4H20V5C20
         5.55228 20.4477 6 21 6C21.5523 6 22 5.55228 22 5V4H23C23.5523 4 24 3.55228 24 3C24 2.44772 23.5523 2 23 2H22V1C22
         0.447715 21.5523 0 21 0Z"
-          ></path>
-          <path
-            d="M22.4669 8.6169C22.297 8.09138 21.7016 7.85776 21.1936 8.07463C20.6857 8.29149 20.4525 8.87941 20.6116
+        ></path>
+        <path
+          d="M22.4669 8.6169C22.297 8.09138 21.7016 7.85776 21.1936 8.07463C20.6857 8.29149 20.4525 8.87941 20.6116
         9.40826C21.113 11.074 21.1224 12.8572 20.6271 14.5397C20.0373 16.5433 18.7684 18.2792 17.0383 19.4493C15.3082
         20.6195 13.2248 21.1509 11.1455 20.9525C9.06632 20.754 7.12102 19.8381 5.6435 18.3618C4.16598 16.8855 3.24839
         14.9409 3.04823 12.8619C2.84806 10.7828 3.3778 8.69891 4.54651 6.96784C5.71523 5.23677 7.45005 3.96647 9.45321
@@ -667,56 +826,29 @@ export const PlanIcon = (props: MainIcons) => {
         3.72755 2.88327 5.84491C1.45375 7.96227 0.805798 10.5112 1.05063 13.0542C1.29547 15.5972 2.41781 17.9757 4.22504
         19.7814C6.03227 21.5871 8.41167 22.7075 10.9549 22.9502C13.4981 23.193 16.0464 22.5429 18.1626 21.1117C20.2788
         19.6804 21.8308 17.5572 22.5523 15.1064C23.1792 12.9766 23.145 10.7148 22.4669 8.6169Z"
-          ></path>
-          <path
-            d="M14 9H11.2C11.0895 9 11 9.08954 11 9.2V10.8C11 10.9105 11.0895 11 11.2 11H13C14.1046 11 15 11.8954 15
+        ></path>
+        <path
+          d="M14 9H11.2C11.0895 9 11 9.08954 11 9.2V10.8C11 10.9105 11.0895 11 11.2 11H13C14.1046 11 15 11.8954 15
         13V15C15 16.1046 14.1046 17 13 17H11C9.89543 17 9 16.1046 9 15C9 14.4477 9.44772 14 10 14H10.5C10.7761 14 11
         14.2239 11 14.5C11 14.7761 11.2239 15 11.5 15H12C12.5523 15 13 14.5523 13 14C13 13.4477 12.5523 13 12
         13H11C9.89543 13 9 12.1046 9 11V9C9 7.89543 9.89543 7 11 7H14C14.5523 7 15 7.44772 15 8C15 8.55228 14.5523 9 14 9Z"
-          ></path>
-        </svg>
-      );
-    } else {
-      return (
-        <svg
-          viewBox="0 0 24 24"
-          className={props.className}
-          width={props.width}
-          fill={props.fill}
-          stroke={props.stroke}
-        >
-          <path
-            d="M21 0C20.4477 0 20 0.447715 20 1V2H19C18.4477 2 18 2.44772 18 3C18 3.55228 18.4477 4 19 4H20V5C20
-          5.55228 20.4477 6 21 6C21.5523 6 22 5.55228 22 5V4H23C23.5523 4 24 3.55228 24 3C24 2.44772 23.5523 2 23 2H22V1C22
-          0.447715 21.5523 0 21 0Z"
-          ></path>
-          <path
-            d="M22.4668 8.6169C22.297 8.09138 21.7016 7.85776 21.1936 8.07463C20.6857 8.29149 20.4525 8.87941 20.6116
-          9.40826C21.113 11.074 21.1224 12.8572 20.6271 14.5397C20.0373 16.5433 18.7684 18.2792 17.0383 19.4493C15.3082
-          20.6195 13.2247 21.1509 11.1455 20.9525C9.06631 20.754 7.121 19.8381 5.64348 18.3618C4.16596 16.8855 3.24838
-          14.9409 3.04821 12.8619C2.84804 10.7828 3.37778 8.69891 4.5465 6.96784C5.71522 5.23677 7.45003 3.96647 9.4532
-          3.37498C11.1353 2.8783 12.9184 2.88626 14.5846 3.38623C15.1136 3.54496 15.7013 3.31122 15.9178 2.80311C16.1342
-          2.29501 15.9001 1.69979 15.3744 1.53036C13.2759 0.853957 11.0142 0.821568 8.88488 1.4503C6.43471 2.17379 4.31277
-          3.72755 2.88325 5.84491C1.45373 7.96227 0.805783 10.5112 1.05062 13.0542C1.29545 15.5972 2.4178 17.9757 4.22503
-          19.7814C6.03225 21.5871 8.41165 22.7075 10.9548 22.9502C13.498 23.193 16.0464 22.5429 18.1626 21.1117C20.2788
-          19.6804 21.8308 17.5572 22.5523 15.1064C23.1792 12.9766 23.145 10.7148 22.4668 8.6169Z"
-          ></path>
-          <path
-            d="M13 7C14.1046 7 15 7.89543 15 9V15C15 16.1046 14.1046 17 13 17H11C9.89542 17 8.99999 16.1046 8.99999
-          15V9C8.99999 7.89543 9.89542 7 11 7H13ZM12 9C12.5523 9 13 9.44772 13 10V14C13 14.5523 12.5523 15 12 15C11.4477
-          15 11 14.5523 11 14V10C11 9.44772 11.4477 9 12 9Z"
-          ></path>
-        </svg>
-      );
-    }
+        ></path>
+      </svg>
+    );
   } else {
-    return null
+    return null;
   }
 };
 
 export const DayIcon = (props: MainIcons) => {
   return (
-    <svg viewBox="0 0 128 128" className={props.className} width={props.width} fill={props.fill} stroke={props.stroke}>
+    <svg
+      viewBox="0 0 128 128"
+      className={props.className}
+      width={props.width}
+      fill={props.fill}
+      stroke={props.stroke}
+    >
       <path d="M95.4,6c2.7,0,4.9,2.2,4.9,4.9v15.4c0,2.7-2.2,4.9-4.9,4.9c-2.7,0-4.9-2.2-4.9-4.9V10.9C90.5,8.2,92.7,6,95.4,6"></path>
       <polygon points="64.3,57.9 72.4,57.9 72.4,103.1 63.3,103.1 63.3,68.2 55.6,74.4 51.1,68.5 "></polygon>
       <path
@@ -807,7 +939,13 @@ export const ValueIcon = (props: MainIcons) => {
 
 export const EntranceIcon = (props: MainIcons) => {
   return (
-    <svg viewBox="-0.5 0 25 25" className={props.className} width={props.width} fill={props.fill} stroke={props.stroke}>
+    <svg
+      viewBox="-0.5 0 25 25"
+      className={props.className}
+      width={props.width}
+      fill={props.fill}
+      stroke={props.stroke}
+    >
       <path
         d="M12.8702 16.97V18.0701C12.8702 18.2478 12.7995 18.4181 12.6739 18.5437C12.5482 18.6694 12.3778 18.74
       12.2001 18.74C12.0224 18.74 11.852 18.6694 11.7264 18.5437C11.6007 18.4181 11.5302 18.2478 11.5302
@@ -839,15 +977,31 @@ export const EntranceIcon = (props: MainIcons) => {
         strokeLinecap="round"
         strokeLinejoin="round"
       ></path>
-      <path d="M16.3398 8.57992L21.9998 2.91992" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"></path>
-      <path d="M17.4805 2.91992H22.0005V7.44992" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"></path>
+      <path
+        d="M16.3398 8.57992L21.9998 2.91992"
+        strokeWidth="1"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+      <path
+        d="M17.4805 2.91992H22.0005V7.44992"
+        strokeWidth="1"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
     </svg>
   );
 };
 
 export const PaidIcon = (props: MainIcons) => {
   return (
-    <svg viewBox="0 0 24 24" className={props.className} width={props.width} fill={props.fill} stroke={props.stroke}>
+    <svg
+      viewBox="0 0 24 24"
+      className={props.className}
+      width={props.width}
+      fill={props.fill}
+      stroke={props.stroke}
+    >
       <path
         id="primary"
         d="M21,11v9a1,1,0,0,1-1,1H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3H16"
@@ -869,7 +1023,13 @@ export const PaidIcon = (props: MainIcons) => {
 
 export const LastPaidIcon = (props: MainIcons) => {
   return (
-    <svg viewBox="-1 -1 31 31" className={props.className} width={props.width} fill={props.fill} stroke={props.stroke}>
+    <svg
+      viewBox="-1 -1 31 31"
+      className={props.className}
+      width={props.width}
+      fill={props.fill}
+      stroke={props.stroke}
+    >
       <path d="M20.69,24H3.53a1,1,0,0,1-1-1V11.34H26.76v7.05a0.5,0.5,0,0,0,1,0V8a2,2,0,0,0-2-2H24.07V4.5a0.5,0.5,0,0,0-1,0V5.93h-5V4.62a0.5,0.5,0,1,0-1,0V5.93h-5V4.62a0.5,0.5,0,1,0-1,0V5.93h-5V4.62a0.5,0.5,0,1,0-1,0V5.93H3.53a2,2,0,0,0-2,2v15a2,2,0,0,0,2,2H20.69A0.5,0.5,0,0,0,20.69,24ZM3.53,6.93H5.18V8.24a0.5,0.5,0,0,0,1,0V6.93h5V8.24a0.5,0.5,0,0,0,1,0V6.93h5V8.24a0.5,0.5,0,0,0,1,0V6.93h5V8.12a0.5,0.5,0,1,0,1,0V6.93h1.65a1,1,0,0,1,1,1v2.38H2.5V8A1,1,0,0,1,3.53,6.93Z"></path>
       <rect height="1.92" width="1.92" x="9.21" y="13.03"></rect>
       <rect height="1.92" width="1.92" x="13.71" y="13.03"></rect>
@@ -919,7 +1079,13 @@ export const DayPaid = (props: MainIcons) => {
 
 export const DebtBalanceIcon = (props: MainIcons) => {
   return (
-    <svg viewBox="0 0 24 24" className={props.className} width={props.width} fill={props.fill} stroke={props.stroke}>
+    <svg
+      viewBox="0 0 24 24"
+      className={props.className}
+      width={props.width}
+      fill={props.fill}
+      stroke={props.stroke}
+    >
       <path
         d="M16 7C16 6.07003 16 5.60504 15.8978 5.22354C15.6204 4.18827 14.8117 3.37962 13.7765 3.10222C13.395 3 12.93 3
         12 3C11.07 3 10.605 3 10.2235 3.10222C9.18827 3.37962 8.37962 4.18827 8.10222 5.22354C8 5.60504 8 6.07003 8
@@ -941,15 +1107,32 @@ export const DebtBalanceIcon = (props: MainIcons) => {
 
 export const MenuIcon = (props: MainIcons) => {
   return (
-    <svg viewBox="0 0 24 24" className={props.className} width={props.width} fill={props.fill} stroke={props.stroke}>
-      <path d="M4 6H20M4 12H20M4 18H20" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
+    <svg
+      viewBox="0 0 24 24"
+      className={props.className}
+      width={props.width}
+      fill={props.fill}
+      stroke={props.stroke}
+    >
+      <path
+        d="M4 6H20M4 12H20M4 18H20"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
     </svg>
   );
 };
 
 export const MaintenanceIcon = (props: MainIcons) => {
   return (
-    <svg className={props.className} width={props.width} fill={props.fill} stroke={props.stroke} viewBox="0 0 512 512">
+    <svg
+      className={props.className}
+      width={props.width}
+      fill={props.fill}
+      stroke={props.stroke}
+      viewBox="0 0 512 512"
+    >
       <path
         d="M331.8 224.1c28.29 0 54.88 10.99 74.86 30.97l19.59 19.59c40.01-17.74 71.25-53.3 81.62-96.65c5.725-23.92
             5.34-47.08 .2148-68.4c-2.613-10.88-16.43-14.51-24.34-6.604l-68.9 68.9h-75.6V97.2l68.9-68.9c7.912-7.912
@@ -967,7 +1150,13 @@ export const MaintenanceIcon = (props: MainIcons) => {
 
 export const AlertIcon = (props: MainIcons) => {
   return (
-    <svg viewBox="0 0 16 16" className={props.className} width={props.width} fill={props.fill} stroke={props.stroke}>
+    <svg
+      viewBox="0 0 16 16"
+      className={props.className}
+      width={props.width}
+      fill={props.fill}
+      stroke={props.stroke}
+    >
       <path
         d="M7.493 0.015 C 7.442 0.021,7.268 0.039,7.107 0.055 C 5.234 0.242,3.347 1.208,2.071 2.634 C 0.660 
           4.211,-0.057 6.168,0.009 8.253 C 0.124 11.854,2.599 14.903,6.110 15.771 C 8.169 16.280,10.433 15.917,12.227 
@@ -993,8 +1182,20 @@ export const AlertIcon = (props: MainIcons) => {
 
 export const CloseIcon = (props: MainIcons) => {
   return (
-    <svg viewBox="0 0 24 24" className={props.className} fill={props.fill} stroke={props.stroke} width={props.width}>
-      <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round" stroke="#000000" strokeWidth="0.624">
+    <svg
+      viewBox="0 0 24 24"
+      className={props.className}
+      fill={props.fill}
+      stroke={props.stroke}
+      width={props.width}
+    >
+      <g
+        id="SVGRepo_tracerCarrier"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        stroke="#000000"
+        strokeWidth="0.624"
+      >
         <path
           opacity="0.5"
           d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
