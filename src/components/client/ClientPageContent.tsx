@@ -312,7 +312,7 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
                           width={50}
                           fill="white"
                           stroke="none"
-                          plan={0}
+                          plan={props.data.plan}
                         />
                       </div>
                       <h1>
