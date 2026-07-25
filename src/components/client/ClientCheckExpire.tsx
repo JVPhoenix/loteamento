@@ -7,7 +7,6 @@ interface ClientPageContentExpireInterface {
   priceCalc: (value: number) => string | number;
   paidParcels: number;
   dateCompare: (
-    startDate: string,
     paymentListLength: number,
     returnType: PlansSelector,
   ) => number | boolean | undefined;
@@ -22,7 +21,6 @@ export default function ClientCheckExpire(
   const monthsExpired =
     Number(
       props.dateCompare(
-        props.data.startDate,
         props.data.paymentList.length,
         PlansSelector.MonthsExpired,
       ),
@@ -112,7 +110,6 @@ export default function ClientCheckExpire(
           className={twMerge(
             "fill-red-500",
             props.dateCompare(
-              props.data.startDate,
               props.data.paymentList.length,
               PlansSelector.IsLate,
             ) && "fill-blue-300",
@@ -127,7 +124,6 @@ export default function ClientCheckExpire(
           className={twMerge(
             "text-red-500 leading-tight",
             props.dateCompare(
-              props.data.startDate,
               props.data.paymentList.length,
               PlansSelector.IsLate,
             ) && "text-blue-300",
@@ -142,7 +138,6 @@ export default function ClientCheckExpire(
               props.data.plan === 0 ? (
                 "QUITADO"
               ) : props.dateCompare(
-                  props.data.startDate,
                   props.data.paymentList.length,
                   PlansSelector.IsLate,
                 ) ? (

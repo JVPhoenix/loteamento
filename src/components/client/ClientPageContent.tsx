@@ -95,7 +95,6 @@ export default function ClientPageContent(props: ClientPageInfoInterface) {
   };
 
   const dateCompare = (
-    startDate: string,
     paymentListLength: number,
     returnType: PlansSelector,
   ) => {
